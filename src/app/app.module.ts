@@ -17,9 +17,7 @@ import { NavBarComponent } from './theme/layout/admin/nav-bar/nav-bar.component'
 import { NavLeftComponent } from './theme/layout/admin/nav-bar/nav-left/nav-left.component';
 import { NavSearchComponent } from './theme/layout/admin/nav-bar/nav-left/nav-search/nav-search.component';
 import { NavRightComponent } from './theme/layout/admin/nav-bar/nav-right/nav-right.component';
-import {ChatUserListComponent} from './theme/layout/admin/nav-bar/nav-right/chat-user-list/chat-user-list.component';
-import {FriendComponent} from './theme/layout/admin/nav-bar/nav-right/chat-user-list/friend/friend.component';
-import {ChatMsgComponent} from './theme/layout/admin/nav-bar/nav-right/chat-msg/chat-msg.component';
+
 import { ConfigurationComponent } from './theme/layout/admin/configuration/configuration.component';
 
 import { ToggleFullScreenDirective } from './theme/shared/full-screen/toggle-full-screen';
@@ -42,9 +40,6 @@ import { NgbButtonsModule, NgbDropdownModule, NgbTabsetModule, NgbTooltipModule 
     NavLeftComponent,
     NavSearchComponent,
     NavRightComponent,
-    ChatUserListComponent,
-    FriendComponent,
-    ChatMsgComponent,
     ConfigurationComponent,
     ToggleFullScreenDirective
   ],
