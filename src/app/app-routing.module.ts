@@ -17,8 +17,13 @@ const routes: Routes = [
         path: 'dashboard',
         loadChildren: () => import('./pages/dashboard/dashboard.module').then(module => module.DashboardModule)
       },
+      {
+        path: 'usuarios',
+        loadChildren: () => import('./pages/usuarios/usuarios.module').then(module => module.UsuariosModule)
+      },
     ]
-  },
+  }
+  /*,
   {
     path: '',
     component: AuthComponent,
@@ -28,7 +33,7 @@ const routes: Routes = [
         loadChildren: () => import('./pages/authentication/authentication.module').then(module => module.AuthenticationModule)
       }
     ]
-  }
+  }*/
 ];
 
 @NgModule({

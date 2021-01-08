@@ -28,7 +28,7 @@ export interface Navigation extends NavigationItem {
 const NavigationItems = [
   {
     id: 'navigation',
-    title: 'Navigação',
+    title: 'Menu',
     type: 'group',
     icon: 'feather icon-monitor',
     children: [

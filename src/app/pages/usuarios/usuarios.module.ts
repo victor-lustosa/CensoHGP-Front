@@ -2,15 +2,14 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { UsuariosRoutingModule } from './usuarios-routing.module';
-import { ListaUsuariosComponent } from './lista-usuarios/lista-usuarios.component';
-import { CadastroUsuariosComponent } from './cadastro-usuarios/cadastro-usuarios.component';
-
+import {SharedModule} from '../../theme/shared/shared.module';
 
 @NgModule({
-  declarations: [ListaUsuariosComponent, CadastroUsuariosComponent],
+  declarations: [],
   imports: [
     CommonModule,
-    UsuariosRoutingModule
+    UsuariosRoutingModule,
+    SharedModule
   ]
 })
 export class UsuariosModule { }
