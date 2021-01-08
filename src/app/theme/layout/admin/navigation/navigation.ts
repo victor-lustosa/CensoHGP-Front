@@ -44,7 +44,7 @@ const NavigationItems = [
         id: 'usuario',
         title: 'Usuarios',
         type: 'item',
-        url: '/usuario/lista-usuario',
+        url: '/usuarios/lista-usuarios',
         icon: 'feather icon-users',
         breadcrumbs: false
       },
@@ -52,7 +52,7 @@ const NavigationItems = [
         id: 'paciente',
         title: 'Pacientes',
         type: 'item',
-        url: '/paciente/lista-paciente',
+        url: '/pacientes/lista-pacientes',
         icon: 'feather icon-user',
         breadcrumbs: false
       },
@@ -61,20 +61,28 @@ const NavigationItems = [
         title: 'Departamentos',
         type: 'item',
         url: '/departamento/lista-departamento',
-        icon: 'feather icon-map',
+        icon: 'feather icon-navigation',
         breadcrumbs: false
       },
       {
         id: 'precaucoes',
         title: 'Precauções',
-        type: 'collapse',
+        type: 'item',
+        url: '/precaucao/lista-precaucao',
         icon: 'feather icon-flag',
+        breadcrumbs: false
+      },
+      {
+        id: 'checklists',
+        title: 'Checklists',
+        type: 'collapse',
+        icon: 'feather icon-check-square',
         children: [
           {
             id: 'incidente',
             title: 'Incidentes',
             type: 'item',
-            url: '/auth/signup',
+            url: '/checklists/incidente',
             target: true,
             breadcrumbs: false
           },
@@ -82,7 +90,7 @@ const NavigationItems = [
             id: 'procedimentos',
             title: 'Procedimentos',
             type: 'item',
-            url: '/auth/signin',
+            url: '/checklists/procedimentos',
             target: true,
             breadcrumbs: false
           },
@@ -90,7 +98,7 @@ const NavigationItems = [
             id: 'fator-risco',
             title: 'Fatores de Risco',
             type: 'item',
-            url: '/auth/dfd',
+            url: '/checklists/fator-risco',
             target: true,
             breadcrumbs: false
           }
