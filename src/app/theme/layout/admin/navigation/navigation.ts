@@ -28,50 +28,74 @@ export interface Navigation extends NavigationItem {
 const NavigationItems = [
   {
     id: 'navigation',
-    title: 'Navigation',
+    title: 'Navigação',
     type: 'group',
     icon: 'feather icon-monitor',
     children: [
       {
         id: 'dashboard',
-        title: 'Dashboard',
+        title: 'Inicio',
         type: 'item',
         url: '/dashboard/analytics',
         icon: 'feather icon-home',
         breadcrumbs: false
       },
       {
-        id: 'pages',
-        title: 'Pages',
-        type: 'group',
-        icon: 'feather icon-file-text',
+        id: 'usuario',
+        title: 'Usuarios',
+        type: 'item',
+        url: '/usuario/lista-usuario',
+        icon: 'feather icon-users',
+        breadcrumbs: false
+      },
+      {
+        id: 'paciente',
+        title: 'Pacientes',
+        type: 'item',
+        url: '/paciente/lista-paciente',
+        icon: 'feather icon-user',
+        breadcrumbs: false
+      },
+      {
+        id: 'departamento',
+        title: 'Departamentos',
+        type: 'item',
+        url: '/departamento/lista-departamento',
+        icon: 'feather icon-map',
+        breadcrumbs: false
+      },
+      {
+        id: 'precaucoes',
+        title: 'Precauções',
+        type: 'collapse',
+        icon: 'feather icon-flag',
         children: [
           {
-            id: 'auth',
-            title: 'Authentication',
-            type: 'collapse',
-            icon: 'feather icon-lock',
-            children: [
-              {
-                id: 'signup',
-                title: 'Sign up',
-                type: 'item',
-                url: '/auth/signup',
-                target: true,
-                breadcrumbs: false
-              },
-              {
-                id: 'signin',
-                title: 'Sign in',
-                type: 'item',
-                url: '/auth/signin',
-                target: true,
-                breadcrumbs: false
-              }
-            ]
+            id: 'incidente',
+            title: 'Incidentes',
+            type: 'item',
+            url: '/auth/signup',
+            target: true,
+            breadcrumbs: false
           },
+          {
+            id: 'procedimentos',
+            title: 'Procedimentos',
+            type: 'item',
+            url: '/auth/signin',
+            target: true,
+            breadcrumbs: false
+          },
+          {
+            id: 'fator-risco',
+            title: 'Fatores de Risco',
+            type: 'item',
+            url: '/auth/dfd',
+            target: true,
+            breadcrumbs: false
+          }
         ]
-      }
+      },
     ]
   }
 ];
