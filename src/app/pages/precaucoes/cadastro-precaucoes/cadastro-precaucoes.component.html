@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card cardTitle="Cadastro de Precaução" [options]="false">
+      <form id="add-form" (ngSubmit)="savePrecaucao()" [formGroup]="formulario" novalidate>
+        <div class="row">
+          <div class="form-group col-md-4">
+            <label for="nome">Nome:</label>
+            <input type="nome" class="form-control" id="nome" aria-describedby="nomeHelp"
+              placeholder="Digite o nome da precaução">
+            <!--    <small id="nomelHelp" class="form-text text-muted">We'll never share your email with anyone
+                                else.</small>-->
+          </div>
+        </div>
+        <div>
+          <button type="submit" class="btn btn-primary">Salvar</button>
+        </div>
+      </form>
+    </app-card>
+  </div>
+</div>

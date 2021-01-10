@@ -68,7 +68,7 @@ const NavigationItems = [
         id: 'precaucoes',
         title: 'Precauções',
         type: 'item',
-        url: '/precaucao/lista-precaucao',
+        url: '/precaucoes/lista-precaucoes',
         icon: 'feather icon-flag',
         breadcrumbs: false
       },

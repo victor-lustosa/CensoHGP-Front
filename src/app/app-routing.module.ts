@@ -21,6 +21,10 @@ const routes: Routes = [
         path: 'usuarios',
         loadChildren: () => import('./pages/usuarios/usuarios.module').then(module => module.UsuariosModule)
       },
+      {
+        path: 'precaucoes',
+        loadChildren: () => import('./pages/precaucoes/precaucoes.module').then(module => module.PrecaucoesModule)
+      }
     ]
   }
   /*,
