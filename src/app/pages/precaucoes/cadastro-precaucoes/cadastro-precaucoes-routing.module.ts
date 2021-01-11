@@ -5,7 +5,8 @@ import { CadastroPrecaucoesComponent } from './cadastro-precaucoes.component';
 
 const routes: Routes = [
   {
-    path: '', component: CadastroPrecaucoesComponent
+    path: '',
+    component: CadastroPrecaucoesComponent
   }
 ];
 

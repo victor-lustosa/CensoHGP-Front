@@ -6,7 +6,7 @@ const routes: Routes = [
     path: '',
     children: [
       {
-        path: 'lista-precaucoes',
+        path: 'precaucoes',
         loadChildren: () => import('./lista-precaucoes/lista-precaucoes.module').then(module => module.ListaPrecaucoesModule)
       },
       {

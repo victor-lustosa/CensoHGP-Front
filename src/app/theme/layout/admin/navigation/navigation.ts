@@ -41,10 +41,10 @@ const NavigationItems = [
         breadcrumbs: false
       },
       {
-        id: 'usuario',
+        id: 'usuarios',
         title: 'Usuarios',
         type: 'item',
-        url: '/usuarios/lista-usuarios',
+        url: '/usuarios/usuarios',
         icon: 'feather icon-users',
         breadcrumbs: false
       },
@@ -68,7 +68,7 @@ const NavigationItems = [
         id: 'precaucoes',
         title: 'Precauções',
         type: 'item',
-        url: '/precaucoes/lista-precaucoes',
+        url: '/precaucoes/precaucoes',
         icon: 'feather icon-flag',
         breadcrumbs: false
       },

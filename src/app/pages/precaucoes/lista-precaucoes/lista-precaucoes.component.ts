@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+
 
 @Component({
   selector: 'app-lista-precaucoes',
@@ -6,10 +8,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./lista-precaucoes.component.scss']
 })
 export class ListaPrecaucoesComponent implements OnInit {
-
+  formulario: FormGroup;
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  pesquisar() {}
 }

@@ -1,1 +1,62 @@
-<p>lista-usuarios works!</p>
+<div class="row">
+  <div class="col-md-12">
+    <app-card cardTitle="Consulta de Usuários" blockClass="table-border-style">
+      <form id="add-form" (ngSubmit)="pesquisar()" [formGroup]="formulario" novalidate>
+        <div class="row">
+          <div class="col-md-4" style="margin-left: 54%;">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <button class="btn btn-outline-primary" type="button"><i class="fa fa-search"></i> Consultar</button>
+              </div>
+              <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
+            </div>
+          </div>
+          <div>
+            <button style="margin-left:-14%;" type="submit" class="btn btn-outline-warning">Limpar</button>
+          </div>
+          <div>
+            <button type="submit" class="btn btn-outline-info" (click)="novoCadastro()" >Cadastrar</button>
+          </div>
+        </div>
+
+
+
+      </form>
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Nome</th>
+              <th scope="col">Matrícula</th>
+              <th scope="col">Email</th>
+              <th scope="col">Status</th>
+              <th scope="col">Tipo</th>
+              <th scope="col"></th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of tableData">
+              <th>{{user.userId}}</th>
+              <td>{{user.nome}}</td>
+              <td>{{user.matricula}}</td>
+              <td>{{user.email}}</td>
+              <td>{{user.status ? 'Ativo' : 'Inativo'}}</td>
+              <td>{{user.tipo}}</td>
+              <td class="text-right">
+                <button type="button" class="btn btn-icon btn-outline-warning"  style="font-size: 13px; margin-right: 2%;" ><i class="feather icon-edit"></i> Editar</button>
+
+                <button type="button" class="btn btn-icon btn-outline-danger"  style="font-size: 13px;  margin-right: 2%;" ><i class="feather icon-minus-circle"></i> Desativar</button>
+
+                <button type="button" class="btn btn-icon btn-outline-info" style="font-size: 13px;  margin-right: 2%;" ><i class="feather icon-file-text"  ></i> Historico</button>
+
+                <button type="button" class="btn btn-icon btn-outline-secondary" style="font-size: 13px;"><i class="feather icon-external-link"  ></i> Transferencia</button>
+              </td>
+
+          </tbody>
+        </table>
+      </div>
+    </app-card>
+  </div>
+</div>

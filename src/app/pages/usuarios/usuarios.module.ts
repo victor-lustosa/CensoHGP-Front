@@ -5,7 +5,6 @@ import { UsuariosRoutingModule } from './usuarios-routing.module';
 import {SharedModule} from '../../theme/shared/shared.module';
 
 @NgModule({
-  declarations: [],
   imports: [
     CommonModule,
     UsuariosRoutingModule,

@@ -1,1 +1,55 @@
-<p>lista-precaucoes works!</p>
+<div class="row">
+  <div class="col-md-12">
+    <app-card cardTitle="Consulta de Precações" blockClass="table-border-style">
+      <form id="add-form" (ngSubmit)="pesquisar()" [formGroup]="formulario" novalidate>
+        <div class="row">
+          <div class="col-md-4" style="margin-left: 54%;">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <button class="btn btn-primary"  type="button"><i class="fa fa-search"></i> Consultar</button>
+              </div>
+              <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
+            </div>
+          </div>
+          <div>
+            <button style="margin-left:-14%;" type="submit" class="btn btn-outline-warning">Limpar</button>
+          </div>
+          <div>
+          <button type="submit" class="btn btn-outline-primary">Cadastrar</button>
+        </div>
+      </div>
+
+
+
+      </form>
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Nome</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>1</th>
+               <td>Padrão</td>
+            </tr>
+            <tr>
+              <th>2</th>
+               <td>Contato</td>
+            </tr>
+            <tr>
+              <th>3</th>
+              <td>Respiratório por gotícula</td>
+            </tr>
+            <tr>
+              <th>4</th>
+              <td>Respiratório por aerossol</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </app-card>
+  </div>
+</div>

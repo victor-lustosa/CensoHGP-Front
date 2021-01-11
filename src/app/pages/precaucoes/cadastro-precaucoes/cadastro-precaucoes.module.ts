@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CadastroPrecaucoesRoutingModule } from './cadastro-precaucoes-routing.module';
 import { CadastroPrecaucoesComponent } from './cadastro-precaucoes.component';
 import { SharedModule } from '../../../theme/shared/shared.module';
+import { NgbPopoverModule, NgbProgressbarModule, NgbTabsetModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [CadastroPrecaucoesComponent],
