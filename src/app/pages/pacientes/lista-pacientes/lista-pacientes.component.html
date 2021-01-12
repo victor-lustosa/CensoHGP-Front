@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-12">
-    <app-card cardTitle="Consulta de Usuários" blockClass="table-border-style" >
+    <app-card cardTitle="Consulta de Pacientes" blockClass="table-border-style">
       <form id="add-form" (ngSubmit)="pesquisar()" [formGroup]="formulario" novalidate>
         <div class="row">
           <div class="col-md-4" style="margin-left: 54%;">
@@ -18,51 +18,57 @@
             <button type="submit" class="btn btn-outline-info" (click)="novoCadastro()">Cadastrar</button>
           </div>
         </div>
+
         <div style="margin-left: 78%;" class="input-group mb-3">
           <h6 class="mt-1">filtrar por:</h6>
-          <div class="custom-control custom-radio custom-control-inline" style="margin-left: 1%;">
-            <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input">
-            <label class="custom-control-label" for="customRadioInline1">ativos</label>
-          </div>
-          <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input">
-            <label class="custom-control-label" for="customRadioInline2">inativos</label>
-          </div>
+
         </div>
+
       </form>
       <div class="table-responsive">
         <table class="table table-hover">
           <thead>
             <tr>
-              <th>#</th>
-              <th>Nome</th>
-              <th>Matrícula</th>
-              <th>Email</th>
-              <th>Status</th>
-              <th>Tipo</th>
-              <th></th>
+              <th scope="col">#</th>
+              <th scope="col">Prontuário</th>
+              <th scope="col">Nome</th>
+              <th scope="col">CPF</th>
+              <th scope="col">RG</th>
+              <th scope="col">Data de Nascimento</th>
+              <th scope="col"></th>
 
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let user of tableData">
               <th>{{user.userId}}</th>
+              <td>{{user.prontuario}}</td>
               <td>{{user.nome}}</td>
-              <td>{{user.matricula}}</td>
-              <td>{{user.email}}</td>
-              <td>{{user.status ? 'Ativo' : 'Inativo'}}</td>
-              <td>{{user.tipo}}</td>
+              <td>{{user.cpf}}</td>
+              <td>{{user.rg}}</td>
+              <td>{{user.dataNascimento}}</td>
               <td class="text-right">
                 <button type="button" class="btn btn-icon btn-warning" style="font-size: 13px; margin-right: 2%;"><i
                     class="feather icon-edit"></i> Editar</button>
 
-                <button type="button" class="btn btn-icon btn-info" style="font-size: 13px;  margin-right: 2%;"> {{user.status ? 'Desativar' : 'Ativar'}}</button>
+                <button type="button" class="btn btn-icon btn-primary" style="font-size: 13px;  margin-right: 2%;"><i
+                    class="feather icon-check-square"></i> Checklist</button>
+
+                <button type="button" class="btn btn-icon btn-info" style="font-size: 13px; margin-right: 2%;"><i
+                    class="feather icon-external-link"></i> Transferencia</button>
+
+                <button type="button" class="btn btn-icon btn-secondary" style="font-size: 13px;  margin-right: 2%;"><i
+                    class="feather icon-clipboard"></i> Historico checklist</button>
+
+                <button type="button" class="btn btn-icon btn-dark" style="font-size: 13px;"><i
+                    class="feather icon-file-text"></i> Histórico Transferencia</button>
 
               </td>
 
           </tbody>
         </table>
-        <ngb-pagination [collectionSize]="50" [(page)]="tableData" aria-label="Default pagination"  class="d-flex justify-content-end"></ngb-pagination>
+        <ngb-pagination [collectionSize]="50" [(page)]="tableData" aria-label="Default pagination" [maxSize]="10"
+          class="d-flex justify-content-end"></ngb-pagination>
       </div>
     </app-card>
   </div>

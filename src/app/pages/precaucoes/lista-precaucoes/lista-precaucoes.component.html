@@ -6,7 +6,7 @@
           <div class="col-md-4" style="margin-left: 54%;">
             <div class="input-group mb-3">
               <div class="input-group-prepend">
-                <button class="btn btn-primary"  type="button"><i class="fa fa-search"></i> Consultar</button>
+                <button class="btn btn-outline-primary"  type="button"><i class="fa fa-search"></i> Consultar</button>
               </div>
               <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
             </div>
@@ -19,7 +19,17 @@
         </div>
       </div>
 
-
+      <div style="margin-left: 78%;" class="input-group mb-3">
+        <h6 class="mt-1">filtrar por:</h6>
+        <div class="custom-control custom-radio custom-control-inline" style="margin-left: 1%;">
+          <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input">
+          <label class="custom-control-label" for="customRadioInline1">ativos</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input">
+          <label class="custom-control-label" for="customRadioInline2">inativos</label>
+        </div>
+      </div>
 
       </form>
       <div class="table-responsive">
@@ -28,6 +38,7 @@
             <tr>
               <th>#</th>
               <th>Nome</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -47,6 +58,15 @@
               <th>4</th>
               <td>Respiratório por aerossol</td>
             </tr>
+            <td class="text-right">
+              <button type="button" class="btn btn-icon btn-warning" style="font-size: 13px; margin-right: 2%;"><i
+                  class="feather icon-edit"></i> Editar</button>
+
+              <button type="button" class="btn btn-icon btn-danger" style="font-size: 13px;  margin-right: 2%;"><i
+                  class="feather icon-minus-circle"></i> Desativar</button>
+
+            </td>
+
           </tbody>
         </table>
       </div>

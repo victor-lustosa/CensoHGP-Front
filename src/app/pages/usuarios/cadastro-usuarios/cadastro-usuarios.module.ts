@@ -13,7 +13,11 @@ import { NgbDropdownModule, NgbPopoverModule, NgbProgressbarModule, NgbTabsetMod
     CadastroUsuariosRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    NgbDropdownModule,
+    NgbPopoverModule,
+    NgbProgressbarModule,
+    NgbTabsetModule
   ]
 })
 export class CadastroUsuariosModule { }

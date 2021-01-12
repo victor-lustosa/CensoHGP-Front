@@ -24,6 +24,14 @@ const routes: Routes = [
       {
         path: 'precaucoes',
         loadChildren: () => import('./pages/precaucoes/precaucoes.module').then(module => module.PrecaucoesModule)
+      },
+      {
+        path: 'departamentos',
+        loadChildren: () => import('./pages/departamentos/departamentos.module').then(module => module.DepartamentosModule)
+      },
+      {
+        path: 'pacientes',
+        loadChildren: () => import('./pages/pacientes/pacientes.module').then(module => module.PacientesModule)
       }
     ]
   }

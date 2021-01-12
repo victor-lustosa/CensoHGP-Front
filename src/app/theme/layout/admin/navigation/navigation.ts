@@ -49,18 +49,18 @@ const NavigationItems = [
         breadcrumbs: false
       },
       {
-        id: 'paciente',
+        id: 'pacientes',
         title: 'Pacientes',
         type: 'item',
-        url: '/pacientes/lista-pacientes',
+        url: '/pacientes/pacientes',
         icon: 'feather icon-user',
         breadcrumbs: false
       },
       {
-        id: 'departamento',
+        id: 'departamentos',
         title: 'Departamentos',
         type: 'item',
-        url: '/departamento/lista-departamento',
+        url: '/departamentos',
         icon: 'feather icon-navigation',
         breadcrumbs: false
       },
