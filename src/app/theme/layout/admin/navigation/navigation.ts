@@ -60,7 +60,7 @@ const NavigationItems = [
         id: 'departamentos',
         title: 'Departamentos',
         type: 'item',
-        url: '/departamentos',
+        url: '/departamentos/departamentos',
         icon: 'feather icon-navigation',
         breadcrumbs: false
       },
@@ -79,11 +79,11 @@ const NavigationItems = [
         icon: 'feather icon-check-square',
         children: [
           {
-            id: 'incidente',
+            id: 'incidentes',
             title: 'Incidentes',
             type: 'item',
-            url: '/checklists/incidente',
-            target: true,
+            url: '/checklists/incidentes',
+            target: false,
             breadcrumbs: false
           },
           {
@@ -91,15 +91,15 @@ const NavigationItems = [
             title: 'Procedimentos',
             type: 'item',
             url: '/checklists/procedimentos',
-            target: true,
+            target: false,
             breadcrumbs: false
           },
           {
-            id: 'fator-risco',
+            id: 'fatores-risco',
             title: 'Fatores de Risco',
             type: 'item',
-            url: '/checklists/fator-risco',
-            target: true,
+            url: '/checklists/fatores',
+            target: false,
             breadcrumbs: false
           }
         ]

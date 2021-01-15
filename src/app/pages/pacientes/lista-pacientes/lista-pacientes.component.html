@@ -67,7 +67,8 @@
 
           </tbody>
         </table>
-        <ngb-pagination [collectionSize]="50" [(page)]="tableData" aria-label="Default pagination" [maxSize]="10"
+        <ngb-pagination
+         [collectionSize]="tableData.length" aria-label="Default pagination" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="7"  (pageChange)="loadPage($event)"
           class="d-flex justify-content-end"></ngb-pagination>
       </div>
     </app-card>

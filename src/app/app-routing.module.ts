@@ -32,6 +32,10 @@ const routes: Routes = [
       {
         path: 'pacientes',
         loadChildren: () => import('./pages/pacientes/pacientes.module').then(module => module.PacientesModule)
+      },
+      {
+        path: 'checklists',
+        loadChildren: () => import('./pages/checklists/checklists.module').then(module => module.ChecklistsModule)
       }
     ]
   }

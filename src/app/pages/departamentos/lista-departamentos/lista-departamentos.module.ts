@@ -1,15 +1,18 @@
-import { NgModule } from '@angular/core';
+import { NgModule} from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { DepartamentosRoutingModule } from './lista-departamentos-routing.module';
+import { ListaDepartamentosRoutingModule } from './lista-departamentos-routing.module';
 import { ListaDepartamentosComponent } from './lista-departamentos.component';
+import { SharedModule } from 'src/app/theme/shared/shared.module';
 
 
 @NgModule({
   declarations: [ListaDepartamentosComponent],
   imports: [
     CommonModule,
-    DepartamentosRoutingModule
+
+    ListaDepartamentosRoutingModule,
+    SharedModule
   ]
 })
-export class DepartamentosModule { }
+export class ListaDepartamentosModule { }

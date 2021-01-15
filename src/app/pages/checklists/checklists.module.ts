@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DepartamentosRoutingModule } from './departamentos-routing.module';
+
+import { ChecklistsRoutingModule } from './checklists-routing.module';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 
 
@@ -8,8 +9,8 @@ import { SharedModule } from 'src/app/theme/shared/shared.module';
   declarations: [],
   imports: [
     CommonModule,
-    DepartamentosRoutingModule,
+    ChecklistsRoutingModule,
     SharedModule
   ]
 })
-export class DepartamentosModule { }
+export class ChecklistsModule { }
