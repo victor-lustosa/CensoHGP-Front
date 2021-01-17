@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { CadastroDepartamentosRoutingModule } from './cadastro-departamentos-routing.module';
 import { CadastroDepartamentosComponent } from './cadastro-departamentos.component';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [CadastroDepartamentosComponent],
@@ -12,7 +12,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     CadastroDepartamentosRoutingModule,
     SharedModule,
-    FormsModule,
     ReactiveFormsModule
   ]
 })

@@ -5,9 +5,7 @@ import { CadastroFatoresComponent } from './cadastro-fatores.component';
 
 
 const routes: Routes = [
-  {
-    path: '' , component: CadastroFatoresComponent
-  }
+  { path: '', component: CadastroFatoresComponent }
 ];
 
 @NgModule({

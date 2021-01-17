@@ -1,1 +1,31 @@
-<p>cadastro-fatores works!</p>
+
+<div class="row">
+  <div class="col-sm-12">
+    <app-card cardTitle="Cadastro de Fator de Risco" [options]="false">
+      <form id="fatores-form" (ngSubmit)="saveFatores()" [formGroup]="formulario" novalidate>
+        <div class="row">
+          <div class="col-md-12">
+            <app-alert type="primary" *ngIf="sucesso == true">salvo com sucesso</app-alert>
+          </div>
+
+        </div>
+        <div class="form-group col-md-4">
+          <label for="nome">Nome:</label>
+          <input  id="nome" formControlName="nome" class="form-control" aria-describedby="nomeHelp"
+          placeholder="Digite o nome do fator de risco">
+          <!--    <small id="nomelHelp" class="form-text text-muted">We'll never share your email with anyone
+          else.</small> -->
+        </div>
+        <div class="form-group col-md-4">
+          <label for="descricao">Descrição:</label>
+          <textarea class="form-control" id="descricao" formControlName="descricao" rows="5"></textarea>
+        </div>
+        <div>
+          <button style="margin-left: 1%;"type="submit" class="btn btn-primary">Salvar</button>
+          <button style="margin-left: 1%;" type="button" (click)="voltar()"  class="btn btn-outline-warning">Voltar</button>
+        </div>
+      </form>
+
+    </app-card>
+  </div>
+</div>

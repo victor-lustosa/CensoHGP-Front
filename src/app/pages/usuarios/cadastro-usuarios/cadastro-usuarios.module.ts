@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { CadastroUsuariosRoutingModule } from './cadastro-usuarios-routing.module';
 import { CadastroUsuariosComponent } from './cadastro-usuarios.component';
 import { SharedModule } from '../../../theme/shared/shared.module';
@@ -11,7 +11,6 @@ import { NgbDropdownModule, NgbPopoverModule, NgbProgressbarModule, NgbTabsetMod
   imports: [
     CommonModule,
     CadastroUsuariosRoutingModule,
-    FormsModule,
     ReactiveFormsModule,
     SharedModule,
     NgbDropdownModule,

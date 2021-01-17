@@ -3,11 +3,12 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import {Precaucao} from './../model/precaucao';
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class PrecaucaoService {
-  url = 'http://localhost:8080/apicensohgp';
+    private readonly url = `${environment.API}apicensohgp`;
 
    // injetando o HttpClient
    constructor(private httpClient: HttpClient) { }

@@ -2,66 +2,66 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
-import {DepartamentoBusca} from './../model/departamentoBusca'
-import {Departamento} from './../model/departamento'
+import { Fatores } from '../model/fatores';
 import { environment } from 'src/environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
-export class DepartamentoService {
+export class FatorRiscoService {
   private readonly url = `${environment.API}apicensohgp`;
 
    // injetando o HttpClient
    constructor(private http: HttpClient) { }
 
-   getBusca(nome: string): Observable<Departamento[]> {
-     return this.http.get<any>(this.url + '/'+ 'departamento' + '/' + 'nome' + '/' + nome)
+   getBusca(nome: string): Observable<Fatores[]> {
+     return this.http.get<any>(this.url + '/'+ 'fator-risco' + '/' + 'nome' + '/' + nome)
    }
    // Headers
    httpOptions = {
      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
    };
 
-   // Obtem todas as Departamentos
-   getListaDepartamentos(): Observable<Departamento[]> {
-     return this.http.get<Departamento[]>(this.url + '/' + 'departamentos')
+   // Obtem todas as Fatoress
+   getListaFatores(): Observable<Fatores[]> {
+     return this.http.get<Fatores[]>(this.url + '/' + 'fatores-risco')
      .pipe(
        retry(2),
        catchError(this.handleError)
      );
    }
 
-   // Obtem uma Departamento pelo id
-   getDepartamentoById(id: number): Observable<Departamento> {
-     return this.http.get<Departamento>(this.url + '/' + 'departamento' + '/' + id)
+   // Obtem uma Fatores pelo id
+   getFatoresById(id: number): Observable<Fatores> {
+     return this.http.get<Fatores>(this.url + '/' + 'fator-risco' + '/' + id)
        .pipe(
          retry(2),
          catchError(this.handleError)
        );
    }
 
-   // salva uma Departamento
-   saveDepartamento(Departamento: Departamento): Observable<Departamento> {
-     return this.http.post<Departamento>(this.url + '/' + 'departamento', Departamento)
+   // salva uma Fatores
+   createFatores(fatores: Fatores): Observable<Fatores> {
+     return this.http.post<Fatores>(this.url + '/' + 'fator-risco', fatores)
        .pipe(
          retry(2),
          catchError(this.handleError)
        );
    }
 
-   // atualiza uma Departamento
-   updateDepartamento(Departamento: Departamento): Observable<Departamento> {
-      return this.http.put<Departamento>(this.url + '/' + 'departamento', Departamento, this.httpOptions)
+   // atualiza uma Fatores
+   updateFatores(fatores: Fatores): Observable<Fatores> {
+      return this.http.put<Fatores>(this.url + '/' + 'fator-risco', fatores, this.httpOptions)
        .pipe(
          retry(1),
          catchError(this.handleError)
        );
    }
 
-   // deleta uma Departamento
-   deleteDepartamento(Departamento: Departamento) {
-     console.log(this.url + '/' + 'departamento' + '/' + Departamento.idDepartamento);
-     return this.http.delete<Departamento>(this.url + '/' + 'departamento' + '/' + Departamento.idDepartamento, this.httpOptions)
+   // deleta uma Fatores
+   deleteFatores(fatores: Fatores) {
+     console.log(this.url + '/' + 'fator-risco' + '/' + fatores.idFatorRisco);
+     return this.http.delete<Fatores>(this.url + '/' + 'fator-risco' + '/' + fatores.idFatorRisco, this.httpOptions)
        .pipe(
          retry(1),
          catchError(this.handleError)
@@ -81,4 +81,4 @@ export class DepartamentoService {
      console.log('HandleError errorMessage: ' + errorMessage);
      return throwError(errorMessage);
    }
- }
+  }
