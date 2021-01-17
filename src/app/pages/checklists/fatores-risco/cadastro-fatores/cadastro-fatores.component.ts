@@ -38,7 +38,7 @@ export class CadastroFatoresComponent implements OnInit {
 
       this.msgError= null;
     }
-    updateForm(fatores){
+    updateForm(fatores: Fatores){
       this.formulario.patchValue({
         idFatorRisco: fatores.idFatorRisco,
         nome:fatores.nome,
