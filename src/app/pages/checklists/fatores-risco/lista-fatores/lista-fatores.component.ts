@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./lista-fatores.component.scss']
 })
 export class ListaFatoresComponent implements OnInit {
-
+  fatores: Fatores;
   pesquisa: string;
   status: boolean;
   lista: Fatores[];
@@ -26,7 +26,7 @@ export class ListaFatoresComponent implements OnInit {
     }
 
     loadListaFatores() {
-      this.fatoresService.getListaFatores()
+      this.fatoresService.listar()
       .subscribe(
         data => {
           this.lista = data;
@@ -37,15 +37,15 @@ export class ListaFatoresComponent implements OnInit {
         })
       }
 
-      pesquisar(): void {
+/*    pesquisar(): void {
         this.fatoresService
-        .getBusca(this.pesquisa)
+        .getBusca(this.pesquisa,this.fatores)
         .subscribe(data =>{
           this.lista = data;
           console.log(data);
         })
       };
-
+*/
       novoCadastro(){
         this.router.navigate(['/checklists/cadastro-fatores/novo']);
       }
