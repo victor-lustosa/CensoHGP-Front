@@ -8,8 +8,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./lista-fatores.component.scss']
 })
 export class ListaFatoresComponent implements OnInit {
-  fatores: Fatores;
-  pesquisa: string;
+
+  pesquisa: Fatores = null;
   status: boolean;
   lista: Fatores[];
   msgError: string;
@@ -18,15 +18,12 @@ export class ListaFatoresComponent implements OnInit {
     private router: Router) { }
 
     ngOnInit(): void {
-      if(this.pesquisa == null)
       this.loadListaFatores();
-      else
-      this.lista
       this.msgError= null;
     }
 
     loadListaFatores() {
-      this.fatoresService.listar()
+      this.fatoresService.getAll()
       .subscribe(
         data => {
           this.lista = data;
@@ -37,15 +34,15 @@ export class ListaFatoresComponent implements OnInit {
         })
       }
 
-/*    pesquisar(): void {
+      pesquisar(): void {
         this.fatoresService
-        .getBusca(this.pesquisa,this.fatores)
+        .getByNome(this.pesquisa)
         .subscribe(data =>{
           this.lista = data;
           console.log(data);
         })
       };
-*/
+
       novoCadastro(){
         this.router.navigate(['/checklists/cadastro-fatores/novo']);
       }
