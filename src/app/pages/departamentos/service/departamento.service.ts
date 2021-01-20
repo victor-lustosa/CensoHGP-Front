@@ -4,11 +4,12 @@ import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import {DepartamentoBusca} from './../model/departamentoBusca'
 import {Departamento} from './../model/departamento'
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class DepartamentoService {
-  url = 'http://localhost:8080/apicensohgp';
+  private readonly url = `${environment.API}apicensohgp`;
 
    // injetando o HttpClient
    constructor(private http: HttpClient) { }

@@ -1,1 +1,62 @@
-<p>lista-fatores works!</p>
+<div class="row">
+  <div class="col-md-12">
+    <app-card cardTitle="Consulta de Fatores de Risco" blockClass="table-border-style">
+      <form #consultaForm="ngForm" (submit)="pesquisar()">
+        <div class="row">
+          <div class="col-md-4" style="margin-left: 54%;">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <button class="btn btn-outline-primary" type="button" type="submit" ><i class="fa fa-search"></i> Consultar</button>
+              </div>
+              <input type="text" [(ngModel)]="pesquisa" class="form-control" name="pesquisa">
+            </div>
+          </div>
+          <div>
+            <button style="margin-left:-14%;" type="reset" class="btn btn-outline-warning">Limpar</button>
+          </div>
+          <div>
+            <button type="button" class="btn btn-outline-primary" (click)="novoCadastro()">Cadastrar</button>
+          </div>
+        </div>
+
+        <div style="margin-left: 78%;" class="input-group mb-3">
+          <h6 class="mt-1">filtrar por:</h6>
+          <div class="custom-control custom-radio custom-control-inline" style="margin-left: 1%;">
+            <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input">
+            <label class="custom-control-label" for="customRadioInline1">ativos</label>
+          </div>
+          <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input">
+            <label class="custom-control-label" for="customRadioInline2">inativos</label>
+          </div>
+        </div>
+      </form>
+
+      <div class="table-responsive">
+        <table id="myTable" class="table table-hover">
+          <thead>
+            <tr>
+
+              <th scope="col">Nome</th>
+              <th scope="col">descrição</th>
+              <th scope="col"></th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let fatores of lista">
+              <td>{{fatores.nome}}</td>
+              <td>{{fatores.descricao}}</td>
+
+              <td class="text-right">
+
+                <button type="button" class="btn btn-icon btn-warning" (click)="editar(fatores.idFatorRisco)"
+                style="font-size: 13px; margin-right: 2%;"><i
+                  class="feather icon-edit"></i> Editar</button>
+                </td>
+              </tbody>
+            </table>
+          </div>
+        </app-card>
+      </div>
+    </div>
