@@ -5,10 +5,13 @@ import { ListaFatoresRoutingModule } from './lista-fatores-routing.module';
 import { ListaFatoresComponent } from './lista-fatores.component';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 import {NgbPopoverModule, NgbTooltipModule, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
+import { FilterPipe } from './filter.pipe';
+
+
 
 
 @NgModule({
-  declarations: [ListaFatoresComponent],
+  declarations: [ListaFatoresComponent,FilterPipe],
   imports: [
     CommonModule,
     ListaFatoresRoutingModule,

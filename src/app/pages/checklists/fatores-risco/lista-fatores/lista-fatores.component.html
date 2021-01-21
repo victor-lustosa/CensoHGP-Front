@@ -1,83 +1,41 @@
 <div class="row">
   <div class="col-md-12">
     <app-card cardTitle="Consulta de Fatores de Risco" blockClass="table-border-style">
-      <form #consultaForm="ngForm" >
-        <div class="row">
-          <div class="col-md-4" style="margin-left: 54%;">
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <button class="btn btn-outline-primary" type="button" type="submit" ><i class="fa fa-search"></i> Consultar</button>
-              </div>
-              <input type="text"  class="form-control" name="pesquisa">
-            </div>
-          </div>
-          <div>
-            <button style="margin-left:-14%;" type="reset" class="btn btn-outline-warning">Limpar</button>
-          </div>
-          <div>
-            <button type="button" class="btn btn-outline-primary"  data-toggle="modal" (click)="myLargeModalLabel.show()">Cadastrar</button>
-          </div>
-
-          <div class="col-md-6">
-            <app-alert type="primary" *ngIf="sucesso == true">salvo com sucesso</app-alert>
-          </div>
-          <app-ui-modal #myLargeModalLabel [containerClick]="false" [dialogClass]="'modal-lg'">
-            <div class="app-modal-header">
-              <h5 class="modal-title">Cadastro Lista de Fatores</h5>
-              <button type="reset" class="close basic-close" data-dismiss="modal" aria-label="Close" (click)="myLargeModalLabel.hide()"><span aria-hidden="true">&times;</span></button>
-            </div>
-            <div class="app-modal-body">
-              <form id="fatores-form"  [formGroup]="formulario" novalidate>
-                <label for="nome">Nome:</label>
-                <input  id="nome" formControlName="nome" class="form-control" aria-describedby="nomeHelp"
-                placeholder="Digite o nome do fator de risco">
-                <!--    <small id="nomelHelp" class="form-text text-muted">We'll never share your email with anyone
-                else.</small> -->
-                <label for="descricao">Descrição:</label>
-                <textarea class="form-control" id="descricao" formControlName="descricao" rows="5"></textarea>
-
-              </form>
-            </div>
-            <div class="app-modal-footer">
-              <div style="float: left; margin-left: -510px;">
-                <button type="reset" class="btn btn-outline-warning"  data-dismiss="modal" (click)="myLargeModalLabel.hide()">Fechar</button>
-              </div>
-              <div style="margin-left: 200px;">
-                <button type="reset" class="btn btn-primary" (click)="saveFatores();myLargeModalLabel.hide()" >Salvar</button>
-              </div>
-            </div>
-          </app-ui-modal>
-        </div>
-
-      </form>
-
+      <div class="col-md-4" style="margin-left: 54%;">
+        <input id="queryField" class="form-control" type="text" [(ngModel)]="searchText" placeholder="Search">
+      </div>
+      <div>
+        <button style="margin-left:-14%;" type="reset" class="btn btn-outline-warning">Limpar</button>
+      </div>
+      <div>
+        <button type="button" class="btn btn-outline-primary" (click)="openDialog()" >Cadastrar</button>
+      </div>
       <div class="table-responsive">
-        <table class="table table-hover">
+        <table class="table table-hover" *ngIf="(lista | filter: searchText).length > 0; else noResults">
           <thead>
             <tr>
-
               <th scope="col">Nome</th>
               <th scope="col">descrição</th>
               <th scope="col"></th>
-
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let fatores of lista ">
+            <tr *ngFor="let fatores of lista | filter: searchText ">
               <td>{{fatores.nome}}</td>
               <td>{{fatores.descricao}}</td>
 
               <td class="text-right">
-
-                <button type="button" class="btn btn-icon btn-warning" (click)="editar(fatores.idFatorRisco);myLargeModalLabel.show()"
+                <button type="button" class="btn btn-icon btn-warning"
                 style="font-size: 13px; margin-right: 2%;"><i
                 class="feather icon-edit"></i> Editar</button>
               </td>
-            </tbody>
-          </table>
-          <ngb-pagination [collectionSize]=lista.length  [(page)]="currentPage" [rotate]="true" [ellipses]="false"
-   [boundaryLinks]="true"></ngb-pagination>
-        </div>
-      </app-card>
-    </div>
+            </tr>
+          </tbody>
+        </table>
+        <ng-template #noResults>
+          <p>0 resultados encontrados para "{{searchText}}".</p>
+        </ng-template>
+      </div>
+    </app-card>
   </div>
+</div>
