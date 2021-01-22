@@ -1,25 +1,26 @@
-<div class="modal-content">
-  <div class="modal-header">
-    <h5 class="modal-title">{{title}}</h5>
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <form id="fatores-form" >
-      <label for="nome">Nome:</label>
-      <input  id="nome" formControlName="nome" class="form-control" aria-describedby="nomeHelp"
-      placeholder="Digite o nome do fator de risco">
-      <label for="descricao">Descrição:</label>
-      <textarea class="form-control" id="descricao" formControlName="descricao" rows="5"></textarea>
-    </form>
-  </div>
-  <div class="modal-footer">
-    <div style="float: left; margin-left: -510px;">
-      <button type="reset" class="btn btn-outline-warning"  data-dismiss="modal" >Cancelar</button>
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cadastro Fatores de risco</h5>
+   <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="fatores-form" >
+          <label for="nome">Nome:</label>
+          <input  id="nome" formControlName="nome" class="form-control" aria-describedby="nomeHelp"
+          placeholder="Digite o nome do fator de risco">
+          <label for="descricao">Descrição:</label>
+          <textarea class="form-control" id="descricao" formControlName="descricao" rows="5"></textarea>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <div style="float: left; margin-left: -510px;">
+          <button type="reset" class="btn btn-outline-warning"  data-dismiss="modal" >Cancelar</button>
+        </div>
+        <div style="margin-left: 200px;">
+          <button type="reset" class="btn btn-primary">Salvar</button>
+        </div>
+      </div>
     </div>
-    <div style="margin-left: 200px;">
-      <button type="reset" class="btn btn-primary">Salvar</button>
-    </div>
-  </div>
-</div>

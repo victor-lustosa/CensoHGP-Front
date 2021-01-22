@@ -7,9 +7,6 @@ const routes: Routes = [
     path: '',
     children: [
       {
-        path: 'cadastro-fatores',
-        loadChildren: () => import('./fatores-risco/cadastro-fatores/cadastro-fatores.module').then(module => module.CadastroFatoresModule)
-      },{
         path: 'fatores',
         loadChildren: () => import('./fatores-risco/lista-fatores/lista-fatores.module').then(module => module.ListaFatoresModule)
       },
