@@ -1,23 +1,21 @@
 <div class="row">
   <div class="col-md-12">
     <app-card cardTitle="Consulta de Fatores de Risco" blockClass="table-border-style">
-
-        <div class="row">
-          <div class="form-group col-md-3" style="margin-left:62%">
-            <input type="text"  class="form-control" name="pesquisa" [(ngModel)]="searchText" placeholder="pesquisar">
-          </div>
-          <div>
-            <button style="margin-left:-8%;" type="reset" class="btn btn-outline-warning">Limpar</button>
-          </div>
-          <div>
-            <button  style="margin-left:5%;" type="button" class="btn btn-outline-primary"  (click)="cadastrar()" >Cadastrar</button>
-          </div>
-
-          <div class="col-md-6">
-            <app-alert type="primary" *ngIf="sucesso == true">salvo com sucesso</app-alert>
-          </div>
+      <div class="row">
+        <div class="form-group col-md-3" style="margin-left:62%">
+          <input type="text"  class="form-control" name="pesquisa" [(ngModel)]="searchText" placeholder="pesquisar">
+        </div>
+        <div>
+          <button style="margin-left:-14%;" type="reset" class="btn btn-outline-warning" (click)="limpar()">Limpar</button>
+        </div>
+        <div>
+          <button  style="margin-left:1%;" type="button" class="btn btn-outline-primary"  (click)="cadastrar()" >Cadastrar</button>
         </div>
 
+        <div class="col-md-6">
+          <app-alert type="primary" *ngIf="sucesso == true">salvo com sucesso</app-alert>
+        </div>
+      </div>
       <div class="table-responsive" >
         <table class="table table-hover"  *ngIf="(lista | filter: searchText).length > 0; else noResults">
           <thead>

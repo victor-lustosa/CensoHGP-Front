@@ -1,23 +1,22 @@
 
-<div class="modal-content">
+<div class="modal-content"  >
   <div class="modal-header">
-    <h5 class="modal-title">Cadastro Fatores de risco</h5>
-    <button type="button" class="close" aria-label="Close" (click)="activeModal.close('cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
+    <h5  class="modal-title">Cadastro Fatores de risco</h5>
+
   </div>
   <div class="modal-body">
     <form  [formGroup]="formulario" >
       <label for="nome">Nome:</label>
       <input  id="nome" formControlName="nome" class="form-control" aria-describedby="nomeHelp"
       placeholder="Digite o nome do fator de risco">
+      <br>
       <label for="descricao">Descrição:</label>
-      <textarea class="form-control" id="descricao" formControlName="descricao" rows="5"></textarea>
+      <textarea placeholder="Digite uma descrição" class="form-control" id="descricao" formControlName="descricao" rows="5"></textarea>
     </form>
   </div>
   <div class="modal-footer">
     <div style="margin-left: 200px;">
-      <button type="reset" class="btn btn-primary">Salvar</button>
+      <button type="submit" class="btn btn-primary" style="margin-left:-16%; font-size: 16px;"(click)="saveFatores()">Salvar</button>
     </div>
   </div>
 </div>

@@ -37,28 +37,21 @@ export class ListaFatoresComponent implements OnInit {
       descricao: [null]
     })
   }
+  limpar(){
+      this.searchText = '';
+      return this.searchText;
+  }
   cadastrar(){
-    console.log('oi to no cadastrar')
-    const modalRef =  this.modalService.open(CadastroFatoresComponent);
+    const modalRef =  this.modalService.open(CadastroFatoresComponent, { size: 'lg' });
     modalRef.componentInstance.formulario = this.formularioCadastro;
-      modalRef.result.then((result) => {
-        if (result) {
-          console.log(result);
-        }
-      })
-
-    console.log('oi to no cadastrar 2')
+    this.loadListaFatores();
   }
   atualizar() {
-    const modalRef =  this.modalService.open(CadastroFatoresComponent);
+    const modalRef = this.modalService.open(CadastroFatoresComponent, { size: 'lg' });
     if(this.formularioAtualizar != null){
       modalRef.componentInstance.formulario = this.formularioAtualizar;
-      modalRef.result.then((result) => {
-        if (result) {
-          console.log(result);
-        }
-      })
     }
+    this.loadListaFatores();
   }
   editar(id:number){
     this.fatoresService.getById(id).subscribe((fatores) => {
@@ -66,7 +59,7 @@ export class ListaFatoresComponent implements OnInit {
       this.updateForm(fatores);
       console.log(this.formularioAtualizar)
       if(this.formularioAtualizar != null){
-          this.atualizar();
+        this.atualizar();
       }
     })
   }
