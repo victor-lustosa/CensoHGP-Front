@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FatorRiscoService } from '../service/fator-risco.service';
 import { Fatores } from '../model/fatores';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CadastroModalComponent } from 'src/app/theme/shared/components/modal/cadastro-modal/cadastro-modal.component';
+import { CadastroFatoresComponent } from '../cadastro-fatores/cadastro-fatores.component';
+
 
 @Component({
   selector: 'app-lista-fatores',
@@ -24,7 +25,7 @@ export class ListaFatoresComponent implements OnInit {
     this.loadListaFatores();
   }
   openModal() {
-    const modalRef =  this.modalService.open(CadastroModalComponent);
+    const modalRef =  this.modalService.open(CadastroFatoresComponent);
     modalRef.componentInstance.id = this.idFator;
     modalRef.result.then((result) => {
       if (result) {
