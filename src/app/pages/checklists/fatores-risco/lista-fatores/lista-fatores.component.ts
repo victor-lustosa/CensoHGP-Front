@@ -3,6 +3,7 @@ import { FatorRiscoService } from '../service/fator-risco.service';
 import { Fatores } from '../model/fatores';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CadastroFatoresComponent } from '../cadastro-fatores/cadastro-fatores.component';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 
 @Component({
@@ -11,41 +12,81 @@ import { CadastroFatoresComponent } from '../cadastro-fatores/cadastro-fatores.c
   styleUrls: ['./lista-fatores.component.scss']
 })
 export class ListaFatoresComponent implements OnInit {
+  formularioCadastro:FormGroup =null;
+  formularioAtualizar:FormGroup =null;
   idFator:number = 0;
   status: boolean;
   lista: Fatores[];
   msgError: string;
   sucesso: boolean = false;
   searchText: string;
-  title:string = 'Cadastro Fatores de Risco';
-  constructor(private fatoresService: FatorRiscoService,  public modalService: NgbModal) { }
+
+  constructor(private fatoresService: FatorRiscoService,  public modalService: NgbModal, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.msgError= null;
     this.loadListaFatores();
-  }
-  openModal() {
-    const modalRef =  this.modalService.open(CadastroFatoresComponent);
-    modalRef.componentInstance.id = this.idFator;
-    modalRef.result.then((result) => {
-      if (result) {
-        console.log(result);
-      }
-    }
-  )
-}
-obterId(id:number){
-  this.idFator = id;
-}
-loadListaFatores() {
-  this.fatoresService.getAll()
-  .subscribe(
-    data => {
-      this.lista = data;
-      console.log(data);
-    },
-    error => {
-      console.log('Erro serviço ' + error)
+    this.formularioCadastro = this.formBuilder.group({
+      idFatorRisco: [null],
+      nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
+      descricao: [null]
+    })
+    this.formularioAtualizar = this.formBuilder.group({
+      idFatorRisco: [null],
+      nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
+      descricao: [null]
     })
   }
-}
+  cadastrar(){
+    console.log('oi to no cadastrar')
+    const modalRef =  this.modalService.open(CadastroFatoresComponent);
+    modalRef.componentInstance.formulario = this.formularioCadastro;
+      modalRef.result.then((result) => {
+        if (result) {
+          console.log(result);
+        }
+      })
+
+    console.log('oi to no cadastrar 2')
+  }
+  atualizar() {
+    const modalRef =  this.modalService.open(CadastroFatoresComponent);
+    if(this.formularioAtualizar != null){
+      modalRef.componentInstance.formulario = this.formularioAtualizar;
+      modalRef.result.then((result) => {
+        if (result) {
+          console.log(result);
+        }
+      })
+    }
+  }
+  editar(id:number){
+    this.fatoresService.getById(id).subscribe((fatores) => {
+      console.log(fatores);
+      this.updateForm(fatores);
+      console.log(this.formularioAtualizar)
+      if(this.formularioAtualizar != null){
+          this.atualizar();
+      }
+    })
+  }
+  updateForm(fatores: Fatores){
+
+    this.formularioAtualizar.patchValue({
+      idFatorRisco: fatores.idFatorRisco,
+      nome:fatores.nome,
+      descricao: fatores.descricao
+    })
+  }
+  loadListaFatores() {
+    this.fatoresService.getAll()
+    .subscribe(
+      data => {
+        this.lista = data;
+        console.log(data);
+      },
+      error => {
+        console.log('Erro serviço ' + error)
+      })
+    }
+  }

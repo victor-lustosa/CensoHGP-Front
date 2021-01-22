@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, ViewEncapsulation, Output, EventEmitter } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Fatores } from '../model/fatores';
+import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { FatorRiscoService } from '../service/fator-risco.service';
 
 @Component({
@@ -11,33 +10,33 @@ import { FatorRiscoService } from '../service/fator-risco.service';
   encapsulation: ViewEncapsulation.None
 })
 export class CadastroFatoresComponent implements OnInit {
-  @Input() public id: number;
+  @Input() public formulario: FormGroup;
   @Output() passEntry: EventEmitter<any> = new EventEmitter();
-  formulario: FormGroup;
+
   errors: String[];
   sucesso: boolean = false;
   constructor(
-    public activeModal: NgbActiveModal,private fatoresService: FatorRiscoService,
-    private formBuilder: FormBuilder
+    public activeModal: NgbActiveModal,private fatoresService: FatorRiscoService, private formBuilder: FormBuilder
   ) { }
 
   ngOnInit(): void {
-    console.log('id recebido no cadastro modal:' + this.id);
-    this.formulario = this.formBuilder.group({
-      idFatorRisco: [null],
-      nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
-      descricao: [null]
-    })
+    console.log('id recebido no cadastro modal:' + this.formulario.get('idFatorRisco').value);
   }
-
   ppassBack() {
+    if(this.formulario.value != null){
+      this.formulario = this.formBuilder.group({
+        idFatorRisco: [null],
+        nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
+        descricao: [null]
+      })
+    }
     this.activeModal.close();
   }
   saveFatores() {
     // editar um Fator de risco
     if (this.formulario.valid) {
-      console.log('save fatores id fator de risco do formulario: '+this.formulario.value.idFatorRisco +'id injetado pelo modal: '+ this.id)
-      if ( this.id != 0) {
+      console.log('save fatores id fator de risco do formulario: '+this.formulario.value.idFatorRisco +'id injetado pelo modal: '+ this.formulario.get('idFatorRisco').value)
+      if ( this.formulario.get('idFatorRisco').value != null) {
         this.fatoresService.update(this.formulario.value)
         .subscribe(
           sucess => {
@@ -68,18 +67,5 @@ export class CadastroFatoresComponent implements OnInit {
             })
           }
         }
-      }
-      updateForm(fatores: Fatores){
-        this.formulario.patchValue({
-          idFatorRisco: fatores.idFatorRisco,
-          nome:fatores.nome,
-          descricao: fatores.descricao
-        })
-      }
-
-      editar(id:number){
-        this.fatoresService.getById(id).subscribe((fatores) => {
-          this.updateForm(fatores)
-        });
       }
     }
