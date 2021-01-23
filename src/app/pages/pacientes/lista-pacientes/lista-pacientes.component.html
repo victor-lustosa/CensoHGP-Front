@@ -20,19 +20,16 @@
     <table class="table table-hover">
       <thead>
         <tr>
-
           <th scope="col">Prontuário</th>
           <th scope="col">Nome</th>
           <th scope="col">CPF</th>
           <th scope="col">RG</th>
           <th scope="col">Data de Nascimento</th>
           <th scope="col"></th>
-
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let user of tableData|slice: (page-1) * pageSize : page * pageSize">
-
           <td>{{user.prontuario}}</td>
           <td>{{user.nome}}</td>
           <td>{{user.cpf}}</td>

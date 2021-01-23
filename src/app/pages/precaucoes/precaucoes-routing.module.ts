@@ -8,10 +8,6 @@ const routes: Routes = [
       {
         path: 'precaucoes',
         loadChildren: () => import('./lista-precaucoes/lista-precaucoes.module').then(module => module.ListaPrecaucoesModule)
-      },
-      {
-        path: 'cadastro-precaucoes',
-        loadChildren: () => import('./cadastro-precaucoes/cadastro-precaucoes.module').then(module => module.CadastroPrecaucoesModule)
       }
     ]
   }

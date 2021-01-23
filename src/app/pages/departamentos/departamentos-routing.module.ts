@@ -9,10 +9,6 @@ const routes: Routes = [
       {
         path: 'departamentos',
         loadChildren: () => import('./lista-departamentos/lista-departamentos.module').then(module => module.ListaDepartamentosModule)
-      },
-      {
-        path: 'cadastro-departamentos',
-        loadChildren: () => import('./cadastro-departamentos/cadastro-departamentos.module').then(module => module.CadastroDepartamentosModule)
       }
     ]
   }

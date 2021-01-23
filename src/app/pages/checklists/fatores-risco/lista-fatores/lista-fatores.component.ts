@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FatorRiscoService } from '../service/fator-risco.service';
 import { Fatores } from '../model/fatores';
-import { NgbModal, NgbModalOptions, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { CadastroFatoresComponent } from '../cadastro-fatores/cadastro-fatores.component';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 

@@ -6,18 +6,18 @@
           <div class="form-group col-md-3" style="margin-left:62%">
             <input type="text"  class="form-control" name="pesquisa" [(ngModel)]="searchText" placeholder="pesquisar">
           </div>
-            <div>
-              <button style="margin-left:-14%;" class="btn btn-outline-warning">Limpar</button>
-            </div>
-            <div>
-              <button type="submit" class="btn btn-outline-primary">Cadastrar</button>
-            </div>
+          <div>
+            <button style="margin-left:-14%;" type="reset" class="btn btn-outline-warning" (click)="limpar()">Limpar</button>
+          </div>
+          <div>
+            <button  style="margin-left:1%;" type="button" class="btn btn-outline-primary"  (click)="cadastrar()" >Cadastrar</button>
+          </div>
           </div>
         <div class="table-responsive">
           <table id="myTable" class="table table-hover">
             <thead>
               <tr>
-                <th scope="col">#</th>
+
                 <th scope="col">Nome</th>
                 <th scope="col">Nº de leitos</th>
                 <th scope="col">Status</th>
@@ -28,7 +28,7 @@
             </thead>
             <tbody>
               <tr *ngFor="let departamento of lista | slice: (page-1) * pageSize : page * pageSize">
-                <th>{{departamento.idDepartamento}}</th>
+              
                 <td>{{departamento.nome}}</td>
                 <td>{{departamento.numero_leitos}}</td>
                 <td>{{departamento.ativo ? 'ativo':'inativo'}}</td>
@@ -36,7 +36,7 @@
 
                 <td class="text-right">
 
-                  <button type="button" class="btn btn-icon btn-warning" style="font-size: 13px; margin-right: 2%;"><i
+                  <button type="button" class="btn btn-icon btn-warning" style="font-size: 13px; margin-right: 2%;" (click)="editar(departamento.idDepartamento)"><i
                     class="feather icon-edit"></i> Editar</button>
 
                     <button type="button" class="btn btn-icon btn-info" style="font-size: 13px;  margin-right: 2%;"> {{departamento.ativo ? 'Desativar' : 'Ativar'}}</button>

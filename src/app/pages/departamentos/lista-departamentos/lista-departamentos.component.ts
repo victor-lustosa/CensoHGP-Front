@@ -2,45 +2,95 @@
 import { Component, OnInit } from '@angular/core';
 import { Departamentos } from './../model/departamentos';
 import { DepartamentoService} from './../service'
-
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CadastroDepartamentosComponent } from '../cadastro-departamentos/cadastro-departamentos.component';
 @Component({
   selector: 'app-lista-departamentos',
   templateUrl: './lista-departamentos.component.html',
   styleUrls: ['./lista-departamentos.component.scss']
 })
 export class ListaDepartamentosComponent implements OnInit {
+  formularioCadastro:FormGroup =null;
+  formularioAtualizar:FormGroup =null;
   status: boolean;
   searchText:string;
-  arrayPageSize:any[] = [];
   lista:Departamentos[] = [];
   msgError: string;
   pageSize:number = 10;
   page:number = 1;
-  constructor(private departamentoService: DepartamentoService) { }
+
+  constructor(private departamentosService: DepartamentoService,
+    public modalService: NgbModal, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-    this.loadListaDepartamentos();
     this.msgError= null;
-  }
-  // Chama o serviço para obtém todas os Departamentos
-  loadListaDepartamentos() {
-    this.departamentoService.getAll().subscribe(
-      data => {
-        this.lista = data,
-        console.log(data)}
 
-    )
+    this.loadListaDepartamentos();
+    this.formularioCadastro = this.formBuilder.group({
+      idDepartamento: [null],
+      nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
+      numero_leitos: [null, [Validators.required]],
+      ativo: [true],
+      tipodepartamento:[1],
+      descricao:[null]
+    })
+
+    this.formularioAtualizar = this.formBuilder.group({
+      idDepartamento: [null],
+      nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
+      numero_leitos: [null, [Validators.required]],
+      ativo: [true],
+      tipodepartamento:[1],
+      descricao:[null]
+    })
   }
-  // deleta uma Departamento
-  public desativarDepartamento(id:number) {
-    this.departamentoService.disable(id).subscribe(
-      (sucesso) => {
-        console.log(sucesso);
-      },
-      error => {
-        this.msgError = error;
-        console.log("error deleteDepartamento ListaDepartamentoComponent : " + error);
-      });
+  limpar(){
+      this.searchText = '';
+      return this.searchText;
+  }
+  cadastrar(){
+    const modalRef =  this.modalService.open(CadastroDepartamentosComponent, { size: 'lg' });
+    modalRef.componentInstance.formulario = this.formularioCadastro;
+
+  }
+  atualizar() {
+    const modalRef = this.modalService.open(CadastroDepartamentosComponent, { size: 'lg' });
+    if(this.formularioAtualizar != null){
+      modalRef.componentInstance.formulario = this.formularioAtualizar;
     }
 
+  }
+  editar(id:number){
+    this.departamentosService.getById(id).subscribe((departamentos) => {
+      console.log(departamentos);
+      this.updateForm(departamentos);
+      console.log(this.formularioAtualizar)
+      if(this.formularioAtualizar != null){
+        this.atualizar();
+      }
+    })
+  }
+  updateForm(departamentos: Departamentos){
+
+    this.formularioAtualizar.patchValue({
+      idDepartamento: departamentos.idDepartamento,
+      nome:departamentos.nome,
+      numero_leitos: departamentos.numero_leitos,
+      ativo: departamentos.ativo,
+      tipodepartamento: departamentos.tipodepartamento,
+      descricao: departamentos.descricao
+    })
+  }
+  loadListaDepartamentos() {
+    this.departamentosService.getAll()
+    .subscribe(
+      data => {
+        this.lista = data;
+        console.log(data);
+      },
+      error => {
+        console.log('Erro serviço ' + error)
+      })
+    }
   }

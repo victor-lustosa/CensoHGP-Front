@@ -1,1 +1,37 @@
-<p>cadastro-departamentos works!</p>
+<div class="modal-content"  >
+  <div class="modal-header">
+    <h5  class="modal-title">Cadastro Departamentos </h5>
+  </div>
+  <div class="col-md-12">
+    <app-alert type="primary" *ngIf="sucesso == true">salvo com sucesso</app-alert>
+  </div>
+  <div class="modal-body">
+    <form  [formGroup]="formulario" >
+
+      <label for="nome">Nome:</label>
+      <input  id="nome" formControlName="nome" class="form-control" aria-describedby="nomeHelp"
+      placeholder="Digite o nome do procedimento">
+      <br>
+      <label for="numero_leitos">Número de leitos:</label>
+      <input  id="numero_leitos" formControlName="numero_leitos" class="form-control" aria-describedby="numeroLeitosHelp"
+      placeholder="Digite o numero de leitos">
+      <br>
+      <label for="tipodepartamento" class="control-label">Tipo de Departamento:</label>
+      <div id="tipodepartamento" class="row">
+        <div class="col-sm-4" *ngFor="let item of tipoDepartamentoRadio">
+          <label class="radio-inline">
+            <input type="radio" [value]="item.valor" formControlName="tipodepartamento" /> {{ item.desc }}
+          </label>
+        </div>
+      </div>
+      <br>
+     <label for="descricao">Descrição:</label>
+      <textarea placeholder="Digite uma descrição" class="form-control" id="descricao" formControlName="descricao" rows="5"></textarea>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <div style="margin-left: 200px;">
+      <button type="submit" class="btn btn-primary" style="margin-left:-16%; font-size: 16px;"(click)="saveDepartamentos()">Salvar</button>
+    </div>
+  </div>
+</div>

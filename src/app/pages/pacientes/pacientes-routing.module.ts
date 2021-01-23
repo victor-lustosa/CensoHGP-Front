@@ -9,10 +9,6 @@ const routes: Routes = [
       {
         path: 'pacientes',
         loadChildren: () => import('./lista-pacientes/lista-pacientes.module').then(module => module.ListaPacientesModule)
-      },
-      {
-        path: 'cadastro-pacientes',
-        loadChildren: () => import('./cadastro-pacientes/cadastro-pacientes.module').then(module => module.CadastroPacientesModule)
       }
     ]
   }
