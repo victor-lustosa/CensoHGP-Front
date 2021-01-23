@@ -26,7 +26,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let incidentes of lista | filter: searchText " >
+            <tr *ngFor="let incidentes of lista | filter: searchText | slice: (page-1) * pageSize : page * pageSize">
               <td>{{incidentes.nome}}</td>
               <td>{{incidentes.descricao}}</td>
               <td class="text-right">

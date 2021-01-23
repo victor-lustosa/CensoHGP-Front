@@ -45,7 +45,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let user of tableData">
+            <tr *ngFor="let user of tableData | slice: (page-1) * pageSize : page * pageSize">
               <th>{{user.userId}}</th>
               <td>{{user.nome}}</td>
               <td>{{user.matricula}}</td>
@@ -62,8 +62,12 @@
 
           </tbody>
         </table>
-        <ngb-pagination [collectionSize]="50" [(page)]="tableData" aria-label="Default pagination"  class="d-flex justify-content-end"></ngb-pagination>
-      </div>
+        </div>
+        <ngb-pagination
+        class="d-flex justify-content-center"
+        [(page)]="page"
+        [pageSize]="pageSize"
+        [collectionSize]="tableData.length"></ngb-pagination>
     </app-card>
   </div>
 </div>

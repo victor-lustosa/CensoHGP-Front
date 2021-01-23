@@ -6,6 +6,6 @@ export interface CrudInterface<T>{
   create(object : T):void,
 
   update(object: T):void,
-  
-  delete(id: number): void
+
+  disable(id: number): void
 }

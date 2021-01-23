@@ -8,9 +8,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./lista-pacientes.component.scss']
 })
 export class ListaPacientesComponent implements OnInit {
-
+  searchText:string = '';
   formulario: FormGroup;
- @Input('data')  tableData = [
+  page:number= 1;
+  pageSize:number =10;
+  sucesso:boolean = false;
+  @Input('data')  tableData = [
     { userId: 1, prontuario: '3493824', nome: 'Maria', cpf: '23432435471', rg: '1321545', dataNascimento: '12-03-1996' },
     { userId: 2, prontuario: '3493824', nome: 'Iury', cpf: '21354687356', rg: '326491', dataNascimento: '17-01-1997'  },
     { userId: 3, prontuario: '3493824', nome: 'Guilherme', cpf: '3654863213', rg: '9364384', dataNascimento: '20-02-1997'  },
@@ -60,19 +63,6 @@ export class ListaPacientesComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  itemsPerPage: number;
-  totalItems: any;
-  size: any;
-  page: any;
-  previousPage: any;
-    loadPage(page: number) {
-    if (page !== this.previousPage) {
-      this.previousPage = page;
-      page= this.page - 1;
-      this.size= this.itemsPerPage;
-    }
-  }
-
 
   novoCadastro() {
     this.router.navigate(['/usuarios/cadastro-usuarios']);

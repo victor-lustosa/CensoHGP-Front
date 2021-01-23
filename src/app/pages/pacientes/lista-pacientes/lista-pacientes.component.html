@@ -1,76 +1,68 @@
 <div class="row">
   <div class="col-md-12">
     <app-card cardTitle="Consulta de Pacientes" blockClass="table-border-style">
-      <form id="add-form" (ngSubmit)="pesquisar()" [formGroup]="formulario" novalidate>
         <div class="row">
-          <div class="col-md-4" style="margin-left: 54%;">
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <button class="btn btn-outline-primary" type="button"><i class="fa fa-search"></i> Consultar</button>
+          <div class="form-group col-md-3" style="margin-left:62%">
+            <input type="text"  class="form-control" name="pesquisa" [(ngModel)]="searchText" placeholder="pesquisar">
+          </div>
+          <div>
+            <button style="margin-left:-14%;" type="reset" class="btn btn-outline-warning" >Limpar</button>
+          </div>
+          <div>
+            <button  style="margin-left:1%;" type="button" class="btn btn-outline-primary"  >Cadastrar</button>
+          </div>
+
+          <div class="col-md-6">
+            <app-alert type="primary" *ngIf="sucesso == true">salvo com sucesso</app-alert>
+          </div>
+        </div>
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+
+          <th scope="col">Prontuário</th>
+          <th scope="col">Nome</th>
+          <th scope="col">CPF</th>
+          <th scope="col">RG</th>
+          <th scope="col">Data de Nascimento</th>
+          <th scope="col"></th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of tableData|slice: (page-1) * pageSize : page * pageSize">
+
+          <td>{{user.prontuario}}</td>
+          <td>{{user.nome}}</td>
+          <td>{{user.cpf}}</td>
+          <td>{{user.rg}}</td>
+          <td>{{user.dataNascimento}}</td>
+          <td class="text-right">
+            <button type="button" class="btn btn btn-primary" style="font-size: 12px;  margin-right: 2%;"><i
+              class="feather icon-check-square"></i> Checklist</button>
+
+              <button type="button" class="btn btn btn-warning" style="font-size: 12px; width:90px; margin-right: 2%;"><i
+                class="feather icon-edit"></i> Editar</button>
+
+                <button type="button" class="btn btn-info" style="font-size: 12px; margin-right: 2%;"><i
+                  class="feather icon-external-link"></i> Transferência</button>
+
+                  <button type="button" class="btn  btn-secondary" style="font-size: 12px;  margin-right: 2%;"><i
+                    class="feather icon-clipboard"></i> Histórico checklist</button>
+
+                    <button type="button" class="btn btn btn-dark" style="font-size: 12px; margin-right: 2%;"><i
+                      class="feather icon-file-text"></i> Histórico Transferencia</button>
+
+                    </td>
+                  </tbody>
+                </table>
+                <ngb-pagination
+                class="d-flex justify-content-center"
+                [(page)]="page"
+                [pageSize]="pageSize"
+                [collectionSize]="tableData.length"></ngb-pagination>
               </div>
-              <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
-            </div>
-          </div>
-          <div>
-            <button style="margin-left:-14%;" type="submit" class="btn btn-outline-warning">Limpar</button>
-          </div>
-          <div>
-            <button type="submit" class="btn btn-outline-info" (click)="novoCadastro()">Cadastrar</button>
+            </app-card>
           </div>
         </div>
-
-        <div style="margin-left: 78%;" class="input-group mb-3">
-          <h6 class="mt-1">filtrar por:</h6>
-
-        </div>
-
-      </form>
-      <div class="table-responsive">
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Prontuário</th>
-              <th scope="col">Nome</th>
-              <th scope="col">CPF</th>
-              <th scope="col">RG</th>
-              <th scope="col">Data de Nascimento</th>
-              <th scope="col"></th>
-
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let user of tableData">
-              <th>{{user.userId}}</th>
-              <td>{{user.prontuario}}</td>
-              <td>{{user.nome}}</td>
-              <td>{{user.cpf}}</td>
-              <td>{{user.rg}}</td>
-              <td>{{user.dataNascimento}}</td>
-              <td class="text-right">
-                <button type="button" class="btn btn-icon btn-warning" style="font-size: 13px; margin-right: 2%;"><i
-                    class="feather icon-edit"></i> Editar</button>
-
-                <button type="button" class="btn btn-icon btn-primary" style="font-size: 13px;  margin-right: 2%;"><i
-                    class="feather icon-check-square"></i> Checklist</button>
-
-                <button type="button" class="btn btn-icon btn-info" style="font-size: 13px; margin-right: 2%;"><i
-                    class="feather icon-external-link"></i> Transferencia</button>
-
-                <button type="button" class="btn btn-icon btn-secondary" style="font-size: 13px;  margin-right: 2%;"><i
-                    class="feather icon-clipboard"></i> Historico checklist</button>
-
-                <button type="button" class="btn btn-icon btn-dark" style="font-size: 13px;"><i
-                    class="feather icon-file-text"></i> Histórico Transferencia</button>
-
-              </td>
-
-          </tbody>
-        </table>
-        <ngb-pagination
-         [collectionSize]="tableData.length" aria-label="Default pagination" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="7"  (pageChange)="loadPage($event)"
-          class="d-flex justify-content-end"></ngb-pagination>
-      </div>
-    </app-card>
-  </div>
-</div>

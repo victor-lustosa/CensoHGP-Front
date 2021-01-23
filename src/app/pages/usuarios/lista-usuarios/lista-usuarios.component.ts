@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 })
 export class ListaUsuariosComponent implements OnInit {
   formulario: FormGroup;
+  pageSize = 10;
+  page = 1;
   tableData = [
     { userId: 1, nome: 'Fabio', matricula: '2343243', email: 'fabio@gmail.com', status: true, tipo: 'Administrador'},
     { userId: 2, nome: 'Fabricio', matricula: '213152', email: 'fabricio@gmail.com', status: true, tipo: 'Administrador'},
