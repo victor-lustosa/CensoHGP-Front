@@ -1,1 +1,45 @@
-<p>lista-procedimentos works!</p>
+<div class="row">
+  <div class="col-md-12">
+    <app-card cardTitle="Consulta de Procedimentos" blockClass="table-border-style">
+      <div class="row">
+        <div class="form-group col-md-3" style="margin-left:62%">
+          <input type="text"  class="form-control" name="pesquisa" [(ngModel)]="searchText" placeholder="pesquisar">
+        </div>
+        <div>
+          <button style="margin-left:-14%;" type="reset" class="btn btn-outline-warning" (click)="limpar()">Limpar</button>
+        </div>
+        <div>
+          <button  style="margin-left:1%;" type="button" class="btn btn-outline-primary"  (click)="cadastrar()" >Cadastrar</button>
+        </div>
+
+        <div class="col-md-6">
+          <app-alert type="primary" *ngIf="sucesso == true">salvo com sucesso</app-alert>
+        </div>
+      </div>
+      <div class="table-responsive" >
+        <table class="table table-hover"  *ngIf="(lista | filter: searchText).length > 0; else noResults">
+          <thead>
+            <tr>
+              <th scope="col">Nome</th>
+              <th scope="col">descrição</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let procedimentos of lista | filter: searchText " >
+              <td>{{procedimentos.nome}}</td>
+              <td>{{procedimentos.descricao}}</td>
+              <td class="text-right">
+                <button type="button"  (click)="editar(procedimentos.idProcedimento)" class="btn btn-icon btn-warning"
+                style="font-size: 13px; margin-right: 2%;"><i
+                class="feather icon-edit"></i> Editar</button>
+              </td>
+            </tbody>
+          </table>
+          <ng-template #noResults>
+            <p>0 resultados encontrados para "{{searchText}}".</p>
+          </ng-template>
+        </div>
+      </app-card>
+    </div>
+  </div>

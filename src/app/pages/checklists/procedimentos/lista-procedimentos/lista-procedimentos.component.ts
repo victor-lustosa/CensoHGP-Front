@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { ProcedimentoService } from '../service/procedimento.service';
+import { Procedimentos } from '../model/procedimentos';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CadastroProcedimentosComponent } from '../cadastro-procedimentos/cadastro-procedimentos.component';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-lista-procedimentos',
@@ -6,10 +11,74 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./lista-procedimentos.component.scss']
 })
 export class ListaProcedimentosComponent implements OnInit {
+  formularioCadastro:FormGroup =null;
+  formularioAtualizar:FormGroup =null;
+  idFator:number = 0;
+  status: boolean;
+  lista: Procedimentos[];
+  msgError: string;
+  sucesso: boolean = false;
+  searchText: string;
 
-  constructor() { }
+  constructor(private procedimentosService: ProcedimentoService,  public modalService: NgbModal, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
+    this.msgError= null;
+    this.loadListaProcedimentos();
+    this.formularioCadastro = this.formBuilder.group({
+      idProcedimento: [null],
+      nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
+      descricao: [null]
+    })
+    this.formularioAtualizar = this.formBuilder.group({
+      idProcedimento: [null],
+      nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
+      descricao: [null]
+    })
   }
+  limpar(){
+      this.searchText = '';
+      return this.searchText;
+  }
+  cadastrar(){
+    const modalRef =  this.modalService.open(CadastroProcedimentosComponent, { size: 'lg' });
+    modalRef.componentInstance.formulario = this.formularioCadastro;
+    this.loadListaProcedimentos();
+  }
+  atualizar() {
+    const modalRef = this.modalService.open(CadastroProcedimentosComponent, { size: 'lg' });
+    if(this.formularioAtualizar != null){
+      modalRef.componentInstance.formulario = this.formularioAtualizar;
+    }
+    this.loadListaProcedimentos();
+  }
+  editar(id:number){
+    this.procedimentosService.getById(id).subscribe((procedimentos) => {
+      console.log(procedimentos);
+      this.updateForm(procedimentos);
+      console.log(this.formularioAtualizar)
+      if(this.formularioAtualizar != null){
+        this.atualizar();
+      }
+    })
+  }
+  updateForm(procedimentos: Procedimentos){
 
-}
+    this.formularioAtualizar.patchValue({
+      idProcedimento: procedimentos.idProcedimento,
+      nome:procedimentos.nome,
+      descricao: procedimentos.descricao
+    })
+  }
+  loadListaProcedimentos() {
+    this.procedimentosService.getAll()
+    .subscribe(
+      data => {
+        this.lista = data;
+        console.log(data);
+      },
+      error => {
+        console.log('Erro serviço ' + error)
+      })
+    }
+  }

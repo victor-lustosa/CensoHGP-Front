@@ -1,10 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './theme/shared/shared.module';
-
 import { AppComponent } from './app.component';
 import { AdminComponent } from './theme/layout/admin/admin.component';
 import { AuthComponent } from './theme/layout/auth/auth.component';
@@ -19,7 +17,6 @@ import { NavSearchComponent } from './theme/layout/admin/nav-bar/nav-left/nav-se
 import { NavRightComponent } from './theme/layout/admin/nav-bar/nav-right/nav-right.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ConfigurationComponent } from './theme/layout/admin/configuration/configuration.component';
-
 import { ToggleFullScreenDirective } from './theme/shared/full-screen/toggle-full-screen';
 
 /* Menu Items */

@@ -1,5 +1,5 @@
 import { Injectable, Inject } from "@angular/core";
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse, HttpParams } from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
 import { CrudInterface } from './crud-interface';
 import { retry, catchError } from 'rxjs/operators';
@@ -11,8 +11,9 @@ export class CRUD<T> implements CrudInterface<T>{
   constructor(private http: HttpClient,@Inject(String) private API_URL: string){}
 
   getByNome(object: T): Observable<T[]> {
-    console.log('get by nome do crud: '+`${this.API_URL}`)
-    return this.http.get<T[]>( `${this.API_URL}`, object).pipe(retry(1), catchError(this.handleError));
+    const urlApi:string = (this.API_URL + '/nome/')
+      console.log('get by nome do crud: '+urlApi + "/"+ object)
+    return this.http.get<T[]>( urlApi + object, object).pipe(retry(1), catchError(this.handleError));
   }
 
   getAll(): Observable<T[]> {
