@@ -11,7 +11,7 @@ import { Location } from '@angular/common';
 })
 export class CadastroFatoresComponent implements OnInit {
   @Input() public formulario: FormGroup;
-  @Input() containerClick = false;
+
 
   errors: String[];
   sucesso: boolean = false;
@@ -38,7 +38,7 @@ export class CadastroFatoresComponent implements OnInit {
               this.formulario.reset(),
               setTimeout(() => {
                 location.reload();
-              }, 2000);
+              }, 1000);
             },
             errorResponse => {
               console.log('Erro ao atualizar fatores de risco, servico ' + errorResponse)
