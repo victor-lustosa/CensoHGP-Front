@@ -1,8 +1,9 @@
-import { Component, OnInit, Input} from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormBuilder} from '@angular/forms';
+import { Component, OnInit, Input, Output} from '@angular/core';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormGroup} from '@angular/forms';
 import { FatorRiscoService } from '../service/fator-risco.service';
 import { Location } from '@angular/common';
+
 @Component({
   selector: 'app-cadastro-fatores',
   templateUrl: './cadastro-fatores.component.html',
@@ -11,17 +12,17 @@ import { Location } from '@angular/common';
 })
 export class CadastroFatoresComponent implements OnInit {
   @Input() public formulario: FormGroup;
-  @Input() containerClick = false;
-
+  containerClick = false;
   errors: String[];
   sucesso: boolean = false;
+
   constructor(
-    public activeModal: NgbActiveModal,private fatoresService: FatorRiscoService, private formBuilder: FormBuilder
-    , location:Location) { }
+    public activeModal: NgbActiveModal,public modalService: NgbModal, private fatoresService: FatorRiscoService, location:Location) { }
 
     ngOnInit(): void {
       console.log('id recebido no cadastro modal:' + this.formulario.get('idFatorRisco').value);
     }
+
 
     saveFatores() {
       // editar um Fator de risco
@@ -32,13 +33,12 @@ export class CadastroFatoresComponent implements OnInit {
           .subscribe(
             sucess => {
               this.formulario,
-              this.sucesso = true
               console.log(sucess),
-              console.log('fator salvo com sucesso'),
+              this.sucesso = true,
               this.formulario.reset(),
               setTimeout(() => {
-                location.reload();
-              }, 2000);
+                this.activeModal.close();
+              }, 1000)
             },
             errorResponse => {
               console.log('Erro ao atualizar fatores de risco, servico ' + errorResponse)
@@ -52,11 +52,10 @@ export class CadastroFatoresComponent implements OnInit {
                 console.log(sucess),
                 this.formulario,
                 this.sucesso = true,
-                console.log('fator salvo com sucesso'),
+                this.formulario.reset(),
                 setTimeout(() => {
-                  location.reload();
-                }, 2000);
-
+                  this.activeModal.close();
+                }, 1000)
               },
               errorResponse => {
                 console.log('Erro no salvar fatores de risco, servico ' + errorResponse)
@@ -65,7 +64,4 @@ export class CadastroFatoresComponent implements OnInit {
             }
           }
         }
-
-
-
       }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FatorRiscoService } from '../service/fator-risco.service';
 import { Fatores } from '../model/fatores';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { CadastroFatoresComponent } from '../cadastro-fatores/cadastro-fatores.component';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
@@ -20,7 +20,7 @@ export class ListaFatoresComponent implements OnInit {
   msgError: string;
   sucesso: boolean = false;
   searchText: string;
-
+  closeResult: string;
   constructor(private fatoresService: FatorRiscoService,  public modalService: NgbModal, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
@@ -38,20 +38,29 @@ export class ListaFatoresComponent implements OnInit {
     })
   }
   limpar(){
-      this.searchText = '';
-      return this.searchText;
+    this.searchText = '';
+    return this.searchText;
   }
   cadastrar(){
-    const modalRef =  this.modalService.open(CadastroFatoresComponent, { size: 'lg' });
+    let ngbModalOptions: NgbModalOptions = {
+      backdrop : 'static',
+      keyboard : true,
+      size : 'lg'
+    };
+    const modalRef = this.modalService.open(CadastroFatoresComponent, ngbModalOptions)
     modalRef.componentInstance.formulario = this.formularioCadastro;
-    this.loadListaFatores();
   }
+
   atualizar() {
-    const modalRef = this.modalService.open(CadastroFatoresComponent, { size: 'lg' });
+    let ngbModalOptions: NgbModalOptions = {
+      backdrop : 'static',
+      keyboard : true,
+      size : 'lg'
+    };   
+    const modalRef = this.modalService.open(CadastroFatoresComponent, ngbModalOptions);
     if(this.formularioAtualizar != null){
       modalRef.componentInstance.formulario = this.formularioAtualizar;
     }
-    this.loadListaFatores();
   }
   editar(id:number){
     this.fatoresService.getById(id).subscribe((fatores) => {
@@ -64,7 +73,6 @@ export class ListaFatoresComponent implements OnInit {
     })
   }
   updateForm(fatores: Fatores){
-
     this.formularioAtualizar.patchValue({
       idFatorRisco: fatores.idFatorRisco,
       nome:fatores.nome,
