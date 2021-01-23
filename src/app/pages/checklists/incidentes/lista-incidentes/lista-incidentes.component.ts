@@ -19,7 +19,8 @@ export class ListaIncidentesComponent implements OnInit {
   msgError: string;
   sucesso: boolean = false;
   searchText: string;
-
+  pageSize = 10;
+  page = 1;
   constructor(private incidentesService: IncidenteService,  public modalService: NgbModal, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {

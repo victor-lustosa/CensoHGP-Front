@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FatorRiscoService } from '../service/fator-risco.service';
 import { Fatores } from '../model/fatores';
-import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalOptions, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { CadastroFatoresComponent } from '../cadastro-fatores/cadastro-fatores.component';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
@@ -20,7 +20,8 @@ export class ListaFatoresComponent implements OnInit {
   msgError: string;
   sucesso: boolean = false;
   searchText: string;
-  closeResult: string;
+  pageSize = 10;
+  page = 1;
   constructor(private fatoresService: FatorRiscoService,  public modalService: NgbModal, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
@@ -49,6 +50,7 @@ export class ListaFatoresComponent implements OnInit {
     };
     const modalRef = this.modalService.open(CadastroFatoresComponent, ngbModalOptions)
     modalRef.componentInstance.formulario = this.formularioCadastro;
+
   }
 
   atualizar() {
@@ -56,11 +58,12 @@ export class ListaFatoresComponent implements OnInit {
       backdrop : 'static',
       keyboard : true,
       size : 'lg'
-    };   
+    };
     const modalRef = this.modalService.open(CadastroFatoresComponent, ngbModalOptions);
     if(this.formularioAtualizar != null){
       modalRef.componentInstance.formulario = this.formularioAtualizar;
     }
+
   }
   editar(id:number){
     this.fatoresService.getById(id).subscribe((fatores) => {

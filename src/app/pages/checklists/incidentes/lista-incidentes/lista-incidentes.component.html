@@ -36,6 +36,11 @@
               </td>
             </tbody>
           </table>
+          <ngb-pagination
+          class="d-flex justify-content-center"
+          [(page)]="page"
+          [pageSize]="pageSize"
+          [collectionSize]="lista.length"></ngb-pagination>
           <ng-template #noResults>
             <p>0 resultados encontrados para "{{searchText}}".</p>
           </ng-template>
