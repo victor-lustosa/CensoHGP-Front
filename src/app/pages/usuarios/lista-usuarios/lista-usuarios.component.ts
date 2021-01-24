@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { Usuario } from '../model/usuario';
+import { UsuariosService } from '../service/usuarios.service';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+import { CadastroUsuariosComponent } from '../cadastro-usuarios/cadastro-usuarios.component';
 
 @Component({
   selector: 'app-lista-usuarios',
@@ -8,24 +11,93 @@ import { Router } from '@angular/router';
   styleUrls: ['./lista-usuarios.component.scss']
 })
 export class ListaUsuariosComponent implements OnInit {
-  formulario: FormGroup;
+  formularioCadastro:FormGroup =null;
+  formularioAtualizar:FormGroup =null;
+  idFator:number = 0;
+  status: boolean;
+  lista: Usuario[]=[];
+  msgError: string;
+  sucesso: boolean = false;
+  searchText: string;
   pageSize = 10;
   page = 1;
-  tableData = [
-    { userId: 1, nome: 'Fabio', matricula: '2343243', email: 'fabio@gmail.com', status: true, tipo: 'Administrador'},
-    { userId: 2, nome: 'Fabricio', matricula: '213152', email: 'fabricio@gmail.com', status: true, tipo: 'Administrador'},
-    { userId: 3, nome: 'Julio', matricula: '6875231', email: 'julio@gmail.com', status: true, tipo: 'Enfermeiro'},
-    { userId: 4, nome: 'Marcio', matricula: '54623232', email: 'marcio@gmail.com', status: false, tipo: 'Enfermeiro'},
-    { userId: 5, nome: 'Alberto', matricula: '6543212', email: 'alberto@gmail.com', status: true, tipo: 'Enfermeiro'},
-    { userId: 6, nome: 'Luiz', matricula: '7789541', email: 'luiz@gmail.com', status: true, tipo: 'Enfermeiro'}
-  ];
-  constructor(private router: Router) { }
+  constructor(private usuariosService: UsuariosService,  public modalService: NgbModal, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
+    this.msgError= null;
+    this.loadListaUsuarios();
+    this.formularioCadastro = this.formBuilder.group({
+      idUsuario: [null],
+      nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
+      email: [null,[Validators.required, Validators.minLength(7), Validators.maxLength(40)]],
+      matricula: [null, [Validators.required]],
+      ativo: [true],
+      senha: [null,[Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
+      tipousuario:[null]
+    })
+    this.formularioAtualizar = this.formBuilder.group({
+      idUsuario: [null],
+      nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
+      email: [null,[Validators.required, Validators.minLength(7), Validators.maxLength(40)]],
+      matricula: [null, [Validators.required]],
+      ativo: [true],
+      senha: [null,[Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
+      tipousuario:[null]
+    })
   }
-  novoCadastro() {
-    this.router.navigate(['/usuarios/cadastro-usuarios']);
+  limpar(){
+    this.searchText = '';
+    return this.searchText;
   }
-  pesquisar() {
+  cadastrar(){
+    let ngbModalOptions: NgbModalOptions = {
+      keyboard : true,
+      size : 'lg'
+    };
+    const modalRef = this.modalService.open(CadastroUsuariosComponent, ngbModalOptions)
+    modalRef.componentInstance.formulario = this.formularioCadastro;
   }
-}
+
+  atualizar() {
+    let ngbModalOptions: NgbModalOptions = {
+      keyboard : true,
+      size : 'lg'
+    };
+    const modalRef = this.modalService.open(CadastroUsuariosComponent, ngbModalOptions);
+    if(this.formularioAtualizar != null){
+      modalRef.componentInstance.formulario = this.formularioAtualizar;
+    }
+  }
+  editar(id:number){
+    this.usuariosService.getById(id).subscribe((usuarios) => {
+      console.log(usuarios);
+      this.updateForm(usuarios);
+      console.log(this.formularioAtualizar)
+      if(this.formularioAtualizar != null){
+        this.atualizar();
+      }
+    })
+  }
+  updateForm(usuarios: Usuario){
+    this.formularioAtualizar.patchValue({
+      idUsuario: usuarios.idUsuario,
+      nome: usuarios.nome,
+      email: usuarios.email,
+      matricula: usuarios.matricula,
+      ativo: usuarios.ativo,
+      senha: usuarios.senha,
+      tipousuario:usuarios.tipousuario
+    })
+  }
+  loadListaUsuarios() {
+    this.usuariosService.getAll()
+    .subscribe(
+      data => {
+        this.lista = data;
+        console.log(data);
+      },
+      error => {
+        console.log('Erro serviço ' + error)
+      })
+    }
+  }

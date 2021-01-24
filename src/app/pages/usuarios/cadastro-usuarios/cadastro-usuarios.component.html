@@ -1,120 +1,46 @@
-<div class="row">
-  <div class="col-sm-12">
-    <app-card cardTitle="Cadastro de Usuário" [options]="false">
-      <form id="add-form" (ngSubmit)="saveUsuario()" [formGroup]="formulario" novalidate>
-        <div class="row">
-          <div class="form-group col-md-4">
-            <label for="nome">Nome:</label>
-            <input type="nome" class="form-control" id="nome" aria-describedby="nomeHelp" placeholder="Digite seu nome">
-            <!--    <small id="nomelHelp" class="form-text text-muted">We'll never share your email with anyone
-                                else.</small>-->
-          </div>
-          <div class="form-group col-md-3">
-            <label for="matricula">Matrícula:</label>
-            <input type="matricula" class="form-control" id="matricula" placeholder="Digite sua matrícula">
-          </div>
-        </div>
-        <div class="row">
-          <div class="form-group col-md-4">
-            <label for="email">Email:</label>
-            <input type="email" class="form-control" id="email" placeholder="Digite seu email">
-          </div>
-          <div class="form-group col-md-2">
-            <label for="exampleFormControlSelect1">Tipo:</label>
-            <select class="form-control" id="exampleFormControlSelect1">
-              <option>selecionar...</option>
-              <option>Administrador</option>
-              <option>Enfermeiro</option>
-            </select>
-          </div>
-        </div>
-        <div class="row">
-          <div class="form-group col-md-3">
-            <label for="senha">Senha:</label>
-            <input type="senha" class="form-control" id="senha" placeholder="Digite sua senha">
-          </div>
-        </div>
-        <div class="row">
-          <div class="form-group col-md-3">
-            <label for="senha">Confirmar Senha:</label>
-            <input type="senha" class="form-control" id="senha" placeholder="Digite sua senha">
-          </div>
-        </div>
-        <!-- <div class="form-group">
-          <label for="exampleFormControlTextarea1">Example textarea</label>
-          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-        </div> -->
-        <div >
-          <button type="submit" class="btn btn-primary">Salvar</button>
-        </div>
-      </form>
-      <!--
-      <h5 class="mt-5">Form Grid</h5>
-      <hr>
-      <form action="javascript:">
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="inputEmail4">Email</label>
-            <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
-          </div>
-          <div class="form-group col-md-6">
-            <label for="inputPassword4">Password</label>
-            <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="inputAddress">Address</label>
-          <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-        </div>
-        <div class="form-group">
-          <label for="inputAddress2">Address 2</label>
-          <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-        </div>
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="inputCity">City</label>
-            <input type="text" class="form-control" id="inputCity">
-          </div>
-          <div class="form-group col-md-4">
-            <label for="inputState">State</label>
-            <select id="inputState" class="form-control">
-              <option selected>select</option>
-              <option>Large select</option>
-            </select>
-          </div>
-          <div class="form-group col-md-2">
-            <label for="inputZip">Zip</label>
-            <input type="text" class="form-control" id="inputZip">
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="gridCheck">
-            <label class="form-check-label" for="gridCheck">Check me out</label>
-          </div>
-        </div>
-        <button type="submit" class="btn btn-primary">Sign in</button>
-      </form>
-      <div class="row">
-        <div class="col-md-6">
-          <h5 class="mt-5">Horizontal Form</h5>
-          <hr>
-          <form action="javascript:">
-            <div class="form-group row">
-              <label for="inputEmail3" class="col-sm-3 col-form-label">Email</label>
-              <div class="col-sm-9">
-                <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label for="inputPassword3" class="col-sm-3 col-form-label">Password</label>
-              <div class="col-sm-9">
-                <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>-->
-    </app-card>
+<div class="modal-content" >
+  <div class="modal-header">
+    <h5  class="modal-title">Cadastro de Usuários </h5>
   </div>
-</div>
+  <div class="modal-body">
+
+      <div class="col-md-13">
+        <app-alert type="primary" *ngIf="sucesso == true">salvo com sucesso</app-alert>
+      </div>
+      <form  [formGroup]="formulario">
+        <label for="nome">Nome:</label>
+        <input  id="nome" formControlName="nome" class="form-control" aria-describedby="nomeHelp"
+        placeholder="Digite o nome do usuário">
+        <br>
+        <label for="matricula">Matrícula:</label>
+        <input type="matricula" class="form-control" id="matricula" aria-describedby="matriculaHelp"
+        placeholder="Digite a matrícula">
+        <br>
+        <label for="email">E-mail:</label>
+        <input type="email" class="form-control" id="email"
+        placeholder="Digite o seu e-mail">
+        <br>
+        <label for="tipoUsuario">Tipo:</label>
+        <select class="form-control" id="tipoUsuario">
+          <option>selecionar...</option>
+          <option>Administrador</option>
+          <option>Enfermeiro</option>
+        </select>
+
+        <br>
+        <label for="senha">Senha:</label>
+        <input type="senha" class="form-control" id="senha" placeholder="Digite sua senha">
+        <br>
+        <label for="senhaConfirm">Confirmar Senha:</label>
+        <input type="senha" class="form-control" id="senhaConfirm" placeholder="Confirme sua senha">
+
+      </form>
+    </div>
+
+  <div class="modal-footer">
+    <div style="margin-left: 200px;">
+      <button type="submit" class="btn btn-primary" style="margin-left:-16%; font-size: 16px;"(click)="saveUsuarios()"><i
+        class="feather icon-save"></i> Salvar</button>
+      </div>
+    </div>
+  </div>
