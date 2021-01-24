@@ -40,6 +40,7 @@ export class CadastroDepartamentosComponent implements OnInit {
               console.log('fator salvo com sucesso'),
               this.formulario.reset(),
               setTimeout(() => {
+                this.activeModal.close(),
                 location.reload();
               }, 1000);
             },
@@ -58,6 +59,7 @@ export class CadastroDepartamentosComponent implements OnInit {
                 this.sucesso = true,
                 console.log('fator salvo com sucesso'),
                 setTimeout(() => {
+                  this.activeModal.close(),
                   location.reload();
                 }, 1000);
 

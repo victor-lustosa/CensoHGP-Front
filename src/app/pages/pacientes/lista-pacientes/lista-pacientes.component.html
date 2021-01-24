@@ -9,11 +9,7 @@
             <button style="margin-left:-14%;" type="reset" class="btn btn-outline-warning" >Limpar</button>
           </div>
           <div>
-            <button  style="margin-left:1%;" type="button" class="btn btn-outline-primary"  >Cadastrar</button>
-          </div>
-
-          <div class="col-md-6">
-            <app-alert type="primary" *ngIf="sucesso == true">salvo com sucesso</app-alert>
+            <button  style="margin-left:1%;" type="button" class="btn btn-outline-primary" (click)="cadastrar()" >Cadastrar</button>
           </div>
         </div>
   <div class="table-responsive">
@@ -29,17 +25,17 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let user of tableData|slice: (page-1) * pageSize : page * pageSize">
-          <td>{{user.prontuario}}</td>
-          <td>{{user.nome}}</td>
-          <td>{{user.cpf}}</td>
-          <td>{{user.rg}}</td>
-          <td>{{user.dataNascimento}}</td>
+        <tr *ngFor="let paciente of lista |slice: (page-1) * pageSize : page * pageSize">
+          <td>{{paciente.prontuario}}</td>
+          <td>{{paciente.nome}}</td>
+          <td>{{paciente.cpf}}</td>
+          <td>{{paciente.rg}}</td>
+          <td>{{paciente.dataNascimento}}</td>
           <td class="text-right">
             <button type="button" class="btn btn btn-primary" style="font-size: 12px;  margin-right: 2%;"><i
               class="feather icon-check-square"></i> Checklist</button>
 
-              <button type="button" class="btn btn btn-warning" style="font-size: 12px; width:90px; margin-right: 2%;"><i
+              <button type="button" class="btn btn btn-warning" style="font-size: 12px; width:90px; margin-right: 2%;" ><i
                 class="feather icon-edit"></i> Editar</button>
 
                 <button type="button" class="btn btn-info" style="font-size: 12px; margin-right: 2%;"><i
@@ -58,7 +54,7 @@
                 class="d-flex justify-content-center"
                 [(page)]="page"
                 [pageSize]="pageSize"
-                [collectionSize]="tableData.length"></ngb-pagination>
+                [collectionSize]="lista.length"></ngb-pagination>
               </div>
             </app-card>
           </div>

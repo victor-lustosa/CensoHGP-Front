@@ -1,1 +1,83 @@
-<p>cadastro-pacientes works!</p>
+<div class="modal-content"  >
+  <div class="modal-header">
+    <h5  class="modal-title">Cadastro de Pacientes </h5>
+  </div>
+  <div class="col-md-12">
+    <app-alert type="primary" *ngIf="sucesso == true">salvo com sucesso</app-alert>
+  </div>
+  <div class="modal-body">
+    <form  [formGroup]="formulario" >
+
+      <label for="numero_prontuario">Número do Prontuário:</label>
+      <input  id="numero_prontuario"
+
+       class="form-control" aria-describedby="numeroProntuarioHelp"
+      placeholder="Digite o numero de leitos">
+      <br>
+      <label for="nome">Nome:</label>
+      <input  id="nome"
+
+       class="form-control" aria-describedby="nomeHelp"
+      placeholder="Digite o nome do paciente">
+      <br>
+      <label for="cpf">CPF:</label>
+      <input  id="cpf"
+
+       class="form-control" aria-describedby="cpfHelp"
+      placeholder="Digite o CPF">
+      <br>
+      <label for="nomeMae">Nome da Mãe:</label>
+      <input  id="nomeMae"
+
+       class="form-control" aria-describedby="nomeMaeHelp"
+      placeholder="Digite o nome da Mãe">
+      <br>
+      <label for="dataNascimento">Data de Nascimento:</label>
+      <div class="input-group">
+        <input id="dataNascimento" class="form-control" name="model" [(ngModel)]="model">
+        <div class="input-group-append">
+          <button class="btn btn-outline-primary calendar" type="button"><i
+            class="feather icon-calendar"></i></button>
+        </div>
+      </div>
+      <br>
+      <label for="sexo">Sexo:</label>
+      <select class="form-control" id="sexo">
+        <option>selecionar...</option>
+        <option>Masculino</option>
+        <option>Feminino</option>
+      </select>
+      <br>
+      <label for="departamento">Departamento:</label>
+      <select class="form-control" id="departamento">
+        <option>selecionar...</option>
+        <option>PEDIATRIA</option>
+        <option>EMADE</option>
+        <option>UTI</option>
+        <option>CENTRO</option>
+      </select>
+      <br>
+      <label for="tipoPrecaucao">Tipo de Precaução:</label>
+      <select class="form-control" id="tipoPrecaucao">
+        <option>selecionar...</option>
+        <option>Padrão</option>
+        <option>Contato</option>
+        <option>Gotículas</option>
+        <option>Aerossóis</option>
+      </select>
+      <br>
+      <label for="situacaoPaciente">Situação atual do Paciente:</label>
+      <input  id="situacaoPaciente"
+    
+       class="form-control" aria-describedby="situacaoPacienteHelp"
+      placeholder="Digite a situação atual do Paciente">
+
+    </form>
+  </div>
+  <div class="modal-footer">
+    <div style="margin-left: 200px;">
+      <button type="submit" class="btn btn-primary" style="margin-left:-16%; font-size: 16px;"(click)="savePacientes()"><i
+        class="feather icon-save"></i> Salvar</button>
+    </div>
+  </div>
+</div>

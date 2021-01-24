@@ -16,7 +16,7 @@ export class ListaFatoresComponent implements OnInit {
   formularioAtualizar:FormGroup =null;
   idFator:number = 0;
   status: boolean;
-  lista: Fatores[];
+  lista: Fatores[] = [];
   msgError: string;
   sucesso: boolean = false;
   searchText: string;

@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ListaProcedimentosRoutingModule } from './lista-procedimentos-routing.module';
 import { ListaProcedimentosComponent } from './lista-procedimentos.component';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
-import {NgbPopoverModule, NgbTooltipModule, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { CadastroProcedimentosComponent } from '../cadastro-procedimentos/cadastro-procedimentos.component';
 
@@ -16,8 +16,7 @@ import { CadastroProcedimentosComponent } from '../cadastro-procedimentos/cadast
     CommonModule,
     ListaProcedimentosRoutingModule,
     SharedModule,
-    NgbPopoverModule,
-    NgbTooltipModule,NgbPaginationModule
+    NgbPaginationModule
   ],
   bootstrap:[ListaProcedimentosComponent]
 })

@@ -15,7 +15,7 @@ export class ListaProcedimentosComponent implements OnInit {
   formularioAtualizar:FormGroup =null;
   idFator:number = 0;
   status: boolean;
-  lista: Procedimentos[];
+  lista: Procedimentos[] = [];
   msgError: string;
   sucesso: boolean = false;
   searchText: string;

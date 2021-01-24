@@ -8,16 +8,15 @@ import { CadastroIncidentesComponent } from './../cadastro-incidentes/cadastro-i
 import { ListaIncidentesRoutingModule } from './lista-incidentes-routing.module';
 import { ListaIncidentesComponent } from './lista-incidentes.component';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
-import {NgbPopoverModule, NgbTooltipModule, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [ListaIncidentesComponent, CadastroIncidentesComponent, IncidentesFilterPipe],
   imports: [
     CommonModule,
     ListaIncidentesRoutingModule,
-      SharedModule,
-      NgbPopoverModule,
-      NgbTooltipModule,NgbPaginationModule
+    SharedModule,
+    NgbPaginationModule
     ],
     bootstrap:[ListaIncidentesComponent]
 })

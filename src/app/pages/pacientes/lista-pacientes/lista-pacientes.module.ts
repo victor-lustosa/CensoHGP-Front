@@ -14,7 +14,8 @@ import { CadastroPacientesComponent } from '../cadastro-pacientes/cadastro-pacie
     CommonModule,
     ListaPacientesRoutingModule,
     SharedModule,
-    NgbPaginationModule
+    NgbPaginationModule,
+
   ]
 })
 export class ListaPacientesModule { }

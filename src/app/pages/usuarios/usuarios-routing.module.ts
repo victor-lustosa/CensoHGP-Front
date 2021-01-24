@@ -9,10 +9,6 @@ const routes: Routes = [
       {
         path: 'usuarios',
         loadChildren: () => import('./lista-usuarios/lista-usuarios.module').then(module => module.ListaUsuariosModule)
-      },
-      {
-        path: 'cadastro-usuarios',
-        loadChildren: () => import('./cadastro-usuarios/cadastro-usuarios.module').then(module => module.CadastroUsuariosModule)
       }
     ]
   }

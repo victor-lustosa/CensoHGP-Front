@@ -37,6 +37,7 @@ export class CadastroIncidentesComponent implements OnInit {
               console.log('fator salvo com sucesso'),
               this.formulario.reset(),
               setTimeout(() => {
+                this.activeModal.close(),
                 location.reload();
               }, 1000);
             },
@@ -54,8 +55,9 @@ export class CadastroIncidentesComponent implements OnInit {
                 this.sucesso = true,
                 console.log('fator salvo com sucesso'),
                 setTimeout(() => {
+                  this.activeModal.close(),
                   location.reload();
-                }, 2000);
+                }, 1000);
 
               },
               errorResponse => {
