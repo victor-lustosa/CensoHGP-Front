@@ -30,9 +30,9 @@ export class CRUD<T> implements CrudInterface<T>{
     return this.http.put<T>(`${this.API_URL}`, object).pipe(retry(1), catchError(this.handleError));
   }
 
-  disable(id: number): Observable<any> {
-    console.log('delete do crud'+`${this.API_URL}`)
-    return this.http.delete<T>(`${this.API_URL}/${id}`).pipe(retry(1), catchError(this.handleError));
+  disable(object: T): Observable<any> {
+    console.log('delete do crud: '+`${this.API_URL}/mudar-status`)
+    return this.http.put<T>(`${this.API_URL}/mudar-status`,object).pipe(retry(1), catchError(this.handleError));
   }
    // Manipulação de erros
   handleError(error: HttpErrorResponse) {

@@ -7,5 +7,5 @@ export interface CrudInterface<T>{
 
   update(object: T):void,
 
-  disable(id: number): void
+  disable(object: T): void
 }

@@ -37,7 +37,8 @@ export class CadastroFatoresComponent implements OnInit {
                 this.sucesso = true,
                 this.formulario.reset(),
                 setTimeout(() => {
-                  this.activeModal.close();
+                  this.activeModal.close(),
+                  location.reload();
                 }, 1000)
             },
             errorResponse => {
@@ -54,7 +55,8 @@ export class CadastroFatoresComponent implements OnInit {
                 this.sucesso = true,
                 this.formulario.reset(),
                 setTimeout(() => {
-                  this.activeModal.close();
+                  this.activeModal.close(),
+                  location.reload();
                 }, 1000)
             },
             errorResponse => {

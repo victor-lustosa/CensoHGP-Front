@@ -20,7 +20,7 @@
       <div id="tipodepartamento" class="row">
         <div class="col-sm-4" *ngFor="let item of tipoDepartamentoRadio">
           <label class="radio-inline">
-            <input type="radio" [value]="item.valor" formControlName="tipodepartamento" /> {{ item.desc }}
+            <input type="radio" [value]="item.valor" formControlName="tipodepartamento.idTipoDepartamento" /> {{ item.desc }}
           </label>
         </div>
       </div>
