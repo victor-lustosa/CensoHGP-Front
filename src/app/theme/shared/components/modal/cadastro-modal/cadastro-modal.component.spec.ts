@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { CadastroModalComponent } from './cadastro-modal.component';
 
@@ -6,7 +6,7 @@ describe('CadastroModalComponent', () => {
   let component: CadastroModalComponent;
   let fixture: ComponentFixture<CadastroModalComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ CadastroModalComponent ]
     })
