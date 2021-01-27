@@ -5,7 +5,7 @@ import { ListaFatoresRoutingModule } from './lista-fatores-routing.module';
 import { ListaFatoresComponent } from './lista-fatores.component';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { NgbPaginationModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
-
+import { NgxBootstrapIconsModule,allIcons } from 'ngx-bootstrap-icons';
 import { CadastroFatoresComponent } from '../cadastro-fatores/cadastro-fatores.component';
 import { NgbdSortableHeader } from '../sortable.directive';
 
@@ -18,7 +18,8 @@ import { NgbdSortableHeader } from '../sortable.directive';
     ListaFatoresRoutingModule,
     SharedModule,
     NgbPaginationModule,
-    NgbModule
+    NgbModule,
+    NgxBootstrapIconsModule.pick(allIcons)
   ],
   bootstrap:[ListaFatoresComponent]
 })
