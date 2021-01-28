@@ -29,7 +29,7 @@
               <td><ngb-highlight [result]="fatores.ativo ? 'Ativo' : 'Inativo'" [term]="searchTerm"></ngb-highlight></td>
               <td class="text-right">
                 <button type="button"  (click)="editar(fatores.idFatorRisco)" class="btn btn-icon btn-warning"
-                style="font-size: 13px; margin-right: 2%;"><i-bs name="pencil-square"></i-bs> Editar</button>
+                style="font-size: 13px; margin-right: 2%;"><i class="feather icon-edit"></i> Editar</button>
                 <button type="button" class="btn btn-icon btn-info" style="font-size: 13px;  margin-right: 2%;" (click)="desabilitar(fatores.idFatorRisco)"> {{fatores.ativo ? 'Desativar' : 'Ativar'}}</button>
               </td>
             </tbody>

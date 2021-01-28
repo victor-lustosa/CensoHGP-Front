@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NavRightComponent } from './nav-right.component';
 
@@ -6,7 +6,7 @@ describe('NavRightComponent', () => {
   let component: NavRightComponent;
   let fixture: ComponentFixture<NavRightComponent>;
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ NavRightComponent ]
     })

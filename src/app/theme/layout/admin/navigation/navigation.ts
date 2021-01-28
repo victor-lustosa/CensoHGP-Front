@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 
-
-
 export interface NavigationItem {
-
   id: string;
   title: string;
   type: 'item' | 'collapse' | 'group';
@@ -33,7 +30,7 @@ const NavigationItems = [
     id: 'navigation',
     title: 'Menu',
     type: 'group',
-    icon: 'feather icon-home',
+    icon: 'feather icon-monitor',
     children: [
       {
         id: 'dashboard',

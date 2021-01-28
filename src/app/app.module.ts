@@ -22,7 +22,7 @@ import { ToggleFullScreenDirective } from './theme/shared/full-screen/toggle-ful
 /* Menu Items */
 import { NavigationItem } from './theme/layout/admin/navigation/navigation';
 import { NgbButtonsModule, NgbDropdownModule, NgbTabsetModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
+
 
 @NgModule({
   declarations: [
@@ -50,9 +50,7 @@ import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
     NgbTooltipModule,
     NgbButtonsModule,
     NgbTabsetModule,
-    HttpClientModule,
-    NgxBootstrapIconsModule.pick(allIcons)
-  ],
+    HttpClientModule  ],
   providers: [NavigationItem],
   bootstrap: [AppComponent]
 })

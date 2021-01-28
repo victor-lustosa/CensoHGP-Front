@@ -3,13 +3,12 @@ import { CommonModule } from '@angular/common';
 
 import { AuthSigninRoutingModule } from './auth-signin-routing.module';
 import { AuthSigninComponent } from './auth-signin.component';
-import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
+
 
 @NgModule({
   imports: [
     CommonModule,
-    AuthSigninRoutingModule,
-    NgxBootstrapIconsModule.pick(allIcons)
+    AuthSigninRoutingModule
   ],
   declarations: [AuthSigninComponent]
 })

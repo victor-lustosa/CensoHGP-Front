@@ -16,7 +16,6 @@ import { ToastComponent } from './components/toast/toast.component';
 import {ToastService} from './components/toast/toast.service';
 import { GalleryComponent } from './components/gallery/gallery.component';
 import {LightboxModule} from 'ngx-lightbox';
-import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
 
 /*import 'hammerjs';
 import 'mousetrap';
@@ -37,8 +36,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     BreadcrumbModule,
     ModalModule,
     ClickOutsideModule,
-    LightboxModule,
-    NgxBootstrapIconsModule.pick(allIcons),
+    LightboxModule
   ],
   exports: [
     CommonModule,
