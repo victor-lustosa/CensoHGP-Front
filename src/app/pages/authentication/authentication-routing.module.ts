@@ -6,8 +6,8 @@ const routes: Routes = [
     path: '',
     children: [
       {
-        path: 'signup',
-        loadChildren: () => import('./auth-signup/auth-signup.module').then(module => module.AuthSignupModule)
+        path: 'recuperar-senha',
+        loadChildren: () => import('./recuperar-senha/recuperar-senha.module').then(module => module.RecuperarSenhaModule)
       },
       {
         path: 'signin',
