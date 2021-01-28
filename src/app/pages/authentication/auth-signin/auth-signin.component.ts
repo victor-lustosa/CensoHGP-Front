@@ -11,5 +11,7 @@ export class AuthSigninComponent implements OnInit {
 
   ngOnInit() {
   }
+logar(){
 
+}
 }

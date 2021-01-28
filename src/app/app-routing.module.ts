@@ -38,9 +38,7 @@ const routes: Routes = [
         loadChildren: () => import('./pages/checklists/checklists.module').then(module => module.ChecklistsModule)
       }
     ]
-  }
-  /*,
-  {
+  },{
     path: '',
     component: AuthComponent,
     children: [
@@ -49,11 +47,11 @@ const routes: Routes = [
         loadChildren: () => import('./pages/authentication/authentication.module').then(module => module.AuthenticationModule)
       }
     ]
-  }*/
+  }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

@@ -11,11 +11,8 @@
         <div>
           <button  style="margin-left:1%;" type="button" class="btn btn-outline-primary"  (click)="cadastrar()" >Cadastrar</button>
         </div>
-
-        <div class="col-md-6">
-          <app-alert type="primary" *ngIf="sucesso == true">salvo com sucesso</app-alert>
-        </div>
       </div>
+
       <div class="table-responsive" >
         <table class="table table-hover"  *ngIf="(lista | filter: searchText).length > 0; else noResults">
           <thead>

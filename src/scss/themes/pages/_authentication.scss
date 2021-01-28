@@ -9,7 +9,7 @@
     overflow: hidden;
     min-width: 100%;
     min-height: 100vh;
-    background: linear-gradient(45deg, $primary-color, lighten($primary-color,13%));
+    background:#fff;
     @media (min-width: 1200px) {
         .container {
             max-width: 1140px;
@@ -111,7 +111,7 @@
     .auth-side-form {
         position: relative;
         min-height: 100%;
-        background: #fff;
+        background: $primary-color;
         display: inline-flex;
         align-items: center;
         left: auto;
@@ -184,7 +184,7 @@
 }
 /* image varient start */
 .aut-bg-img {
-    background-image: url("assets/images/auth/img-auth-big.jpg");
+    background-image: url("../../../assets/images/auth/img-auth-big.jpg");
     background-size: cover;
     background-attachment: fixed;
     background-position: center;

@@ -8,7 +8,8 @@ export class FatoresFilterPipe implements PipeTransform {
     if (!searchText) return items;
 
     return items.filter(item => {
-      return Object.keys(item).some(key => {
+      return Object.keys
+      (item).some(key => {
         return String(item[key]).toLowerCase().includes(searchText.toLowerCase());
       });
     });
