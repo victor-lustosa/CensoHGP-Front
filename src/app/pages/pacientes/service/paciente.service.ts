@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 
 import { environment } from 'src/environments/environment';
-import { Precaucao } from '../model/precaucao';
+import { Paciente } from '../model/Paciente';
 import { CRUD } from 'src/app/theme/shared/CRUD';
 @Injectable({
   providedIn: 'root'
 })
-export class PrecaucaoService extends CRUD<Precaucao> {
+export class PacienteService extends CRUD<Paciente> {
   constructor(http: HttpClient){
-    super(http, `${environment.API}apicensohgp/precaucao`);
+    super(http, `${environment.API}apicensohgp/paciente`);
   }
  }

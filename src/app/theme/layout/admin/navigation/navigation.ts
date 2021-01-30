@@ -44,7 +44,7 @@ const NavigationItems = [
         id: 'usuarios',
         title: 'Usuarios',
         type: 'item',
-        url: '/usuarios/usuarios',
+        url: '/usuarios/gerenciar-usuarios',
         icon: 'feather icon-users',
         breadcrumbs: false
       },
@@ -52,7 +52,7 @@ const NavigationItems = [
         id: 'pacientes',
         title: 'Pacientes',
         type: 'item',
-        url: '/pacientes/pacientes',
+        url: '/pacientes/gerenciar-pacientes',
         icon: 'feather icon-user',
         breadcrumbs: false
       },
@@ -60,7 +60,7 @@ const NavigationItems = [
         id: 'departamentos',
         title: 'Departamentos',
         type: 'item',
-        url: '/departamentos/departamentos',
+        url: '/departamentos/gerenciar-departamentos',
         icon: 'feather icon-navigation',
         breadcrumbs: false
       },
@@ -68,7 +68,7 @@ const NavigationItems = [
         id: 'precaucoes',
         title: 'Precauções',
         type: 'item',
-        url: '/precaucoes/precaucoes',
+        url: '/precaucoes/gerenciar-precaucoes',
         icon: 'feather icon-flag',
         breadcrumbs: false
       },
@@ -82,7 +82,7 @@ const NavigationItems = [
             id: 'incidentes',
             title: 'Incidentes',
             type: 'item',
-            url: '/checklists/incidentes',
+            url: '/checklists/gerenciar-incidentes',
             target: false,
             breadcrumbs: false
           },
@@ -90,7 +90,7 @@ const NavigationItems = [
             id: 'procedimentos',
             title: 'Procedimentos',
             type: 'item',
-            url: '/checklists/procedimentos',
+            url: '/checklists/gerenciar-procedimentos',
             target: false,
             breadcrumbs: false
           },
@@ -98,7 +98,7 @@ const NavigationItems = [
             id: 'fatores-risco',
             title: 'Fatores de Risco',
             type: 'item',
-            url: '/checklists/fatores',
+            url: '/checklists/gerenciar-fatores',
             target: false,
             breadcrumbs: false
           }

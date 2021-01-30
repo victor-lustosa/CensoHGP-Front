@@ -1,7 +1,7 @@
 import {Directive, EventEmitter, Input, Output} from '@angular/core';
-import {Fatores} from './model/fatores';
+import {Fator} from './model/fator';
 
-export type SortColumn = keyof Fatores | '';
+export type SortColumn = keyof Fator | '';
 export type SortDirection = 'asc' | 'desc' | '';
 const rotate: {[key: string]: SortDirection} = { 'asc': 'desc', 'desc': '', '': 'asc' };
 

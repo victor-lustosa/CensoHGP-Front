@@ -1,10 +1,10 @@
 
 import { Component, OnInit } from '@angular/core';
-import { Departamentos } from './../model/departamentos';
+import { Departamento } from './../model/departamento';
 import { DepartamentoService, DropdownService} from './../service'
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CadastroDepartamentosComponent } from '../cadastro-departamentos/cadastro-departamentos.component';
+import { CadastroDepartamentoComponent } from '../cadastro-departamento/cadastro-departamento.component';
 @Component({
   selector: 'app-lista-departamentos',
   templateUrl: './lista-departamentos.component.html',
@@ -19,7 +19,7 @@ export class ListaDepartamentosComponent implements OnInit {
   searchText:string;
   tipodepartamento:number;
   ativo:boolean
-  lista:Departamentos[] = [];
+  lista:Departamento[] = [];
   msgError: string;
   pageSize:number = 10;
   page:number = 1;
@@ -56,12 +56,12 @@ export class ListaDepartamentosComponent implements OnInit {
       return this.searchText;
     }
     cadastrar(){
-      const modalRef =  this.modalService.open(CadastroDepartamentosComponent, { size: 'lg' });
+      const modalRef =  this.modalService.open(CadastroDepartamentoComponent, { size: 'lg' });
       modalRef.componentInstance.formulario = this.formularioCadastro;
 
     }
     atualizar() {
-      const modalRef = this.modalService.open(CadastroDepartamentosComponent, { size: 'lg' });
+      const modalRef = this.modalService.open(CadastroDepartamentoComponent, { size: 'lg' });
       if(this.formularioAtualizar != null){
         modalRef.componentInstance.formulario = this.formularioAtualizar;
       }
@@ -77,7 +77,7 @@ export class ListaDepartamentosComponent implements OnInit {
         }
       })
     }
-    updateForm(departamentos: Departamentos){
+    updateForm(departamentos: Departamento){
 
       this.formularioAtualizar.patchValue({
         idDepartamento: departamentos.idDepartamento,

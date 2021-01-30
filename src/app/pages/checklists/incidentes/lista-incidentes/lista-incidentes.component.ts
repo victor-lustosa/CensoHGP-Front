@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { IncidenteService } from '../service/incidente.service';
-import { Incidentes } from '../model/incidentes';
+import { Incidente } from '../model/incidente';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CadastroIncidentesComponent } from '../cadastro-incidentes/cadastro-incidentes.component';
+import { CadastroIncidenteComponent } from '../cadastro-incidente/cadastro-incidente.component';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
@@ -15,7 +15,7 @@ export class ListaIncidentesComponent implements OnInit {
   formularioAtualizar:FormGroup =null;
   idFator:number = 0;
   status: boolean;
-  lista: Incidentes[] = [];
+  lista: Incidente[] = [];
   msgError: string;
   sucesso: boolean = false;
   searchText: string;
@@ -25,6 +25,7 @@ export class ListaIncidentesComponent implements OnInit {
   constructor(private incidentesService: IncidenteService,  public modalService: NgbModal, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
+
     this.msgError= null;
     this.loadListaIncidentes();
     this.formularioCadastro = this.formBuilder.group({
@@ -43,12 +44,12 @@ export class ListaIncidentesComponent implements OnInit {
       return this.searchText;
   }
   cadastrar(){
-    const modalRef =  this.modalService.open(CadastroIncidentesComponent, { size: 'lg' });
+    const modalRef =  this.modalService.open(CadastroIncidenteComponent, { size: 'lg' });
     modalRef.componentInstance.formulario = this.formularioCadastro;
     this.loadListaIncidentes();
   }
   atualizar() {
-    const modalRef = this.modalService.open(CadastroIncidentesComponent, { size: 'lg' });
+    const modalRef = this.modalService.open(CadastroIncidenteComponent, { size: 'lg' });
     if(this.formularioAtualizar != null){
       modalRef.componentInstance.formulario = this.formularioAtualizar;
     }
@@ -64,7 +65,7 @@ export class ListaIncidentesComponent implements OnInit {
       }
     })
   }
-  updateForm(incidentes: Incidentes){
+  updateForm(incidentes: Incidente){
 
     this.formularioAtualizar.patchValue({
       idIncidente: incidentes.idIncidente,

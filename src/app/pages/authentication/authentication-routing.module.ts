@@ -10,8 +10,8 @@ const routes: Routes = [
         loadChildren: () => import('./recuperar-senha/recuperar-senha.module').then(module => module.RecuperarSenhaModule)
       },
       {
-        path: 'signin',
-        loadChildren: () => import('./auth-signin/auth-signin.module').then(module => module.AuthSigninModule)
+        path: 'login',
+        loadChildren: () => import('./login/login.module').then(module => module.LoginModule)
       }
     ]
   }

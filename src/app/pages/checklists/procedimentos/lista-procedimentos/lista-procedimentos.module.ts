@@ -6,12 +6,12 @@ import { ListaProcedimentosComponent } from './lista-procedimentos.component';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 
-import { CadastroProcedimentosComponent } from '../cadastro-procedimentos/cadastro-procedimentos.component';
+import { CadastroProcedimentoComponent } from '../cadastro-procedimento/cadastro-procedimento.component';
 
 
 
 @NgModule({
-  declarations: [ListaProcedimentosComponent, CadastroProcedimentosComponent, ProcedimentosFilterPipe],
+  declarations: [ListaProcedimentosComponent, CadastroProcedimentoComponent, ProcedimentosFilterPipe],
   imports: [
     CommonModule,
     ListaProcedimentosRoutingModule,

@@ -5,13 +5,13 @@ import { ListaFatoresRoutingModule } from './lista-fatores-routing.module';
 import { ListaFatoresComponent } from './lista-fatores.component';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { NgbPaginationModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import { CadastroFatoresComponent } from '../cadastro-fatores/cadastro-fatores.component';
+import { CadastroFatorComponent } from '../cadastro-fator/cadastro-fator.component';
 import { NgbdSortableHeader } from '../sortable.directive';
 
 
 
 @NgModule({
-  declarations: [ListaFatoresComponent,CadastroFatoresComponent, NgbdSortableHeader],
+  declarations: [ListaFatoresComponent,CadastroFatorComponent, NgbdSortableHeader],
   imports: [
     CommonModule,
     ListaFatoresRoutingModule,

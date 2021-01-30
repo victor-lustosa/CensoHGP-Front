@@ -1,9 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Pacientes } from '../model';
+import { Paciente } from '../model/Paciente';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { PacientesService } from '../service/pacientes.service';
-import { CadastroPacientesComponent } from '../cadastro-pacientes/cadastro-pacientes.component';
+import { PacienteService } from '../service/paciente.service';
+import { CadastroPacienteComponent } from '../cadastro-paciente/cadastro-paciente.component';
 
 @Component({
   selector: 'app-lista-pacientes',
@@ -20,7 +20,7 @@ export class ListaPacientesComponent implements OnInit {
   pageSize:number = 10;
   page:number = 1;
   collectionSize:number;
-  constructor(private departamentosService: PacientesService,
+  constructor(private departamentosService: PacienteService,
     public modalService: NgbModal, private formBuilder: FormBuilder) { }
 
     @Input('data')  lista = [
@@ -94,12 +94,12 @@ export class ListaPacientesComponent implements OnInit {
       return this.searchText;
     }
     cadastrar(){
-      const modalRef =  this.modalService.open(CadastroPacientesComponent, { size: 'lg' });
+      const modalRef =  this.modalService.open(CadastroPacienteComponent, { size: 'lg' });
       modalRef.componentInstance.formulario = this.formularioCadastro;
 
     }
     atualizar() {
-      const modalRef = this.modalService.open(CadastroPacientesComponent, { size: 'lg' });
+      const modalRef = this.modalService.open(CadastroPacienteComponent, { size: 'lg' });
       if(this.formularioAtualizar != null){
         modalRef.componentInstance.formulario = this.formularioAtualizar;
       }
@@ -115,7 +115,7 @@ export class ListaPacientesComponent implements OnInit {
         }
       })
     }
-    updateForm(departamentos: Pacientes){
+    updateForm(departamentos: Paciente){
 
       this.formularioAtualizar.patchValue({
         idPaciente: departamentos.idPaciente,

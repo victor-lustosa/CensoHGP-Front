@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Usuario } from '../model/usuario';
-import { UsuariosService } from '../service/usuarios.service';
+import { UsuarioService } from '../service/usuario.service';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
-import { CadastroUsuariosComponent } from '../cadastro-usuarios/cadastro-usuarios.component';
+import { CadastroUsuarioComponent } from '../cadastro-usuario/cadastro-usuario.component';
 
 @Component({
   selector: 'app-lista-usuarios',
@@ -21,7 +21,7 @@ export class ListaUsuariosComponent implements OnInit {
   searchText: string;
   pageSize = 10;
   page = 1;
-  constructor(private usuariosService: UsuariosService,  public modalService: NgbModal, private formBuilder: FormBuilder) { }
+  constructor(private usuariosService: UsuarioService,  public modalService: NgbModal, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.msgError= null;
@@ -54,7 +54,7 @@ export class ListaUsuariosComponent implements OnInit {
       keyboard : true,
       size : 'lg'
     };
-    const modalRef = this.modalService.open(CadastroUsuariosComponent, ngbModalOptions)
+    const modalRef = this.modalService.open(CadastroUsuarioComponent, ngbModalOptions)
     modalRef.componentInstance.formulario = this.formularioCadastro;
   }
 
@@ -63,7 +63,7 @@ export class ListaUsuariosComponent implements OnInit {
       keyboard : true,
       size : 'lg'
     };
-    const modalRef = this.modalService.open(CadastroUsuariosComponent, ngbModalOptions);
+    const modalRef = this.modalService.open(CadastroUsuarioComponent, ngbModalOptions);
     if(this.formularioAtualizar != null){
       modalRef.componentInstance.formulario = this.formularioAtualizar;
     }

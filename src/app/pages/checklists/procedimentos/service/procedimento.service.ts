@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Procedimentos } from '../model/procedimentos';
+import { Procedimento } from '../model/procedimento';
 
 import { CRUD } from 'src/app/theme/shared/CRUD';
 import { environment } from 'src/environments/environment';
@@ -12,7 +12,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 
 })
-export class ProcedimentoService extends CRUD<Procedimentos>{
+export class ProcedimentoService extends CRUD<Procedimento>{
 
   constructor(http: HttpClient){
     super(http, `${environment.API}apicensohgp/procedimento`);

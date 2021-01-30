@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     children: [
       {
-        path: 'departamentos',
+        path: 'gerenciar-departamentos',
         loadChildren: () => import('./lista-departamentos/lista-departamentos.module').then(module => module.ListaDepartamentosModule)
       }
     ]

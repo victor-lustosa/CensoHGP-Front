@@ -7,16 +7,16 @@ const routes: Routes = [
     path: '',
     children: [
       {
-        path: 'fatores',
+        path: 'gerenciar-fatores',
         loadChildren: () => import('./fatores-risco/lista-fatores/lista-fatores.module').then(module => module.ListaFatoresModule)
       },
       {
-        path: 'incidentes',
+        path: 'gerenciar-incidentes',
         loadChildren: () => import('./incidentes/lista-incidentes/lista-incidentes.module').then(module => module.ListaIncidentesModule)
       },
 
       {
-        path: 'procedimentos',
+        path: 'gerenciar-procedimentos',
         loadChildren: () => import('./procedimentos/lista-procedimentos/lista-procedimentos.module').then(module => module.ListaProcedimentosModule)
       }
     ]

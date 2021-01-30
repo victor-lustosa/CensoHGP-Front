@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Fatores } from '../model/fatores';
+import { Fator } from '../model/fator';
 
 import { CRUD } from 'src/app/theme/shared/CRUD';
 import { environment } from 'src/environments/environment';
@@ -12,7 +12,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 
 })
-export class FatorRiscoService extends CRUD<Fatores>{
+export class FatorRiscoService extends CRUD<Fator>{
 
   constructor(http: HttpClient){
     super(http, `${environment.API}apicensohgp/fator-risco`);

@@ -5,11 +5,11 @@ import { ListaPrecaucoesRoutingModule } from './lista-precaucoes-routing.module'
 import { ListaPrecaucoesComponent } from './lista-precaucoes.component';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 import {  NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
-import { CadastroPrecaucoesComponent } from '../cadastro-precaucoes/cadastro-precaucoes.component';
+import { CadastroPrecaucaoComponent } from '../cadastro-precaucao/cadastro-precaucao.component';
 
 
 @NgModule({
-  declarations: [ListaPrecaucoesComponent, CadastroPrecaucoesComponent],
+  declarations: [ListaPrecaucoesComponent, CadastroPrecaucaoComponent],
   imports: [
     CommonModule,
     ListaPrecaucoesRoutingModule,

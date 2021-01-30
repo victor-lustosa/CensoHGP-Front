@@ -5,11 +5,11 @@ import { ListaUsuariosRoutingModule } from './lista-usuarios-routing.module';
 import { ListaUsuariosComponent } from './lista-usuarios.component';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
-import { CadastroUsuariosComponent } from '../cadastro-usuarios/cadastro-usuarios.component';
+import { CadastroUsuarioComponent } from '../cadastro-usuario/cadastro-usuario.component';
 
 
 @NgModule({
-  declarations: [ListaUsuariosComponent, CadastroUsuariosComponent],
+  declarations: [ListaUsuariosComponent, CadastroUsuarioComponent],
   imports: [
     CommonModule,
     ListaUsuariosRoutingModule,

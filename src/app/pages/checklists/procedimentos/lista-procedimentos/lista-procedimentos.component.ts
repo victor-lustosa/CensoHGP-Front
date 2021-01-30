@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ProcedimentoService } from '../service/procedimento.service';
-import { Procedimentos } from '../model/procedimentos';
+import { Procedimento } from '../model/procedimento';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CadastroProcedimentosComponent } from '../cadastro-procedimentos/cadastro-procedimentos.component';
+import { CadastroProcedimentoComponent } from '../cadastro-procedimento/cadastro-procedimento.component';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
@@ -15,7 +15,7 @@ export class ListaProcedimentosComponent implements OnInit {
   formularioAtualizar:FormGroup =null;
   idFator:number = 0;
   status: boolean;
-  lista: Procedimentos[] = [];
+  lista: Procedimento[] = [];
   msgError: string;
   sucesso: boolean = false;
   searchText: string;
@@ -42,12 +42,12 @@ export class ListaProcedimentosComponent implements OnInit {
       return this.searchText;
   }
   cadastrar(){
-    const modalRef =  this.modalService.open(CadastroProcedimentosComponent, { size: 'lg' });
+    const modalRef =  this.modalService.open(CadastroProcedimentoComponent, { size: 'lg' });
     modalRef.componentInstance.formulario = this.formularioCadastro;
     this.loadListaProcedimentos();
   }
   atualizar() {
-    const modalRef = this.modalService.open(CadastroProcedimentosComponent, { size: 'lg' });
+    const modalRef = this.modalService.open(CadastroProcedimentoComponent, { size: 'lg' });
     if(this.formularioAtualizar != null){
       modalRef.componentInstance.formulario = this.formularioAtualizar;
     }
@@ -63,7 +63,7 @@ export class ListaProcedimentosComponent implements OnInit {
       }
     })
   }
-  updateForm(procedimentos: Procedimentos){
+  updateForm(procedimentos: Procedimento){
 
     this.formularioAtualizar.patchValue({
       idProcedimento: procedimentos.idProcedimento,

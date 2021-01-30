@@ -5,7 +5,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import {Precaucao} from './../model/precaucao';
 import {PrecaucaoService} from './../service/precaucao.service';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
-import { CadastroPrecaucoesComponent } from '../cadastro-precaucoes/cadastro-precaucoes.component';
+import { CadastroPrecaucaoComponent } from '../cadastro-precaucao/cadastro-precaucao.component';
 @Component({
   selector: 'app-lista-precaucoes',
   templateUrl: './lista-precaucoes.component.html',
@@ -48,7 +48,7 @@ export class ListaPrecaucoesComponent implements OnInit {
       keyboard : true,
       size : 'lg'
     };
-    const modalRef = this.modalService.open(CadastroPrecaucoesComponent, ngbModalOptions)
+    const modalRef = this.modalService.open(CadastroPrecaucaoComponent, ngbModalOptions)
     modalRef.componentInstance.formulario = this.formularioCadastro;
 
   }
@@ -59,7 +59,7 @@ export class ListaPrecaucoesComponent implements OnInit {
       keyboard : true,
       size : 'lg'
     };
-    const modalRef = this.modalService.open(CadastroPrecaucoesComponent, ngbModalOptions);
+    const modalRef = this.modalService.open(CadastroPrecaucaoComponent, ngbModalOptions);
     if(this.formularioAtualizar != null){
       modalRef.componentInstance.formulario = this.formularioAtualizar;
     }

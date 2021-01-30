@@ -1,8 +1,8 @@
 import {  OnInit, ViewChildren, QueryList, PipeTransform, Component } from '@angular/core';
 import { FatorRiscoService } from '../service/fator-risco.service';
-import { Fatores } from '../model/fatores';
+import { Fator } from '../model/fator';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
-import { CadastroFatoresComponent } from '../cadastro-fatores/cadastro-fatores.component';
+import { CadastroFatorComponent } from '../cadastro-fator/cadastro-fator.component';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgbdSortableHeader, SortEvent, SortColumn, SortDirection } from '../sortable.directive';
 import { DecimalPipe } from '@angular/common';
@@ -11,7 +11,7 @@ import {debounceTime, delay, switchMap, tap} from 'rxjs/operators';
 
 const compare = (v1: string | number, v2: string | number) => v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
 
-function sort(fatores: Fatores[], column: SortColumn, direction: string): Fatores[] {
+function sort(fatores: Fator[], column: SortColumn, direction: string): Fator[] {
   if (direction === '' || column === '') {
     return fatores;
   } else {
@@ -21,13 +21,13 @@ function sort(fatores: Fatores[], column: SortColumn, direction: string): Fatore
     });
   }
 }
-function matches(fator: Fatores, term: string, pipe: PipeTransform) {
+function matches(fator: Fator, term: string, pipe: PipeTransform) {
   return fator.nome.toLowerCase().includes(term.toLowerCase())
   || pipe.transform(fator.ativo).includes(term)
   || pipe.transform(fator.descricao).includes(term);
 }
 interface SearchResult {
-  fatores: Fatores[];
+  fatores: Fator[];
   total: number;
 }
 interface State {
@@ -46,13 +46,13 @@ interface State {
 export class ListaFatoresComponent implements OnInit {
   formularioCadastro:FormGroup = null;
   formularioAtualizar:FormGroup = null;
-  lista: Fatores[];
+  lista: Fator[];
   msgError: string;
   sucesso: boolean = false;
 
   private _loading$ = new BehaviorSubject<boolean>(true);
   private _search$ = new Subject<void>();
-  private _fatores$ = new BehaviorSubject<Fatores[]>([]);
+  private _fatores$ = new BehaviorSubject<Fator[]>([]);
   private _total$ = new BehaviorSubject<number>(0);
 
   private _state: State = {
@@ -102,7 +102,7 @@ export class ListaFatoresComponent implements OnInit {
           keyboard : true,
           size : 'lg'
         };
-        const modalRef = this.modalService.open(CadastroFatoresComponent, ngbModalOptions)
+        const modalRef = this.modalService.open(CadastroFatorComponent, ngbModalOptions)
         modalRef.componentInstance.formulario = this.formularioCadastro;
 
       }
@@ -113,7 +113,7 @@ export class ListaFatoresComponent implements OnInit {
           keyboard : true,
           size : 'lg'
         };
-        const modalRef = this.modalService.open(CadastroFatoresComponent, ngbModalOptions);
+        const modalRef = this.modalService.open(CadastroFatorComponent, ngbModalOptions);
         if(this.formularioAtualizar != null){
           modalRef.componentInstance.formulario = this.formularioAtualizar;
         }
@@ -145,7 +145,7 @@ export class ListaFatoresComponent implements OnInit {
           this.atualizar();
         }})
     }
-    updateForm(fatores: Fatores){
+    updateForm(fatores: Fator){
       this.formularioAtualizar.patchValue({
         idFatorRisco: fatores.idFatorRisco,
         nome:fatores.nome,
