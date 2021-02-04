@@ -28,6 +28,7 @@ export class CadastroDepartamentoComponent implements OnInit {
 
     saveDepartamentos() {
       // editar um Fator
+      console.log(this.formulario.value);
       if (this.formulario.valid) {
         console.log('save departamentos id departamento  do formulario: '+this.formulario.value.idDepartamento +'id injetado pelo modal: '+ this.formulario.get('idDepartamento').value)
         if ( this.formulario.get('idDepartamento').value != null) {

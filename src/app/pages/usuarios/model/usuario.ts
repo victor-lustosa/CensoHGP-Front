@@ -7,5 +7,5 @@ export interface Usuario {
   matricula:string;
   senha: string;
   ativo:boolean;
-  tipousuario:TipoUsuario;
+  tipousuario: TipoUsuario;
 }

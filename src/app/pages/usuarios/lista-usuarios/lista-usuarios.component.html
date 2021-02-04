@@ -34,7 +34,7 @@
               <td>{{user.matricula}}</td>
               <td>{{user.email}}</td>
               <td>{{user.status ? 'Ativo' : 'Inativo'}}</td>
-              <td>{{user.tipo}}</td>
+              <td>{{user.tipousuario.nome}}</td>
               <td class="text-right">
                 <button type="button" class="btn btn-icon btn-warning" style="font-size: 13px; margin-right: 2%;"(click)="editar(user.idUsuario)"><i
                     class="feather icon-edit"></i> Editar</button>

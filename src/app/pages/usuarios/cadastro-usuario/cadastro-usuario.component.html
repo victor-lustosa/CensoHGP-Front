@@ -13,27 +13,23 @@
         placeholder="Digite o nome do usuário">
         <br>
         <label for="matricula">Matrícula:</label>
-        <input type="matricula" class="form-control" id="matricula" aria-describedby="matriculaHelp"
+        <input type="matricula" class="form-control" formControlName="matricula" id="matricula" aria-describedby="matriculaHelp"
         placeholder="Digite a matrícula">
         <br>
         <label for="email">E-mail:</label>
-        <input type="email" class="form-control" id="email"
+        <input type="email" class="form-control" formControlName="email" id="email"
         placeholder="Digite o seu e-mail">
         <br>
         <label for="tipoUsuario">Tipo:</label>
-        <select class="form-control" id="tipoUsuario">
+        <select class="form-control" id="tipoUsuario" formControlName="tipoUsuario">
           <option>selecionar...</option>
-          <option>Administrador</option>
-          <option>Enfermeiro</option>
+          <option value="true">Administrador</option>
+          <option value="false">Enfermeiro</option>
         </select>
 
         <br>
         <label for="senha">Senha:</label>
-        <input type="senha" class="form-control" id="senha" placeholder="Digite sua senha">
-        <br>
-        <label for="senhaConfirm">Confirmar Senha:</label>
-        <input type="senha" class="form-control" id="senhaConfirm" placeholder="Confirme sua senha">
-
+        <input type="password" class="form-control" id="senha" formControlName="senha" placeholder="Digite sua senha">
       </form>
     </div>
 
