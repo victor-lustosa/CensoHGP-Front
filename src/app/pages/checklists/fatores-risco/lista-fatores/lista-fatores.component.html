@@ -30,7 +30,7 @@
               <td class="text-right">
                 <button type="button"  (click)="editar(fatores.idFatorRisco)" class="btn btn-icon btn-warning"
                 style="font-size: 13px; margin-right: 2%;"><i class="feather icon-edit"></i> Editar</button>
-                <button type="button" class="btn btn-icon btn-info" style="font-size: 13px;  margin-right: 2%;" (click)="desabilitar(fatores.idFatorRisco)"> {{fatores.ativo ? 'Desativar' : 'Ativar'}}</button>
+                <button type="button" class="btn btn-icon btn-info" style="font-size: 13px;  margin-right: 2%;" (click)="pegaId(fatores.idFatorRisco);confirmaModal.show()"> {{fatores.ativo ? 'Desativar' : 'Ativar'}}</button>
               </td>
             </tbody>
           </table>
@@ -44,3 +44,23 @@
     </app-card>
   </div>
 </div>
+
+<app-ui-modal #confirmaModal [containerClick]="false" >
+  <div class="app-modal-header">
+    <h5 class="modal-title">Confirmação</h5>
+    <button type="reset" class="close basic-close" data-dismiss="modal" aria-label="Close" (click)="confirmaModal.hide()"><span aria-hidden="true">&times;</span></button>
+  </div>
+  <div class="app-modal-body">
+    <p> Tem certeza que deseja {{ varConfirm }} esse item?</p>
+  </div>
+
+
+  <div class="app-modal-footer">
+    <div style="float: left; margin-left: 10px; margin-right: 10px;">
+      <button type="reset" class="btn btn-outline-warning"  data-dismiss="modal" (click)="confirmaModal.hide()">NAO</button>
+    </div>
+    <div style="margin-left: 100px;">
+      <button type="reset" class="btn btn-primary" (click)="mudarStatus();confirmaModal.hide()" >SIM</button>
+    </div>
+  </div>
+</app-ui-modal>
