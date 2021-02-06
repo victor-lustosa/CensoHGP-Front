@@ -71,8 +71,7 @@ export class ListaFatoresComponent implements OnInit {
   };
   constructor(private fatoresService: FatorRiscoService,
     public modalService: NgbModal, private formBuilder: FormBuilder,
-    private pipe: DecimalPipe)
-    {
+    private pipe: DecimalPipe) {
     fatoresService.getAll().subscribe(
       data => { this.lista = data; });
     this._search$.pipe(
@@ -90,6 +89,7 @@ export class ListaFatoresComponent implements OnInit {
 
   ngOnInit(): void {
     this.msgError = null;
+
     this.formularioCadastro = this.formBuilder.group({
       idFatorRisco: [null],
       nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
@@ -131,9 +131,9 @@ export class ListaFatoresComponent implements OnInit {
     this.idAux = id;
     this.fatoresService.getById(this.idAux).subscribe((fatoresDis) => {
       if (fatoresDis.ativo === true) {
-        this.varConfirm = 'Desabilitar';
+        this.varConfirm = 'desabilitar';
       } else {
-        this.varConfirm = 'Ativar';
+        this.varConfirm = 'ativar';
       }
       this.fatorAux = fatoresDis;
     });
@@ -144,20 +144,22 @@ export class ListaFatoresComponent implements OnInit {
   mudarStatus() {
     console.log(this.idAux);
 
-      if (this.fatorAux.ativo === true) {
-        this.fatorAux.ativo = false;
-        this.fatoresService.disable(this.fatorAux).subscribe(
-          error => {
-            console.log('Erro na mudança de status: ' + error);
-          }
-        );
-      } else {
-        this.fatorAux.ativo = true;
-        this.fatoresService.disable(this.fatorAux).subscribe(
-          error => {
-            console.log('Erro na mudança de status: ' + error);
-          });
-      }
+    if (this.fatorAux.ativo === true) {
+      this.fatorAux.ativo = false;
+      this.fatoresService.disable(this.fatorAux).subscribe(
+        error => {
+          console.log('Erro na mudança de status: ' + error);
+        }
+      );
+    } else {
+      this.fatorAux.ativo = true;
+      this.fatoresService.disable(this.fatorAux).subscribe(
+        error => {
+          console.log('Erro na mudança de status: ' + error);
+        });
+    }
+
+
 
 
 
@@ -249,4 +251,6 @@ export class ListaFatoresComponent implements OnInit {
     console.log("page size aqui seach2: " + pageSize);
     return of({ fatores, total });
   }
+
+
 }

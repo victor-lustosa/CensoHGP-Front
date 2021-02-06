@@ -18,7 +18,8 @@
           <thead>
             <tr>
               <th scope="col">Nome</th>
-              <th scope="col">descrição</th>
+              <th scope="col">Descrição</th>
+              <th scope="col">Status</th>
               <th scope="col"></th>
             </tr>
           </thead>
@@ -26,10 +27,13 @@
             <tr *ngFor="let procedimentos of lista | filter: searchText | slice: (page-1) * pageSize : page * pageSize" >
               <td>{{procedimentos.nome}}</td>
               <td>{{procedimentos.descricao}}</td>
+              <td>{{procedimentos.ativo ? 'Ativo' : 'Inativo'}}</td>
               <td class="text-right">
                 <button type="button"  (click)="editar(procedimentos.idProcedimento)" class="btn btn-icon btn-warning"
                 style="font-size: 13px; margin-right: 2%;"><i
                 class="feather icon-edit"></i> Editar</button>
+
+                <button type="button" class="btn btn-icon btn-info" style="font-size: 13px;  margin-right: 2%;" (click)="pegaId(procedimentos.idProcedimento);confirmaModal.show()"> {{procedimentos.ativo ? 'Desativar' : 'Ativar'}}</button>
               </td>
             </tbody>
           </table>
@@ -39,9 +43,29 @@
           [pageSize]="pageSize"
           [collectionSize]="lista.length"></ngb-pagination>
           <ng-template #noResults>
-            <p>0 resultados encontrados para "{{searchText}}".</p>
+            <p>0 resultados encontrados para "{{ searchText }}".</p>
           </ng-template>
         </div>
       </app-card>
     </div>
   </div>
+
+  <app-ui-modal #confirmaModal [containerClick]="false" >
+    <div  class="app-modal-header">
+      <h5  class="modal-title">Confirmação</h5>
+      <button type="reset" class="close basic-close" data-dismiss="modal" aria-label="Close" (click)="confirmaModal.hide()"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="app-modal-body">
+      <p > Tem certeza que deseja {{ varConfirm }} esse item?</p>
+    </div>
+
+
+    <div class="app-modal-footer">
+      <div style="float: left; margin-left: 10px; margin-right: 10px;">
+        <button type="reset" class="btn btn-outline-warning"  data-dismiss="modal" (click)="confirmaModal.hide()">NAO</button>
+      </div>
+      <div style="margin-left: 100px;">
+        <button type="reset" class="btn btn-primary" (click)="mudarStatus();confirmaModal.hide()" >SIM</button>
+      </div>
+    </div>
+  </app-ui-modal>

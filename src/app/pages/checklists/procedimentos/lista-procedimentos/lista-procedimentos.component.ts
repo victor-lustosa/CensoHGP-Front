@@ -11,9 +11,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./lista-procedimentos.component.scss']
 })
 export class ListaProcedimentosComponent implements OnInit {
-  formularioCadastro:FormGroup =null;
-  formularioAtualizar:FormGroup =null;
-  idFator:number = 0;
+  formularioCadastro: FormGroup = null;
+  formularioAtualizar: FormGroup = null;
+  idFator: number = 0;
   status: boolean;
   lista: Procedimento[] = [];
   msgError: string;
@@ -21,65 +21,106 @@ export class ListaProcedimentosComponent implements OnInit {
   searchText: string;
   pageSize = 10;
   page = 1;
-  constructor(private procedimentosService: ProcedimentoService,  public modalService: NgbModal, private formBuilder: FormBuilder) { }
+  varConfirm: string;
+  procedimentoAux: Procedimento;
+  constructor(private procedimentosService: ProcedimentoService, public modalService: NgbModal, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-    this.msgError= null;
+    this.msgError = null;
     this.loadListaProcedimentos();
     this.formularioCadastro = this.formBuilder.group({
       idProcedimento: [null],
       nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
-      descricao: [null]
+      descricao: [null],
+      ativo: [true]
     })
     this.formularioAtualizar = this.formBuilder.group({
       idProcedimento: [null],
       nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
-      descricao: [null]
+      descricao: [null],
+      ativo: [true]
     })
   }
-  limpar(){
-      this.searchText = '';
-      return this.searchText;
+  limpar() {
+    this.searchText = '';
+    return this.searchText;
   }
-  cadastrar(){
-    const modalRef =  this.modalService.open(CadastroProcedimentoComponent, { size: 'lg' });
+  cadastrar() {
+    const modalRef = this.modalService.open(CadastroProcedimentoComponent, { size: 'lg' });
     modalRef.componentInstance.formulario = this.formularioCadastro;
     this.loadListaProcedimentos();
   }
   atualizar() {
     const modalRef = this.modalService.open(CadastroProcedimentoComponent, { size: 'lg' });
-    if(this.formularioAtualizar != null){
+    if (this.formularioAtualizar != null) {
       modalRef.componentInstance.formulario = this.formularioAtualizar;
     }
     this.loadListaProcedimentos();
   }
-  editar(id:number){
+  editar(id: number) {
     this.procedimentosService.getById(id).subscribe((procedimentos) => {
       console.log(procedimentos);
       this.updateForm(procedimentos);
       console.log(this.formularioAtualizar)
-      if(this.formularioAtualizar != null){
+      if (this.formularioAtualizar != null) {
         this.atualizar();
       }
     })
   }
-  updateForm(procedimentos: Procedimento){
+  pegaId(id: number) {
+
+    this.procedimentosService.getById(id).subscribe((procedimentosDis) => {
+      if (procedimentosDis.ativo === true) {
+        this.varConfirm = 'Desabilitar';
+      } else {
+        this.varConfirm = 'Ativar';
+      }
+      this.procedimentoAux = procedimentosDis;
+    });
+
+
+  }
+
+  mudarStatus() {
+
+
+    if (this.procedimentoAux.ativo === true) {
+      this.procedimentoAux.ativo = false;
+      this.procedimentosService.disable(this.procedimentoAux).subscribe(
+        error => {
+          console.log('Erro na mudança de status: ' + error);
+        }
+      );
+    } else {
+      this.procedimentoAux.ativo = true;
+      this.procedimentosService.disable(this.procedimentoAux).subscribe(
+        error => {
+          console.log('Erro na mudança de status: ' + error);
+        });
+    }
+    this.loadListaProcedimentos();
+
+  }
+
+
+  updateForm(procedimentos: Procedimento) {
 
     this.formularioAtualizar.patchValue({
       idProcedimento: procedimentos.idProcedimento,
-      nome:procedimentos.nome,
-      descricao: procedimentos.descricao
+      nome: procedimentos.nome,
+      descricao: procedimentos.descricao,
+      ativo: procedimentos.ativo
     })
   }
   loadListaProcedimentos() {
     this.procedimentosService.getAll()
-    .subscribe(
-      data => {
-        this.lista = data;
-        console.log(data);
-      },
-      error => {
-        console.log('Erro serviço ' + error)
-      })
-    }
+      .subscribe(
+        data => {
+          this.lista = data;
+          console.log(data);
+        },
+        error => {
+          console.log('Erro serviço ' + error)
+        })
   }
+}

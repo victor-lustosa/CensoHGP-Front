@@ -43,7 +43,7 @@ export class CadastroProcedimentoComponent implements OnInit {
             },
             errorResponse => {
               console.log('Erro ao atualizar procedimentos , servico ' + errorResponse)
-              this.errors = ['Erro ao atualizar fator .']
+              this.errors = ['Erro ao atualizar procedimento .']
             })
           } else {
             //salvar um fator
