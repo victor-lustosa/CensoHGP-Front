@@ -8,6 +8,7 @@ import { NgbdSortableHeader, SortEvent, SortColumn, SortDirection } from '../sor
 import { DecimalPipe } from '@angular/common';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { debounceTime, delay, switchMap, tap } from 'rxjs/operators';
+import { Location } from '@angular/common';
 
 
 
@@ -71,7 +72,7 @@ export class ListaFatoresComponent implements OnInit {
   };
   constructor(private fatoresService: FatorRiscoService,
     public modalService: NgbModal, private formBuilder: FormBuilder,
-    private pipe: DecimalPipe) {
+    private pipe: DecimalPipe, location: Location) {
     fatoresService.getAll().subscribe(
       data => { this.lista = data; });
     this._search$.pipe(
@@ -89,7 +90,7 @@ export class ListaFatoresComponent implements OnInit {
 
   ngOnInit(): void {
     this.msgError = null;
-
+    this.onRefresh();
     this.formularioCadastro = this.formBuilder.group({
       idFatorRisco: [null],
       nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
@@ -131,7 +132,7 @@ export class ListaFatoresComponent implements OnInit {
     this.idAux = id;
     this.fatoresService.getById(this.idAux).subscribe((fatoresDis) => {
       if (fatoresDis.ativo === true) {
-        this.varConfirm = 'desabilitar';
+        this.varConfirm = 'desativar';
       } else {
         this.varConfirm = 'ativar';
       }
@@ -158,13 +159,26 @@ export class ListaFatoresComponent implements OnInit {
           console.log('Erro na mudança de status: ' + error);
         });
     }
+    location.reload();
 
 
 
 
 
 
+  }
 
+  onRefresh() {
+    this.fatoresService.getAll()
+      .subscribe(
+        data => {
+          this.lista = data;
+          console.log(data);
+        },
+        error => {
+          console.log('Erro serviço ' + error);
+        });
+    return this.lista;
   }
 
   editar(id: number) {

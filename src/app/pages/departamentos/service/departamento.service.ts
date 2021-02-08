@@ -8,6 +8,6 @@ import { Departamento } from '../model/departamento';
 })
 export class DepartamentoService extends CRUD<Departamento> {
   constructor(  http:HttpClient ){
-    super(http, `${environment.API}apicensohgp/departamento`)
-  };
+    super(http, `${environment.API}apicensohgp/departamento`);
+  }
 }

@@ -4,6 +4,7 @@ import { Incidente } from '../model/incidente';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CadastroIncidenteComponent } from '../cadastro-incidente/cadastro-incidente.component';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-lista-incidentes',
@@ -21,8 +22,10 @@ export class ListaIncidentesComponent implements OnInit {
   searchText: string;
   pageSize = 10;
   page = 1;
+  varConfirm: string;
+  incidenteAux: Incidente;
 
-  constructor(private incidentesService: IncidenteService,  public modalService: NgbModal, private formBuilder: FormBuilder) { }
+  constructor(private incidentesService: IncidenteService,  public modalService: NgbModal, private formBuilder: FormBuilder, location: Location) { }
 
   ngOnInit(): void {
 
@@ -31,12 +34,14 @@ export class ListaIncidentesComponent implements OnInit {
     this.formularioCadastro = this.formBuilder.group({
       idIncidente: [null],
       nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
-      descricao: [null]
+      descricao: [null],
+      ativo: [true]
     })
     this.formularioAtualizar = this.formBuilder.group({
       idIncidente: [null],
       nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
-      descricao: [null]
+      descricao: [null],
+      ativo: [true]
     })
   }
   limpar(){
@@ -70,7 +75,8 @@ export class ListaIncidentesComponent implements OnInit {
     this.formularioAtualizar.patchValue({
       idIncidente: incidentes.idIncidente,
       nome:incidentes.nome,
-      descricao: incidentes.descricao
+      descricao: incidentes.descricao,
+      ativo: incidentes.ativo
     })
   }
   loadListaIncidentes() {
@@ -83,5 +89,40 @@ export class ListaIncidentesComponent implements OnInit {
       error => {
         console.log('Erro serviço ' + error)
       })
+    }
+
+    pegaId(id: number) {
+
+      this.incidentesService.getById(id).subscribe((incidentesDis) => {
+        if (incidentesDis.ativo === true) {
+          this.varConfirm = 'desativar';
+        } else {
+          this.varConfirm = 'ativar';
+        }
+        this.incidenteAux = incidentesDis;
+      });
+
+
+    }
+
+    mudarStatus() {
+
+
+      if (this.incidenteAux.ativo === true) {
+        this.incidenteAux.ativo = false;
+        this.incidentesService.disable(this.incidenteAux).subscribe(
+          error => {
+            console.log('Erro na mudança de status: ' + error);
+          }
+        );
+      } else {
+        this.incidenteAux.ativo = true;
+        this.incidentesService.disable(this.incidenteAux).subscribe(
+          error => {
+            console.log('Erro na mudança de status: ' + error);
+          });
+      }
+      location.reload();
+
     }
   }

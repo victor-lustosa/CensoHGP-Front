@@ -18,11 +18,13 @@ export class ListaDepartamentosComponent implements OnInit {
   status: boolean;
   searchText:string;
   tipodepartamento:number;
-  ativo:boolean
+  ativo:boolean;
   lista:Departamento[] = [];
   msgError: string;
   pageSize:number = 10;
   page:number = 1;
+  departamentoAux: Departamento;
+  varConfirm: string;
 
   constructor(private departamentosService: DepartamentoService,
     public modalService: NgbModal, private formBuilder: FormBuilder,
@@ -48,7 +50,8 @@ export class ListaDepartamentosComponent implements OnInit {
         numero_leitos: [null, [Validators.required]],
         ativo: [true],
         tipodepartamento:[1],
-        descricao:[null]
+        descricao:[null],
+
       })
     }
     limpar(){
@@ -98,5 +101,45 @@ export class ListaDepartamentosComponent implements OnInit {
         error => {
           console.log('Erro serviço ' + error)
         })
+      }
+
+      pegaId(id: number) {
+
+        this.departamentosService.getById(id).subscribe((departamentosDis) => {
+          if (departamentosDis.ativo === true) {
+            this.varConfirm = 'desativar';
+          } else {
+            this.varConfirm = 'ativar';
+          }
+          this.departamentoAux = departamentosDis;
+        });
+
+
+      }
+
+      mudarStatus() {
+
+
+        if (this.departamentoAux.ativo === true) {
+          this.departamentoAux.ativo = false;
+          this.departamentosService.disable(this.departamentoAux).subscribe(
+            error => {
+              console.log('Erro na mudança de status: ' + error);
+            }
+          );
+        } else {
+          this.departamentoAux.ativo = true;
+          this.departamentosService.disable(this.departamentoAux).subscribe(
+            error => {
+              console.log('Erro na mudança de status: ' + error);
+            });
+        }
+        location.reload();
+
+
+
+
+
+
       }
     }

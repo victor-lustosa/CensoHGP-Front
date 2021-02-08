@@ -22,6 +22,8 @@ export class ListaPrecaucoesComponent implements OnInit {
   searchText: string;
   pageSize = 10;
   page = 1;
+  precaucaoAux: Precaucao;
+  varConfirm: string;
   constructor(private precaucoesService: PrecaucaoService,  public modalService: NgbModal, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
@@ -30,12 +32,14 @@ export class ListaPrecaucoesComponent implements OnInit {
     this.formularioCadastro = this.formBuilder.group({
       idPrecaucao: [null],
       nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
-      descricao: [null]
+      descricao: [null],
+      ativo: [true]
     })
     this.formularioAtualizar = this.formBuilder.group({
       idPrecaucao: [null],
       nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
-      descricao: [null]
+      descricao: [null],
+      ativo: [true]
     })
   }
   limpar(){
@@ -79,7 +83,8 @@ export class ListaPrecaucoesComponent implements OnInit {
     this.formularioAtualizar.patchValue({
       idPrecaucao: precaucoes.idPrecaucao,
       nome:precaucoes.nome,
-      descricao: precaucoes.descricao
+      descricao: precaucoes.descricao,
+      ativo: precaucoes.ativo
     })
   }
   loadListaPrecaucoes() {
@@ -92,5 +97,40 @@ export class ListaPrecaucoesComponent implements OnInit {
       error => {
         console.log('Erro serviço ' + error)
       })
+    }
+
+    pegaId(id: number) {
+
+      this.precaucoesService.getById(id).subscribe((precaucaosDis) => {
+        if (precaucaosDis.ativo === true) {
+          this.varConfirm = 'desativar';
+        } else {
+          this.varConfirm = 'ativar';
+        }
+        this.precaucaoAux = precaucaosDis;
+      });
+
+
+    }
+
+    mudarStatus() {
+
+
+      if (this.precaucaoAux.ativo === true) {
+        this.precaucaoAux.ativo = false;
+        this.precaucoesService.disable(this.precaucaoAux).subscribe(
+          error => {
+            console.log('Erro na mudança de status: ' + error);
+          }
+        );
+      } else {
+        this.precaucaoAux.ativo = true;
+        this.precaucoesService.disable(this.precaucaoAux).subscribe(
+          error => {
+            console.log('Erro na mudança de status: ' + error);
+          });
+      }
+      location.reload();
+
     }
   }

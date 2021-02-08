@@ -36,8 +36,8 @@
 
               <th scope="col">Nome</th>
               <th scope="col">Nº de leitos</th>
-              <th scope="col">Status</th>
               <th scope="col">Tipo de departamento</th>
+              <th scope="col">Status</th>
               <th scope="col"></th>
 
             </tr>
@@ -47,15 +47,15 @@
 
               <td>{{departamento.nome}}</td>
               <td>{{departamento.numero_leitos}}</td>
-              <td>{{departamento.ativo ? 'ativo':'inativo'}}</td>
               <td>{{departamento.tipodepartamento.idTipoDepartamento == 1 ? 'interno': 'externo' }}</td>
+              <td>{{departamento.ativo ? 'ativo':'inativo'}}</td>
 
               <td class="text-right">
 
                 <button type="button" class="btn btn-icon btn-warning" style="font-size: 13px; margin-right: 2%;" (click)="editar(departamento.idDepartamento)"><i
                   class="feather icon-edit"></i> Editar</button>
 
-                  <button type="button" class="btn btn-icon btn-info" style="font-size: 13px;  margin-right: 2%;"> {{departamento.ativo ? 'Desativar' : 'Ativar'}}</button>
+                  <button type="button" class="btn btn-icon btn-info" style="font-size: 13px;  margin-right: 2%;" (click)="pegaId(departamento.idDepartamento);confirmaModal.show()"> {{departamento.ativo ? 'Desativar' : 'Ativar'}}</button>
                 </td>
               </tbody>
             </table>
@@ -68,3 +68,24 @@
         </app-card>
       </div>
     <div>
+
+      <app-ui-modal #confirmaModal [containerClick]="false" >
+        <div  class="app-modal-header">
+          <h5  class="modal-title">Confirmação</h5>
+          <button type="reset" class="close basic-close" data-dismiss="modal" aria-label="Close" (click)="confirmaModal.hide()"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="app-modal-body">
+          <p > Tem certeza que deseja {{ varConfirm }} esse item?</p>
+        </div>
+
+
+        <div class="app-modal-footer">
+          <div style="float: left; margin-left: 10px; margin-right: 10px;">
+            <button type="reset" class="btn btn-outline-warning"  data-dismiss="modal" (click)="confirmaModal.hide()">NAO</button>
+          </div>
+          <div style="margin-left: 100px;">
+            <button type="reset" class="btn btn-primary" (click)="mudarStatus();confirmaModal.hide()" >SIM</button>
+          </div>
+        </div>
+      </app-ui-modal>
+

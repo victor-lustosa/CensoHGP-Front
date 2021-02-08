@@ -4,7 +4,7 @@ import { Procedimento } from '../model/procedimento';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CadastroProcedimentoComponent } from '../cadastro-procedimento/cadastro-procedimento.component';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-lista-procedimentos',
   templateUrl: './lista-procedimentos.component.html',
@@ -23,7 +23,7 @@ export class ListaProcedimentosComponent implements OnInit {
   page = 1;
   varConfirm: string;
   procedimentoAux: Procedimento;
-  constructor(private procedimentosService: ProcedimentoService, public modalService: NgbModal, private formBuilder: FormBuilder) { }
+  constructor(private procedimentosService: ProcedimentoService, public modalService: NgbModal, private formBuilder: FormBuilder, location: Location) { }
 
   ngOnInit(): void {
     this.msgError = null;
@@ -71,9 +71,9 @@ export class ListaProcedimentosComponent implements OnInit {
 
     this.procedimentosService.getById(id).subscribe((procedimentosDis) => {
       if (procedimentosDis.ativo === true) {
-        this.varConfirm = 'Desabilitar';
+        this.varConfirm = 'desativar';
       } else {
-        this.varConfirm = 'Ativar';
+        this.varConfirm = 'ativar';
       }
       this.procedimentoAux = procedimentosDis;
     });
@@ -98,7 +98,7 @@ export class ListaProcedimentosComponent implements OnInit {
           console.log('Erro na mudança de status: ' + error);
         });
     }
-    this.loadListaProcedimentos();
+    location.reload();
 
   }
 
@@ -120,7 +120,7 @@ export class ListaProcedimentosComponent implements OnInit {
           console.log(data);
         },
         error => {
-          console.log('Erro serviço ' + error)
-        })
+          console.log('Erro serviço ' + error);
+        });
   }
 }
