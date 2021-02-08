@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup } from '@angular/forms';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FatorRiscoService } from '../service/fator-risco.service';
 import { Location } from '@angular/common';
 
@@ -11,16 +11,24 @@ import { Location } from '@angular/common';
 
 })
 export class CadastroFatorComponent implements OnInit {
+
   @Input() public formulario: FormGroup;
 
   errors: String[];
   sucesso: boolean = false;
+  erro: boolean = false;
+  mensagemErro: string;
+  tituloModal: string;
 
   constructor(
     public activeModal: NgbActiveModal, public modalService: NgbModal, private fatoresService: FatorRiscoService, location: Location) { }
 
   ngOnInit(): void {
     console.log('id recebido no cadastro modal:' + this.formulario.get('idFatorRisco').value);
+    this.tituloModal = "Cadastrar Fator Risco";
+    if (this.formulario.valid) {
+      this.tituloModal = "Editar Fator Risco";
+    }
   }
 
 
@@ -38,7 +46,7 @@ export class CadastroFatorComponent implements OnInit {
                 this.formulario.reset(),
                 setTimeout(() => {
                   this.activeModal.close(),
-                  location.reload();
+                    location.reload();
                 }, 1000)
             },
             errorResponse => {
@@ -47,22 +55,32 @@ export class CadastroFatorComponent implements OnInit {
             })
       } else {
         //salvar um fator de risco
-        this.fatoresService.create(this.formulario.value)
-          .subscribe(
-            sucess => {
-              console.log(sucess),
-                this.formulario,
-                this.sucesso = true,
-                this.formulario.reset(),
-                setTimeout(() => {
-                  this.activeModal.close(),
-                  location.reload();
-                }, 1000)
-            },
-            errorResponse => {
-              console.log('Erro no salvar fatores de risco, servico ' + errorResponse)
-              this.errors = errorResponse.error.errors;
-            })
+        if (this.formulario.value.nome == null || this.formulario.value.nome == "" || this.formulario.value.nome == " ") {
+          this.erro = true;
+          this.mensagemErro = "O nome é obrigatório.";
+        } else {
+          this.fatoresService.create(this.formulario.value)
+            .subscribe(
+              sucess => {
+                console.log(sucess),
+                  this.formulario,
+                  this.sucesso = true,
+                  this.formulario.reset(),
+                  setTimeout(() => {
+                    this.activeModal.close(),
+                      location.reload();
+                  }, 1000)
+              },
+              errorResponse => {
+                console.log('Erro no salvar fatores de risco, servico ' + errorResponse)
+                this.errors = errorResponse.error.errors;
+              })
+        }
+      }
+    } else {
+      if (this.formulario.value.nome == null || this.formulario.value.nome == "" || this.formulario.value.nome == " ") {
+        this.erro = true;
+        this.mensagemErro = "O nome é obrigatório.";
       }
     }
   }

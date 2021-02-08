@@ -13,7 +13,6 @@ import { Location } from '@angular/common';
 export class ListaProcedimentosComponent implements OnInit {
   formularioCadastro: FormGroup = null;
   formularioAtualizar: FormGroup = null;
-  idFator: number = 0;
   status: boolean;
   lista: Procedimento[] = [];
   msgError: string;

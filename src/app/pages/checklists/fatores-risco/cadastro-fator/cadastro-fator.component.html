@@ -1,11 +1,14 @@
 
 <div class="modal-content" >
   <div class="modal-header">
-    <h5  class="modal-title">Cadastro Fatores de risco</h5>
+    <h5  class="modal-title">{{tituloModal}}</h5>
   </div>
   <div class="modal-body">
     <div class="col-md-13">
       <app-alert type="primary" *ngIf="sucesso == true">salvo com sucesso</app-alert>
+    </div>
+    <div class="col-md-13">
+      <app-alert type="danger"  *ngIf="erro == true">{{mensagemErro}}</app-alert>
     </div>
     <form  [formGroup]="formulario" >
       <label for="nome">Nome:</label>

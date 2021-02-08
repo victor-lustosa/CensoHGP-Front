@@ -1,26 +1,44 @@
-
-<div class="modal-content"  >
-
+<div class="modal-content">
   <div class="modal-header">
-    <h5  class="modal-title">Cadastro Incidentes</h5>
+    <h5 class="modal-title">{{ tituloModal }}</h5>
   </div>
-  <div class="col-md-12">
-           <app-alert type="primary" *ngIf="sucesso == true">salvo com sucesso</app-alert>
-         </div>
   <div class="modal-body">
-    <form  [formGroup]="formulario" >
+    <div class="col-md-13">
+      <app-alert type="primary" *ngIf="sucesso == true">salvo com sucesso</app-alert>
+    </div>
+    <div class="col-md-13">
+      <app-alert type="danger"  *ngIf="erro == true">{{mensagemErro}}</app-alert>
+    </div>
+    <form [formGroup]="formulario">
       <label for="nome">Nome:</label>
-      <input  id="nome" formControlName="nome" class="form-control" aria-describedby="nomeHelp"
-      placeholder="Digite o nome do incidente">
-      <br>
+      <input
+        id="nome"
+        formControlName="nome"
+        class="form-control"
+        aria-describedby="nomeHelp"
+        placeholder="Digite o nome do incidente"
+      />
+      <br />
       <label for="descricao">Descrição:</label>
-      <textarea placeholder="Digite uma descrição" class="form-control" id="descricao" formControlName="descricao" rows="5"></textarea>
+      <textarea
+        placeholder="Digite uma descrição"
+        class="form-control"
+        id="descricao"
+        formControlName="descricao"
+        rows="5"
+      ></textarea>
     </form>
   </div>
   <div class="modal-footer">
-    <div style="margin-left: 200px;">
-      <button type="submit" class="btn btn-primary" style="margin-left:-16%; font-size: 16px;"(click)="saveIncidentes()"><i
-        class="feather icon-save"></i> Salvar</button>
+    <div style="margin-left: 200px">
+      <button
+        type="submit"
+        class="btn btn-primary"
+        style="margin-left: -16%; font-size: 16px"
+        (click)="saveIncidentes()"
+      >
+        <i class="feather icon-save"></i> Salvar
+      </button>
     </div>
   </div>
 </div>

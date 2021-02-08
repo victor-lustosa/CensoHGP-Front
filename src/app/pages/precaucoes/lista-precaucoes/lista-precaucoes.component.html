@@ -27,7 +27,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let precaucoes of lista | slice: (page-1) * pageSize : page * pageSize" >
+            <tr *ngFor="let precaucoes of lista | filter: searchText | slice: (page-1) * pageSize : page * pageSize" >
               <td>{{precaucoes.nome}}</td>
               <td>{{precaucoes.descricao}}</td>
               <td>{{precaucoes.ativo ? 'Ativo' : 'Inativo'}}</td>
@@ -39,11 +39,7 @@
               </td>
             </tbody>
           </table>
-          <ngb-pagination
-          class="d-flex justify-content-center"
-          [(page)]="page"
-          [pageSize]="pageSize"
-          [collectionSize]="lista.length"></ngb-pagination>
+
           <ng-template #noResults>
             <p>0 resultados encontrados para "{{searchText}}".</p>
           </ng-template>
