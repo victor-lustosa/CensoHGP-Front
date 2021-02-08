@@ -14,14 +14,20 @@ export class CadastroPrecaucaoComponent implements OnInit {
 
   errors: String[];
   sucesso: boolean = false;
+  erro: boolean = false;
+  mensagemErro: string;
+  tituloModal: string;
 
   constructor(
     public activeModal: NgbActiveModal, public modalService: NgbModal, private precaucoesService: PrecaucaoService, location: Location) { }
 
   ngOnInit(): void {
     console.log('id recebido no cadastro modal:' + this.formulario.get('idPrecaucao').value);
+    this.tituloModal = "Cadastrar Precaução";
+    if (this.formulario.valid) {
+      this.tituloModal = "Editar Precaução";
+    }
   }
-
 
   savePrecaucoes() {
     // editar um Precaucao
@@ -37,7 +43,7 @@ export class CadastroPrecaucaoComponent implements OnInit {
                 this.formulario.reset(),
                 setTimeout(() => {
                   this.activeModal.close(),
-                  location.reload();
+                    location.reload();
                 }, 1000)
             },
             errorResponse => {
@@ -46,23 +52,36 @@ export class CadastroPrecaucaoComponent implements OnInit {
             })
       } else {
         //salvar um precaucao
-        this.precaucoesService.create(this.formulario.value)
-          .subscribe(
-            sucess => {
-              console.log(sucess),
-                this.formulario,
-                this.sucesso = true,
+
+        if (this.formulario.value.nome == null || this.formulario.value.nome == "" || this.formulario.value.nome == " ") {
+          this.erro = true;
+          this.mensagemErro = "O nome é obrigatório.";
+        } else {
+          this.precaucoesService.create(this.formulario.value)
+            .subscribe(
+              sucess => {
+                console.log(sucess),
+                  this.formulario,
+                  this.sucesso = true,
+                  this.erro = false;
                 this.formulario.reset(),
-                setTimeout(() => {
-                  this.activeModal.close(),
-                  location.reload();
-                }, 1000)
-            },
-            errorResponse => {
-              console.log('Erro no salvar precaucoes, servico ' + errorResponse)
-              this.errors = errorResponse.error.errors;
-            })
+                  setTimeout(() => {
+                    this.activeModal.close(),
+                      location.reload();
+                  }, 1000)
+              },
+              errorResponse => {
+                console.log('Erro no salvar precaucoes, servico ' + errorResponse)
+                this.errors = errorResponse.error.errors;
+              })
+        }
+
+      }
+    } else {
+      if (this.formulario.value.nome == null || this.formulario.value.nome == "" || this.formulario.value.nome == " ") {
+        this.erro = true;
+        this.mensagemErro = "O nome é obrigatório.";
       }
     }
   }
-  }
+}
