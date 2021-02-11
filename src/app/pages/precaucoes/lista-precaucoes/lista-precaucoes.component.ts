@@ -54,7 +54,7 @@ export class ListaPrecaucoesComponent implements OnInit {
     };
     const modalRef = this.modalService.open(CadastroPrecaucaoComponent, ngbModalOptions)
     modalRef.componentInstance.formulario = this.formularioCadastro;
-
+    modalRef.componentInstance.tituloModal = "Cadastrar precaução";
   }
 
   atualizar() {
@@ -65,11 +65,13 @@ export class ListaPrecaucoesComponent implements OnInit {
     };
     const modalRef = this.modalService.open(CadastroPrecaucaoComponent, ngbModalOptions);
     if(this.formularioAtualizar != null){
+      modalRef.componentInstance.tituloModal = "Editar precaução";
       modalRef.componentInstance.formulario = this.formularioAtualizar;
     }
 
   }
   editar(id:number){
+
     this.precaucoesService.getById(id).subscribe((precaucoes) => {
       console.log(precaucoes);
       this.updateForm(precaucoes);

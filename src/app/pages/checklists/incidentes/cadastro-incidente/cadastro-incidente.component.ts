@@ -25,10 +25,8 @@ export class CadastroIncidenteComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('id recebido no cadastro modal:' + this.formulario.get('idIncidente').value);
-    this.tituloModal = "Cadastrar Incidente";
-    if (this.formulario.valid) {
-      this.tituloModal = "Editar Incidente";
-    }
+
+
   }
 
   saveIncidentes() {

@@ -47,6 +47,7 @@ export class ListaFatoresComponent implements OnInit {
   }
   cadastrar() {
     const modalRef = this.modalService.open(CadastroFatorComponent, { size: 'lg' });
+    modalRef.componentInstance.tituloModal = "Cadastrar fator de risco";
     modalRef.componentInstance.formulario = this.formularioCadastro;
     this.loadListaFatores();
   }
@@ -54,6 +55,7 @@ export class ListaFatoresComponent implements OnInit {
   atualizar() {
     const modalRef = this.modalService.open(CadastroFatorComponent, { size: 'lg' });
     if (this.formularioAtualizar != null) {
+      modalRef.componentInstance.tituloModal = "Editar fator de risco";
       modalRef.componentInstance.formulario = this.formularioAtualizar;
     }
     this.loadListaFatores();

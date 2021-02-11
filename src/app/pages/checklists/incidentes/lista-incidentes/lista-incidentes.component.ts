@@ -58,12 +58,14 @@ export class ListaIncidentesComponent implements OnInit {
   }
   cadastrar(){
     const modalRef =  this.modalService.open(CadastroIncidenteComponent, { size: 'lg' });
+    modalRef.componentInstance.tituloModal = "Cadastrar incidente";
     modalRef.componentInstance.formulario = this.formularioCadastro;
     this.loadListaIncidentes();
   }
   atualizar() {
     const modalRef = this.modalService.open(CadastroIncidenteComponent, { size: 'lg' });
     if(this.formularioAtualizar != null){
+      modalRef.componentInstance.tituloModal = "Editar incidente";
       modalRef.componentInstance.formulario = this.formularioAtualizar;
     }
     this.loadListaIncidentes();

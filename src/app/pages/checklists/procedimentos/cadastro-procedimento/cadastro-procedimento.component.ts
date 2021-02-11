@@ -24,10 +24,6 @@ export class CadastroProcedimentoComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('id recebido no cadastro modal:' + this.formulario.get('idProcedimento').value);
-    this.tituloModal = "Cadastrar Precaução";
-    if (this.formulario.valid) {
-      this.tituloModal = "Editar Precaução";
-    }
   }
 
   saveProcedimentos() {
