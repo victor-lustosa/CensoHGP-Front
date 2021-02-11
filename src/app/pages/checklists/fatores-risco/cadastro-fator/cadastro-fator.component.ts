@@ -25,10 +25,7 @@ export class CadastroFatorComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('id recebido no cadastro modal:' + this.formulario.get('idFatorRisco').value);
-    this.tituloModal = "Cadastrar Fator Risco";
-    if (this.formulario.valid) {
-      this.tituloModal = "Editar Fator Risco";
-    }
+
   }
 
 

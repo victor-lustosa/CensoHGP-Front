@@ -46,12 +46,14 @@ export class ListaProcedimentosComponent implements OnInit {
   }
   cadastrar() {
     const modalRef = this.modalService.open(CadastroProcedimentoComponent, { size: 'lg' });
+    modalRef.componentInstance.tituloModal = "Cadastrar procedimento";
     modalRef.componentInstance.formulario = this.formularioCadastro;
     this.loadListaProcedimentos();
   }
   atualizar() {
     const modalRef = this.modalService.open(CadastroProcedimentoComponent, { size: 'lg' });
     if (this.formularioAtualizar != null) {
+      modalRef.componentInstance.tituloModal = "Editar procedimento";
       modalRef.componentInstance.formulario = this.formularioAtualizar;
     }
     this.loadListaProcedimentos();
