@@ -3,7 +3,7 @@ import { IncidenteService } from '../service/incidente.service';
 import { Incidente } from '../model/incidente';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CadastroIncidenteComponent } from '../cadastro-incidente/cadastro-incidente.component';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Location } from '@angular/common';
 
 @Component({
@@ -24,7 +24,8 @@ export class ListaIncidentesComponent implements OnInit {
   page = 1;
   varConfirm: string;
   incidenteAux: Incidente;
-
+  pesquisaForm: FormGroup = null;
+  statusPesquisa: boolean = false;
   constructor(private incidentesService: IncidenteService,  public modalService: NgbModal, private formBuilder: FormBuilder, location: Location) { }
 
   ngOnInit(): void {
@@ -43,10 +44,17 @@ export class ListaIncidentesComponent implements OnInit {
       descricao: [null],
       ativo: [true]
     })
+    this.pesquisaForm = new FormGroup({
+      pesquisar: new FormControl(null, Validators.required)
+    });
+  }
+  public pesquisa(): void {
+    this.statusPesquisa = true;
+    this.loadListaIncidentes();
   }
   limpar(){
-      this.searchText = '';
-      return this.searchText;
+    this.searchText = '';
+    return this.searchText;
   }
   cadastrar(){
     const modalRef =  this.modalService.open(CadastroIncidenteComponent, { size: 'lg' });
@@ -80,49 +88,60 @@ export class ListaIncidentesComponent implements OnInit {
     })
   }
   loadListaIncidentes() {
-    this.incidentesService.getAll()
-    .subscribe(
-      data => {
-        this.lista = data;
-        console.log(data);
-      },
-      error => {
-        console.log('Erro serviço ' + error)
-      })
-    }
-
-    pegaId(id: number) {
-
-      this.incidentesService.getById(id).subscribe((incidentesDis) => {
-        if (incidentesDis.ativo === true) {
-          this.varConfirm = 'desativar';
-        } else {
-          this.varConfirm = 'ativar';
-        }
-        this.incidenteAux = incidentesDis;
-      });
-
-
-    }
-
-    mudarStatus() {
-
-
-      if (this.incidenteAux.ativo === true) {
-        this.incidenteAux.ativo = false;
-        this.incidentesService.disable(this.incidenteAux).subscribe(
-          error => {
-            console.log('Erro na mudança de status: ' + error);
+    if(this.statusPesquisa === false){
+      this.incidentesService.getAll()
+      .subscribe(
+        data => {
+          this.lista = data;
+          console.log(data);
+        },
+        error => {
+          console.log('Erro serviço ' + error)
+        })}
+        else {
+          this.incidentesService.getByNome(this.pesquisaForm.get('pesquisar').value).subscribe(
+            data => {
+              this.lista = data;
+              console.log(data);
+            },
+            error => {
+              console.log('Erro serviço ' + error)
+            });
           }
-        );
-      } else {
-        this.incidenteAux.ativo = true;
-        this.incidentesService.disable(this.incidenteAux).subscribe(
-          error => {
-            console.log('Erro na mudança de status: ' + error);
-          });
-      }
-      location.reload();
+        }
 
-    }
-  }
+        pegaId(id: number) {
+
+          this.incidentesService.getById(id).subscribe((incidentesDis) => {
+            if (incidentesDis.ativo === true) {
+              this.varConfirm = 'desativar';
+            } else {
+              this.varConfirm = 'ativar';
+            }
+            this.incidenteAux = incidentesDis;
+          });
+
+
+        }
+
+        mudarStatus() {
+
+
+          if (this.incidenteAux.ativo === true) {
+            this.incidenteAux.ativo = false;
+            this.incidentesService.disable(this.incidenteAux).subscribe(
+              error => {
+                console.log('Erro na mudança de status: ' + error);
+              }
+            );
+          } else {
+            this.incidenteAux.ativo = true;
+            this.incidentesService.disable(this.incidenteAux).subscribe(
+              error => {
+                console.log('Erro na mudança de status: ' + error);
+              });
+            }
+            location.reload();
+
+          }
+        }

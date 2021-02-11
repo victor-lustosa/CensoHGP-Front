@@ -3,7 +3,7 @@ import { ProcedimentoService } from '../service/procedimento.service';
 import { Procedimento } from '../model/procedimento';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CadastroProcedimentoComponent } from '../cadastro-procedimento/cadastro-procedimento.component';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Location } from '@angular/common';
 @Component({
   selector: 'app-lista-procedimentos',
@@ -22,6 +22,7 @@ export class ListaProcedimentosComponent implements OnInit {
   page = 1;
   varConfirm: string;
   procedimentoAux: Procedimento;
+  pesquisaForm: FormGroup = null;
   constructor(private procedimentosService: ProcedimentoService, public modalService: NgbModal, private formBuilder: FormBuilder, location: Location) { }
 
   ngOnInit(): void {
@@ -39,7 +40,21 @@ export class ListaProcedimentosComponent implements OnInit {
       descricao: [null],
       ativo: [true]
     })
+    this.pesquisaForm = new FormGroup({
+      pesquisar: new FormControl(null, Validators.required)
+    });
   }
+  public pesquisa(): void {
+   // this.procedimentosService.getByNome(this.pesquisaForm.get('pesquisar').value).subscribe(
+   //   (sucesso) => {
+   //     console.log(sucesso);
+   //     this.loadListaProcedimentos();
+   //   },
+   //   error => {
+   //     this.msgError = error;
+   //     console.log("error deleteFuncionario ListaFuncionarioComponent : " + error);
+   //   });
+ }
   limpar() {
     this.searchText = '';
     return this.searchText;
