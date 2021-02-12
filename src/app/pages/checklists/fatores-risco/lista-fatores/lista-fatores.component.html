@@ -27,13 +27,13 @@
             <tr *ngFor="let fatores of lista | filter: searchText | slice: (page-1) * pageSize : page * pageSize" >
               <td>{{fatores.nome}}</td>
               <td>{{fatores.descricao}}</td>
-              <td>{{fatores.ativo ? 'Ativo' : 'Inativo'}}</td>
+              <td><label class="badge badge-{{fatores.ativo ? 'success' : 'danger'}}">{{fatores.ativo ? 'Ativo' : 'Inativo'}}</label></td>
               <td class="text-right">
                 <button type="button"  (click)="editar(fatores.idFatorRisco)" class="btn btn-icon btn-warning"
                 style="font-size: 13px; margin-right: 2%;"><i
                 class="feather icon-edit"></i> Editar</button>
 
-                <button type="button" class="btn btn-icon btn-info" style="font-size: 13px;  margin-right: 2%;" (click)="pegaId(fatores.idFatorRisco);confirmaModal.show()"> {{fatores.ativo ? 'Desativar' : 'Ativar'}}</button>
+                <button type="button" class="btn btn-icon btn-{{fatores.ativo ? 'danger' : 'success'}} "style="font-size: 13px;  margin-right: 2%;" (click)="pegaId(fatores.idFatorRisco);confirmaModal.show()"> {{fatores.ativo ? 'Desativar' : 'Ativar'}}</button>
               </td>
             </tbody>
           </table>

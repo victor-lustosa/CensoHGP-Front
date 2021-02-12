@@ -34,12 +34,12 @@
             <tr *ngFor="let incidentes of lista | slice: (page-1) * pageSize : page * pageSize">
               <td>{{incidentes.nome}}</td>
               <td>{{incidentes.descricao}}</td>
-              <td>{{incidentes.ativo ? 'Ativo' : 'Inativo'}}</td>
+              <td><label class="badge badge-{{incidentes.ativo ? 'success' : 'danger'}}">{{incidentes.ativo ? 'Ativo' : 'Inativo'}}</label></td>
               <td class="text-right">
                 <button type="button"  (click)="editar(incidentes.idIncidente)"  class="btn btn-icon btn-warning"
                 style="font-size: 13px; margin-right: 2%;"><i
                 class="feather icon-edit"></i> Editar</button>
-                <button type="button" class="btn btn-icon btn-info" style="font-size: 13px;  margin-right: 2%;" (click)="pegaId(incidentes.idIncidente);confirmaModal.show()"> {{incidentes.ativo ? 'Desativar' : 'Ativar'}}</button>
+                <button type="button" class="btn btn-icon btn-{{incidentes.ativo ? 'success' : 'danger'}} " style="font-size: 13px;  margin-right: 2%;" (click)="pegaId(incidentes.idIncidente);confirmaModal.show()"> {{incidentes.ativo ? 'Desativar' : 'Ativar'}}</button>
               </td>
             </tbody>
           </table>
@@ -51,7 +51,7 @@
           [collectionSize]="lista.length"></ngb-pagination>
         </div>
         <div class="col-md-6">
-          {{ message }}
+          {{ mensagem }}
     </div>
       </app-card>
     </div>
