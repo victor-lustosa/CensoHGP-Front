@@ -25,6 +25,7 @@ export class ListaIncidentesComponent implements OnInit {
   incidenteAux: Incidente;
   pesquisaForm: FormGroup = null;
   statusPesquisa: boolean = false;
+  message: string;
   constructor(private incidentesService: IncidenteService,  public modalService: NgbModal, private formBuilder: FormBuilder, location: Location) { }
 
   ngOnInit(): void {
@@ -53,6 +54,7 @@ export class ListaIncidentesComponent implements OnInit {
   }
   limpar(){
     this.pesquisaForm.reset;
+    this.message = null;
     this.statusPesquisa = false;
     this.loadListaIncidentes();
     // this.searchText = '';
@@ -107,6 +109,11 @@ export class ListaIncidentesComponent implements OnInit {
             data => {
               this.lista = data;
               console.log(data);
+              if( this.lista.length <= 0 ){
+                this.message = "Nenhum registro foi encontrado.";
+              }else{
+                this.message = null;
+              }
             },
             error => {
               console.log('Erro serviço ' + error)
