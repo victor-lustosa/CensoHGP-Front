@@ -52,6 +52,9 @@ export class ListaIncidentesComponent implements OnInit {
     this.loadListaIncidentes();
   }
   limpar(){
+    this.pesquisaForm.reset;
+    this.statusPesquisa = false;
+    this.loadListaIncidentes();
     // this.searchText = '';
     // return this.searchText;
   }
