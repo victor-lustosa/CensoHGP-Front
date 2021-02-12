@@ -36,7 +36,7 @@
               <td>{{incidentes.descricao}}</td>
               <td>{{incidentes.ativo ? 'Ativo' : 'Inativo'}}</td>
               <td class="text-right">
-                <button type="button"  (click)="editar(incidentes.idIncidente)" class="btn btn-icon btn-warning"
+                <button type="button"  (click)="editar(incidentes.idIncidente)"  class="btn btn-icon btn-warning"
                 style="font-size: 13px; margin-right: 2%;"><i
                 class="feather icon-edit"></i> Editar</button>
                 <button type="button" class="btn btn-icon btn-info" style="font-size: 13px;  margin-right: 2%;" (click)="pegaId(incidentes.idIncidente);confirmaModal.show()"> {{incidentes.ativo ? 'Desativar' : 'Ativar'}}</button>

@@ -16,10 +16,9 @@ export class ListaIncidentesComponent implements OnInit {
   formularioAtualizar:FormGroup =null;
   idFator:number = 0;
   status: boolean;
-  lista: Incidente[] = [];
+  lista:Incidente[];
   msgError: string;
   sucesso: boolean = false;
-  searchText: string;
   pageSize = 10;
   page = 1;
   varConfirm: string;
@@ -53,8 +52,8 @@ export class ListaIncidentesComponent implements OnInit {
     this.loadListaIncidentes();
   }
   limpar(){
-    this.searchText = '';
-    return this.searchText;
+    // this.searchText = '';
+    // return this.searchText;
   }
   cadastrar(){
     const modalRef =  this.modalService.open(CadastroIncidenteComponent, { size: 'lg' });
@@ -113,7 +112,6 @@ export class ListaIncidentesComponent implements OnInit {
         }
 
         pegaId(id: number) {
-
           this.incidentesService.getById(id).subscribe((incidentesDis) => {
             if (incidentesDis.ativo === true) {
               this.varConfirm = 'desativar';
@@ -122,13 +120,9 @@ export class ListaIncidentesComponent implements OnInit {
             }
             this.incidenteAux = incidentesDis;
           });
-
-
         }
 
         mudarStatus() {
-
-
           if (this.incidenteAux.ativo === true) {
             this.incidenteAux.ativo = false;
             this.incidentesService.disable(this.incidenteAux).subscribe(
@@ -144,6 +138,5 @@ export class ListaIncidentesComponent implements OnInit {
               });
             }
             location.reload();
-
           }
         }

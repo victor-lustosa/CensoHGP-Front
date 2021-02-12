@@ -15,7 +15,7 @@ export class CRUD<T> implements CrudInterface<T>{
     return this.http.get<T[]>(`${this.API_URL}s`).pipe(retry(1), catchError(this.handleError));
   }
 
-  getByNome(string: any): Observable<T[]> {
+  getByNome(string: any):Observable<T[]>  {
     console.log('get by nome do crud: '+`${this.API_URL}/nome/${string}`)
     return this.http.get<T[]>(`${this.API_URL}/nome/${string}`).pipe(retry(1), catchError(this.handleError));
   }
