@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { Usuario } from '../model/usuario';
 import { UsuarioService } from '../service/usuario.service';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
@@ -21,6 +21,8 @@ export class ListaUsuariosComponent implements OnInit {
   searchText: string;
   pageSize = 10;
   page = 1;
+  pesquisaForm: FormGroup = null;
+  varConfirm: string;
   constructor(private usuariosService: UsuarioService,  public modalService: NgbModal, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
@@ -44,11 +46,16 @@ export class ListaUsuariosComponent implements OnInit {
       senha: [null,[Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
       tipousuario:[null]
     })
+    this.pesquisaForm = new FormGroup({
+      pesquisar: new FormControl(null, Validators.required)
+    });
   }
+  pesquisa(){}
   limpar(){
     this.searchText = '';
     return this.searchText;
   }
+  mudarStatus(){}
   cadastrar(){
     let ngbModalOptions: NgbModalOptions = {
       keyboard : true,

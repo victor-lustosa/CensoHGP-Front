@@ -1,61 +1,60 @@
 <div class="row">
   <div class="col-md-12">
     <app-card cardTitle="Consulta de Pacientes" blockClass="table-border-style">
+      <form [formGroup]="pesquisaForm" >
         <div class="row">
-          <div class="form-group col-md-3" style="margin-left:62%">
-            <input type="text"  class="form-control" name="pesquisa" [(ngModel)]="searchText" placeholder="pesquisar">
+          <div class="input-group col-md-3" style="margin-left:59%">
+            <input type="text"  class="form-control" name="pesquisar"  formControlName="pesquisar"  placeholder="pesquisar">
+            <div class="input-group-append">
+              <button  type="submit" (click)="pesquisa()" class="btn btn-icon btn-outline-primary"><i class="feather icon-search"></i></button>
+            </div>
           </div>
-          <div>
-            <button style="margin-left:-14%;" type="reset" class="btn btn-outline-warning" >Limpar</button>
-          </div>
-          <div>
-            <button  style="margin-left:1%;" type="button" class="btn btn-outline-primary" (click)="cadastrar()" >Cadastrar</button>
-          </div>
+          <button style="margin-left:0%;" type="reset" class="btn btn-outline-warning" (click)="limpar()"><i class="feather icon-delete"></i> Limpar</button>
+          <button  style="margin-left:1%;" type="button" class="btn btn-outline-primary"  (click)="cadastrar()" ><i class="feather icon-plus-square"></i> Cadastrar</button>
         </div>
-  <div class="table-responsive">
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th scope="col">Prontuário</th>
-          <th scope="col">Nome</th>
-          <th scope="col">CPF</th>
-          <th scope="col">RG</th>
-          <th scope="col">Data de Nascimento</th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let paciente of lista |slice: (page-1) * pageSize : page * pageSize">
-          <td>{{paciente.prontuario}}</td>
-          <td>{{paciente.nome}}</td>
-          <td>{{paciente.cpf}}</td>
-          <td>{{paciente.rg}}</td>
-          <td>{{paciente.dataNascimento}}</td>
-          <td class="text-right">
-            <button type="button" class="btn btn btn-primary" style="font-size: 12px;  margin-right: 2%;"><i
-              class="feather icon-check-square"></i> Checklist</button>
-
-              <button type="button" class="btn btn btn-warning" style="font-size: 12px; width:90px; margin-right: 2%;" ><i
-                class="feather icon-edit"></i> Editar</button>
-
-                <button type="button" class="btn btn-info" style="font-size: 12px; margin-right: 2%;"><i
-                  class="feather icon-external-link"></i> Transferência</button>
-
-                  <button type="button" class="btn  btn-secondary" style="font-size: 12px;  margin-right: 2%;"><i
-                    class="feather icon-clipboard"></i> Histórico checklist</button>
-
-                    <button type="button" class="btn btn btn-dark" style="font-size: 12px; margin-right: 2%;"><i
-                      class="feather icon-file-text"></i> Histórico Transferencia</button>
-
-                    </td>
-                  </tbody>
-                </table>
-                <ngb-pagination
-                class="d-flex justify-content-center"
-                [(page)]="page"
-                [pageSize]="pageSize"
-                [collectionSize]="collectionSize"></ngb-pagination>
-              </div>
-            </app-card>
+      </form>
+      <br>
+      <div class="table-responsive"  >
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Prontuário</th>
+              <th scope="col">Nome</th>
+              <th scope="col">CPF</th>
+              <th scope="col">RG</th>
+              <th scope="col">Data de Nascimento</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let paciente of lista |slice: (page-1) * pageSize : page * pageSize">
+              <td>{{paciente.prontuario}}</td>
+              <td>{{paciente.nome}}</td>
+              <td>{{paciente.cpf}}</td>
+              <td>{{paciente.rg}}</td>
+              <td>{{paciente.dataNascimento}}</td>
+              <td class="text-right" >
+                  <div ngbDropdown container="body" >
+                    <button placement="left" class="btn btn-info" ngbDropdownToggle type="button"><i class="feather icon-plus-circle"></i> ações</button>
+                    <div ngbDropdownMenu  >
+                      <a class="dropdown-item" (click)="cadastrar()"><i class="feather icon-edit"></i> Editar</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="javascript:"><i class="feather icon-check-square"></i> Checklist</a>
+                      <a class="dropdown-item" href="javascript:"><i class="feather icon-clipboard"></i> Histórico checklist</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="javascript:"><i class="feather icon-external-link"></i> Transferência</a>
+                      <a class="dropdown-item" href="javascript:"><i class="feather icon-file-text"></i> Histórico Transferencia</a>
+                    </div>
+                  </div>
+                </td>
+              </tbody>
+            </table>
+            <ngb-pagination
+            class="d-flex justify-content-center"
+            [(page)]="page"
+            [pageSize]="pageSize"
+            [collectionSize]="collectionSize"></ngb-pagination>
           </div>
-        </div>
+        </app-card>
+      </div>
+    </div>

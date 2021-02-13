@@ -1,7 +1,7 @@
 import { catchError } from 'rxjs/operators';
 import { empty, Observable, of } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import {Precaucao} from './../model/precaucao';
 import {PrecaucaoService} from './../service/precaucao.service';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
@@ -24,6 +24,7 @@ export class ListaPrecaucoesComponent implements OnInit {
   page = 1;
   precaucaoAux: Precaucao;
   varConfirm: string;
+  pesquisaForm: FormGroup = null;
   constructor(private precaucoesService: PrecaucaoService,  public modalService: NgbModal, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
@@ -41,11 +42,15 @@ export class ListaPrecaucoesComponent implements OnInit {
       descricao: [null],
       ativo: [true]
     })
+    this.pesquisaForm = new FormGroup({
+      pesquisar: new FormControl(null, Validators.required)
+    });
   }
   limpar(){
     this.searchText = '';
     return this.searchText;
   }
+  pesquisa(){}
   cadastrar(){
     let ngbModalOptions: NgbModalOptions = {
 

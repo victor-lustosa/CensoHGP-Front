@@ -3,7 +3,7 @@ import { FatorRiscoService } from '../service/fator-risco.service';
 import { Fator } from '../model/fator';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CadastroFatorComponent } from '../cadastro-fator/cadastro-fator.component';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Location } from '@angular/common';
 @Component({
   selector: 'app-lista-fatores',
@@ -18,11 +18,11 @@ export class ListaFatoresComponent implements OnInit {
   msgError: string;
   sucesso: boolean = false;
   searchText: string;
-  pageSize = 20;
+  pageSize = 10;
   page = 1;
   varConfirm: string;
   fatorAux: Fator;
-
+  pesquisaForm: FormGroup = null;
   constructor(private fatoresService: FatorRiscoService, public modalService: NgbModal, private formBuilder: FormBuilder, location: Location) { }
 
   ngOnInit(): void {
@@ -40,6 +40,9 @@ export class ListaFatoresComponent implements OnInit {
       descricao: [null],
       ativo: [true]
     })
+    this.pesquisaForm = new FormGroup({
+      pesquisar: new FormControl(null, Validators.required)
+    });
   }
   limpar() {
     this.searchText = '';
@@ -104,7 +107,7 @@ export class ListaFatoresComponent implements OnInit {
     location.reload();
 
   }
-
+pesquisa(){}
 
   updateForm(fatores: Fator) {
 

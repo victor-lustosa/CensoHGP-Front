@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Departamento } from './../model/departamento';
 import { DepartamentoService, DropdownService} from './../service'
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CadastroDepartamentoComponent } from '../cadastro-departamento/cadastro-departamento.component';
 @Component({
@@ -25,7 +25,7 @@ export class ListaDepartamentosComponent implements OnInit {
   page:number = 1;
   departamentoAux: Departamento;
   varConfirm: string;
-
+  pesquisaForm: FormGroup = null;
   constructor(private departamentosService: DepartamentoService,
     public modalService: NgbModal, private formBuilder: FormBuilder,
     private dropdownService: DropdownService) { }
@@ -53,7 +53,11 @@ export class ListaDepartamentosComponent implements OnInit {
         descricao:[null],
 
       })
+      this.pesquisaForm = new FormGroup({
+        pesquisar: new FormControl(null, Validators.required)
+      });
     }
+    pesquisa(){}
     limpar(){
       this.searchText = '';
       return this.searchText;

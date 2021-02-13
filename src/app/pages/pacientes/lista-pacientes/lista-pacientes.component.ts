@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Paciente } from '../model/Paciente';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PacienteService } from '../service/paciente.service';
@@ -20,6 +20,7 @@ export class ListaPacientesComponent implements OnInit {
   pageSize:number = 10;
   page:number = 1;
   collectionSize:number;
+  pesquisaForm: FormGroup = null;
   constructor(private departamentosService: PacienteService,
     public modalService: NgbModal, private formBuilder: FormBuilder) { }
 
@@ -88,6 +89,10 @@ export class ListaPacientesComponent implements OnInit {
         nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
         descricao:[null]
       })
+
+      this.pesquisaForm = new FormGroup({
+        pesquisar: new FormControl(null, Validators.required)
+      });
     }
     limpar(){
       this.searchText = '';
@@ -123,6 +128,7 @@ export class ListaPacientesComponent implements OnInit {
         descricao: departamentos.descricao
       })
     }
+    pesquisa(){};
     // loadListaPacientes() {
     //   this.departamentosService.getAll()
     //   .subscribe(

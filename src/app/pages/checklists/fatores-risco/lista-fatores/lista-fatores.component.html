@@ -1,20 +1,21 @@
 <div class="row">
   <div class="col-md-12">
     <app-card cardTitle="Consulta de Fatores" blockClass="table-border-style">
-      <div class="row">
-        <div class="form-group col-md-3" style="margin-left:62%">
-          <input type="text"  class="form-control" name="pesquisa" [(ngModel)]="searchText" placeholder="pesquisar">
+      <form [formGroup]="pesquisaForm" >
+        <div class="row">
+          <div class="input-group col-md-3" style="margin-left:59%">
+            <input type="text"  class="form-control" name="pesquisar"  formControlName="pesquisar"  placeholder="pesquisar">
+            <div class="input-group-append">
+              <button  type="submit" (click)="pesquisa()" class="btn btn-icon btn-outline-primary"><i class="feather icon-search"></i></button>
+            </div>
+          </div>
+          <button style="margin-left:0%;" type="reset" class="btn btn-outline-warning" (click)="limpar()"><i class="feather icon-delete"></i> Limpar</button>
+          <button  style="margin-left:1%;" type="button" class="btn btn-outline-primary"  (click)="cadastrar()" ><i class="feather icon-plus-square"></i> Cadastrar</button>
         </div>
-        <div>
-          <button style="margin-left:-14%;" type="reset" class="btn btn-outline-warning" (click)="limpar()">Limpar</button>
-        </div>
-        <div>
-          <button  style="margin-left:1%;" type="button" class="btn btn-outline-primary"  (click)="cadastrar()">Cadastrar</button>
-        </div>
-      </div>
-
+      </form>
+      <br>
       <div class="table-responsive" >
-        <table class="table table-hover"  *ngIf="(lista | filter: searchText).length > 0; else noResults">
+        <table class="table table-hover">
           <thead>
             <tr>
               <th scope="col">Nome</th>
@@ -24,24 +25,29 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let fatores of lista | filter: searchText | slice: (page-1) * pageSize : page * pageSize" >
+            <tr *ngFor="let fatores of lista | slice: (page-1) * pageSize : page * pageSize" >
               <td>{{fatores.nome}}</td>
               <td>{{fatores.descricao}}</td>
-              <td><label class="badge badge-{{fatores.ativo ? 'success' : 'danger'}}">{{fatores.ativo ? 'Ativo' : 'Inativo'}}</label></td>
+              <td><label class="badge badge-{{fatores.ativo ? 'info' : 'danger'}}">{{fatores.ativo ? 'Ativo' : 'Inativo'}}</label></td>
               <td class="text-right">
                 <button type="button"  (click)="editar(fatores.idFatorRisco)" class="btn btn-icon btn-warning"
                 style="font-size: 13px; margin-right: 2%;"><i
                 class="feather icon-edit"></i> Editar</button>
 
-                <button type="button" class="btn btn-icon btn-{{fatores.ativo ? 'danger' : 'success'}} "style="font-size: 13px;  margin-right: 2%;" (click)="pegaId(fatores.idFatorRisco);confirmaModal.show()"> {{fatores.ativo ? 'Desativar' : 'Ativar'}}</button>
+                <button type="button" class="btn btn-icon btn-{{fatores.ativo ? 'danger' : 'info'}}" style="font-size: 13px;  margin-right: 2%;" (click)="pegaId(fatores.idFatorRisco);confirmaModal.show()">
+                  <i class="feather icon-{{fatores.ativo ? 'minus-circle' : 'power'}}"></i> {{fatores.ativo ? 'Desativar' : 'Ativar'}}</button>
               </td>
             </tbody>
           </table>
-
-          <ng-template #noResults>
-            <p>0 resultados encontrados para "{{ searchText }}".</p>
-          </ng-template>
+          <ngb-pagination
+          class="d-flex justify-content-center"
+          [(page)]="page"
+          [pageSize]="pageSize"
+          [collectionSize]="lista.length"></ngb-pagination> 
         </div>
+        <!-- <div class="col-md-6">
+          {{ mensagem }}
+        </div> -->
       </app-card>
     </div>
   </div>
@@ -54,14 +60,12 @@
     <div class="app-modal-body">
       <p > Tem certeza que deseja {{ varConfirm }} esse item?</p>
     </div>
-
-
     <div class="app-modal-footer">
-      <div style="float: left; margin-left: 10px; margin-right: 10px;">
-        <button type="reset" class="btn btn-outline-warning"  data-dismiss="modal" (click)="confirmaModal.hide()">NAO</button>
+      <div style="float: left; margin-left: 10px;">
+        <button type="reset" class="btn btn-outline-warning"  data-dismiss="modal" (click)="confirmaModal.hide()">Não</button>
       </div>
       <div style="margin-left: 100px;">
-        <button type="reset" class="btn btn-primary" (click)="mudarStatus();confirmaModal.hide()" >SIM</button>
+        <button type="reset" class="btn btn-primary" (click)="mudarStatus();confirmaModal.hide()" >Sim</button>
       </div>
     </div>
   </app-ui-modal>
