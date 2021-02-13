@@ -3,23 +3,17 @@
     <app-card cardTitle="Consulta de Incidentes" blockClass="table-border-style">
       <form [formGroup]="pesquisaForm" >
         <div class="row">
-          <div class="form-group col-md-3" style="margin-left:58%">
+          <div class="input-group col-md-3" style="margin-left:59%">
             <input type="text"  class="form-control" name="pesquisar"  formControlName="pesquisar"  placeholder="pesquisar">
+            <div class="input-group-append">
+              <button  type="submit" (click)="pesquisa()" class="btn btn-icon btn-outline-primary"><i class="feather icon-search"></i></button>
+            </div>
           </div>
-          <div>
-            <button style="margin-left:-31%;" type="submit" (click)="pesquisa()" class="btn btn-icon btn-outline-primary"><i class="feather icon-search"></i></button>
-          </div>
-          <div>
-            <button style="margin-left:0%;" type="reset" class="btn btn-outline-warning" (click)="limpar()">Limpar</button>
-          </div>
-          <div>
-            <button  style="margin-left:15%;" type="button" class="btn btn-outline-primary"  (click)="cadastrar()" >Cadastrar</button>
-          </div>
-          <div class="col-md-6">
-            <app-alert type="primary" *ngIf="sucesso == true">salvo com sucesso</app-alert>
-          </div>
+          <button style="margin-left:0%;" type="reset" class="btn btn-outline-warning" (click)="limpar()"><i class="feather icon-delete"></i> Limpar</button>
+          <button  style="margin-left:1%;" type="button" class="btn btn-outline-primary"  (click)="cadastrar()" ><i class="feather icon-plus-square"></i> Cadastrar</button>
         </div>
       </form>
+      <br>
       <div class="table-responsive" >
         <table class="table table-hover" >
           <thead>
@@ -39,11 +33,11 @@
                 <button type="button"  (click)="editar(incidentes.idIncidente)"  class="btn btn-icon btn-warning"
                 style="font-size: 13px; margin-right: 2%;"><i
                 class="feather icon-edit"></i> Editar</button>
-                <button type="button" class="btn btn-icon btn-{{incidentes.ativo ? 'success' : 'danger'}} " style="font-size: 13px;  margin-right: 2%;" (click)="pegaId(incidentes.idIncidente);confirmaModal.show()"> {{incidentes.ativo ? 'Desativar' : 'Ativar'}}</button>
+                <button type="button" class="btn btn-icon btn-{{incidentes.ativo ? 'danger' : 'success'}} " style="font-size: 13px;  margin-right: 2%;" (click)="pegaId(incidentes.idIncidente);confirmaModal.show()">
+                  <i class="feather icon-{{incidentes.ativo ? 'minus-circle' : 'power'}}"></i> {{incidentes.ativo ? 'Desativar' : 'Ativar'}}</button>
               </td>
             </tbody>
           </table>
-
           <ngb-pagination
           class="d-flex justify-content-center"
           [(page)]="page"
@@ -52,7 +46,7 @@
         </div>
         <div class="col-md-6">
           {{ mensagem }}
-    </div>
+        </div>
       </app-card>
     </div>
   </div>
@@ -65,13 +59,12 @@
     <div class="app-modal-body">
       <p > Tem certeza que deseja {{ varConfirm }} esse item?</p>
     </div>
-
     <div class="app-modal-footer">
-      <div style="float: left; margin-left: 10px; margin-right: 10px;">
-        <button type="reset" class="btn btn-outline-warning"  data-dismiss="modal" (click)="confirmaModal.hide()">NAO</button>
+      <div style="float: left; margin-left: 10px;">
+        <button type="reset" class="btn btn-outline-warning"  data-dismiss="modal" (click)="confirmaModal.hide()">Não</button>
       </div>
       <div style="margin-left: 100px;">
-        <button type="reset" class="btn btn-primary" (click)="mudarStatus();confirmaModal.hide()" >SIM</button>
+        <button type="reset" class="btn btn-primary" (click)="mudarStatus();confirmaModal.hide()" >Sim</button>
       </div>
     </div>
   </app-ui-modal>
