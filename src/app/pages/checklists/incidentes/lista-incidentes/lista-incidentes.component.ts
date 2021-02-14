@@ -26,7 +26,7 @@ export class ListaIncidentesComponent implements OnInit {
   pesquisaForm: FormGroup = null;
   statusPesquisa: boolean = false;
   mensagem: string;
-  
+
   constructor(private incidentesService: IncidenteService,  public modalService: NgbModal, private formBuilder: FormBuilder, location: Location) { }
 
   ngOnInit(): void {
@@ -58,8 +58,6 @@ export class ListaIncidentesComponent implements OnInit {
     this.mensagem = null;
     this.statusPesquisa = false;
     this.loadListaIncidentes();
-    // this.searchText = '';
-    // return this.searchText;
   }
   cadastrar(){
     const modalRef =  this.modalService.open(CadastroIncidenteComponent, { size: 'lg' });

@@ -1,8 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { DepartamentoService, DropdownService } from '../service';
+import { DepartamentoService, TipoDepartamentoService } from '../service';
 import { Location } from '@angular/common';
+import { TipoDepartamento } from '../model/tipoDepartamento';
 @Component({
   selector: 'app-cadastro-departamento',
   templateUrl: './cadastro-departamento.component.html',
@@ -16,15 +17,34 @@ export class CadastroDepartamentoComponent implements OnInit {
   errors: String[];
   sucesso: boolean = false;
   descricao:string;
+  ListaTipoDepartamento: TipoDepartamento[];
   constructor(
     public activeModal: NgbActiveModal,private departamentosService: DepartamentoService,
-    private formBuilder: FormBuilder,private dropdownService: DropdownService,  location: Location) { }
+    private formBuilder: FormBuilder,private tipoDepartamentoService: TipoDepartamentoService,  location: Location) { }
 
     ngOnInit(): void {
+      this.loadListaTipoDepartamento();
+
+      // if(this.formulario.valid){
+      //   this.formulario.value.tipoDepartamento.
+      //    this.departamentosService.getById(this.formulario.value.idDepartamento)
+      //      }
       console.log('id recebido no cadastro modal:' + this.formulario.get('idDepartamento').value);
-      this.tipoDepartamentoRadio = this.dropdownService.getTipoDepartamentos();
-      this.ativoRadio = this.dropdownService.getStatus();
+      // this.tipoDepartamentoRadio = this.dropdownService.getTipoDepartamentos();
+      // this.ativoRadio = this.dropdownService.getStatus();
     }
+    loadListaTipoDepartamento() {
+        this.tipoDepartamentoService.getAll()
+        .subscribe(
+          data => {
+            this.ListaTipoDepartamento = data;
+            console.log(data);
+          },
+          error => {
+            console.log('Erro serviço ' + error)
+          }
+        )
+      }
 
     saveDepartamentos() {
       // editar um Fator

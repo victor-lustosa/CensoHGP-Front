@@ -1,10 +1,11 @@
 
 import { Component, OnInit } from '@angular/core';
 import { Departamento } from './../model/departamento';
-import { DepartamentoService, DropdownService} from './../service'
+import { DepartamentoService, TipoDepartamentoService} from './../service'
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CadastroDepartamentoComponent } from '../cadastro-departamento/cadastro-departamento.component';
+import { TipoDepartamento } from '../model/tipoDepartamento';
 @Component({
   selector: 'app-lista-departamentos',
   templateUrl: './lista-departamentos.component.html',
@@ -26,21 +27,21 @@ export class ListaDepartamentosComponent implements OnInit {
   departamentoAux: Departamento;
   varConfirm: string;
   pesquisaForm: FormGroup = null;
+  ListaTipoDepartamento:TipoDepartamento[];
+  departamentoAuxiliar: TipoDepartamento;
   constructor(private departamentosService: DepartamentoService,
     public modalService: NgbModal, private formBuilder: FormBuilder,
-    private dropdownService: DropdownService) { }
+    private tipoDepartamentoService: TipoDepartamentoService) { }
 
     ngOnInit(): void {
       this.msgError= null;
-      this.ativoRadio = this.dropdownService.getStatus();
-      this.tipoDepartamentoRadio = this.dropdownService.getTipoDepartamentos();
       this.loadListaDepartamentos();
       this.formularioCadastro = this.formBuilder.group({
         idDepartamento: [null],
         nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
         numero_leitos: [null, [Validators.required]],
         ativo: [true],
-        tipodepartamento:[1],
+        tipodepartamento:[null],
         descricao:[null]
       })
 
@@ -49,9 +50,8 @@ export class ListaDepartamentosComponent implements OnInit {
         nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
         numero_leitos: [null, [Validators.required]],
         ativo: [true],
-        tipodepartamento:[1],
+        tipodepartamento:[null],
         descricao:[null],
-
       })
       this.pesquisaForm = new FormGroup({
         pesquisar: new FormControl(null, Validators.required)
@@ -65,14 +65,12 @@ export class ListaDepartamentosComponent implements OnInit {
     cadastrar(){
       const modalRef =  this.modalService.open(CadastroDepartamentoComponent, { size: 'lg' });
       modalRef.componentInstance.formulario = this.formularioCadastro;
-
     }
     atualizar() {
       const modalRef = this.modalService.open(CadastroDepartamentoComponent, { size: 'lg' });
       if(this.formularioAtualizar != null){
         modalRef.componentInstance.formulario = this.formularioAtualizar;
       }
-
     }
     editar(id:number){
       this.departamentosService.getById(id).subscribe((departamentos) => {
@@ -85,13 +83,19 @@ export class ListaDepartamentosComponent implements OnInit {
       })
     }
     updateForm(departamentos: Departamento){
+       this.tipoDepartamentoService.getById(departamentos.tipodepartamento.idTipoDepartamento).subscribe(
+        data => {
+          this.departamentoAuxiliar = data;
+          console.log("esse é o departamento aux" , this.departamentoAuxiliar )
+        }
+       )
 
       this.formularioAtualizar.patchValue({
         idDepartamento: departamentos.idDepartamento,
         nome:departamentos.nome,
         numero_leitos: departamentos.numero_leitos,
         ativo: departamentos.ativo,
-        tipodepartamento: departamentos.tipodepartamento.idTipoDepartamento,
+        tipodepartamento: this.departamentoAuxiliar,
         descricao: departamentos.descricao
       })
     }
@@ -108,7 +112,6 @@ export class ListaDepartamentosComponent implements OnInit {
       }
 
       pegaId(id: number) {
-
         this.departamentosService.getById(id).subscribe((departamentosDis) => {
           if (departamentosDis.ativo === true) {
             this.varConfirm = 'desativar';
@@ -117,13 +120,8 @@ export class ListaDepartamentosComponent implements OnInit {
           }
           this.departamentoAux = departamentosDis;
         });
-
-
       }
-
       mudarStatus() {
-
-
         if (this.departamentoAux.ativo === true) {
           this.departamentoAux.ativo = false;
           this.departamentosService.disable(this.departamentoAux).subscribe(
@@ -139,11 +137,5 @@ export class ListaDepartamentosComponent implements OnInit {
             });
         }
         location.reload();
-
-
-
-
-
-
-      }
+    }
     }

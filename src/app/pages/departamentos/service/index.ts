@@ -1,2 +1,2 @@
 export * from './departamento.service';
-export * from './dropdown.service';
+export * from './tipo-departamento.service';
