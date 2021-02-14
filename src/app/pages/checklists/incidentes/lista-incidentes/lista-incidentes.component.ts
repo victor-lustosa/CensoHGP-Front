@@ -121,11 +121,15 @@ export class ListaIncidentesComponent implements OnInit {
       mudarStatus() {
         if (this.incidenteAux.ativo === true) {
           this.incidenteAux.ativo = false;
-          this.incidentesService.disable(this.incidenteAux).subscribe();
+          this.incidentesService.disable(this.incidenteAux).subscribe(
+            sucess => this.loadListaIncidentes()
+          );
         } else {
           this.incidenteAux.ativo = true;
-          this.incidentesService.disable(this.incidenteAux).subscribe();
+          this.incidentesService.disable(this.incidenteAux).subscribe(
+            sucess => this.loadListaIncidentes()
+          );
         }
-        location.reload();
+
       }
     }

@@ -14,8 +14,11 @@ export class CadastroDepartamentoComponent implements OnInit {
   @Input() public formulario: FormGroup;
   errors: String[];
   sucesso: boolean = false;
-  descricao:string;
+  erro: boolean = false;
+  descricao: string;
   ListaTipoDepartamento: TipoDepartamento[];
+  tituloModal: string;
+  mensagemErro: string;
   constructor(
     public activeModal: NgbActiveModal,private departamentosService: DepartamentoService,
     private formBuilder: FormBuilder,private tipoDepartamentoService: TipoDepartamentoService,  location: Location) { }
@@ -46,16 +49,26 @@ export class CadastroDepartamentoComponent implements OnInit {
               }, 1000);
             })
           } else {
-            this.departamentosService.create(this.formulario.value)
-            .subscribe(
-              sucess => {
-                this.formulario,
-                this.sucesso = true,
-                setTimeout(() => {
-                  this.activeModal.close(),
-                  location.reload();
-                }, 1000);
-              })
+            if (this.formulario.value.nome == null || this.formulario.value.nome == "" || this.formulario.value.nome == " ") {
+              this.erro = true;
+              this.mensagemErro = "O nome é obrigatório.";
+            } else {
+              this.departamentosService.create(this.formulario.value)
+              .subscribe(
+                sucess => {
+                  this.formulario,
+                  this.sucesso = true,
+                  setTimeout(() => {
+                    this.activeModal.close(),
+                    location.reload();
+                  }, 1000);
+                })
+              }
+            }
+          } else {
+            if (this.formulario.value.nome == null || this.formulario.value.nome == "" || this.formulario.value.nome == " ") {
+              this.erro = true;
+              this.mensagemErro = "O nome é obrigatório.";
             }
           }
         }

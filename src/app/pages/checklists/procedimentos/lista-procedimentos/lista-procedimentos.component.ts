@@ -87,12 +87,15 @@ export class ListaProcedimentosComponent implements OnInit {
     mudarStatus() {
       if (this.procedimentoAux.ativo === true) {
         this.procedimentoAux.ativo = false;
-        this.procedimentosService.disable(this.procedimentoAux).subscribe();
+        this.procedimentosService.disable(this.procedimentoAux).subscribe(
+          sucess => this.loadListaProcedimentos()
+        );
       } else {
         this.procedimentoAux.ativo = true;
-        this.procedimentosService.disable(this.procedimentoAux).subscribe();
+        this.procedimentosService.disable(this.procedimentoAux).subscribe(
+          sucess => this.loadListaProcedimentos()
+        );
       }
-      location.reload();
     }
     updateForm(procedimentos: Procedimento) {
       this.formularioAtualizar.patchValue({

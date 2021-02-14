@@ -85,14 +85,20 @@ export class ListaFatoresComponent implements OnInit {
     });
   }
   mudarStatus() {
+    console.log('id antes', this.fatorAux.idFatorRisco);
     if (this.fatorAux.ativo === true) {
       this.fatorAux.ativo = false;
-      this.fatoresService.disable(this.fatorAux).subscribe();
+      this.fatoresService.disable(this.fatorAux).subscribe(
+        sucess => this.loadListaFatores()
+      );
     } else {
       this.fatorAux.ativo = true;
-      this.fatoresService.disable(this.fatorAux).subscribe();
+      this.fatoresService.disable(this.fatorAux).subscribe(
+
+        sucess => this.loadListaFatores());
+
     }
-    location.reload();
+    console.log('id depois', this.fatorAux.idFatorRisco);
   }
   pesquisa(){
     this.statusPesquisa = true;

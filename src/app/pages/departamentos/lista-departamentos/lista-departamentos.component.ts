@@ -58,11 +58,14 @@ export class ListaDepartamentosComponent implements OnInit {
     }
     cadastrar(){
       const modalRef =  this.modalService.open(CadastroDepartamentoComponent, this.MODALOPTIONS);
+      modalRef.componentInstance.tituloModal = 'Cadastrar departamento';
       modalRef.componentInstance.formulario = this.formularioCadastro;
+
     }
     atualizar() {
       const modalRef = this.modalService.open(CadastroDepartamentoComponent, this.MODALOPTIONS);
       if(this.formularioAtualizar != null){
+        modalRef.componentInstance.tituloModal = 'Editar departamento';
         modalRef.componentInstance.formulario = this.formularioAtualizar;
       }
     }
@@ -99,6 +102,7 @@ export class ListaDepartamentosComponent implements OnInit {
       }
       pegaId(id: number) {
         this.departamentosService.getById(id).subscribe((departamentosDis) => {
+          console.log('departamentodis', departamentosDis);
           if (departamentosDis.ativo === true) {
             this.varConfirm = 'desativar';
           } else {
@@ -110,11 +114,14 @@ export class ListaDepartamentosComponent implements OnInit {
       mudarStatus() {
         if (this.departamentoAux.ativo === true) {
           this.departamentoAux.ativo = false;
-          this.departamentosService.disable(this.departamentoAux).subscribe();
+          this.departamentosService.disable(this.departamentoAux).subscribe(
+            sucess => this.loadListaDepartamentos()
+          );
         } else {
           this.departamentoAux.ativo = true;
-          this.departamentosService.disable(this.departamentoAux).subscribe();
+          this.departamentosService.disable(this.departamentoAux).subscribe(
+            sucess => this.loadListaDepartamentos()
+          );
         }
-        location.reload();
       }
     }
