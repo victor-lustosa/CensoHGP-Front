@@ -1,5 +1,4 @@
 
-import { IncidentesFilterPipe } from './incidentesfilter.pipe';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -11,7 +10,7 @@ import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
-  declarations: [ListaIncidentesComponent, CadastroIncidenteComponent, IncidentesFilterPipe],
+  declarations: [ListaIncidentesComponent, CadastroIncidenteComponent],
   imports: [
     CommonModule,
     ListaIncidentesRoutingModule,

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FatorRiscoService } from '../service/fator-risco.service';
 import { Fator } from '../model/fator';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { CadastroFatorComponent } from '../cadastro-fator/cadastro-fator.component';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Location } from '@angular/common';
@@ -24,6 +24,7 @@ export class ListaFatoresComponent implements OnInit {
   pesquisaForm: FormGroup = null;
   statusPesquisa: boolean = false;
   mensagem: string;
+  MODALOPTIONS: NgbModalOptions = {keyboard : true, size : 'lg', backdrop : 'static'};
   constructor(private fatoresService: FatorRiscoService, public modalService: NgbModal, private formBuilder: FormBuilder, location: Location) { }
 
   ngOnInit(): void {
@@ -52,13 +53,13 @@ export class ListaFatoresComponent implements OnInit {
     this.loadListaFatores();
   }
   cadastrar() {
-    const modalRef = this.modalService.open(CadastroFatorComponent, { size: 'lg' });
+    const modalRef = this.modalService.open(CadastroFatorComponent, this.MODALOPTIONS);
     modalRef.componentInstance.tituloModal = "Cadastrar fator de risco";
     modalRef.componentInstance.formulario = this.formularioCadastro;
     this.loadListaFatores();
   }
   atualizar() {
-    const modalRef = this.modalService.open(CadastroFatorComponent, { size: 'lg' });
+    const modalRef = this.modalService.open(CadastroFatorComponent, this.MODALOPTIONS);
     if (this.formularioAtualizar != null) {
       modalRef.componentInstance.tituloModal = "Editar fator de risco";
       modalRef.componentInstance.formulario = this.formularioAtualizar;
@@ -67,9 +68,7 @@ export class ListaFatoresComponent implements OnInit {
   }
   editar(id: number) {
     this.fatoresService.getById(id).subscribe((fatores) => {
-      console.log(fatores);
       this.updateForm(fatores);
-      console.log(this.formularioAtualizar)
       if (this.formularioAtualizar != null) {
         this.atualizar();
       }
@@ -88,57 +87,42 @@ export class ListaFatoresComponent implements OnInit {
   mudarStatus() {
     if (this.fatorAux.ativo === true) {
       this.fatorAux.ativo = false;
-      this.fatoresService.disable(this.fatorAux).subscribe(
-        error => {
-          console.log('Erro na mudança de status: ' + error);
-        }
-      );
+      this.fatoresService.disable(this.fatorAux).subscribe();
     } else {
       this.fatorAux.ativo = true;
-      this.fatoresService.disable(this.fatorAux).subscribe(
-        error => {
-          console.log('Erro na mudança de status: ' + error);
+      this.fatoresService.disable(this.fatorAux).subscribe();
+    }
+    location.reload();
+  }
+  pesquisa(){
+    this.statusPesquisa = true;
+    this.loadListaFatores();
+  }
+  updateForm(fatores: Fator) {
+    this.formularioAtualizar.patchValue({
+      idFatorRisco: fatores.idFatorRisco,
+      nome: fatores.nome,
+      descricao: fatores.descricao,
+      ativo: fatores.ativo
+    })
+  }
+  loadListaFatores() {
+    if(this.statusPesquisa === false){
+      this.fatoresService.getAll()
+      .subscribe(
+        data => {
+          this.lista = data;
         });
-      }
-      location.reload();
-    }
-    pesquisa(){
-      this.statusPesquisa = true;
-      this.loadListaFatores();
-    }
-    updateForm(fatores: Fator) {
-      this.formularioAtualizar.patchValue({
-        idFatorRisco: fatores.idFatorRisco,
-        nome: fatores.nome,
-        descricao: fatores.descricao,
-        ativo: fatores.ativo
-      })
-    }
-    loadListaFatores() {
-      if(this.statusPesquisa === false){
-        this.fatoresService.getAll()
-        .subscribe(
+      }else {
+        this.fatoresService.getByNome(this.pesquisaForm.get('pesquisar').value).subscribe(
           data => {
             this.lista = data;
-            console.log(data);
-          },
-          error => {
-            console.log('Erro serviço ' + error);
+            if( this.lista.length <= 0 ){
+              this.mensagem = "Nenhum registro foi encontrado.";
+            }else{
+              this.mensagem = null;
+            }
           });
-        }else {
-          this.fatoresService.getByNome(this.pesquisaForm.get('pesquisar').value).subscribe(
-            data => {
-              this.lista = data;
-              console.log(data);
-              if( this.lista.length <= 0 ){
-                this.mensagem = "Nenhum registro foi encontrado.";
-              }else{
-                this.mensagem = null;
-              }
-            },
-            error => {
-              console.log('Erro serviço ' + error)
-            });
-          }
         }
       }
+    }

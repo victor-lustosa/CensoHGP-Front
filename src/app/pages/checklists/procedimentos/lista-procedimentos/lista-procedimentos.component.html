@@ -33,7 +33,7 @@
                 <button type="button"  (click)="editar(procedimentos.idProcedimento)" class="btn btn-icon btn-warning"
                 style="font-size: 13px; margin-right: 2%;"><i
                 class="feather icon-edit"></i> Editar</button>
-                <button type="button" class="btn btn-icon btn-info" style="font-size: 13px;  margin-right: 2%;" (click)="pegaId(procedimentos.idProcedimento);confirmaModal.show()">
+                <button type="button" class="btn btn-icon btn-{{procedimentos.ativo ? 'danger' : 'info'}}" style="font-size: 13px;  margin-right: 2%;" (click)="pegaId(procedimentos.idProcedimento);confirmaModal.show()">
                 <i class="feather icon-{{procedimentos.ativo ? 'minus-circle' : 'power'}}"></i> {{procedimentos.ativo ? 'Desativar' : 'Ativar'}}</button>
               </td>
             </tbody>

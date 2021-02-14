@@ -5,10 +5,9 @@ import { ListaDepartamentosRoutingModule } from './lista-departamentos-routing.m
 import { ListaDepartamentosComponent } from './lista-departamentos.component';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { CadastroDepartamentoComponent } from '../cadastro-departamento/cadastro-departamento.component';
-import { DepartamentosFilterPipe } from './departamentosfilter.pipe';
 
 @NgModule({
-  declarations: [ListaDepartamentosComponent, CadastroDepartamentoComponent, DepartamentosFilterPipe],
+  declarations: [ListaDepartamentosComponent, CadastroDepartamentoComponent],
   imports: [
     CommonModule,
     NgbPaginationModule,

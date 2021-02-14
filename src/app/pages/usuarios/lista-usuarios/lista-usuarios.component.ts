@@ -23,6 +23,7 @@ export class ListaUsuariosComponent implements OnInit {
   page = 1;
   pesquisaForm: FormGroup = null;
   varConfirm: string;
+  MODALOPTIONS: NgbModalOptions = {keyboard : true, size : 'lg', backdrop : 'static'};
   constructor(private usuariosService: UsuarioService,  public modalService: NgbModal, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
@@ -57,20 +58,12 @@ export class ListaUsuariosComponent implements OnInit {
   }
   mudarStatus(){}
   cadastrar(){
-    let ngbModalOptions: NgbModalOptions = {
-      keyboard : true,
-      size : 'lg'
-    };
-    const modalRef = this.modalService.open(CadastroUsuarioComponent, ngbModalOptions)
+    const modalRef = this.modalService.open(CadastroUsuarioComponent, this.MODALOPTIONS)
     modalRef.componentInstance.formulario = this.formularioCadastro;
   }
 
   atualizar() {
-    let ngbModalOptions: NgbModalOptions = {
-      keyboard : true,
-      size : 'lg'
-    };
-    const modalRef = this.modalService.open(CadastroUsuarioComponent, ngbModalOptions);
+    const modalRef = this.modalService.open(CadastroUsuarioComponent, this.MODALOPTIONS);
     if(this.formularioAtualizar != null){
       modalRef.componentInstance.formulario = this.formularioAtualizar;
     }

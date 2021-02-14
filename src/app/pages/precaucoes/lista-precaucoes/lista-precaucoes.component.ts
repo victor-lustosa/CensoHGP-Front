@@ -1,5 +1,3 @@
-import { catchError } from 'rxjs/operators';
-import { empty, Observable, of } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import {Precaucao} from './../model/precaucao';
@@ -15,16 +13,15 @@ export class ListaPrecaucoesComponent implements OnInit {
   formularioCadastro:FormGroup =null;
   formularioAtualizar:FormGroup =null;
   idFator:number = 0;
-  status: boolean;
   lista: Precaucao[]=[];
   msgError: string;
   sucesso: boolean = false;
-  searchText: string;
   pageSize = 10;
   page = 1;
   precaucaoAux: Precaucao;
   varConfirm: string;
   pesquisaForm: FormGroup = null;
+    MODALOPTIONS: NgbModalOptions = {keyboard : true, size : 'lg', backdrop : 'static'};
   constructor(private precaucoesService: PrecaucaoService,  public modalService: NgbModal, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
@@ -47,40 +44,23 @@ export class ListaPrecaucoesComponent implements OnInit {
     });
   }
   limpar(){
-    this.searchText = '';
-    return this.searchText;
   }
   pesquisa(){}
   cadastrar(){
-    let ngbModalOptions: NgbModalOptions = {
-
-      keyboard : true,
-      size : 'lg'
-    };
-    const modalRef = this.modalService.open(CadastroPrecaucaoComponent, ngbModalOptions)
+    const modalRef = this.modalService.open(CadastroPrecaucaoComponent, this.MODALOPTIONS)
     modalRef.componentInstance.formulario = this.formularioCadastro;
     modalRef.componentInstance.tituloModal = "Cadastrar precaução";
   }
-
   atualizar() {
-    let ngbModalOptions: NgbModalOptions = {
-
-      keyboard : true,
-      size : 'lg'
-    };
-    const modalRef = this.modalService.open(CadastroPrecaucaoComponent, ngbModalOptions);
+    const modalRef = this.modalService.open(CadastroPrecaucaoComponent, this.MODALOPTIONS);
     if(this.formularioAtualizar != null){
       modalRef.componentInstance.tituloModal = "Editar precaução";
       modalRef.componentInstance.formulario = this.formularioAtualizar;
     }
-
   }
   editar(id:number){
-
     this.precaucoesService.getById(id).subscribe((precaucoes) => {
-      console.log(precaucoes);
       this.updateForm(precaucoes);
-      console.log(this.formularioAtualizar)
       if(this.formularioAtualizar != null){
         this.atualizar();
       }
@@ -99,15 +79,9 @@ export class ListaPrecaucoesComponent implements OnInit {
     .subscribe(
       data => {
         this.lista = data;
-        console.log(data);
-      },
-      error => {
-        console.log('Erro serviço ' + error)
       })
     }
-
     pegaId(id: number) {
-
       this.precaucoesService.getById(id).subscribe((precaucaosDis) => {
         if (precaucaosDis.ativo === true) {
           this.varConfirm = 'desativar';
@@ -116,28 +90,15 @@ export class ListaPrecaucoesComponent implements OnInit {
         }
         this.precaucaoAux = precaucaosDis;
       });
-
-
     }
-
     mudarStatus() {
-
-
       if (this.precaucaoAux.ativo === true) {
         this.precaucaoAux.ativo = false;
-        this.precaucoesService.disable(this.precaucaoAux).subscribe(
-          error => {
-            console.log('Erro na mudança de status: ' + error);
-          }
-        );
+        this.precaucoesService.disable(this.precaucaoAux).subscribe();
       } else {
         this.precaucaoAux.ativo = true;
-        this.precaucoesService.disable(this.precaucaoAux).subscribe(
-          error => {
-            console.log('Erro na mudança de status: ' + error);
-          });
+        this.precaucoesService.disable(this.precaucaoAux).subscribe();
       }
       location.reload();
-
     }
   }

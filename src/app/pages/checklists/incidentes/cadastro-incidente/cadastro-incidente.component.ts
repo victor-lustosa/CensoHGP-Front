@@ -23,66 +23,44 @@ export class CadastroIncidenteComponent implements OnInit {
     public activeModal: NgbActiveModal, private incidentesService: IncidenteService, private formBuilder: FormBuilder
     , location: Location) { }
 
-  ngOnInit(): void {
-    console.log('id recebido no cadastro modal:' + this.formulario.get('idIncidente').value);
+    ngOnInit(): void {}
 
-
-  }
-
-  saveIncidentes() {
-    // editar um Fator
-    if (this.formulario.valid) {
-      console.log('save incidentes id incidente  do formulario: ' + this.formulario.value.idIncidente + 'id injetado pelo modal: ' + this.formulario.get('idIncidente').value)
-      if (this.formulario.get('idIncidente').value != null) {
-        this.incidentesService.update(this.formulario.value)
+    saveIncidentes() {
+      if (this.formulario.valid) {
+        if (this.formulario.get('idIncidente').value != null) {
+          this.incidentesService.update(this.formulario.value)
           .subscribe(
             sucess => {
               this.formulario,
-                this.sucesso = true
-              console.log(sucess),
-                console.log('fator salvo com sucesso'),
-                this.formulario.reset(),
-                setTimeout(() => {
-                  this.activeModal.close(),
-                    location.reload();
-                }, 1000);
-            },
-            errorResponse => {
-              console.log('Erro ao atualizar incidentes , servico ' + errorResponse)
-              this.errors = ['Erro ao atualizar fator .']
+              this.sucesso = true,
+              this.formulario.reset(),
+              setTimeout(() => {
+                this.activeModal.close(),
+                location.reload();
+              }, 1000);
             })
-      } else {
-        //salvar um fator
-        if (this.formulario.value.nome == null || this.formulario.value.nome == "" || this.formulario.value.nome == " ") {
-          this.erro = true;
-          this.mensagemErro = "O nome é obrigatório.";
-        } else {
-          this.incidentesService.create(this.formulario.value)
-            .subscribe(
-              sucess => {
-                console.log(sucess),
+          } else {
+            if (this.formulario.value.nome == null || this.formulario.value.nome == "" || this.formulario.value.nome == " ") {
+              this.erro = true;
+              this.mensagemErro = "O nome é obrigatório.";
+            } else {
+              this.incidentesService.create(this.formulario.value)
+              .subscribe(
+                sucess => {
                   this.formulario,
                   this.sucesso = true,
-                  console.log('fator salvo com sucesso'),
                   setTimeout(() => {
                     this.activeModal.close(),
-                      location.reload();
+                    location.reload();
                   }, 1000);
-
-              },
-              errorResponse => {
-                console.log('Erro no salvar incidentes , servico ' + errorResponse)
-                this.errors = errorResponse.error.errors;
-              })
+                })
+              }
+            }
+          } else {
+            if (this.formulario.value.nome == null || this.formulario.value.nome == "" || this.formulario.value.nome == " ") {
+              this.erro = true;
+              this.mensagemErro = "O nome é obrigatório.";
+            }
+          }
         }
       }
-    } else {
-      if (this.formulario.value.nome == null || this.formulario.value.nome == "" || this.formulario.value.nome == " ") {
-        this.erro = true;
-        this.mensagemErro = "O nome é obrigatório.";
-
-      }
-    }
-
-  }
-}

@@ -11,8 +11,6 @@ import { Location } from '@angular/common';
 })
 export class CadastroProcedimentoComponent implements OnInit {
   @Input() public formulario: FormGroup;
-
-
   errors: String[];
   sucesso: boolean = false;
   erro: boolean = false;
@@ -22,67 +20,43 @@ export class CadastroProcedimentoComponent implements OnInit {
     public activeModal: NgbActiveModal, private procedimentosService: ProcedimentoService, private formBuilder: FormBuilder
     , location: Location) { }
 
-  ngOnInit(): void {
-    console.log('id recebido no cadastro modal:' + this.formulario.get('idProcedimento').value);
-  }
-
-  saveProcedimentos() {
-    // editar um Fator
-    if (this.formulario.valid) {
-      console.log('save procedimentos id fator  do formulario: ' + this.formulario.value.idProcedimento + 'id injetado pelo modal: ' + this.formulario.get('idProcedimento').value)
-      if (this.formulario.get('idProcedimento').value != null) {
-
-        this.procedimentosService.update(this.formulario.value)
+    ngOnInit(): void {}
+    saveProcedimentos() {
+      if (this.formulario.valid) {
+        if (this.formulario.get('idProcedimento').value != null) {
+          this.procedimentosService.update(this.formulario.value)
           .subscribe(
             sucess => {
               this.formulario,
-                this.sucesso = true
-              console.log(sucess),
-                console.log('fator salvo com sucesso'),
-                this.formulario.reset(),
-                setTimeout(() => {
-                  this.activeModal.close(),
-                    location.reload();
-                }, 1000);
-            },
-            errorResponse => {
-              console.log('Erro ao atualizar procedimentos , servico ' + errorResponse)
-              this.errors = ['Erro ao atualizar procedimento .']
+              this.sucesso = true,
+              this.formulario.reset(),
+              setTimeout(() => {
+                this.activeModal.close(),
+                location.reload();
+              }, 1000);
             })
-      } else {
-        //salvar um fator
-
-
-        if (this.formulario.value.nome == null || this.formulario.value.nome == "" || this.formulario.value.nome == " ") {
-          this.erro = true;
-          this.mensagemErro = "O nome é obrigatório.";
-        } else {
-          this.procedimentosService.create(this.formulario.value)
-            .subscribe(
-              sucess => {
-                console.log(sucess),
+          } else {
+            if (this.formulario.value.nome == null || this.formulario.value.nome == "" || this.formulario.value.nome == " ") {
+              this.erro = true;
+              this.mensagemErro = "O nome é obrigatório.";
+            } else {
+              this.procedimentosService.create(this.formulario.value)
+              .subscribe(
+                sucess => {
                   this.formulario,
                   this.sucesso = true,
-                  console.log('fator salvo com sucesso'),
                   setTimeout(() => {
                     this.activeModal.close(),
-                      location.reload();
+                    location.reload();
                   }, 1000);
-
-              },
-              errorResponse => {
-                console.log('Erro no salvar procedimentos , servico ' + errorResponse)
-                this.errors = errorResponse.error.errors;
-              })
+                })
+              }
+            }
+          } else {
+            if (this.formulario.value.nome == null || this.formulario.value.nome == "" || this.formulario.value.nome == " ") {
+              this.erro = true;
+              this.mensagemErro = "O nome é obrigatório.";
+            }
+          }
         }
       }
-    } else {
-      if (this.formulario.value.nome == null || this.formulario.value.nome == "" || this.formulario.value.nome == " ") {
-        this.erro = true;
-        this.mensagemErro = "O nome é obrigatório.";
-      }
-    }
-
-  }
-
-}

@@ -1,4 +1,4 @@
-import { ProcedimentosFilterPipe } from './procedimentosfilter.pipe';
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ListaProcedimentosRoutingModule } from './lista-procedimentos-routing.module';
@@ -11,7 +11,7 @@ import { CadastroProcedimentoComponent } from '../cadastro-procedimento/cadastro
 
 
 @NgModule({
-  declarations: [ListaProcedimentosComponent, CadastroProcedimentoComponent, ProcedimentosFilterPipe],
+  declarations: [ListaProcedimentosComponent, CadastroProcedimentoComponent],
   imports: [
     CommonModule,
     ListaProcedimentosRoutingModule,

@@ -1,4 +1,3 @@
-import { PrecaucoesFilterPipe } from './precaucoesfilter.pipe';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -10,7 +9,7 @@ import { CadastroPrecaucaoComponent } from '../cadastro-precaucao/cadastro-preca
 
 
 @NgModule({
-  declarations: [ListaPrecaucoesComponent, CadastroPrecaucaoComponent, PrecaucoesFilterPipe],
+  declarations: [ListaPrecaucoesComponent, CadastroPrecaucaoComponent],
   imports: [
     CommonModule,
     ListaPrecaucoesRoutingModule,
