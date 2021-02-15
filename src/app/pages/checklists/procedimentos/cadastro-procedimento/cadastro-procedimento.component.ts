@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ProcedimentoService } from '../service/procedimento.service';
@@ -7,7 +7,9 @@ import { Location } from '@angular/common';
 @Component({
   selector: 'app-cadastro-procedimento',
   templateUrl: './cadastro-procedimento.component.html',
-  styleUrls: ['./cadastro-procedimento.component.scss']
+  styleUrls: ['./cadastro-procedimento.component.scss'],
+  providers:[ProcedimentoService]
+
 })
 export class CadastroProcedimentoComponent implements OnInit {
   @Input() public formulario: FormGroup;
@@ -16,6 +18,8 @@ export class CadastroProcedimentoComponent implements OnInit {
   erro: boolean = false;
   mensagemErro: string;
   tituloModal: string;
+  static atualizando = new EventEmitter<boolean>();
+   at:boolean = true;
   constructor(
     public activeModal: NgbActiveModal, private procedimentosService: ProcedimentoService, private formBuilder: FormBuilder
     , location: Location) { }
@@ -30,10 +34,10 @@ export class CadastroProcedimentoComponent implements OnInit {
               this.formulario,
               this.sucesso = true,
               this.formulario.reset(),
+              CadastroProcedimentoComponent.atualizando.emit(this.at),
               setTimeout(() => {
-                this.activeModal.close(),
-                location.reload();
-              }, 1000);
+                this.activeModal.close();
+              }, 500);
             })
           } else {
             if (this.formulario.value.nome == null || this.formulario.value.nome == "" || this.formulario.value.nome == " ") {
@@ -45,10 +49,11 @@ export class CadastroProcedimentoComponent implements OnInit {
                 sucess => {
                   this.formulario,
                   this.sucesso = true,
+                  this.formulario.reset(),
+                  CadastroProcedimentoComponent.atualizando.emit(this.at),
                   setTimeout(() => {
-                    this.activeModal.close(),
-                    location.reload();
-                  }, 1000);
+                    this.activeModal.close();
+                  }, 500);
                 })
               }
             }

@@ -29,30 +29,33 @@ export class CadastroPrecaucaoComponent implements OnInit {
           this.precaucoesService.update(this.formulario.value)
           .subscribe(
             sucess => {
-              this.formulario,
               this.sucesso = true,
               this.formulario.reset(),
+
               setTimeout(() => {
                 this.activeModal.close(),
                 location.reload();
-              }, 1000)
+              }, 500)
             })
           } else {
             if (this.formulario.value.nome == null || this.formulario.value.nome == "" || this.formulario.value.nome == " ") {
               this.erro = true;
               this.mensagemErro = "O nome é obrigatório.";
             } else {
+              if(this.formulario.value.ativo != true){
+              this.formulario.value.ativo = true;  
+              }
               this.precaucoesService.create(this.formulario.value)
               .subscribe(
                 sucess => {
-                  this.formulario,
                   this.sucesso = true,
                   this.erro = false;
                   this.formulario.reset(),
+
                   setTimeout(() => {
                     this.activeModal.close(),
                     location.reload();
-                  }, 1000)
+                  }, 500)
                 }
               )
             }

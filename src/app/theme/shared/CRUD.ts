@@ -27,11 +27,13 @@ export class CRUD<T> implements CrudInterface<T>{
 
   create(object: T): Observable<T> {
     console.log('create do crud'+`${this.API_URL}`)
+
     return this.http.post<T>(`${this.API_URL}`, object).pipe(retry(1), catchError(this.handleError));
   }
 
   update(object: T): Observable<T> {
     console.log('update do crud'+`${this.API_URL}`)
+
     return this.http.put<T>(`${this.API_URL}`, object).pipe(retry(1), catchError(this.handleError));
   }
 
