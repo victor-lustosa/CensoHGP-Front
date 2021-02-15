@@ -1,8 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup} from '@angular/forms';
 import { ProcedimentoService } from '../service/procedimento.service';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-cadastro-procedimento',
@@ -15,16 +14,21 @@ export class CadastroProcedimentoComponent implements OnInit {
   @Input() public formulario: FormGroup;
   errors: String[];
   sucesso: boolean = false;
-  erro: boolean = false;
-  mensagemErro: string;
   tituloModal: string;
   static atualizando = new EventEmitter<boolean>();
    at:boolean = true;
   constructor(
-    public activeModal: NgbActiveModal, private procedimentosService: ProcedimentoService, private formBuilder: FormBuilder
-    , location: Location) { }
+    public activeModal: NgbActiveModal, private procedimentosService: ProcedimentoService) { }
 
     ngOnInit(): void {}
+    public verificaValidTouched(campo: any) {
+      return !this.formulario.get(campo).valid && this.formulario.get(campo).touched;
+    }
+    public aplicaCssErro(campo: any) {
+      return {
+        'border-red': this.verificaValidTouched(campo)
+      };
+    }
     saveProcedimentos() {
       if (this.formulario.valid) {
         if (this.formulario.get('idProcedimento').value != null) {
@@ -40,10 +44,6 @@ export class CadastroProcedimentoComponent implements OnInit {
               }, 500);
             })
           } else {
-            if (this.formulario.value.nome == null || this.formulario.value.nome == "" || this.formulario.value.nome == " ") {
-              this.erro = true;
-              this.mensagemErro = "O nome é obrigatório.";
-            } else {
               this.procedimentosService.create(this.formulario.value)
               .subscribe(
                 sucess => {
@@ -57,11 +57,5 @@ export class CadastroProcedimentoComponent implements OnInit {
                 })
               }
             }
-          } else {
-            if (this.formulario.value.nome == null || this.formulario.value.nome == "" || this.formulario.value.nome == " ") {
-              this.erro = true;
-              this.mensagemErro = "O nome é obrigatório.";
-            }
           }
-        }
       }

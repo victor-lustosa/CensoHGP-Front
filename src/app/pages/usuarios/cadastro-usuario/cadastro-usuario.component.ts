@@ -1,8 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UsuarioService } from '../service/usuario.service';
-import { Location } from '@angular/common';
+
 @Component({
   selector: 'app-cadastro-usuario',
   templateUrl: './cadastro-usuario.component.html',
@@ -13,53 +13,44 @@ export class CadastroUsuarioComponent implements OnInit {
 
   errors: String[];
   sucesso: boolean = false;
-
+  static atualizando = new EventEmitter<boolean>();
+  at:boolean = true;
   constructor(
-    public activeModal: NgbActiveModal, public modalService: NgbModal, private usuariosService: UsuarioService, location: Location) { }
+    public activeModal: NgbActiveModal, public modalService: NgbModal, private usuariosService: UsuarioService) { }
 
     ngOnInit(): void {
-      console.log('id recebido no cadastro modal:' + this.formulario.get('idUsuario').value);
     }
-
-
+    verificaValidTouched(campo){
+      return !this.formulario.get(campo).valid && this.formulario.get(campo).touched;
+    }
+    aplicaCssErro(campo: any) {
+      return {
+        'border-red': this.verificaValidTouched(campo)
+      };
+    }
     saveUsuarios() {
-      // editar um Usuario
       if (this.formulario.valid) {
-        console.log('save usuarios id usuario do formulario: ' + this.formulario.value.idUsuario + 'id injetado pelo modal: ' + this.formulario.get('idUsuario').value)
         if (this.formulario.get('idUsuario').value != null) {
           this.usuariosService.update(this.formulario.value)
           .subscribe(
             sucess => {
-              this.formulario,
-              console.log(sucess),
               this.sucesso = true,
               this.formulario.reset(),
+              CadastroUsuarioComponent.atualizando.emit(this.at),
               setTimeout(() => {
-                this.activeModal.close(),
-                location.reload();
-              }, 1000)
-            },
-            errorResponse => {
-              console.log('Erro ao atualizar usuarios, servico ' + errorResponse)
-              this.errors = ['Erro ao atualizar paciente.']
+                this.activeModal.close()
+              }, 500)
             })
           } else {
-            //salvar um paciente
             this.usuariosService.create(this.formulario.value)
             .subscribe(
               sucess => {
-                console.log(sucess),
-                this.formulario,
                 this.sucesso = true,
                 this.formulario.reset(),
+                CadastroUsuarioComponent.atualizando.emit(this.at),
                 setTimeout(() => {
-                  this.activeModal.close(),
-                  location.reload();
-                }, 1000)
-              },
-              errorResponse => {
-                console.log('Erro no salvar usuarios, servico ' + errorResponse)
-                this.errors = errorResponse.error.errors;
+                  this.activeModal.close()
+                }, 500)
               })
             }
           }

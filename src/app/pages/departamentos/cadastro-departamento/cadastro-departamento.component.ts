@@ -1,8 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { Component, OnInit, Input, EventEmitter } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { DepartamentoService, TipoDepartamentoService } from '../service';
-import { Location } from '@angular/common';
 import { TipoDepartamento } from '../model/tipoDepartamento';
 @Component({
   selector: 'app-cadastro-departamento',
@@ -14,61 +13,57 @@ export class CadastroDepartamentoComponent implements OnInit {
   @Input() public formulario: FormGroup;
   errors: String[];
   sucesso: boolean = false;
-  erro: boolean = false;
-  descricao: string;
   ListaTipoDepartamento: TipoDepartamento[];
   tituloModal: string;
-  mensagemErro: string;
+  static atualizando = new EventEmitter<boolean>();
+  at:boolean = true;
   constructor(
     public activeModal: NgbActiveModal,private departamentosService: DepartamentoService,
-    private formBuilder: FormBuilder,private tipoDepartamentoService: TipoDepartamentoService,  location: Location) { }
+    private tipoDepartamentoService: TipoDepartamentoService) { }
 
     ngOnInit(): void {
       this.loadListaTipoDepartamento();
     }
     loadListaTipoDepartamento() {
-        this.tipoDepartamentoService.getAll()
-        .subscribe(
-          data => {
-            this.ListaTipoDepartamento = data;
-          }
-        )
-      }
+      this.tipoDepartamentoService.getAll()
+      .subscribe(
+        data => {
+          this.ListaTipoDepartamento = data;
+        }
+      )
+    }
+    public verificaValidTouched(campo: any) {
+      return !this.formulario.get(campo).valid && this.formulario.get(campo).touched;
+    }
+    public aplicaCssErro(campo: any) {
+      return {
+        'border-red': this.verificaValidTouched(campo)
+      };
+    }
     saveDepartamentos() {
       if (this.formulario.valid) {
         if ( this.formulario.get('idDepartamento').value != null) {
           this.departamentosService.update(this.formulario.value)
           .subscribe(
             sucess => {
-              this.formulario,
               this.sucesso = true,
               this.formulario.reset(),
+              CadastroDepartamentoComponent.atualizando.emit(this.at),
               setTimeout(() => {
-                this.activeModal.close(),
-                location.reload();
-              }, 1000);
+                this.activeModal.close()
+              }, 500);
             })
           } else {
-            if (this.formulario.value.nome == null || this.formulario.value.nome == "" || this.formulario.value.nome == " ") {
-              this.erro = true;
-              this.mensagemErro = "O nome é obrigatório.";
-            } else {
-              this.departamentosService.create(this.formulario.value)
-              .subscribe(
-                sucess => {
-                  this.formulario,
-                  this.sucesso = true,
-                  setTimeout(() => {
-                    this.activeModal.close(),
-                    location.reload();
-                  }, 1000);
-                })
-              }
-            }
-          } else {
-            if (this.formulario.value.nome == null || this.formulario.value.nome == "" || this.formulario.value.nome == " ") {
-              this.erro = true;
-              this.mensagemErro = "O nome é obrigatório.";
+            this.departamentosService.create(this.formulario.value)
+            .subscribe(
+              sucess => {
+                this.sucesso = true,
+                this.formulario.reset(),
+                CadastroDepartamentoComponent.atualizando.emit(this.at),
+                setTimeout(() => {
+                  this.activeModal.close()
+                }, 500);
+              })
             }
           }
         }

@@ -1,9 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PrecaucaoService } from '../service/precaucao.service';
-import { Location } from '@angular/common';
-import { toTypeScript } from '@angular/compiler';
 @Component({
   selector: 'app-cadastro-precaucao',
   templateUrl: './cadastro-precaucao.component.html',
@@ -16,13 +14,20 @@ export class CadastroPrecaucaoComponent implements OnInit {
 
   errors: String[];
   sucesso: boolean = false;
-  erro: boolean = false;
-  mensagemErro: string;
-
+  static atualizando = new EventEmitter<boolean>();
+  at:boolean = true;
   constructor(
-    public activeModal: NgbActiveModal, public modalService: NgbModal, private precaucoesService: PrecaucaoService, location: Location) { }
+    public activeModal: NgbActiveModal, public modalService: NgbModal, private precaucoesService: PrecaucaoService) { }
 
     ngOnInit(): void {}
+    public verificaValidTouched(campo: any) {
+      return !this.formulario.get(campo).valid && this.formulario.get(campo).touched;
+    }
+    public aplicaCssErro(campo: any) {
+      return {
+        'border-red': this.verificaValidTouched(campo)
+      };
+    }
     savePrecaucoes() {
       if (this.formulario.valid) {
         if (this.formulario.get('idPrecaucao').value != null) {
@@ -31,39 +36,26 @@ export class CadastroPrecaucaoComponent implements OnInit {
             sucess => {
               this.sucesso = true,
               this.formulario.reset(),
-
+              CadastroPrecaucaoComponent.atualizando.emit(this.at),
               setTimeout(() => {
-                this.activeModal.close(),
-                location.reload();
+                this.activeModal.close()
               }, 500)
             })
-          } else {
-            if (this.formulario.value.nome == null || this.formulario.value.nome == "" || this.formulario.value.nome == " ") {
-              this.erro = true;
-              this.mensagemErro = "O nome é obrigatório.";
-            } else {
-              if(this.formulario.value.ativo != true){
-              this.formulario.value.ativo = true;  
-              }
-              this.precaucoesService.create(this.formulario.value)
-              .subscribe(
-                sucess => {
-                  this.sucesso = true,
-                  this.erro = false;
-                  this.formulario.reset(),
-
-                  setTimeout(() => {
-                    this.activeModal.close(),
-                    location.reload();
-                  }, 500)
-                }
-              )
+          }else {
+            if(this.formulario.value.ativo != true){
+              this.formulario.value.ativo = true;
             }
-          }
-        } else {
-          if (this.formulario.value.nome == null || this.formulario.value.nome == "" || this.formulario.value.nome == " ") {
-            this.erro = true;
-            this.mensagemErro = "O nome é obrigatório.";
+            this.precaucoesService.create(this.formulario.value)
+            .subscribe(
+              sucess => {
+                this.sucesso = true,
+                this.formulario.reset(),
+                CadastroPrecaucaoComponent.atualizando.emit(this.at),
+                setTimeout(() => {
+                  this.activeModal.close()
+                }, 500)
+              }
+            )
           }
         }
       }

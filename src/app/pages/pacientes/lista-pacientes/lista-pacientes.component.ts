@@ -19,7 +19,8 @@ export class ListaPacientesComponent implements OnInit {
   page:number = 1;
   pesquisaForm: FormGroup = null;
   // lista:Paciente[]=[];
-
+  statusPesquisa: boolean = false;
+  mensagem: string;
   constructor(private departamentosService: PacienteService,
     public modalService: NgbModal, private formBuilder: FormBuilder) { }
 
@@ -161,6 +162,10 @@ export class ListaPacientesComponent implements OnInit {
     ngOnInit(): void {
       this.msgError= null;
       //  this.loadListaPacientes();
+      CadastroPacienteComponent.atualizando.subscribe(
+        success => {
+            // this.loadListaDepartamentos();
+          })
       this.formularioCadastro = this.formBuilder.group({
         idPaciente: [null],
         nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],

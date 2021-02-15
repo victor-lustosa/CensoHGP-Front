@@ -5,7 +5,6 @@ import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { CadastroProcedimentoComponent } from '../cadastro-procedimento/cadastro-procedimento.component';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Location } from '@angular/common';
-import { EMPTY } from 'rxjs';
 @Component({
   selector: 'app-lista-procedimentos',
   templateUrl: './lista-procedimentos.component.html',
@@ -34,25 +33,17 @@ export class ListaProcedimentosComponent implements OnInit {
     this.loadListaProcedimentos();
     CadastroProcedimentoComponent.atualizando.subscribe(
       success => {
-        if(success == true){
-        this.procedimentosService.getAll()
-        .subscribe(
-          data => {
-            this.lista = data;
-            console.log(this.lista)
-          });
-        }
-      }
-    );
+          this.loadListaProcedimentos();
+        })
     this.formularioCadastro = this.formBuilder.group({
       idProcedimento: [null],
-      nome: [null, [ Validators.minLength(3), Validators.maxLength(35)]],
+      nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
       descricao: [null],
       ativo: ['true']
     })
     this.formularioAtualizar = this.formBuilder.group({
       idProcedimento: [null],
-      nome: [null, [ Validators.minLength(3), Validators.maxLength(35)]],
+      nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
       descricao: [null],
       ativo: ['true']
     })

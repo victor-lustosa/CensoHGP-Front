@@ -1,8 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FatorRiscoService } from '../service/fator-risco.service';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-cadastro-fator',
@@ -15,53 +14,45 @@ export class CadastroFatorComponent implements OnInit {
   @Input() public formulario: FormGroup;
   errors: String[];
   sucesso: boolean = false;
-  erro: boolean = false;
-  mensagemErro: string;
   tituloModal: string;
-
-
+  static atualizando = new EventEmitter<boolean>();
+   at:boolean = true;
   constructor(
-    public activeModal: NgbActiveModal, public modalService: NgbModal, private fatoresService: FatorRiscoService, location: Location) { }
+    public activeModal: NgbActiveModal, public modalService: NgbModal, private fatoresService: FatorRiscoService) { }
 
-  ngOnInit(): void { }
-  saveFatores() {
-    if (this.formulario.valid) {
-      if (this.formulario.get('idFatorRisco').value != null) {
-        this.fatoresService.update(this.formulario.value)
+    ngOnInit(): void { }
+    public verificaValidTouched(campo: any) {
+      return !this.formulario.get(campo).valid && this.formulario.get(campo).touched;
+    }
+    public aplicaCssErro(campo: any) {
+      return {
+        'border-red': this.verificaValidTouched(campo)
+      };
+    }
+    saveFatores() {
+      if (this.formulario.valid) {
+        if (this.formulario.get('idFatorRisco').value != null) {
+          this.fatoresService.update(this.formulario.value)
           .subscribe(
             sucess => {
-              this.formulario,
-                this.sucesso = true,
-                this.formulario.reset(),
-                setTimeout(() => {
-                  this.activeModal.close()
-
-                }, 1000)
-            })
-      } else {
-        if (this.formulario.value.nome == null || this.formulario.value.nome == "" || this.formulario.value.nome == " ") {
-          this.erro = true;
-          this.mensagemErro = "O nome é obrigatório.";
-        } else {
-          this.fatoresService.create(this.formulario.value)
-            .subscribe(
-              sucess => {
-                this.formulario,
+              this.sucesso = true,
+              this.formulario.reset(),
+              CadastroFatorComponent.atualizando.emit(this.at),
+              setTimeout(() => {
+                this.activeModal.close()
+              }, 500)
+            })}else{
+              this.fatoresService.create(this.formulario.value)
+              .subscribe(
+                sucess => {
                   this.sucesso = true,
                   this.formulario.reset(),
+                  CadastroFatorComponent.atualizando.emit(this.at),
                   setTimeout(() => {
                     this.activeModal.close()
-                  }, 1000)
-              })
+                  }, 500)
+                })
+              }
+            }
+          }
         }
-      }
-    } else {
-      if (this.formulario.value.nome == null || this.formulario.value.nome == "" || this.formulario.value.nome == " ") {
-        this.erro = true;
-        this.mensagemErro = "O nome é obrigatório.";
-      }
-    }
-  }
-
-
-}

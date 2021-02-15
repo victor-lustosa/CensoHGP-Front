@@ -33,6 +33,10 @@ export class ListaDepartamentosComponent implements OnInit {
     ngOnInit(): void {
       this.msgError= null;
       this.loadListaDepartamentos();
+      CadastroDepartamentoComponent.atualizando.subscribe(
+        success => {
+            this.loadListaDepartamentos();
+          })
       this.formularioCadastro = this.formBuilder.group({
         idDepartamento: [null],
         nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],

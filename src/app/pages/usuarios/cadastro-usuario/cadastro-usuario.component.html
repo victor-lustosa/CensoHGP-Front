@@ -10,7 +10,10 @@
       <form  [formGroup]="formulario">
         <label for="nome">Nome:</label>
         <input  id="nome" formControlName="nome" class="form-control" aria-describedby="nomeHelp"
-        placeholder="Digite o nome do usuário">
+        placeholder="Digite o nome do usuário" [ngClass]="aplicaCssErro('nome')">
+        <div *ngIf="verificaValidTouched('nome')">
+          <span class="font-red">Nome é obrigatório</span>
+        </div>
         <br>
         <label for="matricula">Matrícula:</label>
         <input type="matricula" class="form-control" formControlName="matricula" id="matricula" aria-describedby="matriculaHelp"

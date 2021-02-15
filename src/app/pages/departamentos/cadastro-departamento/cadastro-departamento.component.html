@@ -6,15 +6,14 @@
   <div class="col-md-12">
     <app-alert type="primary" *ngIf="sucesso == true">salvo com sucesso</app-alert>
   </div>
-  <div class="col-md-13">
-    <app-alert type="danger"  *ngIf="erro == true">{{mensagemErro}}</app-alert>
-  </div>
   <div class="modal-body">
     <form  [formGroup]="formulario" >
-
       <label for="nome">Nome:</label>
       <input  id="nome" formControlName="nome" class="form-control" aria-describedby="nomeHelp"
-      placeholder="Digite o nome do procedimento">
+      placeholder="Digite o nome do procedimento" [ngClass]="aplicaCssErro('nome')">
+      <div *ngIf="verificaValidTouched('nome')">
+        <span class="font-red">Nome é obrigatório</span>
+      </div>
       <br>
       <label for="numero_leitos">Número de leitos:</label>
       <input  id="numero_leitos" formControlName="numero_leitos" class="form-control" aria-describedby="numeroLeitosHelp"

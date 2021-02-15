@@ -4,7 +4,6 @@ import { Incidente } from '../model/incidente';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { CadastroIncidenteComponent } from '../cadastro-incidente/cadastro-incidente.component';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-lista-incidentes',
@@ -27,11 +26,15 @@ export class ListaIncidentesComponent implements OnInit {
   statusPesquisa: boolean = false;
   mensagem: string;
   MODALOPTIONS: NgbModalOptions = { keyboard: true, size: 'lg', backdrop: 'static' };
-  constructor(private incidentesService: IncidenteService, public modalService: NgbModal, private formBuilder: FormBuilder, location: Location) { }
+  constructor(private incidentesService: IncidenteService, public modalService: NgbModal, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.msgError = null;
     this.loadListaIncidentes();
+    CadastroIncidenteComponent.atualizando.subscribe(
+      success => {
+        this.loadListaIncidentes();
+      })
     this.formularioCadastro = this.formBuilder.group({
       idIncidente: [null],
       nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
@@ -81,7 +84,6 @@ export class ListaIncidentesComponent implements OnInit {
     })
   }
   updateForm(incidentes: Incidente) {
-
     this.formularioAtualizar.patchValue({
       idIncidente: incidentes.idIncidente,
       nome: incidentes.nome,
@@ -142,6 +144,5 @@ export class ListaIncidentesComponent implements OnInit {
         sucess => this.loadListaIncidentes()
       );
     }
-
   }
 }

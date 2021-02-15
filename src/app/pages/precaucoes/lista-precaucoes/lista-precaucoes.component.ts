@@ -29,6 +29,10 @@ export class ListaPrecaucoesComponent implements OnInit {
   ngOnInit(): void {
     this.msgError= null;
     this.loadListaPrecaucoes();
+    CadastroPrecaucaoComponent.atualizando.subscribe(
+      success => {
+          this.loadListaPrecaucoes();
+        })
     this.formularioCadastro = this.formBuilder.group({
       idPrecaucao: [null],
       nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],

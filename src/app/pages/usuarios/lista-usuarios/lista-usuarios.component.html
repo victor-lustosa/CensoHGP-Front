@@ -37,7 +37,7 @@
                 <button type="button" class="btn btn-icon btn-warning" style="font-size: 13px; margin-right: 2%;"(click)="editar(user.idUsuario)"><i
                     class="feather icon-edit"></i> Editar</button>
 
-                <button type="button" class="btn btn-icon btn-{{user.ativo ? 'danger' : 'info'}}" style="font-size: 13px;  margin-right: 2%;" >
+                <button type="button" class="btn btn-icon btn-{{user.ativo ? 'danger' : 'info'}}" style="font-size: 13px;  margin-right: 2%;" (click)="pegaId(user.idUsuario);confirmaModal.show()" >
                     <i class="feather icon-{{user.ativo ? 'minus-circle' : 'power'}}"></i> {{user.ativo ? 'Desativar' : 'Ativar'}}</button>
               </td>
           </tbody>
