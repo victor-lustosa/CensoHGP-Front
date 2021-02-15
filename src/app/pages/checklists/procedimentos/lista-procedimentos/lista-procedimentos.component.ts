@@ -5,6 +5,7 @@ import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { CadastroProcedimentoComponent } from '../cadastro-procedimento/cadastro-procedimento.component';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Location } from '@angular/common';
+import { EMPTY } from 'rxjs';
 @Component({
   selector: 'app-lista-procedimentos',
   templateUrl: './lista-procedimentos.component.html',
@@ -29,17 +30,29 @@ export class ListaProcedimentosComponent implements OnInit {
   ngOnInit(): void {
     this.msgError = null;
     this.loadListaProcedimentos();
+    CadastroProcedimentoComponent.atualizando.subscribe(
+      success => {
+        if(success == true){
+        this.procedimentosService.getAll()
+        .subscribe(
+          data => {
+            this.lista = data;
+            console.log(this.lista)
+          });
+        }
+      }
+    );
     this.formularioCadastro = this.formBuilder.group({
       idProcedimento: [null],
-      nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
+      nome: [null, [ Validators.minLength(3), Validators.maxLength(35)]],
       descricao: [null],
-      ativo: [true]
+      ativo: ['true']
     })
     this.formularioAtualizar = this.formBuilder.group({
       idProcedimento: [null],
-      nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
+      nome: [null, [ Validators.minLength(3), Validators.maxLength(35)]],
       descricao: [null],
-      ativo: [true]
+      ativo: ['true']
     })
     this.pesquisaForm = new FormGroup({
       pesquisar: new FormControl(null, Validators.required)
@@ -55,7 +68,6 @@ export class ListaProcedimentosComponent implements OnInit {
     const modalRef = this.modalService.open(CadastroProcedimentoComponent, this.MODALOPTIONS);
     modalRef.componentInstance.tituloModal = "Cadastrar procedimento";
     modalRef.componentInstance.formulario = this.formularioCadastro;
-    this.loadListaProcedimentos();
   }
   atualizar() {
     const modalRef = this.modalService.open(CadastroProcedimentoComponent, this.MODALOPTIONS);
@@ -63,7 +75,6 @@ export class ListaProcedimentosComponent implements OnInit {
       modalRef.componentInstance.tituloModal = "Editar procedimento";
       modalRef.componentInstance.formulario = this.formularioAtualizar;
     }
-    this.loadListaProcedimentos();
   }
   editar(id: number) {
     this.procedimentosService.getById(id).subscribe(
