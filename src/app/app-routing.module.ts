@@ -2,11 +2,47 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AdminComponent } from './theme/layout/admin/admin.component';
 import {AuthComponent} from './theme/layout/auth/auth.component';
+import { EnfermeiroComponent } from './theme/layout/enfermeiro/enfermeiro.component';
 
 const routes: Routes = [
+  // {
+  //   path: '',
+  //   component: AdminComponent,
+  //   children: [
+  //     {
+  //       path: '',
+  //       redirectTo: './pages/dashboard/analytics',
+  //       pathMatch: 'full'
+  //     },
+  //     {
+  //       path: 'dashboard',
+  //       loadChildren: () => import('./pages/dashboard/dashboard.module').then(module => module.DashboardModule)
+  //     },
+  //     {
+  //       path: 'usuarios',
+  //       loadChildren: () => import('./pages/usuarios/usuarios.module').then(module => module.UsuariosModule)
+  //     },
+  //     {
+  //       path: 'precaucoes',
+  //       loadChildren: () => import('./pages/precaucoes/precaucoes.module').then(module => module.PrecaucoesModule)
+  //     },
+  //     {
+  //       path: 'departamentos',
+  //       loadChildren: () => import('./pages/departamentos/departamentos.module').then(module => module.DepartamentosModule)
+  //     },
+  //     {
+  //       path: 'pacientes',
+  //       loadChildren: () => import('./pages/pacientes/pacientes.module').then(module => module.PacientesModule)
+  //     },
+  //     {
+  //       path: 'checklists',
+  //       loadChildren: () => import('./pages/checklists/checklists.module').then(module => module.ChecklistsModule)
+  //     }
+  //   ]
+  // },
   {
     path: '',
-    component: AdminComponent,
+    component: EnfermeiroComponent,
     children: [
       {
         path: '',
@@ -16,10 +52,6 @@ const routes: Routes = [
       {
         path: 'dashboard',
         loadChildren: () => import('./pages/dashboard/dashboard.module').then(module => module.DashboardModule)
-      },
-      {
-        path: 'usuarios',
-        loadChildren: () => import('./pages/usuarios/usuarios.module').then(module => module.UsuariosModule)
       },
       {
         path: 'precaucoes',
