@@ -23,7 +23,9 @@ export class ListaProcedimentosComponent implements OnInit {
   varConfirm: string;
   procedimentoAux: Procedimento;
   pesquisaForm: FormGroup = null;
-  MODALOPTIONS: NgbModalOptions = {keyboard : true, size : 'lg', backdrop : 'static'};
+  statusPesquisa: boolean = false;
+  mensagem: string;
+  MODALOPTIONS: NgbModalOptions = { keyboard: true, size: 'lg', backdrop: 'static' };
   constructor(private procedimentosService: ProcedimentoService, public modalService: NgbModal, private formBuilder: FormBuilder, location: Location) { }
 
   ngOnInit(): void {
@@ -45,11 +47,15 @@ export class ListaProcedimentosComponent implements OnInit {
       pesquisar: new FormControl(null, Validators.required)
     });
   }
-  public pesquisa(): void {
-
+   pesquisa() {
+    this.statusPesquisa = true;
+    this.loadListaProcedimentos();
   }
   limpar() {
-
+    this.pesquisaForm.reset;
+    this.mensagem = null;
+    this.statusPesquisa = false;
+    this.loadListaProcedimentos();
   }
   cadastrar() {
     const modalRef = this.modalService.open(CadastroProcedimentoComponent, this.MODALOPTIONS);
@@ -73,43 +79,67 @@ export class ListaProcedimentosComponent implements OnInit {
           this.atualizar();
         }
       })
-    }
-    pegaId(id: number) {
-      this.procedimentosService.getById(id).subscribe((procedimentosDis) => {
-        if (procedimentosDis.ativo === true) {
-          this.varConfirm = 'desativar';
-        } else {
-          this.varConfirm = 'ativar';
-        }
-        this.procedimentoAux = procedimentosDis;
-      });
-    }
-    mudarStatus() {
-      if (this.procedimentoAux.ativo === true) {
-        this.procedimentoAux.ativo = false;
-        this.procedimentosService.disable(this.procedimentoAux).subscribe(
-          sucess => this.loadListaProcedimentos()
-        );
+  }
+  pegaId(id: number) {
+    this.procedimentosService.getById(id).subscribe((procedimentosDis) => {
+      if (procedimentosDis.ativo === true) {
+        this.varConfirm = 'desativar';
       } else {
-        this.procedimentoAux.ativo = true;
-        this.procedimentosService.disable(this.procedimentoAux).subscribe(
-          sucess => this.loadListaProcedimentos()
-        );
+        this.varConfirm = 'ativar';
       }
+      this.procedimentoAux = procedimentosDis;
+    });
+  }
+  mudarStatus() {
+    if (this.procedimentoAux.ativo === true) {
+      this.procedimentoAux.ativo = false;
+      this.procedimentosService.disable(this.procedimentoAux).subscribe(
+        sucess => this.loadListaProcedimentos()
+      );
+    } else {
+      this.procedimentoAux.ativo = true;
+      this.procedimentosService.disable(this.procedimentoAux).subscribe(
+        sucess => this.loadListaProcedimentos()
+      );
     }
-    updateForm(procedimentos: Procedimento) {
-      this.formularioAtualizar.patchValue({
-        idProcedimento: procedimentos.idProcedimento,
-        nome: procedimentos.nome,
-        descricao: procedimentos.descricao,
-        ativo: procedimentos.ativo
-      })
-    }
-    loadListaProcedimentos() {
+  }
+  updateForm(procedimentos: Procedimento) {
+    this.formularioAtualizar.patchValue({
+      idProcedimento: procedimentos.idProcedimento,
+      nome: procedimentos.nome,
+      descricao: procedimentos.descricao,
+      ativo: procedimentos.ativo
+    })
+  }
+  loadListaProcedimentos() {
+    if (this.statusPesquisa === false) {
       this.procedimentosService.getAll()
-      .subscribe(
-        data => {
-          this.lista = data;
-        });
+        .subscribe(
+          data => {
+            this.lista = data;
+
+          });
+    } else {
+      if (this.pesquisaForm.valid) {
+        this.procedimentosService.getByNome(this.pesquisaForm.get('pesquisar').value).subscribe(
+          data => {
+
+            this.lista = data;
+            if (this.lista.length <= 0) {
+              this.mensagem = "Nenhum registro foi encontrado.";
+            } else {
+              this.mensagem = null;
+            }
+            this.statusPesquisa = false;
+          });
+      } else {
+        this.procedimentosService.getByNome(this.pesquisaForm.get('')).subscribe(
+          data => {
+            this.lista = data;
+            this.mensagem = "Nenhum registro foi encontrado.";
+          }
+        )
       }
     }
+  }
+}
