@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FatorRiscoService } from '../service/fator-risco.service';
 import { Fator } from '../model/fator';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { CadastroFatorComponent } from '../cadastro-fator/cadastro-fator.component';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Location } from '@angular/common';
+
+
 @Component({
   selector: 'app-lista-fatores',
   templateUrl: './lista-fatores.component.html',
@@ -24,12 +26,13 @@ export class ListaFatoresComponent implements OnInit {
   pesquisaForm: FormGroup = null;
   statusPesquisa: boolean = false;
   mensagem: string;
-  MODALOPTIONS: NgbModalOptions = {keyboard : true, size : 'lg', backdrop : 'static'};
+  MODALOPTIONS: NgbModalOptions = { keyboard: true, size: 'lg', backdrop: 'static' };
   constructor(private fatoresService: FatorRiscoService, public modalService: NgbModal, private formBuilder: FormBuilder, location: Location) { }
 
   ngOnInit(): void {
     this.msgError = null;
     this.loadListaFatores();
+
     this.formularioCadastro = this.formBuilder.group({
       idFatorRisco: [null],
       nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
@@ -46,7 +49,7 @@ export class ListaFatoresComponent implements OnInit {
       pesquisar: new FormControl(null, Validators.required)
     });
   }
-  limpar(){
+  limpar() {
     this.pesquisaForm.reset;
     this.mensagem = null;
     this.statusPesquisa = false;
@@ -85,7 +88,7 @@ export class ListaFatoresComponent implements OnInit {
     });
   }
   mudarStatus() {
-    console.log('id antes', this.fatorAux.idFatorRisco);
+
     if (this.fatorAux.ativo === true) {
       this.fatorAux.ativo = false;
       this.fatoresService.disable(this.fatorAux).subscribe(
@@ -98,9 +101,9 @@ export class ListaFatoresComponent implements OnInit {
         sucess => this.loadListaFatores());
 
     }
-    console.log('id depois', this.fatorAux.idFatorRisco);
+
   }
-  pesquisa(){
+  pesquisa() {
     this.statusPesquisa = true;
     this.loadListaFatores();
   }
@@ -113,22 +116,34 @@ export class ListaFatoresComponent implements OnInit {
     })
   }
   loadListaFatores() {
-    if(this.statusPesquisa === false){
+    if (this.statusPesquisa === false) {
       this.fatoresService.getAll()
-      .subscribe(
-        data => {
-          this.lista = data;
-        });
-      }else {
-        this.fatoresService.getByNome(this.pesquisaForm.get('pesquisar').value).subscribe(
+        .subscribe(
           data => {
             this.lista = data;
-            if( this.lista.length <= 0 ){
+
+          });
+    } else {
+      if (this.pesquisaForm.valid) {
+        this.fatoresService.getByNome(this.pesquisaForm.get('pesquisar').value).subscribe(
+          data => {
+
+            this.lista = data;
+            if (this.lista.length <= 0) {
               this.mensagem = "Nenhum registro foi encontrado.";
-            }else{
+            } else {
               this.mensagem = null;
             }
+            this.statusPesquisa = false;
           });
+      } else{
+        this.fatoresService.getByNome(this.pesquisaForm.get('')).subscribe(
+          data =>  {
+            this.lista = data;
+            this.mensagem = "Nenhum registro foi encontrado.";
         }
-      }
+        )
+       }
     }
+  }
+}

@@ -19,47 +19,49 @@ export class CadastroFatorComponent implements OnInit {
   mensagemErro: string;
   tituloModal: string;
 
+
   constructor(
     public activeModal: NgbActiveModal, public modalService: NgbModal, private fatoresService: FatorRiscoService, location: Location) { }
 
-    ngOnInit(): void {}
-    saveFatores() {
-      if (this.formulario.valid) {
-        if (this.formulario.get('idFatorRisco').value != null) {
-          this.fatoresService.update(this.formulario.value)
+  ngOnInit(): void { }
+  saveFatores() {
+    if (this.formulario.valid) {
+      if (this.formulario.get('idFatorRisco').value != null) {
+        this.fatoresService.update(this.formulario.value)
           .subscribe(
             sucess => {
               this.formulario,
-              this.sucesso = true,
-              this.formulario.reset(),
-              setTimeout(() => {
-                this.activeModal.close(),
-                location.reload();
-              }, 1000)
+                this.sucesso = true,
+                this.formulario.reset(),
+                setTimeout(() => {
+                  this.activeModal.close()
+
+                }, 1000)
             })
-          } else{
-            if (this.formulario.value.nome == null || this.formulario.value.nome == "" || this.formulario.value.nome == " ") {
-              this.erro = true;
-              this.mensagemErro = "O nome é obrigatório.";
-            } else {
-              this.fatoresService.create(this.formulario.value)
-              .subscribe(
-                sucess => {
-                  this.formulario,
+      } else {
+        if (this.formulario.value.nome == null || this.formulario.value.nome == "" || this.formulario.value.nome == " ") {
+          this.erro = true;
+          this.mensagemErro = "O nome é obrigatório.";
+        } else {
+          this.fatoresService.create(this.formulario.value)
+            .subscribe(
+              sucess => {
+                this.formulario,
                   this.sucesso = true,
                   this.formulario.reset(),
                   setTimeout(() => {
-                    this.activeModal.close(),
-                    location.reload();
+                    this.activeModal.close()
                   }, 1000)
-                })
-              }
-            }
-          } else {
-            if (this.formulario.value.nome == null || this.formulario.value.nome == "" || this.formulario.value.nome == " ") {
-              this.erro = true;
-              this.mensagemErro = "O nome é obrigatório.";
-            }
-          }
+              })
         }
       }
+    } else {
+      if (this.formulario.value.nome == null || this.formulario.value.nome == "" || this.formulario.value.nome == " ") {
+        this.erro = true;
+        this.mensagemErro = "O nome é obrigatório.";
+      }
+    }
+  }
+
+
+}
