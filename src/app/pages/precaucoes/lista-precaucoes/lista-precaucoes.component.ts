@@ -94,11 +94,14 @@ export class ListaPrecaucoesComponent implements OnInit {
     mudarStatus() {
       if (this.precaucaoAux.ativo === true) {
         this.precaucaoAux.ativo = false;
-        this.precaucoesService.disable(this.precaucaoAux).subscribe();
+        this.precaucoesService.disable(this.precaucaoAux).subscribe(
+          sucess => this.loadListaPrecaucoes()
+        );
       } else {
         this.precaucaoAux.ativo = true;
-        this.precaucoesService.disable(this.precaucaoAux).subscribe();
+        this.precaucoesService.disable(this.precaucaoAux).subscribe(
+          sucess => this.loadListaPrecaucoes()
+        );
       }
-      location.reload();
     }
   }

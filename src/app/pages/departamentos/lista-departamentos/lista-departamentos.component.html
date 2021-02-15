@@ -3,6 +3,16 @@
     <app-card cardTitle="Consulta de Departamentos" blockClass="table-border-style">
       <form [formGroup]="pesquisaForm" >
         <div class="row" >
+          <div class="input-group col-md-3" style="margin-left:59%;" >
+            <input type="text"  class="form-control" name="pesquisar"  formControlName="pesquisar"  placeholder="pesquisar">
+            <div class="input-group-append">
+              <button  type="submit" (click)="pesquisa()" class="btn btn-icon btn-outline-primary"><i class="feather icon-search"></i></button>
+            </div>
+          </div>
+          <button style="margin-left:0%;" type="reset" class="btn btn-outline-warning" (click)="limpar()"><i class="feather icon-delete"></i> Limpar</button>
+          <button  style="margin-left:1%;" type="button" class="btn btn-outline-primary"  (click)="cadastrar()" ><i class="feather icon-plus-square"></i> Cadastrar</button>
+        </div>
+        <div class="row" >
           <div class="form-group col-md-2" >
             <label for="ativo" style= ""class="control-label">Status:</label>
             <select class="form-control" id="ativo" formControlName="ativo">
@@ -15,17 +25,9 @@
               <!-- <option *ngFor="let item of listaTipoDepartamento" [value]="item.valor">{{ item.desc  }}</option> -->
             </select>
           </div>
-          <div class="input-group col-md-3" style="margin-left:59%;" >
-            <input type="text"  class="form-control" name="pesquisar"  formControlName="pesquisar"  placeholder="pesquisar">
-            <div class="input-group-append">
-              <button  type="submit" (click)="pesquisa()" class="btn btn-icon btn-outline-primary"><i class="feather icon-search"></i></button>
-            </div>
-          </div>
-          <button style="margin-left:0%;" type="reset" class="btn btn-outline-warning" (click)="limpar()"><i class="feather icon-delete"></i> Limpar</button>
-          <button  style="margin-left:1%;" type="button" class="btn btn-outline-primary"  (click)="cadastrar()" ><i class="feather icon-plus-square"></i> Cadastrar</button>
         </div>
       </form>
-      <br>
+
       <div class="table-responsive">
         <table class="table table-hover">
           <thead>
@@ -51,37 +53,37 @@
 
                 <button type="button" class="btn btn-icon btn-warning" style="font-size: 13px; margin-right: 2%;" (click)="editar(departamento.idDepartamento)"><i class="feather icon-edit"></i> Editar</button>
 
-                  <button type="button" class="btn btn-icon btn-{{departamento.ativo ? 'danger' : 'info'}} " style="font-size: 13px;  margin-right: 2%;"
-                  (click)="pegaId(departamento.idDepartamento);confirmaModal.show()"><i class="feather icon-{{departamento.ativo ? 'minus-circle' : 'power'}}"></i> {{departamento.ativo ? 'Desativar' : 'Ativar'}}</button>
-                </td>
-              </tbody>
-            </table>
-            <ngb-pagination
-            class="d-flex justify-content-center"
-            [(page)]="page"
-            [pageSize]="pageSize"
-            [collectionSize]="lista.length"></ngb-pagination>
-          </div>
-        </app-card>
-      </div>
-      <div>
+                <button type="button" class="btn btn-icon btn-{{departamento.ativo ? 'danger' : 'info'}} " style="font-size: 13px;  margin-right: 2%;"
+                (click)="pegaId(departamento.idDepartamento);confirmaModal.show()"><i class="feather icon-{{departamento.ativo ? 'minus-circle' : 'power'}}"></i> {{departamento.ativo ? 'Desativar' : 'Ativar'}}</button>
+              </td>
+            </tbody>
+          </table>
+          <ngb-pagination
+          class="d-flex justify-content-center"
+          [(page)]="page"
+          [pageSize]="pageSize"
+          [collectionSize]="lista.length"></ngb-pagination>
+        </div>
+      </app-card>
+    </div>
+    <div>
 
-        <app-ui-modal #confirmaModal [containerClick]="false" >
-          <div  class="app-modal-header">
-            <h5  class="modal-title">Confirmação</h5>
-            <button type="reset" class="close basic-close" data-dismiss="modal" aria-label="Close" (click)="confirmaModal.hide()"><span aria-hidden="true">&times;</span></button>
-          </div>
-          <div class="app-modal-body">
-            <p > Tem certeza que deseja {{ varConfirm }} esse item?</p>
-          </div>
+      <app-ui-modal #confirmaModal [containerClick]="false" >
+        <div  class="app-modal-header">
+          <h5  class="modal-title">Confirmação</h5>
+          <button type="reset" class="close basic-close" data-dismiss="modal" aria-label="Close" (click)="confirmaModal.hide()"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="app-modal-body">
+          <p > Tem certeza que deseja {{ varConfirm }} esse item?</p>
+        </div>
 
 
-          <div class="app-modal-footer">
-            <div style="float: left; margin-left: 10px;">
-              <button type="reset" class="btn btn-outline-warning"  data-dismiss="modal" (click)="confirmaModal.hide()">Não</button>
-            </div>
-            <div style="margin-left: 100px;">
-              <button type="submit" class="btn btn-primary" (click)="mudarStatus();confirmaModal.hide()" >Sim</button>
-            </div>
+        <div class="app-modal-footer">
+          <div style="float: left; margin-left: 10px;">
+            <button type="reset" class="btn btn-outline-warning"  data-dismiss="modal" (click)="confirmaModal.hide()">Não</button>
           </div>
-        </app-ui-modal>
+          <div style="margin-left: 100px;">
+            <button type="submit" class="btn btn-primary" (click)="mudarStatus();confirmaModal.hide()" >Sim</button>
+          </div>
+        </div>
+      </app-ui-modal>

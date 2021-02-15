@@ -36,7 +36,7 @@ export class ListaUsuariosComponent implements OnInit {
       matricula: [null, [Validators.required]],
       ativo: [true],
       senha: [null,[Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
-      tipousuario:[null]
+      admin:[null]
     })
     this.formularioAtualizar = this.formBuilder.group({
       idUsuario: [null],
@@ -45,7 +45,7 @@ export class ListaUsuariosComponent implements OnInit {
       matricula: [null, [Validators.required]],
       ativo: [true],
       senha: [null,[Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
-      tipousuario:[null]
+      admin:[null]
     })
     this.pesquisaForm = new FormGroup({
       pesquisar: new FormControl(null, Validators.required)
@@ -86,7 +86,7 @@ export class ListaUsuariosComponent implements OnInit {
       matricula: usuarios.matricula,
       ativo: usuarios.ativo,
       senha: usuarios.senha,
-      tipousuario:usuarios.tipousuario
+      admin:usuarios.admin
     })
   }
   loadListaUsuarios() {

@@ -31,14 +31,14 @@
               <td>{{user.nome}}</td>
               <td>{{user.matricula}}</td>
               <td>{{user.email}}</td>
-              <td><label class="badge badge-{{user.status ? 'info' : 'danger'}}">{{user.status ? 'Ativo' : 'Inativo'}}</label></td>
-              <td>{{user.tipousuario.nome}}</td>
+              <td><label class="badge badge-{{user.ativo ? 'info' : 'danger'}}">{{user.ativo ? 'Ativo' : 'Inativo'}}</label></td>
+              <td>{{user.admin ? 'Administrador' : 'Enfermeiro'}}</td>
               <td class="text-right">
                 <button type="button" class="btn btn-icon btn-warning" style="font-size: 13px; margin-right: 2%;"(click)="editar(user.idUsuario)"><i
                     class="feather icon-edit"></i> Editar</button>
 
-                <button type="button" class="btn btn-icon btn-{{user.status ? 'danger' : 'info'}}" style="font-size: 13px;  margin-right: 2%;" >
-                    <i class="feather icon-{{user.status ? 'minus-circle' : 'power'}}"></i> {{user.status ? 'Desativar' : 'Ativar'}}</button>
+                <button type="button" class="btn btn-icon btn-{{user.ativo ? 'danger' : 'info'}}" style="font-size: 13px;  margin-right: 2%;" >
+                    <i class="feather icon-{{user.ativo ? 'minus-circle' : 'power'}}"></i> {{user.ativo ? 'Desativar' : 'Ativar'}}</button>
               </td>
           </tbody>
         </table>
