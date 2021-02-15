@@ -21,6 +21,8 @@ export class ListaPrecaucoesComponent implements OnInit {
   precaucaoAux: Precaucao;
   varConfirm: string;
   pesquisaForm: FormGroup = null;
+  statusPesquisa: boolean = false;
+  mensagem: string;
     MODALOPTIONS: NgbModalOptions = {keyboard : true, size : 'lg', backdrop : 'static'};
   constructor(private precaucoesService: PrecaucaoService,  public modalService: NgbModal, private formBuilder: FormBuilder) { }
 
@@ -43,9 +45,16 @@ export class ListaPrecaucoesComponent implements OnInit {
       pesquisar: new FormControl(null, Validators.required)
     });
   }
-  limpar(){
+  public pesquisa(): void {
+    this.statusPesquisa = true;
+    this.loadListaPrecaucoes();
   }
-  pesquisa(){}
+  limpar() {
+    this.pesquisaForm.reset;
+    this.mensagem = null;
+    this.statusPesquisa = false;
+    this.loadListaPrecaucoes();
+  }
   cadastrar(){
     const modalRef = this.modalService.open(CadastroPrecaucaoComponent, this.MODALOPTIONS)
     modalRef.componentInstance.formulario = this.formularioCadastro;
@@ -75,12 +84,36 @@ export class ListaPrecaucoesComponent implements OnInit {
     })
   }
   loadListaPrecaucoes() {
-    this.precaucoesService.getAll()
-    .subscribe(
-      data => {
-        this.lista = data;
-      })
+    if (this.statusPesquisa === false) {
+      this.precaucoesService.getAll()
+        .subscribe(
+          data => {
+            this.lista = data;
+
+          });
+    } else {
+      if (this.pesquisaForm.valid) {
+        this.precaucoesService.getByNome(this.pesquisaForm.get('pesquisar').value).subscribe(
+          data => {
+
+            this.lista = data;
+            if (this.lista.length <= 0) {
+              this.mensagem = "Nenhum registro foi encontrado.";
+            } else {
+              this.mensagem = null;
+            }
+            this.statusPesquisa = false;
+          });
+      } else {
+        this.precaucoesService.getByNome(this.pesquisaForm.get('')).subscribe(
+          data => {
+            this.lista = data;
+            this.mensagem = "Nenhum registro foi encontrado.";
+          }
+        )
+      }
     }
+  }
     pegaId(id: number) {
       this.precaucoesService.getById(id).subscribe((precaucaosDis) => {
         if (precaucaosDis.ativo === true) {

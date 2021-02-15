@@ -23,6 +23,8 @@ export class ListaDepartamentosComponent implements OnInit {
   listaAtivo:any[];
   listaTipoDepartamento:TipoDepartamento[];
   departamentoAuxiliar: TipoDepartamento;
+  statusPesquisa: boolean = false;
+  mensagem: string;
   MODALOPTIONS: NgbModalOptions = {keyboard : true, size : 'lg', backdrop : 'static'};
   constructor(private departamentosService: DepartamentoService,
     public modalService: NgbModal, private formBuilder: FormBuilder,
@@ -52,9 +54,15 @@ export class ListaDepartamentosComponent implements OnInit {
         pesquisar: new FormControl(null, Validators.required)
       });
     }
-    pesquisa(){}
-    limpar(){
-
+    public pesquisa(): void {
+      this.statusPesquisa = true;
+      this.loadListaDepartamentos();
+    }
+    limpar() {
+      this.pesquisaForm.reset;
+      this.mensagem = null;
+      this.statusPesquisa = false;
+      this.loadListaDepartamentos();
     }
     cadastrar(){
       const modalRef =  this.modalService.open(CadastroDepartamentoComponent, this.MODALOPTIONS);
@@ -94,12 +102,36 @@ export class ListaDepartamentosComponent implements OnInit {
       })
     }
     loadListaDepartamentos() {
-      this.departamentosService.getAll()
-      .subscribe(
-        data => {
-          this.lista = data;
-        })
+      if (this.statusPesquisa === false) {
+        this.departamentosService.getAll()
+          .subscribe(
+            data => {
+              this.lista = data;
+
+            });
+      } else {
+        if (this.pesquisaForm.valid) {
+          this.departamentosService.getByNome(this.pesquisaForm.get('pesquisar').value).subscribe(
+            data => {
+
+              this.lista = data;
+              if (this.lista.length <= 0) {
+                this.mensagem = "Nenhum registro foi encontrado.";
+              } else {
+                this.mensagem = null;
+              }
+              this.statusPesquisa = false;
+            });
+        } else {
+          this.departamentosService.getByNome(this.pesquisaForm.get('')).subscribe(
+            data => {
+              this.lista = data;
+              this.mensagem = "Nenhum registro foi encontrado.";
+            }
+          )
+        }
       }
+    }
       pegaId(id: number) {
         this.departamentosService.getById(id).subscribe((departamentosDis) => {
           console.log('departamentodis', departamentosDis);
