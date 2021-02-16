@@ -2,8 +2,7 @@ import { Component, OnInit, Input, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { DepartamentoService, TipoDepartamentoService } from '../service';
-import { TipoDepartamento } from '../model/tipoDepartamento';
-import { TipoDepartamentoSelecaoService } from '../service/tipo-departamento-selecao.service';
+
 @Component({
   selector: 'app-cadastro-departamento',
   templateUrl: './cadastro-departamento.component.html',
@@ -21,13 +20,23 @@ export class CadastroDepartamentoComponent implements OnInit {
   at:boolean = true;
   constructor(
     public activeModal: NgbActiveModal,private departamentosService: DepartamentoService,
-    private service: TipoDepartamentoSelecaoService,private selecaoService:TipoDepartamentoSelecaoService) { }
+    private tipoDepartamentoService:TipoDepartamentoService) { }
 
     ngOnInit(): void {
-        this.tipoDepartamentos = this.service.getTipoDepartamentos();
       console.log(this.tipoDepartamentos)
-
-      this.ListaTipoDepartamento = this.selecaoService.getTipoDepartamentos();
+      this.loadListaTipoDepartamento();
+    }
+    loadListaTipoDepartamento() {
+      this.tipoDepartamentoService.getAll()
+      .subscribe(
+        data => {
+          this.ListaTipoDepartamento = data;
+          console.log(data);
+        },
+        error => {
+          console.log('Erro serviço ' + error)
+        }
+      )
     }
     public verificaValidTouched(campo: any) {
       return !this.formulario.get(campo).valid && this.formulario.get(campo).touched;

@@ -1,6 +1,8 @@
 export interface CrudInterface<T>{
   getAll():void,
 
+  getAllAtivos():void,
+
   getByNome(object: T): void,
 
   getById(id: number): void,

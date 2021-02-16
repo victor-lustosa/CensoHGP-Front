@@ -11,4 +11,10 @@ export class TipoDepartamentoService extends CRUD<TipoDepartamento> {
     constructor(  http:HttpClient ){
       super(http, `${environment.API}apicensohgp/tipo-departamento`)
     };
+    getAtivos(){
+      return [
+        { valor: true, nome: 'Ativo' },
+        { valor: false, nome: 'Inativo' }
+      ];
+    }
   }

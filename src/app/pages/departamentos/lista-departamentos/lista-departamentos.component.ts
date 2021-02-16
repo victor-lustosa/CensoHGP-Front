@@ -18,6 +18,7 @@ export class ListaDepartamentosComponent implements OnInit {
   pageSize:number = 10;
   page:number = 1;
   departamentoAux: Departamento;
+  ativo:boolean = null;
   varConfirm: string;
   pesquisaForm: FormGroup = null;
   listaAtivo:any[];
@@ -33,6 +34,15 @@ export class ListaDepartamentosComponent implements OnInit {
     ngOnInit(): void {
       this.msgError= null;
       this.loadListaDepartamentos();
+      console.log('ativo:'+this.ativo)
+      if(this.ativo===true){
+          this.departamentosService.getAllAtivos().subscribe(
+            data => {
+              this.lista = data;
+            }
+          )
+      }
+      this.listaAtivo = this.tipoDepartamentoService.getAtivos();
       CadastroDepartamentoComponent.atualizando.subscribe(
         success => {
             this.loadListaDepartamentos();
@@ -101,11 +111,17 @@ export class ListaDepartamentosComponent implements OnInit {
     }
     loadListaDepartamentos() {
       if (this.statusPesquisa === false) {
+        if(this.ativo===true){
+            this.departamentosService.getAllAtivos().subscribe(
+              data => {
+                this.lista = data;
+              }
+            )
+        }
         this.departamentosService.getAll()
           .subscribe(
             data => {
               this.lista = data;
-
             });
       } else {
         if (this.pesquisaForm.valid) {
