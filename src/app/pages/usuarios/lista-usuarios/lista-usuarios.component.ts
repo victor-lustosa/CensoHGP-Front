@@ -43,7 +43,7 @@ export class ListaUsuariosComponent implements OnInit {
       matricula: [null, [Validators.required]],
       ativo: [true],
       senha: [null,[Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
-      admin:[null]
+      admin:[false,[Validators.required]]
     })
     this.formularioAtualizar = this.formBuilder.group({
       idUsuario: [null],
@@ -52,7 +52,7 @@ export class ListaUsuariosComponent implements OnInit {
       matricula: [null, [Validators.required]],
       ativo: [true],
       senha: [null,[Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
-      admin:[null]
+      admin:[null,[Validators.required]]
     })
     this.pesquisaForm = new FormGroup({
       pesquisar: new FormControl(null, Validators.required)
@@ -91,6 +91,7 @@ export class ListaUsuariosComponent implements OnInit {
     const modalRef = this.modalService.open(CadastroUsuarioComponent, this.MODALOPTIONS);
     if(this.formularioAtualizar != null){
       modalRef.componentInstance.formulario = this.formularioAtualizar;
+
     }
   }
   editar(id:number){

@@ -11,6 +11,7 @@
       <label for="nome">Nome:</label>
       <input  id="nome" formControlName="nome" class="form-control" aria-describedby="nomeHelp"
       placeholder="Digite o nome da precaução" [ngClass]="aplicaCssErro('nome')">
+
       <div *ngIf="verificaValidTouched('nome')">
         <span class="font-red">Nome é obrigatório</span>
       </div>

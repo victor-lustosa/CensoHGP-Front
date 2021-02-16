@@ -3,6 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { DepartamentoService, TipoDepartamentoService } from '../service';
 import { TipoDepartamento } from '../model/tipoDepartamento';
+import { TipoDepartamentoSelecaoService } from '../service/tipo-departamento-selecao.service';
 @Component({
   selector: 'app-cadastro-departamento',
   templateUrl: './cadastro-departamento.component.html',
@@ -13,16 +14,20 @@ export class CadastroDepartamentoComponent implements OnInit {
   @Input() public formulario: FormGroup;
   errors: String[];
   sucesso: boolean = false;
+  tipoDepartamentos:string[];
   ListaTipoDepartamento: TipoDepartamento[];
   tituloModal: string;
   static atualizando = new EventEmitter<boolean>();
   at:boolean = true;
   constructor(
     public activeModal: NgbActiveModal,private departamentosService: DepartamentoService,
-    private tipoDepartamentoService: TipoDepartamentoService) { }
+    private service: TipoDepartamentoSelecaoService,private tipoDepartamentoService:TipoDepartamentoService) { }
 
     ngOnInit(): void {
       this.loadListaTipoDepartamento();
+
+      this.tipoDepartamentos = this.service.getTipoDepartamentos();
+      console.log(this.tipoDepartamentos)
     }
     loadListaTipoDepartamento() {
       this.tipoDepartamentoService.getAll()

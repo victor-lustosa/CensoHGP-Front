@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, EventEmitter } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { EMPTY } from 'rxjs';
+import { TipoUsuarioService } from '../service/tipo-usuario.service';
 import { UsuarioService } from '../service/usuario.service';
 
 @Component({
@@ -10,17 +12,22 @@ import { UsuarioService } from '../service/usuario.service';
 })
 export class CadastroUsuarioComponent implements OnInit {
   @Input() public formulario: FormGroup;
-
+  tipoUsuarios:any[];
   errors: String[];
   sucesso: boolean = false;
   static atualizando = new EventEmitter<boolean>();
   at:boolean = true;
+  senhaNovamente:string=null;
+  validaSenha:boolean=false;
   constructor(
-    public activeModal: NgbActiveModal, public modalService: NgbModal, private usuariosService: UsuarioService) { }
+    public activeModal: NgbActiveModal, public modalService: NgbModal,
+    private usuariosService: UsuarioService,private tipoUsuarioService: TipoUsuarioService) { }
 
     ngOnInit(): void {
+      this.tipoUsuarios = this.tipoUsuarioService.getTipoUsuarios();
+
     }
-    verificaValidTouched(campo){
+    verificaValidTouched(campo:any){
       return !this.formulario.get(campo).valid && this.formulario.get(campo).touched;
     }
     aplicaCssErro(campo: any) {
@@ -42,16 +49,21 @@ export class CadastroUsuarioComponent implements OnInit {
               }, 500)
             })
           } else {
-            this.usuariosService.create(this.formulario.value)
-            .subscribe(
-              sucess => {
-                this.sucesso = true,
-                this.formulario.reset(),
-                CadastroUsuarioComponent.atualizando.emit(this.at),
-                setTimeout(() => {
-                  this.activeModal.close()
-                }, 500)
-              })
+            console.log(this.formulario.get('senha').value)
+            if(this.senhaNovamente === this.formulario.get('senha').value){
+              this.usuariosService.create(this.formulario.value)
+              .subscribe(
+                sucess => {
+                  this.sucesso = true,
+                  this.formulario.reset(),
+                  CadastroUsuarioComponent.atualizando.emit(this.at),
+                  setTimeout(() => {
+                    this.activeModal.close()
+                  }, 500)
+                })
+              } else{
+                this.validaSenha=true;
+              }
             }
           }
         }
