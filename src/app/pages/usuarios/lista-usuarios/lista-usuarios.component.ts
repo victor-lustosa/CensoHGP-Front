@@ -43,7 +43,7 @@ export class ListaUsuariosComponent implements OnInit {
       matricula: [null, [Validators.required]],
       ativo: [true],
       senha: [null,[Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
-      admin:[false,[Validators.required]]
+      admin:[null,[Validators.required]]
     })
     this.formularioAtualizar = this.formBuilder.group({
       idUsuario: [null],

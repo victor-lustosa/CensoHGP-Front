@@ -38,16 +38,21 @@ export class CadastroUsuarioComponent implements OnInit {
     saveUsuarios() {
       if (this.formulario.valid) {
         if (this.formulario.get('idUsuario').value != null) {
-          this.usuariosService.update(this.formulario.value)
-          .subscribe(
-            sucess => {
-              this.sucesso = true,
-              this.formulario.reset(),
-              CadastroUsuarioComponent.atualizando.emit(this.at),
-              setTimeout(() => {
-                this.activeModal.close()
-              }, 500)
-            })
+          if(this.senhaNovamente === this.formulario.get('senha').value){
+            this.usuariosService.update(this.formulario.value)
+            .subscribe(
+              sucess => {
+                this.sucesso = true,
+                this.formulario.reset(),
+                this.senhaNovamente=null;
+                CadastroUsuarioComponent.atualizando.emit(this.at),
+                setTimeout(() => {
+                  this.activeModal.close()
+                }, 500)
+              })
+            }else{
+              this.validaSenha=true;
+            }
           } else {
             console.log(this.formulario.get('senha').value)
             if(this.senhaNovamente === this.formulario.get('senha').value){
@@ -56,6 +61,7 @@ export class CadastroUsuarioComponent implements OnInit {
                 sucess => {
                   this.sucesso = true,
                   this.formulario.reset(),
+                  this.senhaNovamente=null;
                   CadastroUsuarioComponent.atualizando.emit(this.at),
                   setTimeout(() => {
                     this.activeModal.close()

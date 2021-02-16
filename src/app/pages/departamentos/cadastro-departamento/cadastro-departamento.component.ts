@@ -14,28 +14,20 @@ export class CadastroDepartamentoComponent implements OnInit {
   @Input() public formulario: FormGroup;
   errors: String[];
   sucesso: boolean = false;
-  tipoDepartamentos:string[];
-  ListaTipoDepartamento: TipoDepartamento[];
+  tipoDepartamentos:any;
+  ListaTipoDepartamento: any[];
   tituloModal: string;
   static atualizando = new EventEmitter<boolean>();
   at:boolean = true;
   constructor(
     public activeModal: NgbActiveModal,private departamentosService: DepartamentoService,
-    private service: TipoDepartamentoSelecaoService,private tipoDepartamentoService:TipoDepartamentoService) { }
+    private service: TipoDepartamentoSelecaoService,private selecaoService:TipoDepartamentoSelecaoService) { }
 
     ngOnInit(): void {
-      this.loadListaTipoDepartamento();
-
-      this.tipoDepartamentos = this.service.getTipoDepartamentos();
+        this.tipoDepartamentos = this.service.getTipoDepartamentos();
       console.log(this.tipoDepartamentos)
-    }
-    loadListaTipoDepartamento() {
-      this.tipoDepartamentoService.getAll()
-      .subscribe(
-        data => {
-          this.ListaTipoDepartamento = data;
-        }
-      )
+
+      this.ListaTipoDepartamento = this.selecaoService.getTipoDepartamentos();
     }
     public verificaValidTouched(campo: any) {
       return !this.formulario.get(campo).valid && this.formulario.get(campo).touched;

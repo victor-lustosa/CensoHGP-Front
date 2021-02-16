@@ -90,18 +90,12 @@ export class ListaDepartamentosComponent implements OnInit {
       })
     }
     updateForm(departamentos: Departamento){
-      this.tipoDepartamentoService.getById(departamentos.tipodepartamento.idTipoDepartamento).subscribe(
-        data => {
-          this.departamentoAuxiliar = data;
-          console.log("esse é o departamento aux" , this.departamentoAuxiliar )
-        }
-      )
       this.formularioAtualizar.patchValue({
         idDepartamento: departamentos.idDepartamento,
         nome:departamentos.nome,
         numero_leitos: departamentos.numero_leitos,
         ativo: departamentos.ativo,
-        tipodepartamento: this.departamentoAuxiliar,
+        tipodepartamento: departamentos.tipodepartamento.idTipoDepartamento,
         descricao: departamentos.descricao
       })
     }

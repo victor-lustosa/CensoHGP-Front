@@ -17,12 +17,18 @@
       <br>
       <label for="numero_leitos">Número de leitos:</label>
       <input  id="numero_leitos" formControlName="numero_leitos" class="form-control" aria-describedby="numeroLeitosHelp"
-      placeholder="Digite o numero de leitos">
+      placeholder="Digite o numero de leitos" [ngClass]="aplicaCssErro('numero_leitos')">
+      <div *ngIf="verificaValidTouched('numero_leitos')">
+        <span class="font-red">Número de leitos é obrigatório</span>
+      </div>
       <br>
-      <label>Tipo de Departamento</label>
-      <select class="form-control"  id="tipodepartamento" formControlName="tipodepartamento" required="true">
-        <option *ngFor="let TipoDepartamento of ListaTipoDepartamento" [value]="TipoDepartamento.idTipoDepartamento">{{TipoDepartamento.nome}}</option>
+      <label>Tipo de Departamento:</label>
+      <select class="form-control"  id="tipodepartamento" formControlName="tipodepartamento" required="true" [ngClass]="aplicaCssErro('tipodepartamento')">
+        <option *ngFor="let TipoDepartamento of ListaTipoDepartamento" [value]="TipoDepartamento.valor">{{TipoDepartamento.nome}}</option>
       </select>
+      <div *ngIf="verificaValidTouched('tipodepartamento')">
+        <span class="font-red">Tipo de departamento é obrigatório</span>
+      </div>
       <br>
       <label for="descricao">Descrição:</label>
       <textarea placeholder="Digite uma descrição" class="form-control" id="descricao" formControlName="descricao" rows="5"></textarea>
