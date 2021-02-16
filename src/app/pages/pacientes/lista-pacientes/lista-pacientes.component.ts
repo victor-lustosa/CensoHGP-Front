@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Paciente } from '../model/Paciente';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalOptions} from '@ng-bootstrap/ng-bootstrap';
 import { PacienteService } from '../service/paciente.service';
 import { CadastroPacienteComponent } from '../cadastro-paciente/cadastro-paciente.component';
 import { Input } from '@angular/core';
@@ -21,6 +21,7 @@ export class ListaPacientesComponent implements OnInit {
   // lista:Paciente[]=[];
   statusPesquisa: boolean = false;
   mensagem: string;
+  MODALOPTIONS: NgbModalOptions = { keyboard: true, size: 'lg', backdrop: 'static' };
   constructor(private departamentosService: PacienteService,
     public modalService: NgbModal, private formBuilder: FormBuilder) { }
 
@@ -183,12 +184,12 @@ export class ListaPacientesComponent implements OnInit {
     limpar(){
     }
     cadastrar(){
-      const modalRef =  this.modalService.open(CadastroPacienteComponent, { size: 'lg' });
+      const modalRef =  this.modalService.open(CadastroPacienteComponent,this.MODALOPTIONS);
       modalRef.componentInstance.formulario = this.formularioCadastro;
 
     }
     atualizar() {
-      const modalRef = this.modalService.open(CadastroPacienteComponent, { size: 'lg' });
+      const modalRef = this.modalService.open(CadastroPacienteComponent,this.MODALOPTIONS);
       if(this.formularioAtualizar != null){
         modalRef.componentInstance.formulario = this.formularioAtualizar;
       }
