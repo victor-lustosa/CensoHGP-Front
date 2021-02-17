@@ -47,7 +47,7 @@
 
               <td>{{departamento.nome}}</td>
               <td>{{departamento.numero_leitos}}</td>
-              <td>{{departamento.tipodepartamento.idTipoDepartamento == 1 ? 'interno': 'externo' }}</td>
+              <td>{{departamento.interno == true ? 'interno': 'externo' }}</td>
               <td><label class="badge badge-{{departamento.ativo ? 'info' : 'danger'}}">{{departamento.ativo ? 'ativo':'inativo'}}</label></td>
 
               <td class="text-right">

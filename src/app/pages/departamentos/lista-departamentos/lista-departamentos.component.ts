@@ -52,7 +52,7 @@ export class ListaDepartamentosComponent implements OnInit {
         nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
         numero_leitos: [null, [Validators.required]],
         ativo: [true],
-        tipodepartamento:[null],
+        interno:[true],
         descricao:[null]
       })
 
@@ -61,7 +61,7 @@ export class ListaDepartamentosComponent implements OnInit {
         nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
         numero_leitos: [null, [Validators.required]],
         ativo: [true],
-        tipodepartamento:[null],
+        interno:[true],
         descricao:[null],
       })
       this.pesquisaForm = new FormGroup({
@@ -105,7 +105,7 @@ export class ListaDepartamentosComponent implements OnInit {
         nome:departamentos.nome,
         numero_leitos: departamentos.numero_leitos,
         ativo: departamentos.ativo,
-        tipodepartamento: departamentos.tipodepartamento.idTipoDepartamento,
+        interno: departamentos.interno,
         descricao: departamentos.descricao
       })
     }
