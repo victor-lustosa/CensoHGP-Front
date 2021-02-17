@@ -16,8 +16,8 @@
       </div>
       <br>
       <label for="numero_leitos">Número de leitos:</label>
-      <input  id="numero_leitos" formControlName="numero_leitos" class="form-control" aria-describedby="numeroLeitosHelp"
-      placeholder="Digite o numero de leitos" [ngClass]="aplicaCssErro('numero_leitos')">
+      <input type="number" id="numero_leitos" formControlName="numero_leitos" class="form-control" aria-describedby="numeroLeitosHelp"
+      placeholder="Informe o numero de leitos" [ngClass]="aplicaCssErro('numero_leitos')">
       <div *ngIf="verificaValidTouched('numero_leitos')">
         <span class="font-red">Número de leitos é obrigatório</span>
       </div>

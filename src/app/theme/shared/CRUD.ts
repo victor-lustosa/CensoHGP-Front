@@ -50,9 +50,10 @@ export class CRUD<T> implements CrudInterface<T>{
       errorMessage = error.error.message;
     } else {
       // Erro ocorreu no lado do servidor
-      errorMessage = `Código do erro: ${error.status}, ` + `menssagem: ${error.message}`;
+      errorMessage = `Código do erro: ${error.status}, ` + `menssagem: ${error.error.message}`;
     }
-    console.log('HandleError errorMessage: ' + errorMessage);
+    //console.log('HandleError errorMessage: ' + errorMessage);
+    //console.log("Teste erro",error.error)
     return throwError(errorMessage);
   }
 }
