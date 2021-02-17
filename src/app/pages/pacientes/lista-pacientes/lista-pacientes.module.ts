@@ -4,8 +4,9 @@ import { CommonModule } from '@angular/common';
 import { ListaPacientesRoutingModule } from './lista-pacientes-routing.module';
 import { ListaPacientesComponent } from './lista-pacientes.component';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
-import { NgbButtonsModule, NgbDropdownModule, NgbPaginationModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CadastroPacienteComponent } from '../cadastro-paciente/cadastro-paciente.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -14,10 +15,10 @@ import { CadastroPacienteComponent } from '../cadastro-paciente/cadastro-pacient
     CommonModule,
     ListaPacientesRoutingModule,
     SharedModule,
-    NgbPaginationModule,
-    NgbDropdownModule,
-    NgbButtonsModule,
-     NgbTooltipModule
-  ]
+    NgbModule.forRoot() ,
+    FormsModule,
+    ReactiveFormsModule
+  ],
+  bootstrap:[CadastroPacienteComponent]
 })
 export class ListaPacientesModule { }

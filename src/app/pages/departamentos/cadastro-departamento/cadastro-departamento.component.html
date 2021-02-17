@@ -24,7 +24,7 @@
       <br>
       <label>Tipo de Departamento:</label>
       <select class="form-control"  id="tipodepartamento" formControlName="tipodepartamento" required="true" [ngClass]="aplicaCssErro('tipodepartamento')">
-        <option *ngFor="let TipoDepartamento of ListaTipoDepartamento" [value]="TipoDepartamento.idTipoDepartamento">{{TipoDepartamento.nome}}</option>
+        <option *ngFor="let tipoDepartamento of listaTipoDepartamento" [value]="tipoDepartamento.idTipoDepartamento">{{tipoDepartamento.nome}}</option>
       </select>
       <div *ngIf="verificaValidTouched('tipodepartamento')">
         <span class="font-red">Tipo de departamento é obrigatório</span>

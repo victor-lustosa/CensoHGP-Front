@@ -13,6 +13,11 @@ export class CRUD<T> implements CrudInterface<T>{
     console.log('get allAtivos do crud: ' + `${this.API_URL}s`)
     return this.http.get<T[]>(`${this.API_URL}s/ativos`).pipe(retry(1), catchError(this.handleError));
   }
+  getAllSexos(): Observable<T[]> {
+    console.log('get allSexos do crud: ' + `${this.API_URL}s`)
+    return this.http.get<T[]>(`${this.API_URL}s/sexos`).pipe(retry(1), catchError(this.handleError));
+  }
+
   getAll(): Observable<T[]> {
     console.log('get all do crud: ' + `${this.API_URL}s`)
     return this.http.get<T[]>(`${this.API_URL}s`).pipe(retry(1), catchError(this.handleError));

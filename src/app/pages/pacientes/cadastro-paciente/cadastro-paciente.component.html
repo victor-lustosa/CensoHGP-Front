@@ -7,70 +7,67 @@
   </div>
   <div class="modal-body">
     <form  [formGroup]="formulario" >
-
-      <label for="numero_prontuario">Número do Prontuário:</label>
-      <input  id="numero_prontuario"
-
-       class="form-control" aria-describedby="numeroProntuarioHelp"
-      placeholder="Digite o numero de leitos">
+      <label for="prontuario">Número do Prontuário:</label>
+      <input  id="prontuario" class="form-control" aria-describedby="prontuarioHelp"
+      formControlName="prontuario" placeholder="Digite o número do prontuário" [ngClass]="aplicaCssErro('prontuario')">
       <br>
+      <div *ngIf="verificaValidTouched('prontuario')">
+        <span class="font-red">Número do prontuario é obrigatório</span>
+      </div>
       <label for="nome">Nome:</label>
-      <input  id="nome"
-
-       class="form-control" aria-describedby="nomeHelp"
-      placeholder="Digite o nome do paciente">
+      <input  id="nome"  class="form-control" aria-describedby="nomeHelp"
+      formControlName="nome"  placeholder="Digite o nome do paciente">
       <br>
       <label for="cpf">CPF:</label>
-      <input  id="cpf"
-
-       class="form-control" aria-describedby="cpfHelp"
-      placeholder="Digite o CPF">
+      <input  id="cpf" class="form-control" aria-describedby="cpfHelp"
+      placeholder="Digite o CPF" formControlName="cpf">
       <br>
       <label for="nomeMae">Nome da Mãe:</label>
-      <input  id="nomeMae"
-
-       class="form-control" aria-describedby="nomeMaeHelp"
-      placeholder="Digite o nome da Mãe">
+      <input  id="nomeMae"  class="form-control" aria-describedby="nomeMaeHelp"
+      placeholder="Digite o nome da Mãe" formControlName="nomeMae">
       <br>
-      <label for="dataNascimento">Data de Nascimento:</label>
-      <div class="input-group">
-        <!-- <input id="dataNascimento" class="form-control" name="model" [(ngModel)]="model"> -->
-        <div class="input-group-append">
-          <button class="btn btn-outline-primary calendar" type="button"><i
-            class="feather icon-calendar"></i></button>
+      <label>Sexo:</label>
+      <select class="form-control"  id="sexo" formControlName="sexo" >
+        <option *ngFor="let sexo of listaSexos" [value]="sexo.value">{{sexo.label}}</option>
+      </select>
+      <br>
+      <label>Departamento:</label>
+      <select class="form-control"  id="departamento" formControlName="departamento">
+        <option *ngFor="let departamento of listaDepartamento" [value]="departamento.idDepartamento">{{departamento.nome}}</option>
+      </select>
+      <br>
+      <label for="precaucao">Precauções:</label>
+      <div id="precaucao" class="row">
+        <div class="checkbox" class="col-sm-4"
+        formArrayName="precaucao"
+        *ngFor="let item of getPrecaucoes(); let i = index" >
+        <label class="checkbox-inline">
+          <input type="checkbox" [formControlName]="i" [ngClass]="aplicaCssErro('precaucao')"> {{ listaPrecaucoes[i] }} </label>
+        </div>
+        <div *ngIf="verificaValidTouched('precaucao')">
+          <span class="font-red">Precaução é obrigatória</span>
         </div>
       </div>
       <br>
-      <label for="sexo">Sexo:</label>
-      <select class="form-control" id="sexo">
-        <option>selecionar...</option>
-        <option>Masculino</option>
-        <option>Feminino</option>
-      </select>
-      <br>
-      <label for="departamento">Departamento:</label>
-      <select class="form-control" id="departamento">
-        <option>selecionar...</option>
-        <option>PEDIATRIA</option>
-        <option>EMADE</option>
-        <option>UTI</option>
-        <option>CENTRO</option>
-      </select>
-      <br>
-      <label for="tipoPrecaucao">Tipo de Precaução:</label>
-      <select class="form-control" id="tipoPrecaucao">
-        <option>selecionar...</option>
-        <option>Padrão</option>
-        <option>Contato</option>
-        <option>Gotículas</option>
-        <option>Aerossóis</option>
-      </select>
+      <label for="nomeMae">Data de nascimento:</label>
+<br>
+<div class="row" >
+<div class="form-group col-md-6">
+  <div class="input-group">
+    <input class="form-control" placeholder="yyyy-mm-dd"
+    name="dp" formControlName="dataNascimento" ngbDatepicker #d="ngbDatepicker">
+    <div class="input-group-append">
+      <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"><i class="feather icon-calendar"></i></button>
+    </div>
+  </div>
+</div>
+</div>
     </form>
   </div>
   <div class="modal-footer">
     <div style="margin-left: 200px;">
       <button type="submit" class="btn btn-primary" style="margin-left:-16%; font-size: 16px;"(click)="savePacientes()"><i
         class="feather icon-save"></i> Salvar</button>
+      </div>
     </div>
   </div>
-</div>

@@ -14,7 +14,7 @@ export class CadastroDepartamentoComponent implements OnInit {
   errors: String[];
   sucesso: boolean = false;
   tipoDepartamentos:any;
-  ListaTipoDepartamento: any[];
+  listaTipoDepartamento: any[];
   tituloModal: string;
   static atualizando = new EventEmitter<boolean>();
   at:boolean = true;
@@ -30,7 +30,7 @@ export class CadastroDepartamentoComponent implements OnInit {
       this.tipoDepartamentoService.getAll()
       .subscribe(
         data => {
-          this.ListaTipoDepartamento = data;
+          this.listaTipoDepartamento = data;
           console.log(data);
         },
         error => {
