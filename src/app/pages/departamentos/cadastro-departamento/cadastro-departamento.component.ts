@@ -58,6 +58,9 @@ export class CadastroDepartamentoComponent implements OnInit {
               setTimeout(() => {
                 this.activeModal.close()
               }, 500);
+            },
+            error => {
+              alert(error)
             })
           } else {
             this.departamentosService.create(this.formulario.value)
@@ -69,6 +72,9 @@ export class CadastroDepartamentoComponent implements OnInit {
                 setTimeout(() => {
                   this.activeModal.close()
                 }, 500);
+              },
+              error => {
+                alert(error);
               })
             }
           }
