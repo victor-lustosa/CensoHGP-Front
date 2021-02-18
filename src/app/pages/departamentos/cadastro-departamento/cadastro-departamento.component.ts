@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { ErrorMsgComponent } from 'src/app/theme/shared/components/error-msg/error-msg.component';
 import { DepartamentoService } from '../service';
 
 @Component({
@@ -15,9 +16,11 @@ export class CadastroDepartamentoComponent implements OnInit {
   sucesso: boolean = false;
 
   listaTipoDepartamento: any[];
-    tituloModal: string;
+  tituloModal: string;
   static atualizando = new EventEmitter<boolean>();
   at:boolean = true;
+  erroBack: string = '';
+  static erroBack = new EventEmitter<string>();
   constructor(
     public activeModal: NgbActiveModal,private departamentosService: DepartamentoService) { }
 
@@ -38,7 +41,7 @@ export class CadastroDepartamentoComponent implements OnInit {
         if ( this.formulario.get('idDepartamento').value != null) {
           this.departamentosService.update(this.formulario.value)
           .subscribe(
-            sucess => {
+            () => {
               this.sucesso = true,
               this.formulario.reset(),
               CadastroDepartamentoComponent.atualizando.emit(this.at),
@@ -47,12 +50,13 @@ export class CadastroDepartamentoComponent implements OnInit {
               }, 500);
             },
             error => {
-              alert(error)
+              console.log(error)
+              CadastroDepartamentoComponent.erroBack.emit(error.menssagem)
             })
           } else {
             this.departamentosService.create(this.formulario.value)
             .subscribe(
-              sucess => {
+              () => {
                 this.sucesso = true,
                 this.formulario.reset(),
                 CadastroDepartamentoComponent.atualizando.emit(this.at),
@@ -61,7 +65,8 @@ export class CadastroDepartamentoComponent implements OnInit {
                 }, 500);
               },
               error => {
-                alert(error);
+                console.log(error)
+                CadastroDepartamentoComponent.erroBack.emit(error.menssagem)
               })
             }
           }
