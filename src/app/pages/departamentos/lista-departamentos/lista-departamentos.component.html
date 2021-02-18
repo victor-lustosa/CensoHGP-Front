@@ -1,32 +1,40 @@
 <div class="row">
   <div class="col-md-12">
     <app-card cardTitle="Consulta de Departamentos" blockClass="table-border-style">
-      <form [formGroup]="pesquisaForm" >
-        <div class="row" >
-          <div class="input-group col-md-3" style="margin-left:59%;" >
-            <input type="text"  class="form-control" name="pesquisar"  formControlName="pesquisar"  placeholder="pesquisar">
-            <div class="input-group-append">
-              <button  type="submit" (click)="pesquisa()" class="btn btn-icon btn-outline-primary"><i class="feather icon-search"></i></button>
+
+      <div class="row">
+        <div class="col-md-12">
+
+          <button style="float:right" type="reset" class="btn btn-outline-warning" (click)="limpar()"><i class="feather icon-delete"></i> Limpar</button>
+          <form [formGroup]="pesquisaForm" >
+            <div class="input-group col-md-3" style="float:right">
+              <input type="text"  class="form-control" name="pesquisar"  formControlName="pesquisar"  placeholder="pesquisar">
+              <div class="input-group-append">
+                <button  type="submit" (click)="pesquisa()" class="btn btn-icon btn-outline-primary"><i class="feather icon-search"></i></button>
+              </div>
+            </div>
+          </form>
+          <button  style="float:left;" type="button" class="btn btn-outline-primary"  (click)="cadastrar()" ><i class="feather icon-plus-square"></i> Cadastrar</button>
+
+          <div class="row" >
+            <div class="form-group   col-3 d-flex justify-content-between" style="margin-left:50px;" >
+              <label for="ativo" class="form-check-label mr-2">Status:</label>
+              <select class="custom-select" id="ativo" [(ngModel)]="ativo">
+                <option *ngFor="let ativo of listaAtivo" [value]="ativo.valor">{{ ativo.nome  }}</option>
+              </select>
+            </div>
+            <div class="form-group  col-3 d-flex justify-content-between">
+              <label for="tipodepartamento" class="form-check-label mr-2">Tipo:</label>
+              <select class="custom-select" id="tipodepartamento" >
+                <!-- <option *ngFor="let item of listaTipoDepartamento" [value]="item.valor">{{ item.desc  }}</option> -->
+              </select>
             </div>
           </div>
-          <button style="margin-left:0%;" type="reset" class="btn btn-outline-warning" (click)="limpar()"><i class="feather icon-delete"></i> Limpar</button>
-          <button  style="margin-left:1%;" type="button" class="btn btn-outline-primary"  (click)="cadastrar()" ><i class="feather icon-plus-square"></i> Cadastrar</button>
-        </div>
-      </form>
-      <div class="row" >
-        <div class="form-group col-md-2" >
-          <label for="ativo" style= ""class="control-label">Status:</label>
-          <select class="custom-select" id="ativo" [(ngModel)]="ativo">
-            <option *ngFor="let ativo of listaAtivo" [value]="ativo.valor">{{ ativo.nome  }}</option>
-          </select>
-        </div>
-        <div class="form-group col-md-2">
-          <label for="tipodepartamento" class="control-label">Tipo:</label>
-          <select class="custom-select" id="tipodepartamento" >
-            <!-- <option *ngFor="let item of listaTipoDepartamento" [value]="item.valor">{{ item.desc  }}</option> -->
-          </select>
         </div>
       </div>
+
+      <br>
+
 
 
       <div class="table-responsive">

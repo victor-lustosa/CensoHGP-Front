@@ -10,4 +10,11 @@ export class DepartamentoService extends CRUD<Departamento> {
   constructor(  http:HttpClient ){
     super(http, `${environment.API}apicensohgp/departamento`);
   }
+     getTipoDepartamentos(){
+        return [
+          { valor: true, nome: 'Interno' },
+          { valor: false, nome: 'Externo' }
+        ];
+      }
+
 }

@@ -28,7 +28,7 @@
       <br>
       <label>Sexo:</label>
       <select class="form-control"  id="sexo" formControlName="sexo" >
-        <option *ngFor="let sexo of listaSexos" [value]="sexo.value">{{sexo.label}}</option>
+        <option *ngFor="let sexo of listaSexos" [value]="sexo.valor">{{sexo.nome}}</option>
       </select>
       <br>
       <label>Departamento:</label>
@@ -53,13 +53,7 @@
       <br>
       <div class="row" >
         <div class="form-group col-md-6">
-          <div class="input-group">
-            <input class="form-control" placeholder="dd-mm-aaaa"
-            name="dp" formControlName="dataNascimento" ngbDatepicker #d="ngbDatepicker">
-            <div class="input-group-append">
-              <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"><i class="feather icon-calendar"></i></button>
-            </div>
-          </div>
+            <input class="form-control" type="date" formControlName="dataNascimento" id="datepicker" >
         </div>
       </div>
     </form>

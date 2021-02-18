@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Departamento } from './../model/departamento';
-import { DepartamentoService, TipoDepartamentoService} from './../service'
+import { DepartamentoService} from './../service'
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { CadastroDepartamentoComponent } from '../cadastro-departamento/cadastro-departamento.component';
-import { TipoDepartamento } from '../model/tipoDepartamento';
+
 @Component({
   selector: 'app-lista-departamentos',
   templateUrl: './lista-departamentos.component.html',
@@ -22,14 +22,11 @@ export class ListaDepartamentosComponent implements OnInit {
   varConfirm: string;
   pesquisaForm: FormGroup = null;
   listaAtivo:any[];
-  listaTipoDepartamento:TipoDepartamento[];
-  departamentoAuxiliar: TipoDepartamento;
   statusPesquisa: boolean = false;
   mensagem: string;
   MODALOPTIONS: NgbModalOptions = {keyboard : true, size : 'lg', backdrop : 'static'};
   constructor(private departamentosService: DepartamentoService,
-    public modalService: NgbModal, private formBuilder: FormBuilder,
-    private tipoDepartamentoService: TipoDepartamentoService) { }
+    public modalService: NgbModal, private formBuilder: FormBuilder) { }
 
     ngOnInit(): void {
       this.msgError= null;
@@ -42,7 +39,6 @@ export class ListaDepartamentosComponent implements OnInit {
             }
           )
       }
-      this.listaAtivo = this.tipoDepartamentoService.getAtivos();
       CadastroDepartamentoComponent.atualizando.subscribe(
         success => {
             this.loadListaDepartamentos();
@@ -52,7 +48,7 @@ export class ListaDepartamentosComponent implements OnInit {
         nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
         numero_leitos: [null, [Validators.required]],
         ativo: [true],
-        interno:[true],
+        interno:[null],
         descricao:[null]
       })
 
@@ -61,7 +57,7 @@ export class ListaDepartamentosComponent implements OnInit {
         nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
         numero_leitos: [null, [Validators.required]],
         ativo: [true],
-        interno:[true],
+        interno:[null],
         descricao:[null],
       })
       this.pesquisaForm = new FormGroup({

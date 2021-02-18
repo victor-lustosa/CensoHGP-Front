@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { DepartamentoService, TipoDepartamentoService } from '../service';
+import { DepartamentoService } from '../service';
 
 @Component({
   selector: 'app-cadastro-departamento',
@@ -13,31 +13,18 @@ export class CadastroDepartamentoComponent implements OnInit {
   @Input() public formulario: FormGroup;
   errors: String[];
   sucesso: boolean = false;
-  tipoDepartamentos:any;
+
   listaTipoDepartamento: any[];
-  tituloModal: string;
+    tituloModal: string;
   static atualizando = new EventEmitter<boolean>();
   at:boolean = true;
   constructor(
-    public activeModal: NgbActiveModal,private departamentosService: DepartamentoService,
-    private tipoDepartamentoService:TipoDepartamentoService) { }
+    public activeModal: NgbActiveModal,private departamentosService: DepartamentoService) { }
 
     ngOnInit(): void {
-      console.log(this.tipoDepartamentos)
-      this.loadListaTipoDepartamento();
+      this.listaTipoDepartamento = this.departamentosService.getTipoDepartamentos();
     }
-    loadListaTipoDepartamento() {
-      this.tipoDepartamentoService.getAll()
-      .subscribe(
-        data => {
-          this.listaTipoDepartamento = data;
-          console.log(data);
-        },
-        error => {
-          console.log('Erro serviço ' + error)
-        }
-      )
-    }
+
     public verificaValidTouched(campo: any) {
       return !this.formulario.get(campo).valid && this.formulario.get(campo).touched;
     }

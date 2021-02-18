@@ -11,4 +11,10 @@ export class PacienteService extends CRUD<Paciente> {
   constructor(http: HttpClient){
     super(http, `${environment.API}apicensohgp/paciente`);
   }
+  getSexos(){
+    return [
+      { valor: 1, nome: 'Masculino' },
+      { valor: 2, nome: 'Feminino' }
+    ];
+  }
  }

@@ -6,6 +6,7 @@
   <div class="col-md-12">
     <app-alert type="primary" *ngIf="sucesso == true">salvo com sucesso</app-alert>
   </div>
+
   <div class="modal-body">
     <form  [formGroup]="formulario" >
       <label for="nome">Nome:</label>
@@ -23,10 +24,10 @@
       </div>
       <br>
       <label>Tipo de Departamento:</label>
-      <select class="form-control"  id="tipodepartamento" formControlName="tipodepartamento" required="true" [ngClass]="aplicaCssErro('tipodepartamento')">
-        <option *ngFor="let tipoDepartamento of listaTipoDepartamento" [value]="tipoDepartamento.idTipoDepartamento">{{tipoDepartamento.nome}}</option>
+      <select class="form-control"  id="interno" formControlName="interno" required="true" [ngClass]="aplicaCssErro('interno')">
+        <option *ngFor="let tipoDepartamento of listaTipoDepartamento" [value]="tipoDepartamento.valor">{{tipoDepartamento.nome}}</option>
       </select>
-      <div *ngIf="verificaValidTouched('tipodepartamento')">
+      <div *ngIf="verificaValidTouched('interno')">
         <span class="font-red">Tipo de departamento é obrigatório</span>
       </div>
       <br>
