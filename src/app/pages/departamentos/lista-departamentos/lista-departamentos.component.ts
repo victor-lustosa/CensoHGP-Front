@@ -4,6 +4,7 @@ import { DepartamentoService} from './../service'
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { CadastroDepartamentoComponent } from '../cadastro-departamento/cadastro-departamento.component';
+import { EMPTY } from 'rxjs';
 
 @Component({
   selector: 'app-lista-departamentos',
@@ -33,137 +34,148 @@ export class ListaDepartamentosComponent implements OnInit {
       this.loadListaDepartamentos();
       console.log('ativo:'+this.ativo)
       if(this.ativo===true){
-          this.departamentosService.getAllAtivos().subscribe(
-            data => {
-              this.lista = data;
-            }
-          )
+        this.departamentosService.getAllAtivos().subscribe(
+          data => {
+            this.lista = data;
+          }
+        )
       }
       CadastroDepartamentoComponent.atualizando.subscribe(
         success => {
-            this.loadListaDepartamentos();
-          })
-      this.formularioCadastro = this.formBuilder.group({
-        idDepartamento: [null],
-        nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
-        numero_leitos: [null, [Validators.required]],
-        ativo: [true],
-        interno:[null],
-        descricao:[null]
-      })
+          this.loadListaDepartamentos();
+        })
+        this.formularioCadastro = this.formBuilder.group({
+          idDepartamento: [null],
+          nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
+          numero_leitos: [null, [Validators.required]],
+          ativo: [true],
+          interno:[null],
+          descricao:[null]
+        })
 
-      this.formularioAtualizar = this.formBuilder.group({
-        idDepartamento: [null],
-        nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
-        numero_leitos: [null, [Validators.required]],
-        ativo: [true],
-        interno:[null],
-        descricao:[null],
-      })
-      this.pesquisaForm = new FormGroup({
-        pesquisar: new FormControl(null, Validators.required)
-      });
-    }
-    public pesquisa(): void {
-      this.statusPesquisa = true;
-      this.loadListaDepartamentos();
-    }
-    limpar() {
-      this.pesquisaForm.reset;
-      this.mensagem = null;
-      this.statusPesquisa = false;
-      this.loadListaDepartamentos();
-    }
-    cadastrar(){
-      const modalRef =  this.modalService.open(CadastroDepartamentoComponent, this.MODALOPTIONS);
-      modalRef.componentInstance.tituloModal = 'Cadastrar departamento';
-      modalRef.componentInstance.formulario = this.formularioCadastro;
-
-    }
-    atualizar() {
-      const modalRef = this.modalService.open(CadastroDepartamentoComponent, this.MODALOPTIONS);
-      if(this.formularioAtualizar != null){
-        modalRef.componentInstance.tituloModal = 'Editar departamento';
-        modalRef.componentInstance.formulario = this.formularioAtualizar;
+        this.formularioAtualizar = this.formBuilder.group({
+          idDepartamento: [null],
+          nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
+          numero_leitos: [null, [Validators.required]],
+          ativo: [true],
+          interno:[null],
+          descricao:[null],
+        })
+        this.pesquisaForm = new FormGroup({
+          pesquisar: new FormControl(null, Validators.required)
+        });
       }
-    }
-    editar(id:number){
-      this.departamentosService.getById(id).subscribe((departamentos) => {
-        this.updateForm(departamentos);
-        if(this.formularioAtualizar != null){
-          this.atualizar();
+      refresh(){
+        if(this.pesquisaForm.get('pesquisar').value===''){
+        this.loadListaDepartamentos();
+        }else{
+            this.pesquisa(this.pesquisaForm.get('pesquisar').value)
         }
-      })
-    }
-    updateForm(departamentos: Departamento){
-      this.formularioAtualizar.patchValue({
-        idDepartamento: departamentos.idDepartamento,
-        nome:departamentos.nome,
-        numero_leitos: departamentos.numero_leitos,
-        ativo: departamentos.ativo,
-        interno: departamentos.interno,
-        descricao: departamentos.descricao
-      })
-    }
-    loadListaDepartamentos() {
-      if (this.statusPesquisa === false) {
-        if(this.ativo===true){
+      }
+      public pesquisa(value?:string): void {
+        this.statusPesquisa = true;
+        this.loadListaDepartamentos(value);
+      }
+      limpar() {
+        this.pesquisaForm.reset;
+        this.mensagem = null;
+        this.statusPesquisa = false;
+        this.loadListaDepartamentos();
+      }
+      cadastrar(){
+        const modalRef =  this.modalService.open(CadastroDepartamentoComponent, this.MODALOPTIONS);
+        modalRef.componentInstance.tituloModal = 'Cadastrar departamento';
+        modalRef.componentInstance.formulario = this.formularioCadastro;
+
+      }
+      atualizar() {
+        const modalRef = this.modalService.open(CadastroDepartamentoComponent, this.MODALOPTIONS);
+        if(this.formularioAtualizar != null){
+          modalRef.componentInstance.tituloModal = 'Editar departamento';
+          modalRef.componentInstance.formulario = this.formularioAtualizar;
+        }
+      }
+      editar(id:number){
+        this.departamentosService.getById(id).subscribe((departamentos) => {
+          this.updateForm(departamentos);
+          if(this.formularioAtualizar != null){
+            this.atualizar();
+          }
+        })
+      }
+      updateForm(departamentos: Departamento){
+        this.formularioAtualizar.patchValue({
+          idDepartamento: departamentos.idDepartamento,
+          nome:departamentos.nome,
+          numero_leitos: departamentos.numero_leitos,
+          ativo: departamentos.ativo,
+          interno: departamentos.interno,
+          descricao: departamentos.descricao
+        })
+      }
+      loadListaDepartamentos(value?:string) {
+        if (this.statusPesquisa === false) {
+          if(this.ativo===true){
             this.departamentosService.getAllAtivos().subscribe(
               data => {
                 this.lista = data;
               }
             )
-        }
-        this.departamentosService.getAll()
+          }
+          this.departamentosService.getAll()
           .subscribe(
             data => {
               this.lista = data;
             });
-      } else {
-        if (this.pesquisaForm.valid) {
-          this.departamentosService.getByNome(this.pesquisaForm.get('pesquisar').value).subscribe(
-            data => {
-
-              this.lista = data;
-              if (this.lista.length <= 0) {
-                this.mensagem = "Nenhum registro foi encontrado.";
-              } else {
-                this.mensagem = null;
-              }
-              this.statusPesquisa = false;
-            });
-        } else {
-          this.departamentosService.getByNome(this.pesquisaForm.get('')).subscribe(
-            data => {
-              this.lista = data;
-              this.mensagem = "Nenhum registro foi encontrado.";
-            }
-          )
-        }
-      }
-    }
-      pegaId(id: number) {
-        this.departamentosService.getById(id).subscribe((departamentosDis) => {
-          console.log('departamentodis', departamentosDis);
-          if (departamentosDis.ativo === true) {
-            this.varConfirm = 'desativar';
           } else {
-            this.varConfirm = 'ativar';
+            if (this.pesquisaForm.valid) {
+              this.departamentosService.getByNome(value).subscribe(
+                data => {
+
+                  this.lista = data;
+                  if (this.lista.length <= 0) {
+                    this.mensagem = "Nenhum registro foi encontrado.";
+                  } else {
+                    this.mensagem = null;
+                  }
+                  this.statusPesquisa = false;
+                });
+              } else {
+                this.departamentosService.getByNome(this.pesquisaForm.get('')).subscribe(
+                  () => {
+                      this.statusPesquisa = false;
+                      this.departamentosService.getAll()
+                      .subscribe(
+                        data => {
+                          this.lista = data;
+                        });
+                  }
+                )
+              }
+            }
           }
-          this.departamentoAux = departamentosDis;
-        });
-      }
-      mudarStatus() {
-        if (this.departamentoAux.ativo === true) {
-          this.departamentoAux.ativo = false;
-          this.departamentosService.disable(this.departamentoAux).subscribe(
-            sucess => this.loadListaDepartamentos()
-          );
-        } else {
-          this.departamentoAux.ativo = true;
-          this.departamentosService.disable(this.departamentoAux).subscribe(
-            sucess => this.loadListaDepartamentos()
-          );
+          pegaId(id: number) {
+            this.departamentosService.getById(id).subscribe((departamentosDis) => {
+              console.log('departamentodis', departamentosDis);
+              if (departamentosDis.ativo === true) {
+                this.varConfirm = 'desativar';
+              } else {
+                this.varConfirm = 'ativar';
+              }
+              this.departamentoAux = departamentosDis;
+            });
+          }
+          mudarStatus() {
+            if (this.departamentoAux.ativo === true) {
+              this.departamentoAux.ativo = false;
+              this.departamentosService.disable(this.departamentoAux).subscribe(
+                sucess => this.loadListaDepartamentos()
+              );
+            } else {
+              this.departamentoAux.ativo = true;
+              this.departamentosService.disable(this.departamentoAux).subscribe(
+                sucess => this.loadListaDepartamentos()
+              );
+            }
+          }
         }
-      }
-    }

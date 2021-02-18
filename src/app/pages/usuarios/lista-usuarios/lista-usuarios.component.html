@@ -44,12 +44,15 @@
               </td>
           </tbody>
         </table>
-        </div>
         <ngb-pagination
         class="d-flex justify-content-center"
         [(page)]="page"
         [pageSize]="pageSize"
         [collectionSize]="lista.length"></ngb-pagination>
+        </div>
+        <div class="col-md-6">
+          {{ mensagem }}
+        </div>
     </app-card>
   </div>
 </div>
