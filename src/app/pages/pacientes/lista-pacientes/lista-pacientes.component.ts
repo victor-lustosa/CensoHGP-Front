@@ -24,6 +24,7 @@ export class ListaPacientesComponent implements OnInit {
   listaPrecaucoes:Precaucao[]=[];
   statusPesquisa: boolean = false;
   mensagem: string;
+   listaChecklist = ['Gotícula', 'Aerossois', 'Padrão', 'Contato'];
   MODALOPTIONS: NgbModalOptions = { keyboard: true, size: 'lg', backdrop: 'static' };
   constructor(private departamentosService: PacienteService,
     public modalService: NgbModal, private formBuilder: FormBuilder,
@@ -33,6 +34,7 @@ export class ListaPacientesComponent implements OnInit {
       this.msgError= null;
       this.loadListaPacientes();
       this.loadListaPrecaucao();
+      this.buildPrecaucoes();
       CadastroPacienteComponent.atualizando.subscribe(
         success => {
           this.loadListaPacientes();
@@ -67,10 +69,12 @@ export class ListaPacientesComponent implements OnInit {
         this.precaucaoService.getAll().subscribe(
           data => {
             this.listaPrecaucoes = data;
+            console.log('lista: ',this.listaPrecaucoes)
           })
         }
         buildPrecaucoes() {
-          const values = this.listaPrecaucoes.map(v => new FormControl(false),FormValidations.requiredMinCheckbox(1));
+          const values = this.listaChecklist.map(v => new FormControl(false),FormValidations.requiredMinCheckbox(1));
+          console.log('values da lista: ', values )
           return this.formBuilder.array(values);
         }
         limpar(){
@@ -78,13 +82,13 @@ export class ListaPacientesComponent implements OnInit {
         cadastrar(){
           const modalRef =  this.modalService.open(CadastroPacienteComponent,this.MODALOPTIONS);
           modalRef.componentInstance.formulario = this.formularioCadastro;
-          modalRef.componentInstance.listaPrecaucoes = this.listaPrecaucoes;
+          modalRef.componentInstance.listaChecklist = this.listaChecklist;
         }
         atualizar() {
           const modalRef = this.modalService.open(CadastroPacienteComponent,this.MODALOPTIONS);
           if(this.formularioAtualizar != null){
             modalRef.componentInstance.formulario = this.formularioAtualizar;
-            modalRef.componentInstance.listaPrecaucoes = this.listaPrecaucoes;
+            modalRef.componentInstance.listaPrecaucoes = this.listaChecklist;
           }
         }
         editar(id:number){

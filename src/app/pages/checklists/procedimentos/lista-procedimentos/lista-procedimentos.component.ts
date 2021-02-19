@@ -33,115 +33,121 @@ export class ListaProcedimentosComponent implements OnInit {
     this.loadListaProcedimentos();
     CadastroProcedimentoComponent.atualizando.subscribe(
       success => {
-          this.loadListaProcedimentos();
-        })
-    this.formularioCadastro = this.formBuilder.group({
-      idProcedimento: [null],
-      nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
-      descricao: [null],
-      ativo: ['true']
-    })
-    this.formularioAtualizar = this.formBuilder.group({
-      idProcedimento: [null],
-      nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
-      descricao: [null],
-      ativo: ['true']
-    })
-    this.pesquisaForm = new FormGroup({
-      pesquisar: new FormControl(null, Validators.required)
-    });
-  }
-   pesquisa() {
-    this.statusPesquisa = true;
-    this.loadListaProcedimentos();
-  }
-  limpar() {
-    this.pesquisaForm.reset;
-    this.mensagem = null;
-    this.statusPesquisa = false;
-    this.loadListaProcedimentos();
-  }
-  cadastrar() {
-    const modalRef = this.modalService.open(CadastroProcedimentoComponent, this.MODALOPTIONS);
-    modalRef.componentInstance.tituloModal = "Cadastrar procedimento";
-    modalRef.componentInstance.formulario = this.formularioCadastro;
-  }
-  atualizar() {
-    const modalRef = this.modalService.open(CadastroProcedimentoComponent, this.MODALOPTIONS);
-    if (this.formularioAtualizar != null) {
-      modalRef.componentInstance.tituloModal = "Editar procedimento";
-      modalRef.componentInstance.formulario = this.formularioAtualizar;
-    }
-  }
-  editar(id: number) {
-    this.procedimentosService.getById(id).subscribe(
-      (procedimentos) => {
-        this.updateForm(procedimentos);
-        if (this.formularioAtualizar != null) {
-          this.atualizar();
-        }
+        this.loadListaProcedimentos();
       })
-  }
-  pegaId(id: number) {
-    this.procedimentosService.getById(id).subscribe((procedimentosDis) => {
-      if (procedimentosDis.ativo === true) {
-        this.varConfirm = 'desativar';
-      } else {
-        this.varConfirm = 'ativar';
-      }
-      this.procedimentoAux = procedimentosDis;
-    });
-  }
-  mudarStatus() {
-    if (this.procedimentoAux.ativo === true) {
-      this.procedimentoAux.ativo = false;
-      this.procedimentosService.disable(this.procedimentoAux).subscribe(
-        sucess => this.loadListaProcedimentos()
-      );
-    } else {
-      this.procedimentoAux.ativo = true;
-      this.procedimentosService.disable(this.procedimentoAux).subscribe(
-        sucess => this.loadListaProcedimentos()
-      );
+      this.formularioCadastro = this.formBuilder.group({
+        idProcedimento: [null],
+        nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
+        descricao: [null],
+        ativo: ['true']
+      })
+      this.formularioAtualizar = this.formBuilder.group({
+        idProcedimento: [null],
+        nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
+        descricao: [null],
+        ativo: ['true']
+      })
+      this.pesquisaForm = new FormGroup({
+        pesquisar: new FormControl(null, Validators.required)
+      });
     }
-  }
-  updateForm(procedimentos: Procedimento) {
-    this.formularioAtualizar.patchValue({
-      idProcedimento: procedimentos.idProcedimento,
-      nome: procedimentos.nome,
-      descricao: procedimentos.descricao,
-      ativo: procedimentos.ativo
-    })
-  }
-  loadListaProcedimentos() {
-    if (this.statusPesquisa === false) {
-      this.procedimentosService.getAll()
-        .subscribe(
-          data => {
-            this.lista = data;
-
-          });
-    } else {
-      if (this.pesquisaForm.valid) {
-        this.procedimentosService.getByNome(this.pesquisaForm.get('pesquisar').value).subscribe(
-          data => {
-
-            this.lista = data;
-            if (this.lista.length <= 0) {
-              this.mensagem = "Nenhum registro foi encontrado.";
-            } else {
-              this.mensagem = null;
-            }
-            this.statusPesquisa = false;
-          });
-      } else {
-        this.procedimentosService.getByNome(this.pesquisaForm.get('')).subscribe(
-          data => {
-            this.lista = data;
-            this.mensagem = "Nenhum registro foi encontrado.";
+    refresh(){
+      if(this.pesquisaForm.get('pesquisar').value===''){
+        this.mensagem = null;
+        this.loadListaProcedimentos();
+      }
+    }
+    pesquisa() {
+      this.statusPesquisa = true;
+      this.loadListaProcedimentos();
+    }
+    limpar() {
+      this.pesquisaForm.reset;
+      this.mensagem = null;
+      this.statusPesquisa = false;
+      this.loadListaProcedimentos();
+    }
+    cadastrar() {
+      const modalRef = this.modalService.open(CadastroProcedimentoComponent, this.MODALOPTIONS);
+      modalRef.componentInstance.tituloModal = "Cadastrar procedimento";
+      modalRef.componentInstance.formulario = this.formularioCadastro;
+    }
+    atualizar() {
+      const modalRef = this.modalService.open(CadastroProcedimentoComponent, this.MODALOPTIONS);
+      if (this.formularioAtualizar != null) {
+        modalRef.componentInstance.tituloModal = "Editar procedimento";
+        modalRef.componentInstance.formulario = this.formularioAtualizar;
+      }
+    }
+    editar(id: number) {
+      this.procedimentosService.getById(id).subscribe(
+        (procedimentos) => {
+          this.updateForm(procedimentos);
+          if (this.formularioAtualizar != null) {
+            this.atualizar();
           }
-        )
+        })
       }
-    }
-  }
-}
+      pegaId(id: number) {
+        this.procedimentosService.getById(id).subscribe((procedimentosDis) => {
+          if (procedimentosDis.ativo === true) {
+            this.varConfirm = 'desativar';
+          } else {
+            this.varConfirm = 'ativar';
+          }
+          this.procedimentoAux = procedimentosDis;
+        });
+      }
+      mudarStatus() {
+        if (this.procedimentoAux.ativo === true) {
+          this.procedimentoAux.ativo = false;
+          this.procedimentosService.disable(this.procedimentoAux).subscribe(
+            sucess => this.loadListaProcedimentos()
+          );
+        } else {
+          this.procedimentoAux.ativo = true;
+          this.procedimentosService.disable(this.procedimentoAux).subscribe(
+            sucess => this.loadListaProcedimentos()
+          );
+        }
+      }
+      updateForm(procedimentos: Procedimento) {
+        this.formularioAtualizar.patchValue({
+          idProcedimento: procedimentos.idProcedimento,
+          nome: procedimentos.nome,
+          descricao: procedimentos.descricao,
+          ativo: procedimentos.ativo
+        })
+      }
+      loadListaProcedimentos() {
+        if (this.statusPesquisa === false) {
+          this.procedimentosService.getAll()
+          .subscribe(
+            data => {
+              this.lista = data;
+
+            });
+          } else {
+            if (this.pesquisaForm.valid) {
+              this.procedimentosService.getByNome(this.pesquisaForm.get('pesquisar').value).subscribe(
+                data => {
+
+                  this.lista = data;
+                  if (this.lista.length <= 0) {
+                    this.mensagem = "Nenhum registro foi encontrado.";
+                  } else {
+                    this.mensagem = null;
+                  }
+                  this.statusPesquisa = false;
+                });
+              } else {
+                this.procedimentosService.getByNome(this.pesquisaForm.get('')).subscribe(
+                  data => {
+                    this.lista = data;
+                    this.mensagem = "Nenhum registro foi encontrado.";
+                  }
+                )
+              }
+            }
+          }
+        }
