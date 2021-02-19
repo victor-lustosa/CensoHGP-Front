@@ -4,6 +4,7 @@ import { Fator } from '../model/fator';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { CadastroFatorComponent } from '../cadastro-fator/cadastro-fator.component';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { DescricaoFatorComponent } from '../descricao-fator/descricao-fator.component';
 
 
 
@@ -81,7 +82,14 @@ export class ListaFatoresComponent implements OnInit {
       }
     })
   }
-
+  descricao(id: number) {
+    this.fatoresService.getById(id).subscribe((fatores) => {
+      const modalRef = this.modalService.open(DescricaoFatorComponent, this.MODALOPTIONS);
+      modalRef.componentInstance.tituloModal = "Descrição do fator de risco";
+      modalRef.componentInstance.fatorRisco = fatores;
+      }
+    )
+  }
   refresh(){
     if(this.pesquisaForm.get('pesquisar').value===''){
       this.mensagem = null;

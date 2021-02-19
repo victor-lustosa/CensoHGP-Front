@@ -1,28 +1,31 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { CadastroDepartamentoComponent } from 'src/app/pages/departamentos/cadastro-departamento/cadastro-departamento.component';
+import { Component, OnInit } from '@angular/core';
+import { ErrorMsgService } from './service/error-msg.service';
 
 @Component({
   selector: 'app-error-msg',
   templateUrl: './error-msg.component.html',
-  styleUrls: ['./error-msg.component.scss']
+  styleUrls: ['./error-msg.component.scss'],
+  providers: [ErrorMsgService]
 })
 export class ErrorMsgComponent implements OnInit {
 
 
- errorMessage: string = null;
+  mensagemParaUsuario: string = null;
 
-  constructor() { }
+  constructor(private mensagemService:ErrorMsgService) { }
 
   ngOnInit(): void {
+    this.mensagemService.mensagemErro.subscribe(
+      (mensagemErro: string)=> {
+        this.mensagemParaUsuario = mensagemErro
+        console.log('entrei na mensagem de erro: ',this.mensagemParaUsuario)
+      })
+    }
+    get ErroMsg(){
+      if(this.mensagemParaUsuario !== null){
 
-  }
-  get ErroMsg(){
-    if(this.errorMessage !== null){
-     CadastroDepartamentoComponent.erroBack.subscribe(
-      (erro) => {
-        console.log("eorro do msg"+erro)
-        return this.errorMessage = erro;
-      })}
+        return this.mensagemParaUsuario;
+      }
       else{
         return null
       }

@@ -1,4 +1,4 @@
-import { Injectable, Inject } from "@angular/core";
+import { Injectable, Inject, EventEmitter } from "@angular/core";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
 import { CrudInterface } from './crud-interface';
@@ -7,7 +7,7 @@ import { throwError } from 'rxjs';
 
 @Injectable()
 export class CRUD<T> implements CrudInterface<T>{
-
+  mensagemErro = new EventEmitter<string>();
   constructor(private http: HttpClient, @Inject(String) private API_URL: string) { }
   getAllAtivos(): Observable<T[]> {
     console.log('get allAtivos do crud: ' + `${this.API_URL}s`)
@@ -53,12 +53,17 @@ export class CRUD<T> implements CrudInterface<T>{
     if (error.error instanceof ErrorEvent) {
       // Erro ocorreu no lado do client
       errorMessage = error.error.message;
+      this.mensagemErro.emit(`${error.error.message}`);
+
     } else {
       // Erro ocorreu no lado do servidor
       errorMessage = `Código do erro: ${error.status}, ` + `menssagem: ${error.error.message}`;
+    this.mensagemErro.emit(`${error.error.message}`);
     }
+    return   throwError(this.mensagemErro.emit(error.error.message));
     //console.log('HandleError errorMessage: ' + errorMessage);
     //console.log("Teste erro",error.error)
-    return throwError(errorMessage);
+    // CRUD.mensagemErro.emit(errorMessage);
+    // errorMessage
   }
 }

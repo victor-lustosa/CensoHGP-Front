@@ -14,13 +14,12 @@ export class CadastroDepartamentoComponent implements OnInit {
   @Input() public formulario: FormGroup;
   errors: String[];
   sucesso: boolean = false;
-
+  erroBack:boolean = false;
   listaTipoDepartamento: any[];
   tituloModal: string;
   static atualizando = new EventEmitter<boolean>();
   at:boolean = true;
-  erroBack: string = '';
-  static erroBack = new EventEmitter<string>();
+
   constructor(
     public activeModal: NgbActiveModal,private departamentosService: DepartamentoService) { }
 
@@ -49,26 +48,27 @@ export class CadastroDepartamentoComponent implements OnInit {
                 this.activeModal.close()
               }, 500);
             },
-            error => {
-              console.log(error)
-              CadastroDepartamentoComponent.erroBack.emit(error.menssagem)
-            })
-          } else {
-            this.departamentosService.create(this.formulario.value)
-            .subscribe(
-              () => {
-                this.sucesso = true,
-                this.formulario.reset(),
-                CadastroDepartamentoComponent.atualizando.emit(this.at),
-                setTimeout(() => {
-                  this.activeModal.close()
-                }, 500);
-              },
-              error => {
-                console.log(error)
-                CadastroDepartamentoComponent.erroBack.emit(error.menssagem)
-              })
+            () => {
+              this.erroBack = true;
             }
-          }
+          )
+        }
+        else {
+          this.departamentosService.create(this.formulario.value)
+          .subscribe(
+            () => {
+              this.sucesso = true,
+              this.formulario.reset(),
+              CadastroDepartamentoComponent.atualizando.emit(this.at),
+              setTimeout(() => {
+                this.activeModal.close()
+              }, 500);
+            },
+            () => {
+              this.erroBack = true;
+            }
+          )
         }
       }
+    }
+  }
