@@ -81,6 +81,13 @@ export class ListaFatoresComponent implements OnInit {
       }
     })
   }
+
+  refresh(){
+    if(this.pesquisaForm.get('pesquisar').value===''){
+      this.mensagem = null;
+      this.loadListaFatores();
+    }
+  }
   pegaId(id: number) {
     this.fatoresService.getById(id).subscribe((fatoresDis) => {
       if (fatoresDis.ativo === true) {

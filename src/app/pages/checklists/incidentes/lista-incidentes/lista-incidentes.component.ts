@@ -83,6 +83,13 @@ export class ListaIncidentesComponent implements OnInit {
       }
     })
   }
+
+  refresh(){
+    if(this.pesquisaForm.get('pesquisar').value===''){
+      this.mensagem = null;
+      this.loadListaIncidentes();
+    }
+  }
   updateForm(incidentes: Incidente) {
     this.formularioAtualizar.patchValue({
       idIncidente: incidentes.idIncidente,

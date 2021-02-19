@@ -79,6 +79,13 @@ export class ListaPrecaucoesComponent implements OnInit {
       }
     })
   }
+
+  refresh(){
+    if(this.pesquisaForm.get('pesquisar').value===''){
+      this.mensagem = null;
+      this.loadListaPrecaucoes();
+    }
+  }
   updateForm(precaucoes: Precaucao){
     this.formularioAtualizar.patchValue({
       idPrecaucao: precaucoes.idPrecaucao,
