@@ -3,7 +3,7 @@ export interface CrudInterface<T>{
 
   getAllAtivos():void,
 
-  getAllSexos():void,
+  // getAllSexos():void,
 
   getByNome(object: T): void,
 

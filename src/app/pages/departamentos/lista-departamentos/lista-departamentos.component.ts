@@ -41,7 +41,7 @@ export class ListaDepartamentosComponent implements OnInit {
         )
       }
       CadastroDepartamentoComponent.atualizando.subscribe(
-        success => {
+        () => {
           this.loadListaDepartamentos();
         })
         this.formularioCadastro = this.formBuilder.group({
@@ -67,9 +67,10 @@ export class ListaDepartamentosComponent implements OnInit {
       }
       refresh(){
         if(this.pesquisaForm.get('pesquisar').value===''){
-        this.loadListaDepartamentos();
+          this.mensagem = null;
+          this.loadListaDepartamentos();
         }else{
-            this.pesquisa(this.pesquisaForm.get('pesquisar').value)
+          this.pesquisa(this.pesquisaForm.get('pesquisar').value)
         }
       }
       public pesquisa(value?:string): void {
@@ -143,39 +144,39 @@ export class ListaDepartamentosComponent implements OnInit {
               } else {
                 this.departamentosService.getByNome(this.pesquisaForm.get('')).subscribe(
                   () => {
-                      this.statusPesquisa = false;
-                      this.departamentosService.getAll()
-                      .subscribe(
-                        data => {
-                          this.lista = data;
-                        });
-                  }
-                )
+                    this.statusPesquisa = false;
+                    this.departamentosService.getAll()
+                    .subscribe(
+                      data => {
+                        this.lista = data;
+                      });
+                    }
+                  )
+                }
               }
             }
-          }
-          pegaId(id: number) {
-            this.departamentosService.getById(id).subscribe((departamentosDis) => {
-              console.log('departamentodis', departamentosDis);
-              if (departamentosDis.ativo === true) {
-                this.varConfirm = 'desativar';
+            pegaId(id: number) {
+              this.departamentosService.getById(id).subscribe((departamentosDis) => {
+                console.log('departamentodis', departamentosDis);
+                if (departamentosDis.ativo === true) {
+                  this.varConfirm = 'desativar';
+                } else {
+                  this.varConfirm = 'ativar';
+                }
+                this.departamentoAux = departamentosDis;
+              });
+            }
+            mudarStatus() {
+              if (this.departamentoAux.ativo === true) {
+                this.departamentoAux.ativo = false;
+                this.departamentosService.disable(this.departamentoAux).subscribe(
+                  () => this.loadListaDepartamentos()
+                );
               } else {
-                this.varConfirm = 'ativar';
+                this.departamentoAux.ativo = true;
+                this.departamentosService.disable(this.departamentoAux).subscribe(
+                  () => this.loadListaDepartamentos()
+                );
               }
-              this.departamentoAux = departamentosDis;
-            });
-          }
-          mudarStatus() {
-            if (this.departamentoAux.ativo === true) {
-              this.departamentoAux.ativo = false;
-              this.departamentosService.disable(this.departamentoAux).subscribe(
-                sucess => this.loadListaDepartamentos()
-              );
-            } else {
-              this.departamentoAux.ativo = true;
-              this.departamentosService.disable(this.departamentoAux).subscribe(
-                sucess => this.loadListaDepartamentos()
-              );
             }
           }
-        }
