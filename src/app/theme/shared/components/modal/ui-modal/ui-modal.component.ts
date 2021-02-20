@@ -22,13 +22,13 @@ export class UiModalComponent implements OnInit {
 
   public show(): void {
     this.visible = true;
-    setTimeout(() => this.visibleAnimate = true, 100);
+    setTimeout(() => this.visibleAnimate = true, 50);
     document.querySelector('body').classList.add('modal-open');
   }
 
   public hide(): void {
     this.visibleAnimate = false;
-    setTimeout(() => this.visible = false, 300);
+    setTimeout(() => this.visible = false, 150);
     if (!this.isSub) {
       document.querySelector('body').classList.remove('modal-open');
     }

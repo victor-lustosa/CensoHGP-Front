@@ -15,6 +15,7 @@ import { DescricaoFatorComponent } from '../descricao-fator/descricao-fator.comp
 })
 export class ListaFatoresComponent implements OnInit {
   formularioCadastro: FormGroup = null;
+  cont:number = 1;
   formularioAtualizar: FormGroup = null;
   status: boolean;
   lista: Fator[] = [];

@@ -20,24 +20,24 @@
         <table class="table table-hover">
           <thead>
             <tr  align="center" >
-              <th >Nome</th>
-              <th  >Descrição</th>
-              <th  >Status</th>
-              <th ></th>
+              <th>Nome</th>
+              <th>Descrição</th>
+              <th>Status</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let fatores of lista | slice: (page-1) * pageSize : page * pageSize" align="center" >
-              <td >{{fatores.nome}}</td>
-              <td class="td" >{{fatores.descricao}}</td>
-              <td ><label class="badge badge-{{fatores.ativo ? 'info' : 'danger'}}">{{fatores.ativo ? 'Ativo' : 'Inativo'}}</label></td>
-              <td  class="text-right" >
-                  <div ngbDropdown class="btn-group mb-2 mr-2 dropdown" >
-                    <button placement="left" class="btn btn-info" ngbDropdownToggle type="button"><i class="feather icon-plus-circle"></i> ações</button>
+            <tr *ngFor="let fatores of lista | slice: (page-1) * pageSize : page * pageSize"  >
+              <td class="padding" align="center">{{fatores.nome}}</td>
+              <td align="center" class="td" >{{fatores.descricao}}</td>
+              <td class="padding" align="center"  ><label class="badge badge-{{fatores.ativo ? 'info' : 'danger'}}">{{fatores.ativo ? 'Ativo' : 'Inativo'}}</label></td>
+              <td class="padding"  class="text-right" >
+                  <div ngbDropdown  container="body" >
+                    <button placement="left" class="btn btn-info" ngbDropdownToggle type="button" id="opcoes"><i class="feather icon-plus-circle"></i> ações</button>
                     <div ngbDropdownMenu  >
-                      <a class="dropdown-item" (click)="editar(fatores.idFatorRisco)"><i class="feather icon-edit"></i> Editar</a>
-                      <a class="dropdown-item" (click)="pegaId(fatores.idFatorRisco);confirmaModal.show()"><i class="feather icon-{{fatores.ativo ? 'minus-circle' : 'power'}}"></i> {{fatores.ativo ? 'Desativar' : 'Ativar'}}</a>
-                      <a class="dropdown-item" (click)="descricao(fatores.idFatorRisco)"><i class="feather icon-eye"></i> Visualizar</a>
+                      <button  class="dropdown-item button" (click)="editar(fatores.idFatorRisco)"><i class="feather icon-edit"></i> Editar</button>
+                      <button class="dropdown-item button"  (click)="pegaId(fatores.idFatorRisco);confirmaModal.show()"><i class="feather icon-{{fatores.ativo ? 'minus-circle' : 'power'}}"></i> {{fatores.ativo ? 'Desativar' : 'Ativar'}}</button>
+                      <button class="dropdown-item button"  (click)="descricao(fatores.idFatorRisco)"><i class="feather icon-eye"></i> Visualizar</button>
                     </div>
                   </div>
                 </td>
