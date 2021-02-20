@@ -26,7 +26,6 @@ export class ListaProcedimentosComponent implements OnInit {
   statusSpinner: boolean = false;
   MODALOPTIONS: NgbModalOptions = { keyboard: true, size: 'lg', backdrop: 'static' };
   constructor(private procedimentosService: ProcedimentoService, public modalService: NgbModal, private formBuilder: FormBuilder, location: Location) {
-    this.statusSpinner = false;
   }
 
   ngOnInit(): void {
@@ -48,15 +47,11 @@ export class ListaProcedimentosComponent implements OnInit {
     });
   }
   loadLista = () =>{
-    this.statusSpinner = true;
-    setTimeout(()=>{
-      this.statusSpinner = false;
-      this.loadListaProcedimentos();
-      CadastroProcedimentoComponent.atualizando.subscribe(
-        () => {
-          this.loadListaProcedimentos();
-        });
-      },1000)
+    this.loadListaProcedimentos();
+    CadastroProcedimentoComponent.atualizando.subscribe(
+      () => {
+        this.loadListaProcedimentos();
+      });
     }
     refresh(){
       if(this.pesquisaForm.get('pesquisar').value===''){
@@ -136,41 +131,39 @@ export class ListaProcedimentosComponent implements OnInit {
     }
     loadListaProcedimentos() {
       this.lista = [];
+      this.statusSpinner = true;
       if (this.statusPesquisa === false) {
-        this.statusSpinner = true;
-
         setTimeout(()=>{
-          this.statusSpinner = false;
           this.procedimentosService.getAll().subscribe(
             data => {
               this.lista = data;
-            })
-          },1000) }
-          else {
-            if (this.pesquisaForm.valid) {
-              this.statusSpinner = true;
-              setTimeout(()=>{
-                this.statusSpinner = false;
-                this.procedimentosService.getByNome(this.pesquisaForm.get('pesquisar').value).subscribe(
-                  data => {
-                    this.lista = data;
-                    if (this.lista.length <= 0) {
-                      this.mensagem = "Nenhum registro foi encontrado.";
-                    } else {
-                      this.mensagem = null;
-                    }
-                    this.statusPesquisa = false;
-                  })
-                },
-                1000)
-              } else {
-                this.procedimentosService.getByNome(this.pesquisaForm.get('')).subscribe(
-                  data => {
-                    this.lista = data;
-                    this.mensagem = "Nenhum registro foi encontrado.";
-                  }
-                )
-              }
             }
+          );
+          this.statusSpinner = false;
+        },400)
+      } else {
+        if (this.pesquisaForm.valid) {
+          setTimeout(()=>{
+            this.procedimentosService.getByNome(this.pesquisaForm.get('pesquisar').value).subscribe(
+              data => {
+                this.lista = data;
+                if (this.lista.length <= 0) {
+                  this.mensagem = "Nenhum registro foi encontrado.";
+                } else {
+                  this.mensagem = null;
+                }
+                this.statusPesquisa = false;
+              });
+              this.statusSpinner = false;
+            },400)
+          } else {
+            this.procedimentosService.getByNome(this.pesquisaForm.get('')).subscribe(
+              data => {
+                this.lista = data;
+                this.mensagem = "Nenhum registro foi encontrado.";
+              }
+            )
           }
         }
+      }
+    }
