@@ -27,12 +27,12 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let fatores of lista | slice: (page-1) * pageSize : page * pageSize" >
-              <td align="center">{{fatores.nome}}</td>
-              <td align="center">{{fatores.descricao}}</td>
-              <td align="center"><label class="badge badge-{{fatores.ativo ? 'info' : 'danger'}}">{{fatores.ativo ? 'Ativo' : 'Inativo'}}</label></td>
-              <td align="center" class="text-right" >
-                  <div ngbDropdown container="body" >
+            <tr *ngFor="let fatores of lista | slice: (page-1) * pageSize : page * pageSize" align="center" >
+              <td >{{fatores.nome}}</td>
+              <td class="td" >{{fatores.descricao}}</td>
+              <td ><label class="badge badge-{{fatores.ativo ? 'info' : 'danger'}}">{{fatores.ativo ? 'Ativo' : 'Inativo'}}</label></td>
+              <td  class="text-right" >
+                  <div ngbDropdown class="btn-group mb-2 mr-2 dropdown" >
                     <button placement="left" class="btn btn-info" ngbDropdownToggle type="button"><i class="feather icon-plus-circle"></i> ações</button>
                     <div ngbDropdownMenu  >
                       <a class="dropdown-item" (click)="editar(fatores.idFatorRisco)"><i class="feather icon-edit"></i> Editar</a>
