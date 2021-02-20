@@ -31,31 +31,31 @@ export class ListaProcedimentosComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadLista();
-      this.formularioCadastro = this.formBuilder.group({
-        idProcedimento: [null],
-        nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
-        descricao: [null],
-        ativo: ['true']
-      })
-      this.formularioAtualizar = this.formBuilder.group({
-        idProcedimento: [null],
-        nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
-        descricao: [null],
-        ativo: ['true']
-      })
-      this.pesquisaForm = new FormGroup({
-        pesquisar: new FormControl(null, Validators.required)
-      });
-    }
-    loadLista = () =>{
-      this.statusSpinner = true;
-      setTimeout(()=>{
-        this.statusSpinner = false;
-        this.loadListaProcedimentos();
-        CadastroProcedimentoComponent.atualizando.subscribe(
-          () => {
-            this.loadListaProcedimentos();
-          });
+    this.formularioCadastro = this.formBuilder.group({
+      idProcedimento: [null],
+      nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
+      descricao: [null],
+      ativo: ['true']
+    })
+    this.formularioAtualizar = this.formBuilder.group({
+      idProcedimento: [null],
+      nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
+      descricao: [null],
+      ativo: ['true']
+    })
+    this.pesquisaForm = new FormGroup({
+      pesquisar: new FormControl(null, Validators.required)
+    });
+  }
+  loadLista = () =>{
+    this.statusSpinner = true;
+    setTimeout(()=>{
+      this.statusSpinner = false;
+      this.loadListaProcedimentos();
+      CadastroProcedimentoComponent.atualizando.subscribe(
+        () => {
+          this.loadListaProcedimentos();
+        });
       },1000)
     }
     refresh(){
@@ -135,34 +135,42 @@ export class ListaProcedimentosComponent implements OnInit {
       })
     }
     loadListaProcedimentos() {
+      this.lista = [];
       if (this.statusPesquisa === false) {
-        this.procedimentosService.getAll()
-        .subscribe(
-          data => {
-            this.lista = data;
+        this.statusSpinner = true;
 
-          });
-        } else {
-          if (this.pesquisaForm.valid) {
-            this.procedimentosService.getByNome(this.pesquisaForm.get('pesquisar').value).subscribe(
-              data => {
-
-                this.lista = data;
-                if (this.lista.length <= 0) {
-                  this.mensagem = "Nenhum registro foi encontrado.";
-                } else {
-                  this.mensagem = null;
-                }
-                this.statusPesquisa = false;
-              });
-            } else {
-              this.procedimentosService.getByNome(this.pesquisaForm.get('')).subscribe(
-                data => {
-                  this.lista = data;
-                  this.mensagem = "Nenhum registro foi encontrado.";
-                }
-              )
+        setTimeout(()=>{
+          this.statusSpinner = false;
+          this.procedimentosService.getAll().subscribe(
+            data => {
+              this.lista = data;
+            })
+          },1000) }
+          else {
+            if (this.pesquisaForm.valid) {
+              this.statusSpinner = true;
+              setTimeout(()=>{
+                this.statusSpinner = false;
+                this.procedimentosService.getByNome(this.pesquisaForm.get('pesquisar').value).subscribe(
+                  data => {
+                    this.lista = data;
+                    if (this.lista.length <= 0) {
+                      this.mensagem = "Nenhum registro foi encontrado.";
+                    } else {
+                      this.mensagem = null;
+                    }
+                    this.statusPesquisa = false;
+                  })
+                },
+                1000)
+              } else {
+                this.procedimentosService.getByNome(this.pesquisaForm.get('')).subscribe(
+                  data => {
+                    this.lista = data;
+                    this.mensagem = "Nenhum registro foi encontrado.";
+                  }
+                )
+              }
             }
           }
         }
-      }
