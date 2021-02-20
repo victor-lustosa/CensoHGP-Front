@@ -137,9 +137,10 @@ export class ListaProcedimentosComponent implements OnInit {
           this.procedimentosService.getAll().subscribe(
             data => {
               this.lista = data;
+              this.statusSpinner = false;
             }
           );
-          this.statusSpinner = false;
+
         },400)
       } else {
         if (this.pesquisaForm.valid) {
@@ -147,6 +148,7 @@ export class ListaProcedimentosComponent implements OnInit {
             this.procedimentosService.getByNome(this.pesquisaForm.get('pesquisar').value).subscribe(
               data => {
                 this.lista = data;
+                this.statusSpinner = false;
                 if (this.lista.length <= 0) {
                   this.mensagem = "Nenhum registro foi encontrado.";
                 } else {
@@ -154,7 +156,7 @@ export class ListaProcedimentosComponent implements OnInit {
                 }
                 this.statusPesquisa = false;
               });
-              this.statusSpinner = false;
+
             },400)
           } else {
             this.procedimentosService.getByNome(this.pesquisaForm.get('')).subscribe(
