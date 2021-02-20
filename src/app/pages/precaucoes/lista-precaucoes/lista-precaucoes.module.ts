@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ListaPrecaucoesRoutingModule } from './lista-precaucoes-routing.module';
 import { ListaPrecaucoesComponent } from './lista-precaucoes.component';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
-import {  NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import {  NgbDropdownModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { CadastroPrecaucaoComponent } from '../cadastro-precaucao/cadastro-precaucao.component';
 
 
@@ -14,7 +14,8 @@ import { CadastroPrecaucaoComponent } from '../cadastro-precaucao/cadastro-preca
     CommonModule,
     ListaPrecaucoesRoutingModule,
     SharedModule,
-    NgbPaginationModule
+    NgbPaginationModule,
+    NgbDropdownModule
   ]
 })
 export class ListaPrecaucoesModule { }

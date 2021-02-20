@@ -16,7 +16,6 @@ import { ToastComponent } from './components/toast/toast.component';
 import {ToastService} from './components/toast/toast.service';
 import { GalleryComponent } from './components/gallery/gallery.component';
 import {LightboxModule} from 'ngx-lightbox';
-import { ErrorMsgComponent } from './components/error-msg/error-msg.component';
 
 /*import 'hammerjs';
 import 'mousetrap';
@@ -55,8 +54,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SpinnerComponent,
     ApexChartComponent,
     GalleryComponent,
-    ToastComponent,
-    ErrorMsgComponent
+    ToastComponent
   ],
   declarations: [
     DataFilterPipe,
@@ -65,8 +63,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SpinnerComponent,
     ApexChartComponent,
     ToastComponent,
-    GalleryComponent,
-    ErrorMsgComponent
+    GalleryComponent
   ],
   providers: [
     {

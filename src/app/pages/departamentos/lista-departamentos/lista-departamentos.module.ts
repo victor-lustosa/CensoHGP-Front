@@ -1,6 +1,6 @@
 import { NgModule} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdownModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { ListaDepartamentosRoutingModule } from './lista-departamentos-routing.module';
 import { ListaDepartamentosComponent } from './lista-departamentos.component';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
@@ -12,7 +12,8 @@ import {} from '@ng-bootstrap/ng-bootstrap';
     CommonModule,
     NgbPaginationModule,
     ListaDepartamentosRoutingModule,
-    SharedModule
+    SharedModule,
+    NgbDropdownModule
   ]
 })
 export class ListaDepartamentosModule {

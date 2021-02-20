@@ -19,7 +19,7 @@
       <div class="table-responsive"  >
         <table class="table table-hover">
           <thead>
-            <tr>
+            <tr align="center">
               <th scope="col">Prontuário</th>
               <th scope="col">Nome</th>
               <th scope="col">CPF</th>
@@ -29,7 +29,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let paciente of lista |slice: (page-1) * pageSize : page * pageSize">
+            <tr *ngFor="let paciente of lista |slice: (page-1) * pageSize : page * pageSize" align="center">
               <td>{{paciente.prontuario}}</td>
               <td>{{paciente.nome}}</td>
               <td>{{paciente.cpf}}</td>

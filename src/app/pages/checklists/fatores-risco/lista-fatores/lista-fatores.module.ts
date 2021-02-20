@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ListaFatoresRoutingModule } from './lista-fatores-routing.module';
 import { ListaFatoresComponent } from './lista-fatores.component';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
-import { NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdownModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { CadastroFatorComponent } from '../cadastro-fator/cadastro-fator.component';
 import { DescricaoFatorComponent } from '../descricao-fator/descricao-fator.component';
 
@@ -13,7 +13,7 @@ import { DescricaoFatorComponent } from '../descricao-fator/descricao-fator.comp
     CommonModule,
     ListaFatoresRoutingModule,
     SharedModule,
-    NgbModule.forRoot(),
+    NgbDropdownModule,
     NgbPaginationModule
   ],
   bootstrap:[ListaFatoresComponent]

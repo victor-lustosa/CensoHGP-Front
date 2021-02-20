@@ -75,6 +75,14 @@ export class ListaIncidentesComponent implements OnInit {
     }
     this.loadListaIncidentes();
   }
+  descricao(id: number) {
+    this.incidentesService.getById(id).subscribe((fatores) => {
+      const modalRef = this.modalService.open(CadastroIncidenteComponent, this.MODALOPTIONS);
+      modalRef.componentInstance.tituloModal = "Descrição do incidente";
+      modalRef.componentInstance.fatorRisco = fatores;
+      }
+    )
+  }
   editar(id: number) {
     this.incidentesService.getById(id).subscribe((incidentes) => {
       this.updateForm(incidentes);

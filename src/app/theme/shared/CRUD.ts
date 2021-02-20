@@ -1,4 +1,4 @@
-import { Injectable, Inject, EventEmitter } from "@angular/core";
+import { Injectable, Inject } from "@angular/core";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
 import { CrudInterface } from './crud-interface';
@@ -7,17 +7,11 @@ import { throwError } from 'rxjs';
 
 @Injectable()
 export class CRUD<T> implements CrudInterface<T>{
-  mensagemErro = new EventEmitter<string>();
   constructor(private http: HttpClient, @Inject(String) private API_URL: string) { }
   getAllAtivos(): Observable<T[]> {
     console.log('get allAtivos do crud: ' + `${this.API_URL}s`)
     return this.http.get<T[]>(`${this.API_URL}s/ativos`).pipe(retry(1), catchError(this.handleError));
   }
-  // getAllSexos(): Observable<T[]> {
-  //   console.log('get allSexos do crud: ' + `${this.API_URL}s`)
-  //   return this.http.get<T[]>(`${this.API_URL}s/sexos`).pipe(retry(1), catchError(this.handleError));
-  // }
-
   getAll(): Observable<T[]> {
     console.log('get all do crud: ' + `${this.API_URL}s`)
     return this.http.get<T[]>(`${this.API_URL}s`).pipe(retry(1), catchError(this.handleError));
@@ -49,21 +43,6 @@ export class CRUD<T> implements CrudInterface<T>{
   }
   // Manipulação de erros
   handleError(error: HttpErrorResponse) {
-    let errorMessage = '';
-    if (error.error instanceof ErrorEvent) {
-      // Erro ocorreu no lado do client
-      errorMessage = error.error.message;
-      this.mensagemErro.emit(`${error.error.message}`);
-
-    } else {
-      // Erro ocorreu no lado do servidor
-      errorMessage = `Código do erro: ${error.status}, ` + `menssagem: ${error.error.message}`;
-    this.mensagemErro.emit(`${error.error.message}`);
-    }
-    return   throwError(this.mensagemErro.emit(error.error.message));
-    //console.log('HandleError errorMessage: ' + errorMessage);
-    //console.log("Teste erro",error.error)
-    // CRUD.mensagemErro.emit(errorMessage);
-    // errorMessage
+      return throwError(error.error.message);
   }
 }

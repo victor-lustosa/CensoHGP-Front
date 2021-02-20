@@ -7,7 +7,7 @@ import { CadastroIncidenteComponent } from './../cadastro-incidente/cadastro-inc
 import { ListaIncidentesRoutingModule } from './lista-incidentes-routing.module';
 import { ListaIncidentesComponent } from './lista-incidentes.component';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
-import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdownModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [ListaIncidentesComponent, CadastroIncidenteComponent],
@@ -15,7 +15,8 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
     CommonModule,
     ListaIncidentesRoutingModule,
     SharedModule,
-    NgbPaginationModule
+    NgbPaginationModule,
+    NgbDropdownModule
     ],
     bootstrap:[ListaIncidentesComponent]
 })

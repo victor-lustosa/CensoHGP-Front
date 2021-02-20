@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ListaUsuariosRoutingModule } from './lista-usuarios-routing.module';
 import { ListaUsuariosComponent } from './lista-usuarios.component';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
-import { NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdownModule, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import { CadastroUsuarioComponent } from '../cadastro-usuario/cadastro-usuario.component';
 
 
@@ -14,7 +14,8 @@ import { CadastroUsuarioComponent } from '../cadastro-usuario/cadastro-usuario.c
     CommonModule,
     ListaUsuariosRoutingModule,
     SharedModule,
-    NgbPaginationModule
+    NgbPaginationModule,
+    NgbDropdownModule
   ]
 })
 export class ListaUsuariosModule { }

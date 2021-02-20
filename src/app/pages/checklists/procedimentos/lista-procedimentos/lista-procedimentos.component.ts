@@ -79,6 +79,14 @@ export class ListaProcedimentosComponent implements OnInit {
         modalRef.componentInstance.formulario = this.formularioAtualizar;
       }
     }
+    descricao(id: number) {
+      this.procedimentosService.getById(id).subscribe((fatores) => {
+        const modalRef = this.modalService.open(CadastroProcedimentoComponent, this.MODALOPTIONS);
+        modalRef.componentInstance.tituloModal = "Descrição do procedimento";
+        modalRef.componentInstance.fatorRisco = fatores;
+        }
+      )
+    }
     editar(id: number) {
       this.procedimentosService.getById(id).subscribe(
         (procedimentos) => {

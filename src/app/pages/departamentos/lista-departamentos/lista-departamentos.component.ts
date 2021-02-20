@@ -96,6 +96,14 @@ export class ListaDepartamentosComponent implements OnInit {
           modalRef.componentInstance.formulario = this.formularioAtualizar;
         }
       }
+      descricao(id: number) {
+        this.departamentosService.getById(id).subscribe((fatores) => {
+          const modalRef = this.modalService.open(CadastroDepartamentoComponent, this.MODALOPTIONS);
+          modalRef.componentInstance.tituloModal = "Descrição do departamento";
+          modalRef.componentInstance.fatorRisco = fatores;
+          }
+        )
+      }
       editar(id:number){
         this.departamentosService.getById(id).subscribe((departamentos) => {
           this.updateForm(departamentos);

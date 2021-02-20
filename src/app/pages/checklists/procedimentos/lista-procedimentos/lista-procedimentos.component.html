@@ -19,7 +19,7 @@
       <div class="table-responsive" >
         <table class="table table-hover" >
           <thead>
-            <tr>
+            <tr align="center">
               <th scope="col">Nome</th>
               <th scope="col">Descrição</th>
               <th scope="col">Status</th>
@@ -27,17 +27,20 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let procedimentos of lista | slice: (page-1) * pageSize : page * pageSize" >
-              <td>{{procedimentos.nome}}</td>
-              <td>{{procedimentos.descricao}}</td>
-              <td><label class="badge badge-{{procedimentos.ativo ? 'info' : 'danger'}}">{{procedimentos.ativo ? 'Ativo' : 'Inativo'}}</label></td>
-              <td class="text-right">
-                <button type="button"  (click)="editar(procedimentos.idProcedimento)" class="btn btn-icon btn-warning"
-                style="font-size: 13px; margin-right: 2%;"><i
-                class="feather icon-edit"></i> Editar</button>
-                <button type="button" class="btn btn-icon btn-{{procedimentos.ativo ? 'danger' : 'info'}}" style="font-size: 13px;  margin-right: 2%;" (click)="pegaId(procedimentos.idProcedimento);confirmaModal.show()">
-                <i class="feather icon-{{procedimentos.ativo ? 'minus-circle' : 'power'}}"></i> {{procedimentos.ativo ? 'Desativar' : 'Ativar'}}</button>
-              </td>
+            <tr *ngFor="let procedimentos of lista | slice: (page-1) * pageSize : page * pageSize"align="center" >
+              <td class="padding">{{procedimentos.nome}}</td>
+              <td class="td padding" >{{procedimentos.descricao}}</td>
+              <td class="padding"><label class="badge badge-{{procedimentos.ativo ? 'success' : 'danger'}}">{{procedimentos.ativo ? 'Ativo' : 'Inativo'}}</label></td>
+              <td class="padding"  class="text-right" >
+                  <div ngbDropdown  container="body" >
+                    <button placement="left" class="btn btn-info buttonDrop" ngbDropdownToggle type="button" id="opcoes"><i class="feather icon-plus-circle"></i> ações</button>
+                    <div ngbDropdownMenu  >
+                      <button  class="dropdown-item button" (click)="editar(procedimentos.idProcedimento)"><i class="feather icon-edit"></i> Editar</button>
+                      <button class="dropdown-item button"  (click)="pegaId(procedimentos.idProcedimento);confirmaModal.show()"><i class="feather icon-{{procedimentos.ativo ? 'minus-circle' : 'power'}}"></i> {{procedimentos.ativo ? 'Desativar' : 'Ativar'}}</button>
+                      <button class="dropdown-item button"  (click)="descricao(procedimentos.idProcedimento)"><i class="feather icon-eye"></i> Visualizar</button>
+                    </div>
+                  </div>
+                </td>
             </tbody>
           </table>
           <ngb-pagination

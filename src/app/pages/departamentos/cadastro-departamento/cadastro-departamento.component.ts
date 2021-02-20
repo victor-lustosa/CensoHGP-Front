@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { ErrorMsgComponent } from 'src/app/theme/shared/components/error-msg/error-msg.component';
 import { DepartamentoService } from '../service';
 
 @Component({
@@ -14,7 +13,7 @@ export class CadastroDepartamentoComponent implements OnInit {
   @Input() public formulario: FormGroup;
   errors: String[];
   sucesso: boolean = false;
-  erroBack:boolean = false;
+  erroBack:string = '';
   listaTipoDepartamento: any[];
   tituloModal: string;
   static atualizando = new EventEmitter<boolean>();
@@ -36,6 +35,7 @@ export class CadastroDepartamentoComponent implements OnInit {
       };
     }
     saveDepartamentos() {
+      this.erroBack = '';
       if (this.formulario.valid) {
         if ( this.formulario.get('idDepartamento').value != null) {
           this.departamentosService.update(this.formulario.value)
@@ -48,8 +48,8 @@ export class CadastroDepartamentoComponent implements OnInit {
                 this.activeModal.close()
               }, 500);
             },
-            () => {
-              this.erroBack = true;
+            (error) => {
+              this.erroBack = error;
             }
           )
         }
@@ -64,8 +64,8 @@ export class CadastroDepartamentoComponent implements OnInit {
                 this.activeModal.close()
               }, 500);
             },
-            () => {
-              this.erroBack = true;
+            (error) => {
+              this.erroBack = error;
             }
           )
         }

@@ -71,6 +71,14 @@ export class ListaPrecaucoesComponent implements OnInit {
       modalRef.componentInstance.formulario = this.formularioAtualizar;
     }
   }
+  descricao(id: number) {
+    this.precaucoesService.getById(id).subscribe((fatores) => {
+      const modalRef = this.modalService.open(CadastroPrecaucaoComponent, this.MODALOPTIONS);
+      modalRef.componentInstance.tituloModal = "Descrição da precaução";
+      modalRef.componentInstance.fatorRisco = fatores;
+      }
+    )
+  }
   editar(id:number){
     this.precaucoesService.getById(id).subscribe((precaucoes) => {
       this.updateForm(precaucoes);

@@ -6,7 +6,9 @@
   <div class="col-md-12">
     <app-alert type="primary" *ngIf="sucesso == true">salvo com sucesso</app-alert>
   </div>
-  <app-error-msg *ngIf="erroBack===true"></app-error-msg>
+  <div class="col-md-12">
+    <app-alert type="danger" *ngIf="erroBack!==''">{{erroBack}}</app-alert>
+  </div>
   <div class="modal-body">
     <form  [formGroup]="formulario" >
       <label for="nome">Nome:</label>
@@ -32,7 +34,7 @@
       </div>
       <br>
       <label for="descricao">Descrição:</label>
-      <textarea placeholder="Digite uma descrição" class="form-control" id="descricao" formControlName="descricao" rows="5"></textarea>
+      <textarea maxLength="255" placeholder="Digite uma descrição" class="form-control" id="descricao" formControlName="descricao" rows="5"></textarea>
     </form>
   </div>
   <div class="modal-footer">
