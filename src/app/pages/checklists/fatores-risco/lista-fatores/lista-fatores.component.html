@@ -30,7 +30,7 @@
             <tr *ngFor="let fatores of lista | slice: (page-1) * pageSize : page * pageSize"  >
               <td class="padding" align="center">{{fatores.nome}}</td>
               <td align="center" class="td" >{{fatores.descricao}}</td>
-              <td class="padding" align="center"  ><label class="badge badge-{{fatores.ativo ? 'info' : 'danger'}}">{{fatores.ativo ? 'Ativo' : 'Inativo'}}</label></td>
+              <td class="padding" align="center"  ><label class="badge badge-{{fatores.ativo ? 'success' : 'danger'}}">{{fatores.ativo ? 'Ativo' : 'Inativo'}}</label></td>
               <td class="padding"  class="text-right" >
                   <div ngbDropdown  container="body" >
                     <button placement="left" class="btn btn-info" ngbDropdownToggle type="button" id="opcoes"><i class="feather icon-plus-circle"></i> ações</button>
