@@ -1,12 +1,13 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Paciente } from '../model/Paciente';
-import { NgbDatepicker, NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { PacienteService } from '../service/paciente.service';
 import { CadastroPacienteComponent } from '../cadastro-paciente/cadastro-paciente.component';
 import { PrecaucaoService } from '../../precaucoes/service/precaucao.service';
 import { Precaucao } from '../../precaucoes/model/precaucao';
 import { FormValidations } from 'src/app/theme/shared/form-validations';
+import { data } from 'jquery';
 @Component({
   selector: 'app-lista-pacientes',
   templateUrl: './lista-pacientes.component.html',
@@ -20,24 +21,162 @@ export class ListaPacientesComponent implements OnInit {
   pageSize: number = 10;
   page: number = 1;
   pesquisaForm: FormGroup = null;
-  lista: Paciente[] = [];
+  // lista: Paciente[] = [];
   listaPrecaucoes: Precaucao[] = [];
   statusPesquisa: boolean = false;
   mensagem: string;
   listaChecklist = ['Gotícula', 'Aerossois', 'Padrão', 'Contato'];
   MODALOPTIONS: NgbModalOptions = { keyboard: true, size: 'lg', backdrop: 'static' };
-  constructor(private departamentosService: PacienteService,
+  constructor(private pacientesService: PacienteService,
     public modalService: NgbModal, private formBuilder: FormBuilder,
     private precaucaoService: PrecaucaoService) { }
+    @Input('data')  lista = [
 
+
+
+
+    { prontuario: '3493824', nome: 'Maria', nomeMae: 'Maria', cpf: '23432435471', rg: '1321545', dataNascimento: '12-03-1996' , sexo: true,},
+
+
+    { prontuario: '3493824', nome: 'Iury', nomeMae: 'Iury',cpf: '21354687356', rg: '326491', dataNascimento: '17-01-1997', sexo: true, },
+
+
+    {  prontuario: '3493824', nome: 'Guilherme', nomeMae: 'Guilherme', cpf: '3654863213', rg: '9364384', dataNascimento: '20-02-1997' , sexo: true, },
+
+
+    {  prontuario: '3493824', nome: 'Helena', nomeMae: 'Guilherme', cpf: '3622121156', rg: '789215', dataNascimento: '13-08-1991', sexo: true,  },
+
+
+    {  prontuario: '3493824', nome: 'Lara',  nomeMae: 'Guilherme',cpf: '1047242205', rg: '635497', dataNascimento: '01-02-1992' , sexo: true, },
+
+
+    {  prontuario: '3493824', nome: 'Victor', nomeMae: 'Guilherme', cpf: '11102535041', rg: '1045548', dataNascimento: '06-06-1972'  , sexo: true,},
+
+
+    {  prontuario: '3493824', nome: 'Maria', nomeMae: 'Maria',cpf: '23432435471', rg: '1321545', dataNascimento: '12-03-1996', sexo: true, },
+
+
+    {  prontuario: '3493824', nome: 'Iury', nomeMae: 'Maria',cpf: '21354687356', rg: '326491', dataNascimento: '17-01-1997', sexo: true,  },
+
+
+    {  prontuario: '3493824', nome: 'Guilherme',nomeMae: 'Maria', cpf: '3654863213', rg: '9364384', dataNascimento: '20-02-1997' , sexo: true, },
+
+
+    {  prontuario: '3493824', nome: 'Helena', nomeMae: 'Maria',cpf: '3622121156', rg: '789215', dataNascimento: '13-08-1991' , sexo: true, },
+
+
+    {  prontuario: '3493824', nome: 'Lara', nomeMae: 'Maria',cpf: '1047242205', rg: '635497', dataNascimento: '01-02-1992', sexo: true,  },
+
+
+    {  prontuario: '3493824', nome: 'Victor',nomeMae: 'Maria', cpf: '11102535041', rg: '1045548', dataNascimento: '06-06-1972' , sexo: true, },
+    {  prontuario: '3493824', nome: 'Maria',nomeMae: 'Maria', cpf: '23432435471', rg: '1321545', dataNascimento: '12-03-1996' , sexo: true, },
+
+
+    {  prontuario: '3493824', nome: 'Iury',nomeMae: 'Maria', cpf: '21354687356', rg: '326491', dataNascimento: '17-01-1997' , sexo: true,  },
+
+
+    {  prontuario: '3493824', nome: 'Guilherme',nomeMae: 'Maria', cpf: '3654863213', rg: '9364384', dataNascimento: '20-02-1997' , sexo: true,  },
+
+
+    {  prontuario: '3493824', nome: 'Helena',nomeMae: 'Maria', cpf: '3622121156', rg: '789215', dataNascimento: '13-08-1991'  , sexo: true, },
+
+
+    {  prontuario: '3493824', nome: 'Lara', nomeMae: 'Maria',cpf: '1047242205', rg: '635497', dataNascimento: '01-02-1992' , sexo: true,  },
+
+
+    {  prontuario: '3493824', nome: 'Victor', nomeMae: 'Maria',cpf: '11102535041', rg: '1045548', dataNascimento: '06-06-1972' , sexo: true,  },
+    {  prontuario: '3493824', nome: 'Maria', nomeMae: 'Maria', cpf: '23432435471', rg: '1321545', dataNascimento: '12-03-1996' , sexo: true, },
+
+
+    {  prontuario: '3493824', nome: 'Iury', nomeMae: 'Maria',cpf: '21354687356', rg: '326491', dataNascimento: '17-01-1997' , sexo: true,  },
+
+
+    {  prontuario: '3493824', nome: 'Guilherme',nomeMae: 'Maria', cpf: '3654863213', rg: '9364384', dataNascimento: '20-02-1997' , sexo: true,  },
+
+
+    {  prontuario: '3493824', nome: 'Helena',nomeMae: 'Maria', cpf: '3622121156', rg: '789215', dataNascimento: '13-08-1991' , sexo: true,  },
+
+
+    {  prontuario: '3493824', nome: 'Lara',nomeMae: 'Maria', cpf: '1047242205', rg: '635497', dataNascimento: '01-02-1992' , sexo: true,  },
+
+
+    {  prontuario: '3493824', nome: 'Victor',nomeMae: 'Maria', cpf: '11102535041', rg: '1045548', dataNascimento: '06-06-1972', sexo: true,  },
+     {  prontuario: '3493824', nome: 'Maria',nomeMae: 'Maria', cpf: '23432435471', rg: '1321545', dataNascimento: '12-03-1996' , sexo: true,},
+
+
+    {  prontuario: '3493824', nome: 'Iury', nomeMae: 'Maria',cpf: '21354687356', rg: '326491', dataNascimento: '17-01-1997', sexo: true,  },
+
+
+    {  prontuario: '3493824', nome: 'Guilherme',nomeMae: 'Maria', cpf: '3654863213', rg: '9364384', dataNascimento: '20-02-1997' , sexo: true, },
+
+
+    {  prontuario: '3493824', nome: 'Helena',nomeMae: 'Maria', cpf: '3622121156', rg: '789215', dataNascimento: '13-08-1991' , sexo: true, },
+
+
+    {  prontuario: '3493824', nome: 'Lara',nomeMae: 'Maria', cpf: '1047242205', rg: '635497', dataNascimento: '01-02-1992', sexo: true,  },
+
+
+    {  prontuario: '3493824', nome: 'Victor',nomeMae: 'Maria', cpf: '11102535041', rg: '1045548', dataNascimento: '06-06-1972' , sexo: true, },
+    {  prontuario: '3493824', nome: 'Maria',nomeMae: 'Maria', cpf: '23432435471', rg: '1321545', dataNascimento: '12-03-1996' , sexo: true, },
+
+
+    {  prontuario: '3493824', nome: 'Iury',nomeMae: 'Maria', cpf: '21354687356', rg: '326491', dataNascimento: '17-01-1997' , sexo: true,  },
+
+
+    {  prontuario: '3493824', nome: 'Guilherme', nomeMae: 'Maria',cpf: '3654863213', rg: '9364384', dataNascimento: '20-02-1997'  , sexo: true, },
+
+
+    {  prontuario: '3493824', nome: 'Helena', nomeMae: 'Maria',cpf: '3622121156', rg: '789215', dataNascimento: '13-08-1991'  , sexo: true, },
+
+
+    {  prontuario: '3493824', nome: 'Lara',nomeMae: 'Maria', cpf: '1047242205', rg: '635497', dataNascimento: '01-02-1992' , sexo: true,  },
+
+
+    {  prontuario: '3493824', nome: 'Victor',nomeMae: 'Maria', cpf: '11102535041', rg: '1045548', dataNascimento: '06-06-1972' , sexo: true,  },
+     {  prontuario: '3493824', nome: 'Maria', nomeMae: 'Maria',cpf: '23432435471', rg: '1321545', dataNascimento: '12-03-1996' , sexo: true,},
+
+
+    {  prontuario: '3493824', nome: 'Iury', nomeMae: 'Maria',cpf: '21354687356', rg: '326491', dataNascimento: '17-01-1997'  , sexo: true,},
+
+
+    {  prontuario: '3493824', nome: 'Guilherme',nomeMae: 'Maria', cpf: '3654863213', rg: '9364384', dataNascimento: '20-02-1997', sexo: true,  },
+
+
+    {  prontuario: '3493824', nome: 'Helena',nomeMae: 'Maria', cpf: '3622121156', rg: '789215', dataNascimento: '13-08-1991', sexo: true,  },
+
+
+    {  prontuario: '3493824', nome: 'Lara',nomeMae: 'Maria', cpf: '1047242205', rg: '635497', dataNascimento: '01-02-1992' , sexo: true, },
+
+
+    {  prontuario: '3493824', nome: 'Victor',nomeMae: 'Maria', cpf: '11102535041', rg: '1045548', dataNascimento: '06-06-1972' , sexo: true, },
+     {  prontuario: '3493824', nome: 'Maria', nomeMae: 'Maria',cpf: '23432435471', rg: '1321545', dataNascimento: '12-03-1996' , sexo: true, },
+
+
+    {  prontuario: '3493824', nome: 'Iury', nomeMae: 'Maria',cpf: '21354687356', rg: '326491', dataNascimento: '17-01-1997' , sexo: true,  },
+
+
+    {  prontuario: '3493824', nome: 'Guilherme',nomeMae: 'Maria', cpf: '3654863213', rg: '9364384', dataNascimento: '20-02-1997', sexo: true,   },
+
+
+    {  prontuario: '3493824', nome: 'Helena', nomeMae: 'Maria',cpf: '3622121156', rg: '789215', dataNascimento: '13-08-1991' , sexo: true,  },
+
+
+    {  prontuario: '3493824', nome: 'Lara', nomeMae: 'Maria',cpf: '1047242205', rg: '635497', dataNascimento: '01-02-1992' , sexo: true,  },
+
+
+    {  prontuario: '3493824', nome: 'Victor', nomeMae: 'Maria',cpf: '11102535041', rg: '1045548', dataNascimento: '06-06-1972', sexo: true,   }
+
+
+  ];
   ngOnInit(): void {
+    this.lista;
     this.msgError = null;
-    this.loadListaPacientes();
+    // this.loadListaPacientes();
     this.loadListaPrecaucao();
     this.buildPrecaucoes();
     CadastroPacienteComponent.atualizando.subscribe(
       success => {
-        this.loadListaPacientes();
+        // this.loadListaPacientes();
       })
     this.formularioCadastro = this.formBuilder.group({
       idPaciente: [null],
@@ -92,7 +231,7 @@ export class ListaPacientesComponent implements OnInit {
     }
   }
   editar(id: number) {
-    this.departamentosService.getById(id).subscribe((pacientes) => {
+    this.pacientesService.getById(id).subscribe((pacientes) => {
       this.updateForm(pacientes);
       if (this.formularioAtualizar != null) {
         this.atualizar();
@@ -103,7 +242,7 @@ export class ListaPacientesComponent implements OnInit {
   refresh() {
     if (this.pesquisaForm.get('pesquisar').value === '') {
       this.mensagem = null;
-      this.loadListaPacientes();
+      // this.loadListaPacientes();
     }
   }
   updateForm(pacientes: Paciente) {
@@ -120,11 +259,11 @@ export class ListaPacientesComponent implements OnInit {
     })
   }
   pesquisa() { };
-  loadListaPacientes() {
-    this.departamentosService.getAll()
-      .subscribe(
-        data => {
-          this.lista = data;
-        })
-  }
+  // loadListaPacientes() {
+  //   this.pacientesService.getAll()
+  //     .subscribe(
+  //       data => {
+  //         this.lista = data;
+  //       })
+  // }
 }

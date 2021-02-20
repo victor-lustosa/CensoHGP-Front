@@ -158,13 +158,11 @@ export class ListaProcedimentosComponent implements OnInit {
               });
 
             },400)
-          } else {
-            this.procedimentosService.getByNome(this.pesquisaForm.get('')).subscribe(
-              data => {
-                this.lista = data;
-                this.mensagem = "Nenhum registro foi encontrado.";
-              }
-            )
+          }else {
+            setTimeout(()=>{
+              this.statusSpinner = false;
+              this.mensagem = "Nenhum registro foi encontrado.";
+            },100)
           }
         }
       }
