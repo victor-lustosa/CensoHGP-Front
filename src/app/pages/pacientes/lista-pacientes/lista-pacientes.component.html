@@ -22,24 +22,27 @@
             <tr align="center">
               <th scope="col">Prontuário</th>
               <th scope="col">Nome</th>
+              <th scope="col">Nome da Mãe</th>
               <th scope="col">CPF</th>
               <th scope="col">RG</th>
-              <th scope="col">Data de Nascimento</th>
+              <th scope="col">Departamento</th>
               <th scope="col"></th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let paciente of lista |slice: (page-1) * pageSize : page * pageSize" align="center">
-              <td class="padding">{{paciente.prontuario}}</td>
+              <td class="td padding">{{paciente.prontuario}}</td>
               <td class="td padding">{{paciente.nome}}</td>
+              <td class="td padding">{{paciente.nomeMae}}</td>
               <td class="padding">{{paciente.cpf}}</td>
               <td class="padding">{{paciente.rg}}</td>
-              <td class="padding">{{paciente.dataNascimento}}</td>
+              <td class="padding">{{paciente.departamento}}</td>
               <td class="padding text-right" >
                   <div ngbDropdown container="body" >
-                    <button  class="btn btn-info  buttonDrop" ngbDropdownToggle type="button"><i class="feather icon-plus-circle"></i> ações</button>
+                    <button  class="btn btn-info  buttonDrop" ngbDropdownToggle type="button"><i class="feather icon-plus-circle"></i> Ações</button>
                     <div ngbDropdownMenu  >
-                      <button class="dropdown-item button"  (click)="cadastrar()"><i class="feather icon-edit"></i> Editar</button>
+                      <button class="dropdown-item button"  (click)="editar(paciente.idPaciente)"><i class="feather icon-edit"></i> Editar</button>
+                      <button class="dropdown-item button"  (click)="descricao(paciente.idPaciente)"><i class="feather icon-eye"></i> Visualizar</button>
                       <div class="dropdown-divider"></div>
                       <button class="dropdown-item button" href="javascript:"><i class="feather icon-check-square"></i> Checklist</button>
                       <button class="dropdown-item button" href="javascript:"><i class="feather icon-clipboard"></i> Histórico checklist</button>

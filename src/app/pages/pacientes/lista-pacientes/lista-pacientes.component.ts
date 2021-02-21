@@ -7,7 +7,7 @@ import { CadastroPacienteComponent } from '../cadastro-paciente/cadastro-pacient
 import { PrecaucaoService } from '../../precaucoes/service/precaucao.service';
 import { Precaucao } from '../../precaucoes/model/precaucao';
 import { FormValidations } from 'src/app/theme/shared/form-validations';
-import { data } from 'jquery';
+
 @Component({
   selector: 'app-lista-pacientes',
   templateUrl: './lista-pacientes.component.html',
@@ -35,72 +35,72 @@ export class ListaPacientesComponent implements OnInit {
 
 
 
-    { prontuario: '3493824', nome: 'Maria', nomeMae: 'Maria', cpf: '23432435471', rg: '1321545', dataNascimento: '12-03-1996' , sexo: true,},
+    { prontuario: '34938234343243333333333333333333333333333333242344', nome: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', nomeMae: 'kuyuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu', cpf: '23432435471', rg: '1321545', dataNascimento: '12-03-1996' , sexo: true, departamento:"EMADE"},
 
 
-    { prontuario: '3493824', nome: 'Iury', nomeMae: 'Iury',cpf: '21354687356', rg: '326491', dataNascimento: '17-01-1997', sexo: true, },
+    { idPaciente:1,prontuario: '3493824', nome: 'sdddddddddddddddddddddsdsdsdsdsdsds', nomeMae: 'kkkkkkkkkkkkkkkkkkkkkkkkkkkk',cpf: '21354687356', rg: '326491', dataNascimento: '17-01-1997', sexo: true,departamento:"PEDIATRIA" },
 
 
-    {  prontuario: '3493824', nome: 'Guilherme', nomeMae: 'Guilherme', cpf: '3654863213', rg: '9364384', dataNascimento: '20-02-1997' , sexo: true, },
+    {  prontuario: '3493824', nome: 'Guilherme', nomeMae: 'Guilherme', cpf: '3654863213', rg: '9364384', dataNascimento: '20-02-1997' , sexo: true,departamento:"EMADE" },
 
 
-    {  prontuario: '3493824', nome: 'Helena', nomeMae: 'Guilherme', cpf: '3622121156', rg: '789215', dataNascimento: '13-08-1991', sexo: true,  },
+    {  prontuario: '3493824', nome: 'Helena', nomeMae: 'Guilherme', cpf: '3622121156', rg: '789215', dataNascimento: '13-08-1991', sexo: true, departamento:"PEDIATRIA" },
 
 
-    {  prontuario: '3493824', nome: 'Lara',  nomeMae: 'Guilherme',cpf: '1047242205', rg: '635497', dataNascimento: '01-02-1992' , sexo: true, },
+    {  prontuario: '3493824', nome: 'Lara',  nomeMae: 'Guilherme',cpf: '1047242205', rg: '635497', dataNascimento: '01-02-1992' , sexo: true,departamento:"PEDIATRIA" },
 
 
-    {  prontuario: '3493824', nome: 'Victor', nomeMae: 'Guilherme', cpf: '11102535041', rg: '1045548', dataNascimento: '06-06-1972'  , sexo: true,},
+    {  prontuario: '3493824', nome: 'Victor', nomeMae: 'Guilherme', cpf: '11102535041', rg: '1045548', dataNascimento: '06-06-1972'  , sexo: true,departamento:"CENTRO"},
 
 
-    {  prontuario: '3493824', nome: 'Maria', nomeMae: 'Maria',cpf: '23432435471', rg: '1321545', dataNascimento: '12-03-1996', sexo: true, },
+    {  prontuario: '3493824', nome: 'Maria', nomeMae: 'Maria',cpf: '23432435471', rg: '1321545', dataNascimento: '12-03-1996', sexo: true,departamento:"EMADE" },
 
 
-    {  prontuario: '3493824', nome: 'Iury', nomeMae: 'Maria',cpf: '21354687356', rg: '326491', dataNascimento: '17-01-1997', sexo: true,  },
+    {  prontuario: '3493824', nome: 'Iury', nomeMae: 'Maria',cpf: '21354687356', rg: '326491', dataNascimento: '17-01-1997', sexo: true, departamento:"EMADE" },
 
 
-    {  prontuario: '3493824', nome: 'Guilherme',nomeMae: 'Maria', cpf: '3654863213', rg: '9364384', dataNascimento: '20-02-1997' , sexo: true, },
+    {  prontuario: '3493824', nome: 'Guilherme',nomeMae: 'Maria', cpf: '3654863213', rg: '9364384', dataNascimento: '20-02-1997' , sexo: true, departamento:"EMADE"},
 
 
-    {  prontuario: '3493824', nome: 'Helena', nomeMae: 'Maria',cpf: '3622121156', rg: '789215', dataNascimento: '13-08-1991' , sexo: true, },
+    {  prontuario: '3493824', nome: 'Helena', nomeMae: 'Maria',cpf: '3622121156', rg: '789215', dataNascimento: '13-08-1991' , sexo: true, departamento:"EMADE"},
 
 
-    {  prontuario: '3493824', nome: 'Lara', nomeMae: 'Maria',cpf: '1047242205', rg: '635497', dataNascimento: '01-02-1992', sexo: true,  },
+    {  prontuario: '3493824', nome: 'Lara', nomeMae: 'Maria',cpf: '1047242205', rg: '635497', dataNascimento: '01-02-1992', sexo: true,departamento:"EMADE"  },
 
 
-    {  prontuario: '3493824', nome: 'Victor',nomeMae: 'Maria', cpf: '11102535041', rg: '1045548', dataNascimento: '06-06-1972' , sexo: true, },
-    {  prontuario: '3493824', nome: 'Maria',nomeMae: 'Maria', cpf: '23432435471', rg: '1321545', dataNascimento: '12-03-1996' , sexo: true, },
+    {  prontuario: '3493824', nome: 'Victor',nomeMae: 'Maria', cpf: '11102535041', rg: '1045548', dataNascimento: '06-06-1972' , sexo: true,departamento:"EMADE" },
+    {  prontuario: '3493824', nome: 'Maria',nomeMae: 'Maria', cpf: '23432435471', rg: '1321545', dataNascimento: '12-03-1996' , sexo: true,departamento:"EMADE" },
 
 
-    {  prontuario: '3493824', nome: 'Iury',nomeMae: 'Maria', cpf: '21354687356', rg: '326491', dataNascimento: '17-01-1997' , sexo: true,  },
+    {  prontuario: '3493824', nome: 'Iury',nomeMae: 'Maria', cpf: '21354687356', rg: '326491', dataNascimento: '17-01-1997' , sexo: true,  departamento:"EMADE"},
 
 
-    {  prontuario: '3493824', nome: 'Guilherme',nomeMae: 'Maria', cpf: '3654863213', rg: '9364384', dataNascimento: '20-02-1997' , sexo: true,  },
+    {  prontuario: '3493824', nome: 'Guilherme',nomeMae: 'Maria', cpf: '3654863213', rg: '9364384', dataNascimento: '20-02-1997' , sexo: true, departamento:"EMADE" },
 
 
-    {  prontuario: '3493824', nome: 'Helena',nomeMae: 'Maria', cpf: '3622121156', rg: '789215', dataNascimento: '13-08-1991'  , sexo: true, },
+    {  prontuario: '3493824', nome: 'Helena',nomeMae: 'Maria', cpf: '3622121156', rg: '789215', dataNascimento: '13-08-1991'  , sexo: true, departamento:"EMADE"},
 
 
-    {  prontuario: '3493824', nome: 'Lara', nomeMae: 'Maria',cpf: '1047242205', rg: '635497', dataNascimento: '01-02-1992' , sexo: true,  },
+    {  prontuario: '3493824', nome: 'Lara', nomeMae: 'Maria',cpf: '1047242205', rg: '635497', dataNascimento: '01-02-1992' , sexo: true, departamento:"EMADE" },
 
 
-    {  prontuario: '3493824', nome: 'Victor', nomeMae: 'Maria',cpf: '11102535041', rg: '1045548', dataNascimento: '06-06-1972' , sexo: true,  },
-    {  prontuario: '3493824', nome: 'Maria', nomeMae: 'Maria', cpf: '23432435471', rg: '1321545', dataNascimento: '12-03-1996' , sexo: true, },
+    {  prontuario: '3493824', nome: 'Victor', nomeMae: 'Maria',cpf: '11102535041', rg: '1045548', dataNascimento: '06-06-1972' , sexo: true, departamento:"EMADE" },
+    {  prontuario: '3493824', nome: 'Maria', nomeMae: 'Maria', cpf: '23432435471', rg: '1321545', dataNascimento: '12-03-1996' , sexo: true, departamento:"EMADE"},
 
 
-    {  prontuario: '3493824', nome: 'Iury', nomeMae: 'Maria',cpf: '21354687356', rg: '326491', dataNascimento: '17-01-1997' , sexo: true,  },
+    {  prontuario: '3493824', nome: 'Iury', nomeMae: 'Maria',cpf: '21354687356', rg: '326491', dataNascimento: '17-01-1997' , sexo: true, departamento:"EMADE" },
 
 
-    {  prontuario: '3493824', nome: 'Guilherme',nomeMae: 'Maria', cpf: '3654863213', rg: '9364384', dataNascimento: '20-02-1997' , sexo: true,  },
+    {  prontuario: '3493824', nome: 'Guilherme',nomeMae: 'Maria', cpf: '3654863213', rg: '9364384', dataNascimento: '20-02-1997' , sexo: true, departamento:"EMADE" },
 
 
-    {  prontuario: '3493824', nome: 'Helena',nomeMae: 'Maria', cpf: '3622121156', rg: '789215', dataNascimento: '13-08-1991' , sexo: true,  },
+    {  prontuario: '3493824', nome: 'Helena',nomeMae: 'Maria', cpf: '3622121156', rg: '789215', dataNascimento: '13-08-1991' , sexo: true, departamento:"EMADE" },
 
 
-    {  prontuario: '3493824', nome: 'Lara',nomeMae: 'Maria', cpf: '1047242205', rg: '635497', dataNascimento: '01-02-1992' , sexo: true,  },
+    {  prontuario: '3493824', nome: 'Lara',nomeMae: 'Maria', cpf: '1047242205', rg: '635497', dataNascimento: '01-02-1992' , sexo: true, departamento:"EMADE" },
 
 
-    {  prontuario: '3493824', nome: 'Victor',nomeMae: 'Maria', cpf: '11102535041', rg: '1045548', dataNascimento: '06-06-1972', sexo: true,  },
+    {  prontuario: '3493824', nome: 'Victor',nomeMae: 'Maria', cpf: '11102535041', rg: '1045548', dataNascimento: '06-06-1972', sexo: true, departamento:"EMADE" },
      {  prontuario: '3493824', nome: 'Maria',nomeMae: 'Maria', cpf: '23432435471', rg: '1321545', dataNascimento: '12-03-1996' , sexo: true,},
 
 
@@ -238,7 +238,14 @@ export class ListaPacientesComponent implements OnInit {
       }
     })
   }
-
+  descricao(id: number) {
+    this.pacientesService.getById(id).subscribe((fatores) => {
+      const modalRef = this.modalService.open(CadastroPacienteComponent, this.MODALOPTIONS);
+      modalRef.componentInstance.tituloModal = "Descrição do departamento";
+      modalRef.componentInstance.fatorRisco = fatores;
+      }
+    )
+  }
   refresh() {
     if (this.pesquisaForm.get('pesquisar').value === '') {
       this.mensagem = null;
