@@ -36,7 +36,7 @@ const NavigationItems = [
         id: 'dashboard',
         title: 'Inicio',
         type: 'item',
-        url: '/dashboard/analytics',
+        url: '/dashboard/inicio',
         icon: 'feather icon-home',
         breadcrumbs: false
       },
