@@ -16,7 +16,7 @@
       </div>
       <br>
       <label for="matricula">Matrícula:</label>
-      <input type="matricula" class="form-control" formControlName="matricula" id="matricula" aria-describedby="matriculaHelp"
+      <input class="form-control" formControlName="matricula" id="matricula" aria-describedby="matriculaHelp"
       placeholder="Digite a matrícula" [ngClass]="aplicaCssErro('matricula')">
       <div *ngIf="verificaValidTouched('matricula')">
         <span class="font-red">Matrícula é obrigatória</span>
