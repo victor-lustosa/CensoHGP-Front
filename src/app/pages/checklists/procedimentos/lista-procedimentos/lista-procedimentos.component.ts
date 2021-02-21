@@ -5,6 +5,7 @@ import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { CadastroProcedimentoComponent } from '../cadastro-procedimento/cadastro-procedimento.component';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Location } from '@angular/common';
+import { DescricaoProcedimentoComponent } from '../descricao-procedimento/descricao-procedimento.component';
 @Component({
   selector: 'app-lista-procedimentos',
   templateUrl: './lista-procedimentos.component.html',
@@ -82,10 +83,10 @@ export class ListaProcedimentosComponent implements OnInit {
       }
     }
     descricao(id: number) {
-      this.procedimentosService.getById(id).subscribe((fatores) => {
-        const modalRef = this.modalService.open(CadastroProcedimentoComponent, this.MODALOPTIONS);
+      this.procedimentosService.getById(id).subscribe((procedimento) => {
+        const modalRef = this.modalService.open(DescricaoProcedimentoComponent, this.MODALOPTIONS);
         modalRef.componentInstance.tituloModal = "Descrição do procedimento";
-        modalRef.componentInstance.fatorRisco = fatores;
+        modalRef.componentInstance.procedimento = procedimento;
       }
     )
   }
@@ -121,6 +122,8 @@ export class ListaProcedimentosComponent implements OnInit {
         );
       }
     }
+
+
     updateForm(procedimentos: Procedimento) {
       this.formularioAtualizar.patchValue({
         idProcedimento: procedimentos.idProcedimento,

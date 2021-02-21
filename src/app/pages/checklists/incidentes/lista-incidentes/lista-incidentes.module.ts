@@ -1,3 +1,4 @@
+import { DescricaoIncidenteComponent } from './../descricao-incidente/descricao-incidente.component';
 
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -10,7 +11,7 @@ import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { NgbDropdownModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
-  declarations: [ListaIncidentesComponent, CadastroIncidenteComponent],
+  declarations: [ListaIncidentesComponent, CadastroIncidenteComponent, DescricaoIncidenteComponent],
   imports: [
     CommonModule,
     ListaIncidentesRoutingModule,

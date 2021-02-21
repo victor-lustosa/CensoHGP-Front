@@ -144,6 +144,13 @@ export class ListaDepartamentosComponent implements OnInit {
               this.lista = data;
             }
           )}
+          else if(this.ativo == 2 && this.tipoDepartamento == 3 ){
+            this.departamentosService.getAllAtivosExternos().subscribe(
+              data => {
+                this.lista = data;
+              }
+            )
+          }
           else if(this.ativo == 3 && this.tipoDepartamento == 2 ){
             this.departamentosService.getAllInativosInternos().subscribe(
               data => {

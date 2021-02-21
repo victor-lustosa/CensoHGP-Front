@@ -1,3 +1,4 @@
+import { DescricaoProcedimentoComponent } from './../descricao-procedimento/descricao-procedimento.component';
 
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -11,7 +12,7 @@ import { CadastroProcedimentoComponent } from '../cadastro-procedimento/cadastro
 
 
 @NgModule({
-  declarations: [ListaProcedimentosComponent, CadastroProcedimentoComponent],
+  declarations: [ListaProcedimentosComponent, CadastroProcedimentoComponent, DescricaoProcedimentoComponent],
   imports: [
     CommonModule,
     ListaProcedimentosRoutingModule,

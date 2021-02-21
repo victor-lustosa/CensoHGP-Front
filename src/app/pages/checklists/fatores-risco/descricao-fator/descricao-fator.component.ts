@@ -8,8 +8,8 @@ import { Fator } from '../model/fator';
   styleUrls: ['./descricao-fator.component.scss']
 })
 export class DescricaoFatorComponent implements OnInit {
-  @Input() tituloModal:string;
-  @Input() fatorRisco:Fator;
+  @Input() tituloModal: string;
+  @Input() fatorRisco: Fator;
   constructor(public activeModal: NgbActiveModal) { }
 
   ngOnInit(): void {

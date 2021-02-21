@@ -1,9 +1,11 @@
+
 import { Component, OnInit } from '@angular/core';
 import { IncidenteService } from '../service/incidente.service';
 import { Incidente } from '../model/incidente';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { CadastroIncidenteComponent } from '../cadastro-incidente/cadastro-incidente.component';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { DescricaoIncidenteComponent } from '../descricao-incidente/descricao-incidente.component';
 
 @Component({
   selector: 'app-lista-incidentes',
@@ -76,10 +78,10 @@ export class ListaIncidentesComponent implements OnInit {
     this.loadListaIncidentes();
   }
   descricao(id: number) {
-    this.incidentesService.getById(id).subscribe((fatores) => {
-      const modalRef = this.modalService.open(CadastroIncidenteComponent, this.MODALOPTIONS);
+    this.incidentesService.getById(id).subscribe((incidente) => {
+      const modalRef = this.modalService.open(DescricaoIncidenteComponent, this.MODALOPTIONS);
       modalRef.componentInstance.tituloModal = "Descrição do incidente";
-      modalRef.componentInstance.fatorRisco = fatores;
+      modalRef.componentInstance.incidente = incidente;
       }
     )
   }
