@@ -7,11 +7,7 @@ import { throwError } from 'rxjs';
 
 @Injectable()
 export class CRUD<T> implements CrudInterface<T>{
-  constructor(private http: HttpClient, @Inject(String) private API_URL: string) { }
-  getAllAtivos(): Observable<T[]> {
-    console.log('get allAtivos do crud: ' + `${this.API_URL}s`)
-    return this.http.get<T[]>(`${this.API_URL}s/ativos`).pipe(retry(1), catchError(this.handleError));
-  }
+  constructor(protected http: HttpClient, @Inject(String) private API_URL: string) { }
   getAll(): Observable<T[]> {
     console.log('get all do crud: ' + `${this.API_URL}s`)
     return this.http.get<T[]>(`${this.API_URL}s`).pipe(retry(1), catchError(this.handleError));

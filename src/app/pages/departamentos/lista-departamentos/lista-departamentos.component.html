@@ -19,14 +19,14 @@
           <div class="row" >
             <div class="form-group   col-3 d-flex justify-content-between" style="margin-left:50px;" >
               <label for="ativo" class="form-check-label mr-2">Status:</label>
-              <select class="custom-select" id="ativo" [(ngModel)]="ativo">
+              <select (ngModelChange)="filtroStatus($event)" class="custom-select" id="ativo" [(ngModel)]="ativo">
                 <option *ngFor="let ativo of listaAtivo" [value]="ativo.valor">{{ ativo.nome  }}</option>
               </select>
             </div>
             <div class="form-group  col-3 d-flex justify-content-between">
               <label for="tipodepartamento" class="form-check-label mr-2">Tipo:</label>
-              <select class="custom-select" id="tipodepartamento" >
-                <!-- <option *ngFor="let item of listaTipoDepartamento" [value]="item.valor">{{ item.desc  }}</option> -->
+              <select (ngModelChange)="filtroTipoDepartamento($event)" class="custom-select" id="tipodepartamento"  [(ngModel)]="tipoDepartamento">
+                <option *ngFor="let tipoDepartamento of listaTipoDepartamento" [value]="tipoDepartamento.valor">{{ tipoDepartamento.nome  }}</option>
               </select>
             </div>
           </div>
