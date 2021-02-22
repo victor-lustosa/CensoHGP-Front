@@ -4,6 +4,7 @@ import {Precaucao} from './../model/precaucao';
 import {PrecaucaoService} from './../service/precaucao.service';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { CadastroPrecaucaoComponent } from '../cadastro-precaucao/cadastro-precaucao.component';
+import { DescricaoPrecaucaoComponent } from '../descricao-precaucao/descricao-precaucao.component';
 @Component({
   selector: 'app-lista-precaucoes',
   templateUrl: './lista-precaucoes.component.html',
@@ -72,10 +73,10 @@ export class ListaPrecaucoesComponent implements OnInit {
     }
   }
   descricao(id: number) {
-    this.precaucoesService.getById(id).subscribe((fatores) => {
-      const modalRef = this.modalService.open(CadastroPrecaucaoComponent, this.MODALOPTIONS);
+    this.precaucoesService.getById(id).subscribe((precaucao) => {
+      const modalRef = this.modalService.open(DescricaoPrecaucaoComponent, this.MODALOPTIONS);
       modalRef.componentInstance.tituloModal = "Descrição da precaução";
-      modalRef.componentInstance.fatorRisco = fatores;
+      modalRef.componentInstance.precaucao = precaucao;
       }
     )
   }

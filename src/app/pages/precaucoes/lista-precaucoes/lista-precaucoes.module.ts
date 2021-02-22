@@ -1,3 +1,4 @@
+import { DescricaoPrecaucaoComponent } from './../descricao-precaucao/descricao-precaucao.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -9,7 +10,7 @@ import { CadastroPrecaucaoComponent } from '../cadastro-precaucao/cadastro-preca
 
 
 @NgModule({
-  declarations: [ListaPrecaucoesComponent, CadastroPrecaucaoComponent],
+  declarations: [ListaPrecaucoesComponent, CadastroPrecaucaoComponent, DescricaoPrecaucaoComponent],
   imports: [
     CommonModule,
     ListaPrecaucoesRoutingModule,
