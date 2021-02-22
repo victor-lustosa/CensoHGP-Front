@@ -35,7 +35,7 @@
                   <div ngbDropdown  container="body" >
                     <button placement="left" class="btn btn-info buttonDrop" ngbDropdownToggle type="button" id="opcoes"><i class="feather icon-plus-circle"></i> ações</button>
                     <div ngbDropdownMenu  >
-                      <button  class="dropdown-item button" (click)="editar(precaucoes.idPrecaucao)"><i class="feather icon-edit"></i> Editar</button>
+                      <button *ngIf="precaucoes.ativo=== true" class="dropdown-item button" (click)="editar(precaucoes.idPrecaucao)"><i class="feather icon-edit"></i> Editar</button>
                       <button class="dropdown-item button"  (click)="pegaId(precaucoes.idPrecaucao);confirmaModal.show()"><i class="feather icon-{{precaucoes.ativo ? 'minus-circle' : 'power'}}"></i> {{precaucoes.ativo ? 'Desativar' : 'Ativar'}}</button>
                       <button class="dropdown-item button"  (click)="descricao(precaucoes.idPrecaucao)"><i class="feather icon-eye"></i> Visualizar</button>
                     </div>
