@@ -15,7 +15,8 @@ import { DescricaoFatorComponent } from '../descricao-fator/descricao-fator.comp
 })
 export class ListaFatoresComponent implements OnInit {
   formularioCadastro: FormGroup = null;
-  cont:number = 1;
+  pesquisaForm: FormGroup = null;
+
   formularioAtualizar: FormGroup = null;
   status: boolean;
   lista: Fator[] = [];
@@ -25,7 +26,6 @@ export class ListaFatoresComponent implements OnInit {
   page = 1;
   varConfirm: string;
   fatorAux: Fator;
-  pesquisaForm: FormGroup = null;
   statusPesquisa: boolean = false;
   mensagem: string;
   MODALOPTIONS: NgbModalOptions = { keyboard: true, size: 'lg', backdrop: 'static' };
@@ -35,7 +35,7 @@ export class ListaFatoresComponent implements OnInit {
     this.msgError = null;
     this.loadListaFatores();
     CadastroFatorComponent.atualizando.subscribe(
-      success => {
+      () => {
         this.loadListaFatores()
       }
     );
@@ -75,89 +75,89 @@ export class ListaFatoresComponent implements OnInit {
     }
     this.loadListaFatores();
   }
-  editar(id: number) {
-    this.fatoresService.getById(id).subscribe((fatores) => {
-      this.updateForm(fatores);
-      if (this.formularioAtualizar != null) {
-        this.atualizar();
-      }
-    })
-  }
   descricao(id: number) {
     this.fatoresService.getById(id).subscribe((fatores) => {
       const modalRef = this.modalService.open(DescricaoFatorComponent, this.MODALOPTIONS);
       modalRef.componentInstance.tituloModal = "Descrição do fator de risco";
       modalRef.componentInstance.fatorRisco = fatores;
-      }
-    )
-  }
-  refresh(){
-    if(this.pesquisaForm.get('pesquisar').value===''){
-      this.mensagem = null;
-      this.loadListaFatores();
     }
+  )
+}
+editar(id: number) {
+  this.fatoresService.getById(id).subscribe((fatores) => {
+    this.updateForm(fatores);
+    if (this.formularioAtualizar != null) {
+      this.atualizar();
+    }
+  })
+}
+refresh(){
+  if(this.pesquisaForm.get('pesquisar').value===''){
+    this.mensagem = null;
+    this.loadListaFatores();
   }
-  pegaId(id: number) {
-    this.fatoresService.getById(id).subscribe((fatoresDis) => {
-      if (fatoresDis.ativo === true) {
-        this.varConfirm = 'desativar';
-      } else {
-        this.varConfirm = 'ativar';
-      }
-      this.fatorAux = fatoresDis;
-    });
-  }
-  mudarStatus() {
-    if (this.fatorAux.ativo === true) {
-      this.fatorAux.ativo = false;
-      this.fatoresService.disable(this.fatorAux).subscribe(
-        sucess => this.loadListaFatores()
-      );
+}
+pegaId(id: number) {
+  this.fatoresService.getById(id).subscribe((fatoresDis) => {
+    if (fatoresDis.ativo === true) {
+      this.varConfirm = 'desativar';
     } else {
-      this.fatorAux.ativo = true;
-      this.fatoresService.disable(this.fatorAux).subscribe(
-        sucess => this.loadListaFatores());
-      }
+      this.varConfirm = 'ativar';
     }
-    pesquisa() {
-      this.statusPesquisa = true;
-      this.loadListaFatores();
+    this.fatorAux = fatoresDis;
+  });
+}
+mudarStatus() {
+  if (this.fatorAux.ativo === true) {
+    this.fatorAux.ativo = false;
+    this.fatoresService.disable(this.fatorAux).subscribe(
+      () => this.loadListaFatores()
+    );
+  } else {
+    this.fatorAux.ativo = true;
+    this.fatoresService.disable(this.fatorAux).subscribe(
+      () => this.loadListaFatores());
     }
-    updateForm(fatores: Fator) {
-      this.formularioAtualizar.patchValue({
-        idFatorRisco: fatores.idFatorRisco,
-        nome: fatores.nome,
-        descricao: fatores.descricao,
-        ativo: fatores.ativo
-      })
-    }
-    loadListaFatores() {
-      if (this.statusPesquisa === false) {
-        this.fatoresService.getAll()
-        .subscribe(
-          data => {
-            this.lista = data;
-          });
-        } else {
-          if (this.pesquisaForm.valid) {
-            this.fatoresService.getByNome(this.pesquisaForm.get('pesquisar').value).subscribe(
-              data => {
+  }
+  pesquisa() {
+    this.statusPesquisa = true;
+    this.loadListaFatores();
+  }
+  updateForm(fatores: Fator) {
+    this.formularioAtualizar.patchValue({
+      idFatorRisco: fatores.idFatorRisco,
+      nome: fatores.nome,
+      descricao: fatores.descricao,
+      ativo: fatores.ativo
+    })
+  }
+  loadListaFatores() {
+    if (this.statusPesquisa === false) {
+      this.fatoresService.getAll()
+      .subscribe(
+        data => {
+          this.lista = data;
+        });
+      } else {
+        if (this.pesquisaForm.valid) {
+          this.fatoresService.getByNome(this.pesquisaForm.get('pesquisar').value).subscribe(
+            data => {
 
-                this.lista = data;
-                if (this.lista.length <= 0) {
-                  this.mensagem = "Nenhum registro foi encontrado.";
-                } else {
-                  this.mensagem = null;
-                }
-                this.statusPesquisa = false;
-              });
-            } else{
-              this.fatoresService.getByNome(this.pesquisaForm.get('')).subscribe(
-                data =>  {
-                  this.lista = data;
-                  this.mensagem = "Nenhum registro foi encontrado.";
-                })
+              this.lista = data;
+              if (this.lista.length <= 0) {
+                this.mensagem = "Nenhum registro foi encontrado.";
+              } else {
+                this.mensagem = null;
               }
+              this.statusPesquisa = false;
+            });
+          } else{
+            this.fatoresService.getByNome(this.pesquisaForm.get('')).subscribe(
+              data =>  {
+                this.lista = data;
+                this.mensagem = "Nenhum registro foi encontrado.";
+              })
             }
           }
         }
+      }

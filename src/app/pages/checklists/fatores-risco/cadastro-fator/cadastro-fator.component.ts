@@ -43,7 +43,7 @@ export class CadastroFatorComponent implements OnInit {
         if (this.formulario.get('idFatorRisco').value != null) {
           this.fatoresService.update(this.formulario.value)
           .subscribe(
-            sucess => {
+            () => {
               this.sucesso = true,
               this.formulario.reset(),
               CadastroFatorComponent.atualizando.emit(this.at),
@@ -53,7 +53,7 @@ export class CadastroFatorComponent implements OnInit {
             })}else{
               this.fatoresService.create(this.formulario.value)
               .subscribe(
-                sucess => {
+                () => {
                   this.sucesso = true,
                   this.formulario.reset(),
                   CadastroFatorComponent.atualizando.emit(this.at),

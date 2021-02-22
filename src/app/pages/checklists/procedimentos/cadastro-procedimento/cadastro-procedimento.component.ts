@@ -43,7 +43,7 @@ export class CadastroProcedimentoComponent implements OnInit {
         if (this.formulario.get('idProcedimento').value != null) {
           this.procedimentosService.update(this.formulario.value)
           .subscribe(
-            sucess => {
+            () => {
               this.formulario,
               this.sucesso = true,
               this.formulario.reset(),
@@ -55,7 +55,7 @@ export class CadastroProcedimentoComponent implements OnInit {
           } else {
               this.procedimentosService.create(this.formulario.value)
               .subscribe(
-                sucess => {
+                () => {
                   this.formulario,
                   this.sucesso = true,
                   this.formulario.reset(),

@@ -36,39 +36,34 @@ export class DepartamentoService extends CRUD<Departamento> {
         ];
       }
       getAllAtivosInternos(): Observable<Departamento[]> {
-        console.log('get all Ativos internos: ' )
         return this.http.get<Departamento[]>(`${environment.API}apicensohgp/departamentos/ativos-internos`).pipe(retry(1), catchError(this.handleError));
       }
 
       getAllAtivosExternos(): Observable<Departamento[]> {
-        console.log('get all Ativos internos: ' )
         return this.http.get<Departamento[]>(`${environment.API}apicensohgp/departamentos/ativos-externos`).pipe(retry(1), catchError(this.handleError));
       }
 
       getAllInativosInternos(): Observable<Departamento[]> {
-        console.log('get all Ativos internos: ' )
         return this.http.get<Departamento[]>(`${environment.API}apicensohgp/departamentos/inativos-internos`).pipe(retry(1), catchError(this.handleError));
       }
 
       getAllInativosExternos(): Observable<Departamento[]> {
-        console.log('get all Ativos internos: ' )
         return this.http.get<Departamento[]>(`${environment.API}apicensohgp/departamentos/inativos-externos`).pipe(retry(1), catchError(this.handleError));
       }
 
       getAllInternos(): Observable<Departamento[]> {
-        console.log('get all Ativos internos: ' )
         return this.http.get<Departamento[]>(`${environment.API}apicensohgp/departamentos/internos`).pipe(retry(1), catchError(this.handleError));
       }
+
       getAllExternos(): Observable<Departamento[]> {
-        console.log('get all Ativos internos: ' )
         return this.http.get<Departamento[]>(`${environment.API}apicensohgp/departamentos/externos`).pipe(retry(1), catchError(this.handleError));
       }
-      getAllAtivos(): Observable<Departamento[]> {
-        console.log('get all Ativos internos: ' )
+
+      getAllAtivos(): Observable<Departamento[]>  {
         return this.http.get<Departamento[]>(`${environment.API}apicensohgp/departamentos/ativos`).pipe(retry(1), catchError(this.handleError));
       }
+      
       getAllInativos(): Observable<Departamento[]> {
-        console.log('get all Ativos internos: ' )
         return this.http.get<Departamento[]>(`${environment.API}apicensohgp/departamentos/inativos`).pipe(retry(1), catchError(this.handleError));
       }
 }

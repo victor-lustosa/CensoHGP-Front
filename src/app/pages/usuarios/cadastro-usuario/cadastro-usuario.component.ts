@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, EventEmitter } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { EMPTY } from 'rxjs';
 import { TipoUsuarioService } from '../service/tipo-usuario.service';
 import { UsuarioService } from '../service/usuario.service';
 
@@ -13,7 +12,6 @@ import { UsuarioService } from '../service/usuario.service';
 export class CadastroUsuarioComponent implements OnInit {
   @Input() public formulario: FormGroup;
   tipoUsuarios:any[];
-  errors: String[];
   sucesso: boolean = false;
   static atualizando = new EventEmitter<boolean>();
   at:boolean = true;
@@ -26,7 +24,6 @@ export class CadastroUsuarioComponent implements OnInit {
 
     ngOnInit(): void {
       this.tipoUsuarios = this.tipoUsuarioService.getTipoUsuarios();
-
     }
     verificaValidTouched(campo:any){
       return !this.formulario.get(campo).valid && this.formulario.get(campo).touched;
@@ -50,7 +47,7 @@ export class CadastroUsuarioComponent implements OnInit {
           if(this.senhaNovamente === this.formulario.get('senha').value){
             this.usuariosService.update(this.formulario.value)
             .subscribe(
-              sucess => {
+              () => {
                 this.sucesso = true,
                 this.formulario.reset(),
                 this.senhaNovamente=null;
@@ -67,7 +64,7 @@ export class CadastroUsuarioComponent implements OnInit {
             if(this.senhaNovamente === this.formulario.get('senha').value){
               this.usuariosService.create(this.formulario.value)
               .subscribe(
-                sucess => {
+                () => {
                   this.sucesso = true,
                   this.formulario.reset(),
                   this.senhaNovamente=null;

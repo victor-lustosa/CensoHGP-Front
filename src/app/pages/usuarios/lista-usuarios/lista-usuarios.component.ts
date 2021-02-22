@@ -13,15 +13,12 @@ import { CadastroUsuarioComponent } from '../cadastro-usuario/cadastro-usuario.c
 export class ListaUsuariosComponent implements OnInit {
   formularioCadastro:FormGroup =null;
   formularioAtualizar:FormGroup =null;
-  idFator:number = 0;
-  status: boolean;
+    pesquisaForm: FormGroup = null;
   lista: Usuario[]=[];
-  msgError: string;
   sucesso: boolean = false;
   searchText: string;
   pageSize = 10;
   page = 1;
-  pesquisaForm: FormGroup = null;
   varConfirm: string;
   statusPesquisa: boolean = false;
   mensagem: string;
@@ -30,10 +27,9 @@ export class ListaUsuariosComponent implements OnInit {
   constructor(private usuariosService: UsuarioService,  public modalService: NgbModal, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-    this.msgError= null;
     this.loadListaUsuarios();
     CadastroUsuarioComponent.atualizando.subscribe(
-      success => {
+      () => {
           this.loadListaUsuarios();
         })
     this.formularioCadastro = this.formBuilder.group({
@@ -58,7 +54,6 @@ export class ListaUsuariosComponent implements OnInit {
       pesquisar: new FormControl(null, Validators.required)
     });
   }
-
   public pesquisa(): void {
     this.statusPesquisa = true;
     this.loadListaUsuarios();
@@ -73,12 +68,12 @@ export class ListaUsuariosComponent implements OnInit {
     if (this.usuarioAux.ativo === true) {
       this.usuarioAux.ativo = false;
       this.usuariosService.disable(this.usuarioAux).subscribe(
-        sucess => this.loadListaUsuarios()
+        () => this.loadListaUsuarios()
       );
     } else {
       this.usuarioAux.ativo = true;
       this.usuariosService.disable(this.usuarioAux).subscribe(
-        sucess => this.loadListaUsuarios()
+        () => this.loadListaUsuarios()
       );
     }
   }
@@ -91,7 +86,6 @@ export class ListaUsuariosComponent implements OnInit {
     const modalRef = this.modalService.open(CadastroUsuarioComponent, this.MODALOPTIONS);
     if(this.formularioAtualizar != null){
       modalRef.componentInstance.formulario = this.formularioAtualizar;
-
     }
   }
   editar(id:number){
@@ -117,7 +111,6 @@ export class ListaUsuariosComponent implements OnInit {
   }
   pegaId(id: number) {
     this.usuariosService.getById(id).subscribe((usuariosDis) => {
-      console.log('usuariodis', usuariosDis);
       if (usuariosDis.ativo === true) {
         this.varConfirm = 'desativar';
       } else {
@@ -132,13 +125,11 @@ export class ListaUsuariosComponent implements OnInit {
       .subscribe(
         data => {
           this.lista = data;
-
         });
       } else {
         if (this.pesquisaForm.valid) {
           this.usuariosService.getByNome(this.pesquisaForm.get('pesquisar').value).subscribe(
             data => {
-
               this.lista = data;
               if (this.lista.length <= 0) {
                 this.mensagem = "Nenhum registro foi encontrado.";

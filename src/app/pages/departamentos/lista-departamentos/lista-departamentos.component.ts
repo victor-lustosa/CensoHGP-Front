@@ -4,7 +4,6 @@ import { DepartamentoService } from './../service'
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { CadastroDepartamentoComponent } from '../cadastro-departamento/cadastro-departamento.component';
-import { EMPTY } from 'rxjs';
 import { DescricaoDepartamentoComponent } from '../descricao-departamento/descricao-departamento.component';
 
 @Component({
@@ -15,31 +14,27 @@ import { DescricaoDepartamentoComponent } from '../descricao-departamento/descri
 export class ListaDepartamentosComponent implements OnInit {
   formularioCadastro: FormGroup = null;
   formularioAtualizar: FormGroup = null;
+  pesquisaForm: FormGroup = null;
   lista: Departamento[] = [];
-  msgError: string;
+  statusPesquisa: boolean = false;
   pageSize: number = 10;
   page: number = 1;
-  departamentoAux: Departamento;
   ativo: number = 1;
   tipoDepartamento: number = 1;
+  departamentoAux: Departamento;
   varConfirm: string;
-  pesquisaForm: FormGroup = null;
   listaAtivo: any[];
   listaTipoDepartamento: any[];
-  statusPesquisa: boolean = false;
+
   mensagem: string;
   MODALOPTIONS: NgbModalOptions = { keyboard: true, size: 'lg', backdrop: 'static' };
   constructor(private departamentosService: DepartamentoService,
     public modalService: NgbModal, private formBuilder: FormBuilder) { }
 
     ngOnInit(): void {
-      this.msgError = null;
       this.loadListaDepartamentos();
-
       this.listaAtivo = this.departamentosService.getStatusDepartamentos();
       this.listaTipoDepartamento = this.departamentosService.getFiltroTipoDepartamentos();
-
-
       CadastroDepartamentoComponent.atualizando.subscribe(
         () => {
           this.loadListaDepartamentos();
@@ -122,24 +117,17 @@ export class ListaDepartamentosComponent implements OnInit {
         descricao: departamentos.descricao
       })
     }
-
     filtroStatus(value: any) {
       this.ativo = value;
-      console.log('entrei' + this.ativo);
-      this.loadListaDepartamentos('', this.ativo, this.tipoDepartamento);
+      this.loadListaDepartamentos();
     }
     filtroTipoDepartamento(value: any) {
       this.tipoDepartamento = value;
-      console.log('grossona igual uma garrafa pet' + this.tipoDepartamento);
       this.loadListaDepartamentos();
     }
-    loadListaDepartamentos(value?: string, status?: number,   tipoDepartamento?: number) {
-      console.log('ta aqui' + this.ativo);
-      console.log('francisco' + this.tipoDepartamento);
+    loadListaDepartamentos(value?: string) {
       if (this.statusPesquisa === false) {
-        console.log('ta aqui tbm' + this.ativo);
         if (this.ativo == 2 && this.tipoDepartamento ==2 ) {
-
           this.departamentosService.getAllAtivosInternos().subscribe(
             data => {
               this.lista = data;
@@ -181,7 +169,6 @@ export class ListaDepartamentosComponent implements OnInit {
             )
           }
           else if(this.ativo == 2 ){
-            console.log('Corno' + this.ativo);
             this.departamentosService.getAllAtivos().subscribe(
               data => {
                 this.lista = data;
@@ -202,22 +189,17 @@ export class ListaDepartamentosComponent implements OnInit {
               }
             )
           }
-
           else{
-
-
             this.departamentosService.getAll()
             .subscribe(
               data => {
                 this.lista = data;
               });
             }
-
           } else {
             if (this.pesquisaForm.valid) {
               this.departamentosService.getByNome(value).subscribe(
                 data => {
-
                   this.lista = data;
                   if (this.lista.length <= 0) {
                     this.mensagem = "Nenhum registro foi encontrado.";
@@ -242,7 +224,6 @@ export class ListaDepartamentosComponent implements OnInit {
             }
             pegaId(id: number) {
               this.departamentosService.getById(id).subscribe((departamentosDis) => {
-                console.log('departamentodis', departamentosDis);
                 if (departamentosDis.ativo === true) {
                   this.varConfirm = 'desativar';
                 } else {

@@ -14,17 +14,17 @@ import { DescricaoProcedimentoComponent } from '../descricao-procedimento/descri
 export class ListaProcedimentosComponent implements OnInit {
   formularioCadastro: FormGroup = null;
   formularioAtualizar: FormGroup = null;
-  status: boolean;
+  pesquisaForm: FormGroup = null;
   lista: Procedimento[] = [];
   sucesso: boolean = false;
+  statusPesquisa: boolean = false;
+  statusSpinner: boolean = false;
   pageSize = 10;
   page = 1;
   varConfirm: string;
   procedimentoAux: Procedimento;
-  pesquisaForm: FormGroup = null;
-  statusPesquisa: boolean = false;
   mensagem: string;
-  statusSpinner: boolean = false;
+
   MODALOPTIONS: NgbModalOptions = { keyboard: true, size: 'lg', backdrop: 'static' };
   constructor(private procedimentosService: ProcedimentoService, public modalService: NgbModal, private formBuilder: FormBuilder, location: Location) {
   }
@@ -113,12 +113,12 @@ export class ListaProcedimentosComponent implements OnInit {
       if (this.procedimentoAux.ativo === true) {
         this.procedimentoAux.ativo = false;
         this.procedimentosService.disable(this.procedimentoAux).subscribe(
-          sucess => this.loadListaProcedimentos()
+          () => this.loadListaProcedimentos()
         );
       } else {
         this.procedimentoAux.ativo = true;
         this.procedimentosService.disable(this.procedimentoAux).subscribe(
-          sucess => this.loadListaProcedimentos()
+          () => this.loadListaProcedimentos()
         );
       }
     }
