@@ -20,8 +20,10 @@ export class CadastroPacienteComponent implements OnInit {
   listaDepartamento:Departamento[]=[];
   static atualizando = new EventEmitter<boolean>();
   at:boolean = true;
+
   mensagemErro: string = '';
   constructor( private activeModal: NgbActiveModal,
+
     private pacientesService: PacienteService,private departamentoService:DepartamentoService) { }
 
     ngOnInit(): void {

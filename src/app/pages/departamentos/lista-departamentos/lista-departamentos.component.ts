@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { CadastroDepartamentoComponent } from '../cadastro-departamento/cadastro-departamento.component';
 import { EMPTY } from 'rxjs';
+import { DescricaoDepartamentoComponent } from '../descricao-departamento/descricao-departamento.component';
 
 @Component({
   selector: 'app-lista-departamentos',
@@ -96,10 +97,10 @@ export class ListaDepartamentosComponent implements OnInit {
         }
       }
       descricao(id: number) {
-        this.departamentosService.getById(id).subscribe((fatores) => {
-          const modalRef = this.modalService.open(CadastroDepartamentoComponent, this.MODALOPTIONS);
-          modalRef.componentInstance.tituloModal = "Descrição do departamento";
-          modalRef.componentInstance.fatorRisco = fatores;
+        this.departamentosService.getById(id).subscribe((departamento) => {
+          const modalRef = this.modalService.open(DescricaoDepartamentoComponent, this.MODALOPTIONS);
+          modalRef.componentInstance.tituloModal = 'Descrição do departamento';
+          modalRef.componentInstance.departamento = departamento;
         }
       )
     }

@@ -6,8 +6,9 @@ import { ListaDepartamentosComponent } from './lista-departamentos.component';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { CadastroDepartamentoComponent } from '../cadastro-departamento/cadastro-departamento.component';
 import {} from '@ng-bootstrap/ng-bootstrap';
+import { DescricaoDepartamentoComponent } from '../descricao-departamento/descricao-departamento.component';
 @NgModule({
-  declarations: [ListaDepartamentosComponent, CadastroDepartamentoComponent],
+  declarations: [ListaDepartamentosComponent, CadastroDepartamentoComponent, DescricaoDepartamentoComponent],
   imports: [
     CommonModule,
     NgbPaginationModule,
