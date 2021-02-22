@@ -3,13 +3,15 @@
     <h5  class="modal-title">Cadastro de Usuários </h5>
   </div>
   <div class="modal-body">
-
     <div class="col-md-13">
       <app-alert type="primary" *ngIf="sucesso == true">salvo com sucesso</app-alert>
     </div>
+    <div class="col-md-13">
+      <app-alert type="danger" *ngIf="mensagemErro!==''">{{mensagemErro}}</app-alert>
+    </div>
     <form  [formGroup]="formulario">
       <label for="nome">Nome:</label>
-      <input  id="nome" formControlName="nome" class="form-control" aria-describedby="nomeHelp"
+      <input  id="nome" formControlName="nome" class="form-control" aria-describedby="nomeHelp" maxLength="50"
       placeholder="Digite o nome do usuário" [ngClass]="aplicaCssErro('nome')">
       <div *ngIf="verificaValidTouched('nome')">
         <span class="font-red">Nome é obrigatório</span>
@@ -52,7 +54,7 @@
   </div>
   <div class="modal-footer">
     <div style="margin-left: 200px;">
-      <button type="submit" class="btn btn-primary" style="margin-left:-16%; font-size: 16px;"(click)="saveUsuarios()"><i
+      <button type="submit" class="btn btn-primary" style="margin-left:-16%; font-size: 16px;"(click)="valid()"><i
         class="feather icon-save"></i> Salvar</button>
       </div>
     </div>

@@ -46,9 +46,9 @@ export class ListaDepartamentosComponent implements OnInit {
         this.formularioCadastro = this.formBuilder.group({
           idDepartamento: [null],
           nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
-          numero_leitos: [null, [Validators.required]],
+          numero_leitos: [null, [Validators.required,Validators.nullValidator]],
           ativo: [true],
-          interno: [true],
+          interno: [true, [Validators.required]],
           descricao: [null]
         })
 
@@ -57,7 +57,7 @@ export class ListaDepartamentosComponent implements OnInit {
           nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
           numero_leitos: [null, [Validators.required]],
           ativo: [true],
-          interno: [true],
+          interno: [true, [Validators.required]],
           descricao: [null],
         })
         this.pesquisaForm = new FormGroup({

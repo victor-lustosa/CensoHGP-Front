@@ -19,6 +19,7 @@ export class CadastroUsuarioComponent implements OnInit {
   at:boolean = true;
   senhaNovamente:string=null;
   validaSenha:boolean=false;
+  mensagemErro: string = '';
   constructor(
     public activeModal: NgbActiveModal, public modalService: NgbModal,
     private usuariosService: UsuarioService,private tipoUsuarioService: TipoUsuarioService) { }
@@ -34,6 +35,14 @@ export class CadastroUsuarioComponent implements OnInit {
       return {
         'border-red': this.verificaValidTouched(campo)
       };
+    }
+    valid(){
+      if(this.formulario.valid){
+        this.mensagemErro=''
+        this.saveUsuarios()}
+        else{
+        this.mensagemErro = "Por favor, preencha os campos obrigatórios";
+      }
     }
     saveUsuarios() {
       if (this.formulario.valid) {

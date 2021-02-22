@@ -16,6 +16,7 @@ export class CadastroPrecaucaoComponent implements OnInit {
   sucesso: boolean = false;
   static atualizando = new EventEmitter<boolean>();
   at:boolean = true;
+  mensagemErro: string= '';
   constructor(
     public activeModal: NgbActiveModal, public modalService: NgbModal, private precaucoesService: PrecaucaoService) { }
 
@@ -27,6 +28,14 @@ export class CadastroPrecaucaoComponent implements OnInit {
       return {
         'border-red': this.verificaValidTouched(campo)
       };
+    }
+    valid(){
+      if(this.formulario.valid){
+        this.mensagemErro=''
+        this.savePrecaucoes()}
+        else{
+        this.mensagemErro = "Por favor, preencha os campos obrigatórios";
+      }
     }
     savePrecaucoes() {
       if (this.formulario.valid) {

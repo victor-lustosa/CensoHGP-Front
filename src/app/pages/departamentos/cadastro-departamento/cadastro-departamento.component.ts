@@ -18,7 +18,7 @@ export class CadastroDepartamentoComponent implements OnInit {
   tituloModal: string;
   static atualizando = new EventEmitter<boolean>();
   at:boolean = true;
-
+  mensagemErro:string='';
   constructor(
     public activeModal: NgbActiveModal,private departamentosService: DepartamentoService) { }
 
@@ -29,10 +29,18 @@ export class CadastroDepartamentoComponent implements OnInit {
     public verificaValidTouched(campo: any) {
       return !this.formulario.get(campo).valid && this.formulario.get(campo).touched;
     }
-    public aplicaCssErro(campo: any) {
+    public aplicaCssErro(campo?: any) {
       return {
         'border-red': this.verificaValidTouched(campo)
       };
+    }
+    valid(){
+      if(this.formulario.valid){
+        this.mensagemErro=''
+        this.saveDepartamentos()}
+        else{
+        this.mensagemErro = "Por favor, preencha os campos obrigatórios";
+      }
     }
     saveDepartamentos() {
       this.erroBack = '';

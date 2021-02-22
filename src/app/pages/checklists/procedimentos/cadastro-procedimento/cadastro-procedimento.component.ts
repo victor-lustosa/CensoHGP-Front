@@ -17,6 +17,7 @@ export class CadastroProcedimentoComponent implements OnInit {
   tituloModal: string;
   static atualizando = new EventEmitter<boolean>();
    at:boolean = true;
+  mensagemErro: string = '';
   constructor(
     public activeModal: NgbActiveModal, private procedimentosService: ProcedimentoService) { }
 
@@ -28,6 +29,14 @@ export class CadastroProcedimentoComponent implements OnInit {
       return {
         'border-red': this.verificaValidTouched(campo)
       };
+    }
+    valid(){
+      if(this.formulario.valid){
+        this.mensagemErro=''
+        this.saveProcedimentos()}
+        else{
+        this.mensagemErro = "Por favor, preencha os campos obrigatórios";
+      }
     }
     saveProcedimentos() {
       if (this.formulario.valid) {

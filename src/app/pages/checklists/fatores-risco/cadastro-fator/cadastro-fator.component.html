@@ -4,13 +4,17 @@
     <h5  class="modal-title">{{tituloModal}}</h5>
     <button type="button" class="close basic-close" data-dismiss="modal" aria-label="Close" (click)="activeModal.close()"><span aria-hidden="true">&times;</span></button>
   </div>
+
   <div class="modal-body">
     <div class="col-md-13">
       <app-alert type="primary" *ngIf="sucesso == true">salvo com sucesso</app-alert>
     </div>
+    <div class="col-md-13">
+      <app-alert type="danger" *ngIf="mensagemErro!==''">{{mensagemErro}}</app-alert>
+    </div>
     <form  [formGroup]="formulario" >
       <label for="nome">Nome:</label>
-      <input  id="nome" formControlName="nome" class="form-control" aria-describedby="nomeHelp"
+      <input  id="nome" formControlName="nome" class="form-control" aria-describedby="nomeHelp" maxLength="50"
       placeholder="Digite o nome do fator de risco" [ngClass]="aplicaCssErro('nome')">
       <div *ngIf="verificaValidTouched('nome')">
         <span class="font-red">Nome é obrigatório</span>
@@ -22,7 +26,7 @@
   </div>
   <div class="modal-footer">
     <div style="margin-left: 200px;">
-      <button type="submit" class="btn btn-primary" style="margin-left:-16%; font-size: 16px;"(click)="saveFatores()"><i
+      <button type="submit" class="btn btn-primary" style="margin-left:-16%; font-size: 16px;"(click)="valid()"><i
         class="bi bi-bookmark-dash"></i> Salvar</button>
       </div>
     </div>
