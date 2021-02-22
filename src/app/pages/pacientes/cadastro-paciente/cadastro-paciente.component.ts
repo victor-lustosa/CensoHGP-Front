@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, EventEmitter } from '@angular/core';
-import { FormArray, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormValidations } from 'src/app/theme/shared/form-validations';
 import { Departamento } from '../../departamentos/model/departamento';
 import { DepartamentoService } from '../../departamentos/service';
 import { PacienteService } from '../service/paciente.service';
@@ -12,26 +13,30 @@ import { PacienteService } from '../service/paciente.service';
 })
 export class CadastroPacienteComponent implements OnInit {
   @Input() public formulario: FormGroup;
-  @Input() public listaChecklist:any[];
+  @Input() public listaPrecaucoes = [];
   listaSexos:any[]=[];
   listaDepartamento:Departamento[]=[];
   sucesso: boolean = false;
   at:boolean = true;
   static atualizando = new EventEmitter<boolean>();
   mensagemErro: string = '';
-  constructor( public activeModal: NgbActiveModal, private pacientesService: PacienteService,private departamentoService:DepartamentoService) { }
+  constructor( public activeModal: NgbActiveModal,private pacientesService: PacienteService,private departamentoService:DepartamentoService) { }
 
   ngOnInit(): void {
     this.loadListaDepartamento();
     this.getPrecaucoes();
     this.listaSexos = this.pacientesService.getSexos();
+
+  }
+  submit() {
     let valueSubmit = Object.assign({}, this.formulario.value);
     valueSubmit = Object.assign(valueSubmit, {
-      listaChecklist: valueSubmit.frameworks
-      .map((v: any, i: string | number) => v ? this.listaChecklist[i] : null)
+      listaPrecaucoes: valueSubmit.listaPrecaucoes.map((v: any, i: string | number) => v ? this.listaPrecaucoes[i] : null)
       .filter((v: any) => v !== null)
     });
+
   }
+
   getPrecaucoes(){
     return this.formulario.get('precaucao') ? (<FormArray>this.formulario.get('precaucao')).controls : null;
   }
@@ -40,7 +45,7 @@ export class CadastroPacienteComponent implements OnInit {
     .subscribe(
       data => {
         this.listaDepartamento = data;
-        console.log('erer',this.listaDepartamento)
+        // console.log('erer',this.listaDepartamento)
       })
     }
     public verificaValidTouched(campo: any) {

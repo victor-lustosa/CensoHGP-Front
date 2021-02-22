@@ -7,6 +7,7 @@ import { CadastroPacienteComponent } from '../cadastro-paciente/cadastro-pacient
 import { PrecaucaoService } from '../../precaucoes/service/precaucao.service';
 import { Precaucao } from '../../precaucoes/model/precaucao';
 import { FormValidations } from 'src/app/theme/shared/form-validations';
+import { EMPTY } from 'rxjs';
 
 @Component({
   selector: 'app-lista-pacientes',
@@ -24,7 +25,6 @@ export class ListaPacientesComponent implements OnInit {
   listaPrecaucoes: Precaucao[] = [];
   statusPesquisa: boolean = false;
   mensagem: string;
-  listaChecklist = ['Gotícula', 'Aerossois', 'Padrão', 'Contato'];
   MODALOPTIONS: NgbModalOptions = { keyboard: true, size: 'lg', backdrop: 'static' };
   constructor(private pacientesService: PacienteService,
     public modalService: NgbModal, private formBuilder: FormBuilder,
@@ -82,7 +82,7 @@ export class ListaPacientesComponent implements OnInit {
     ngOnInit(): void {
       this.lista;
       // this.loadListaPacientes();
-      this.loadListaPrecaucao();
+
       this.buildPrecaucoes();
       CadastroPacienteComponent.atualizando.subscribe(
         () => {
@@ -114,30 +114,32 @@ export class ListaPacientesComponent implements OnInit {
           pesquisar: new FormControl(null, Validators.required)
         });
       }
-      loadListaPrecaucao() {
-        this.precaucaoService.getAll().subscribe(
-          data => {
-            this.listaPrecaucoes = data;
-            console.log('lista: ', this.listaPrecaucoes)
-          })
-        }
-        buildPrecaucoes() {
-          const values = this.listaChecklist.map(() => new FormControl(false), FormValidations.requiredMinCheckbox(1));
-          console.log('values da lista: ', values)
-          return this.formBuilder.array(values);
-        }
+        buildPrecaucoes(){
+          this.precaucaoService.getAll().subscribe(
+            data => {
+              this.listaPrecaucoes = data;
+              console.log('lista: ', this.listaPrecaucoes)
+            })
+
+            // let values = this.listaPrecaucoes.map((precaucao:Precaucao) =>{
+            //   this.listaPrecaucoes. = precaucao.nome, new FormControl(false), FormValidations.requiredMinCheckbox(1) }
+            // )
+            // console.log('values da lista: ', values)
+            // return this.formBuilder.array(values)
+          }
+
         limpar() {
         }
         cadastrar() {
           const modalRef = this.modalService.open(CadastroPacienteComponent, this.MODALOPTIONS);
           modalRef.componentInstance.formulario = this.formularioCadastro;
-          modalRef.componentInstance.listaChecklist = this.listaChecklist;
+          modalRef.componentInstance.listaChecklist = this.listaPrecaucoes;
         }
         atualizar() {
           const modalRef = this.modalService.open(CadastroPacienteComponent, this.MODALOPTIONS);
           if (this.formularioAtualizar != null) {
             modalRef.componentInstance.formulario = this.formularioAtualizar;
-            modalRef.componentInstance.listaPrecaucoes = this.listaChecklist;
+            modalRef.componentInstance.listaPrecaucoes = this.listaPrecaucoes;
           }
         }
         editar(id: number) {

@@ -47,7 +47,7 @@
         formArrayName="precaucao"
         *ngFor="let item of getPrecaucoes(); let i = index" >
         <label class="checkbox-inline">
-          <input type="checkbox" [formControlName]="i" [ngClass]="aplicaCssErro('precaucao')"> {{ listaChecklist[i] }} </label>
+          <input type="checkbox" [formControlName]="i" [ngClass]="aplicaCssErro('precaucao')"> {{ listaPrecaucoes[i] }} </label>
         </div>
         <div *ngIf="verificaValidTouched('precaucao')">
           <span class="font-red">Precaução é obrigatória</span>
