@@ -20,7 +20,10 @@ export class CadastroPacienteComponent implements OnInit {
   listaDepartamento:Departamento[]=[];
   static atualizando = new EventEmitter<boolean>();
   at:boolean = true;
-  constructor( public activeModal: NgbActiveModal,
+
+  mensagemErro: string = '';
+  constructor( private activeModal: NgbActiveModal,
+
     private pacientesService: PacienteService,private departamentoService:DepartamentoService) { }
 
     ngOnInit(): void {
@@ -54,6 +57,14 @@ export class CadastroPacienteComponent implements OnInit {
         return {
           'border-red': this.verificaValidTouched(campo)
         };
+      }
+      valid(){
+        if(this.formulario.valid){
+          this.mensagemErro=''
+          this.savePacientes()}
+          else{
+          this.mensagemErro = "Por favor, preencha os campos obrigatórios";
+        }
       }
       savePacientes() {
         if (this.formulario.valid) {

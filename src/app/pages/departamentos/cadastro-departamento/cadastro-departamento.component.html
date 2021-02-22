@@ -3,16 +3,19 @@
     <h5 class="modal-title">{{ tituloModal }}</h5>
     <button type="button" class="close basic-close" data-dismiss="modal" aria-label="Close" (click)="activeModal.close()"><span aria-hidden="true">&times;</span></button>
   </div>
-  <div class="col-md-12">
-    <app-alert type="primary" *ngIf="sucesso == true">salvo com sucesso</app-alert>
-  </div>
-  <div class="col-md-12">
-    <app-alert type="danger" *ngIf="erroBack!==''">{{erroBack}}</app-alert>
-  </div>
   <div class="modal-body">
+    <div class="col-md-13">
+      <app-alert type="primary" *ngIf="sucesso == true">salvo com sucesso</app-alert>
+    </div>
+    <div class="col-md-13">
+      <app-alert type="danger" *ngIf="erroBack!==''">{{erroBack}}</app-alert>
+    </div>
+    <div class="col-md-13">
+      <app-alert type="danger" *ngIf="mensagemErro!==''">{{mensagemErro}}</app-alert>
+    </div>
     <form  [formGroup]="formulario" >
       <label for="nome">Nome:</label>
-      <input  id="nome" formControlName="nome" class="form-control" aria-describedby="nomeHelp"
+      <input  id="nome" formControlName="nome" class="form-control" aria-describedby="nomeHelp" maxLength="50"
       placeholder="Digite o nome do procedimento" [ngClass]="aplicaCssErro('nome')">
       <div *ngIf="verificaValidTouched('nome')">
         <span class="font-red">Nome é obrigatório</span>
@@ -21,7 +24,7 @@
       <label for="numero_leitos">Número de leitos:</label>
       <input type="number" id="numero_leitos" formControlName="numero_leitos" class="form-control" aria-describedby="numeroLeitosHelp"
       placeholder="Informe o numero de leitos" [ngClass]="aplicaCssErro('numero_leitos')">
-      <div *ngIf="verificaValidTouched('numero_leitos')">
+      <div *ngIf="verificaValidTouched('numero_leitos') ">
         <span class="font-red">Número de leitos é obrigatório</span>
       </div>
       <br>
@@ -39,7 +42,8 @@
   </div>
   <div class="modal-footer">
     <div style="margin-left: 200px;">
-      <button type="submit" class="btn btn-primary" style="margin-left:-16%; font-size: 16px;"(click)="saveDepartamentos()"><i
+      <button type="submit" class="btn btn-primary" style="margin-left:-16%; font-size: 16px;"
+      (click)="valid()"><i
         class="feather icon-save"></i> Salvar</button>
       </div>
     </div>
