@@ -41,7 +41,7 @@ export class CadastroIncidenteComponent implements OnInit {
         if (this.formulario.get('idIncidente').value != null) {
           this.incidentesService.update(this.formulario.value)
           .subscribe(
-            sucess => {
+            () => {
               this.formulario,
               this.sucesso = true,
               this.formulario.reset(),
@@ -53,7 +53,7 @@ export class CadastroIncidenteComponent implements OnInit {
           }else{
             this.incidentesService.create(this.formulario.value)
             .subscribe(
-              sucess => {
+              () => {
                 this.formulario,
                 this.sucesso = true,
                 this.formulario.reset(),

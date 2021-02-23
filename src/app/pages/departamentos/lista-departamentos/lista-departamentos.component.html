@@ -8,7 +8,7 @@
           <button style="float:right" type="reset" class="btn btn-outline-warning" (click)="limpar()"><i class="feather icon-delete"></i> Limpar</button>
           <form [formGroup]="pesquisaForm" >
             <div class="input-group col-md-3" style="float:right">
-              <input type="text"  class="form-control" name="pesquisar" (ngModelChange)="refresh()"  formControlName="pesquisar"  placeholder="pesquisar">
+              <input type="text"  class="form-control" name="pesquisar" (ngModelChange)="refresh()"  formControlName="pesquisar"  placeholder="Pesquisar">
               <!-- <div class="input-group-append">
                 <button  type="submit" (click)="pesquisa()" class="btn btn-icon btn-outline-primary"><i class="feather icon-search"></i></button>
               </div> -->
@@ -63,7 +63,7 @@
                   <div ngbDropdown  container="body" >
                     <button placement="left" class="btn btn-info buttonDrop" ngbDropdownToggle type="button" id="opcoes"><i class="feather icon-plus-circle"></i> ações</button>
                     <div ngbDropdownMenu  >
-                      <button  class="dropdown-item button" (click)="editar(departamento.idDepartamento)"><i class="feather icon-edit"></i> Editar</button>
+                      <button  *ngIf="departamento.ativo=== true" class="dropdown-item button" (click)="editar(departamento.idDepartamento)"><i class="feather icon-edit"></i> Editar</button>
                       <button class="dropdown-item button"  (click)="pegaId(departamento.idDepartamento);confirmaModal.show()"><i class="feather icon-{{departamento.ativo ? 'minus-circle' : 'power'}}"></i> {{departamento.ativo ? 'Desativar' : 'Ativar'}}</button>
                       <button class="dropdown-item button"  (click)="descricao(departamento.idDepartamento)"><i class="feather icon-eye"></i> Visualizar</button>
                     </div>

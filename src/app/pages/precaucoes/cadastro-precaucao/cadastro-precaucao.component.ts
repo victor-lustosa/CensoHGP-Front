@@ -11,7 +11,6 @@ export class CadastroPrecaucaoComponent implements OnInit {
 
   @Input() public formulario: FormGroup;
   @Input() tituloModal: string;
-
   errors: String[];
   sucesso: boolean = false;
   static atualizando = new EventEmitter<boolean>();
@@ -42,7 +41,7 @@ export class CadastroPrecaucaoComponent implements OnInit {
         if (this.formulario.get('idPrecaucao').value != null) {
           this.precaucoesService.update(this.formulario.value)
           .subscribe(
-            sucess => {
+            () => {
               this.sucesso = true,
               this.formulario.reset(),
               CadastroPrecaucaoComponent.atualizando.emit(this.at),
@@ -56,7 +55,7 @@ export class CadastroPrecaucaoComponent implements OnInit {
             }
             this.precaucoesService.create(this.formulario.value)
             .subscribe(
-              sucess => {
+              () => {
                 this.sucesso = true,
                 this.formulario.reset(),
                 CadastroPrecaucaoComponent.atualizando.emit(this.at),

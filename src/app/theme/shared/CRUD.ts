@@ -9,35 +9,29 @@ import { throwError } from 'rxjs';
 export class CRUD<T> implements CrudInterface<T>{
   constructor(protected http: HttpClient, @Inject(String) private API_URL: string) { }
   getAll(): Observable<T[]> {
-    console.log('get all do crud: ' + `${this.API_URL}s`)
     return this.http.get<T[]>(`${this.API_URL}s`).pipe(retry(1), catchError(this.handleError));
   }
 
   getByNome(string: any): Observable<T[]> {
-    console.log('get by nome do crud: ' + `${this.API_URL}/nome/${string}`)
     return this.http.get<T[]>(`${this.API_URL}/nome/${string}`).pipe(retry(1), catchError(this.handleError));
   }
 
   getById(id: number): Observable<T> {
-    console.log('get by id do crud: ' + `${this.API_URL}/${id}`)
     return this.http.get<T>(`${this.API_URL}/${id}`).pipe(retry(1), catchError(this.handleError));
   }
 
   create(object: T): Observable<T> {
-    console.log('create do crud' + `${this.API_URL}`)
     return this.http.post<T>(`${this.API_URL}`, object).pipe(retry(1), catchError(this.handleError));
   }
 
   update(object: T): Observable<T> {
-    console.log('update do crud' + `${this.API_URL}`)
     return this.http.put<T>(`${this.API_URL}`, object).pipe(retry(1), catchError(this.handleError));
   }
 
   disable(object: T): Observable<any> {
-    console.log('delete do crud: ' + `${this.API_URL}/mudar-status`)
     return this.http.put<T>(`${this.API_URL}/mudar-status`, object).pipe(retry(1), catchError(this.handleError));
   }
-  // Manipulação de erros
+
   handleError(error: HttpErrorResponse) {
       return throwError(error.error.message);
   }
