@@ -16,16 +16,7 @@ import { EMPTY } from 'rxjs';
 })
 export class ListaPacientesComponent implements OnInit {
 
-  formularioCadastro: FormGroup = null;
-  formularioAtualizar: FormGroup = null;
-  pageSize: number = 10;
-  page: number = 1;
-  pesquisaForm: FormGroup = null;
-  // lista: Paciente[] = [];
-  listaPrecaucoes: Precaucao[] = [];
-  statusPesquisa: boolean = false;
-  mensagem: string;
-  MODALOPTIONS: NgbModalOptions = { keyboard: true, size: 'lg', backdrop: 'static' };
+
   constructor(private pacientesService: PacienteService,
     public modalService: NgbModal, private formBuilder: FormBuilder,
     private precaucaoService: PrecaucaoService) { }
@@ -79,6 +70,16 @@ export class ListaPacientesComponent implements OnInit {
       {  prontuario: '3493824', nome: 'Lara', nomeMae: 'Maria',cpf: '1047242205', rg: '635497', dataNascimento: '01-02-1992' , sexo: true,  },
       {  prontuario: '3493824', nome: 'Victor', nomeMae: 'Maria',cpf: '11102535041', rg: '1045548', dataNascimento: '06-06-1972', sexo: true,   }
     ];
+    formularioCadastro: FormGroup = null;
+    formularioAtualizar: FormGroup = null;
+    pageSize: number = 10;
+    page: number = 1;
+    pesquisaForm: FormGroup = null;
+    // lista: Paciente[] = [];
+    listaPrecaucoes: Precaucao[] = [];
+    statusPesquisa: boolean = false;
+    mensagem: string;
+    MODALOPTIONS: NgbModalOptions = { keyboard: true, size: 'lg', backdrop: 'static' };
     ngOnInit(): void {
       this.lista;
       // this.loadListaPacientes();
