@@ -115,6 +115,13 @@ export class ListaUsuariosComponent implements OnInit {
       admin:usuarios.admin
     })
   }
+
+  refresh() {
+    if (this.pesquisaForm.get('pesquisar').value === '') {
+      this.mensagem = null;
+       this.loadListaUsuarios();
+    }
+  }
   pegaId(id: number) {
     this.usuariosService.getById(id).subscribe((usuariosDis) => {
       console.log('usuariodis', usuariosDis);

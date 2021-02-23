@@ -69,13 +69,9 @@ export class ListaDepartamentosComponent implements OnInit {
         if (this.pesquisaForm.get('pesquisar').value === '') {
           this.mensagem = null;
           this.loadListaDepartamentos();
-        } else {
-          this.pesquisa(this.pesquisaForm.get('pesquisar').value)
-        }
+
       }
-      public pesquisa(value?: string): void {
-        this.statusPesquisa = true;
-        this.loadListaDepartamentos(value);
+
       }
       limpar() {
         this.pesquisaForm.reset;
