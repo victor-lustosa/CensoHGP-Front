@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { FatorRiscoService } from '../service/fator-risco.service';
 import { Fator } from '../model/fator';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
@@ -6,18 +6,16 @@ import { CadastroFatorComponent } from '../cadastro-fator/cadastro-fator.compone
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { DescricaoFatorComponent } from '../descricao-fator/descricao-fator.component';
 
-
-
 @Component({
   selector: 'app-lista-fatores',
   templateUrl: './lista-fatores.component.html',
   styleUrls: ['./lista-fatores.component.scss']
 })
 export class ListaFatoresComponent implements OnInit {
+  static editar = new EventEmitter<boolean>();
   formularioCadastro: FormGroup = null;
   pesquisaForm: FormGroup = null;
   statusSpinner: boolean = false;
-  formularioAtualizar: FormGroup = null;
   status: boolean;
   lista: Fator[] = [];
   msgError: string;
@@ -39,18 +37,6 @@ export class ListaFatoresComponent implements OnInit {
         this.loadListaFatores()
       }
     );
-    this.formularioCadastro = this.formBuilder.group({
-      idFatorRisco: [null],
-      nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
-      descricao: [null],
-      ativo: [true]
-    })
-    this.formularioAtualizar = this.formBuilder.group({
-      idFatorRisco: [null],
-      nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
-      descricao: [null],
-      ativo: [true]
-    })
     this.pesquisaForm = new FormGroup({
       pesquisar: new FormControl(null, Validators.required)
     });
@@ -64,72 +50,55 @@ export class ListaFatoresComponent implements OnInit {
   cadastrar() {
     const modalRef = this.modalService.open(CadastroFatorComponent, this.MODALOPTIONS);
     modalRef.componentInstance.tituloModal = "Cadastrar fator de risco";
-    modalRef.componentInstance.formulario = this.formularioCadastro;
-    this.loadListaFatores();
   }
-  atualizar() {
-    const modalRef = this.modalService.open(CadastroFatorComponent, this.MODALOPTIONS);
-    if (this.formularioAtualizar != null) {
-      modalRef.componentInstance.tituloModal = "Editar fator de risco";
-      modalRef.componentInstance.formulario = this.formularioAtualizar;
-    }
-    this.loadListaFatores();
-  }
+
   descricao(id: number) {
     this.fatoresService.getById(id).subscribe((fatores) => {
       const modalRef = this.modalService.open(DescricaoFatorComponent, this.MODALOPTIONS);
       modalRef.componentInstance.tituloModal = "Descrição do fator de risco";
       modalRef.componentInstance.fatorRisco = fatores;
     }
-    )
+  )
+}
+editar(id: number) {
+  this.fatoresService.getById(id).subscribe((fatores) => {
+    const modalRef = this.modalService.open(CadastroFatorComponent, this.MODALOPTIONS);
+    modalRef.componentInstance.tituloModal = "Editar fator de risco";
+    modalRef.componentInstance.fatorRisco = fatores;
   }
-  editar(id: number) {
-    this.fatoresService.getById(id).subscribe((fatores) => {
-      this.updateForm(fatores);
-      if (this.formularioAtualizar != null) {
-        this.atualizar();
-      }
-    })
+)
+}
+refresh() {
+  if (this.pesquisaForm.get('pesquisar').value === '') {
+    this.mensagem = null;
+    this.loadListaFatores();
   }
-  refresh() {
-    if (this.pesquisaForm.get('pesquisar').value === '') {
-      this.mensagem = null;
-      this.loadListaFatores();
-    }
-  }
-  pegaId(id: number) {
-    this.fatoresService.getById(id).subscribe((fatoresDis) => {
-      if (fatoresDis.ativo === true) {
-        this.varConfirm = 'desativar';
-      } else {
-        this.varConfirm = 'ativar';
-      }
-      this.fatorAux = fatoresDis;
-    });
-  }
-  mudarStatus() {
-    if (this.fatorAux.ativo === true) {
-      this.fatorAux.ativo = false;
-      this.fatoresService.disable(this.fatorAux).subscribe(
-        () => this.loadListaFatores()
-      );
+}
+pegaId(id: number) {
+  this.fatoresService.getById(id).subscribe((fatoresDis) => {
+    if (fatoresDis.ativo === true) {
+      this.varConfirm = 'desativar';
     } else {
-      this.fatorAux.ativo = true;
-      this.fatoresService.disable(this.fatorAux).subscribe(
-        () => this.loadListaFatores());
+      this.varConfirm = 'ativar';
+    }
+    this.fatorAux = fatoresDis;
+  });
+}
+mudarStatus() {
+  if (this.fatorAux.ativo === true) {
+    this.fatorAux.ativo = false;
+    this.fatoresService.disable(this.fatorAux).subscribe(
+      () => this.loadListaFatores()
+    );
+  } else {
+    this.fatorAux.ativo = true;
+    this.fatoresService.disable(this.fatorAux).subscribe(
+      () => this.loadListaFatores());
     }
   }
   pesquisa() {
     this.statusPesquisa = true;
     this.loadListaFatores();
-  }
-  updateForm(fatores: Fator) {
-    this.formularioAtualizar.patchValue({
-      idFatorRisco: fatores.idFatorRisco,
-      nome: fatores.nome,
-      descricao: fatores.descricao,
-      ativo: fatores.ativo
-    })
   }
   loadListaFatores() {
     this.lista = [];
@@ -159,13 +128,13 @@ export class ListaFatoresComponent implements OnInit {
               this.statusPesquisa = false;
             });
 
-        }, 400)
-      } else {
-        setTimeout(() => {
-          this.statusSpinner = false;
-          this.mensagem = "Nenhum registro foi encontrado.";
-        }, 100)
+          }, 400)
+        } else {
+          setTimeout(() => {
+            this.statusSpinner = false;
+            this.mensagem = "Nenhum registro foi encontrado.";
+          }, 100)
+        }
       }
     }
   }
-}

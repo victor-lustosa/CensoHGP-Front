@@ -4,10 +4,7 @@ import { Paciente } from '../model/Paciente';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { PacienteService } from '../service/paciente.service';
 import { CadastroPacienteComponent } from '../cadastro-paciente/cadastro-paciente.component';
-import { PrecaucaoService } from '../../precaucoes/service/precaucao.service';
 import { Precaucao } from '../../precaucoes/model/precaucao';
-import { FormValidations } from 'src/app/theme/shared/form-validations';
-import { EMPTY } from 'rxjs';
 
 @Component({
   selector: 'app-lista-pacientes',
@@ -18,8 +15,7 @@ export class ListaPacientesComponent implements OnInit {
 
 
   constructor(private pacientesService: PacienteService,
-    public modalService: NgbModal, private formBuilder: FormBuilder,
-    private precaucaoService: PrecaucaoService) { }
+    public modalService: NgbModal, private formBuilder: FormBuilder) { }
     @Input('data')  lista = [
       { prontuario: '34938234343243333333333333333333333333333333242344', nome: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', nomeMae: 'kuyuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu', cpf: '23432435471', rg: '1321545', dataNascimento: '12-03-1996' , sexo: true, departamento:"EMADE"},
       { idPaciente:1,prontuario: '3493824', nome: 'sdddddddddddddddddddddsdsdsdsdsdsds', nomeMae: 'kkkkkkkkkkkkkkkkkkkkkkkkkkkk',cpf: '21354687356', rg: '326491', dataNascimento: '17-01-1997', sexo: true,departamento:"PEDIATRIA" },
@@ -76,7 +72,7 @@ export class ListaPacientesComponent implements OnInit {
     page: number = 1;
     pesquisaForm: FormGroup = null;
     // lista: Paciente[] = [];
-    listaPrecaucoes: Precaucao[] = [];
+
     statusPesquisa: boolean = false;
     mensagem: string;
     MODALOPTIONS: NgbModalOptions = { keyboard: true, size: 'lg', backdrop: 'static' };
@@ -84,63 +80,29 @@ export class ListaPacientesComponent implements OnInit {
       this.lista;
       // this.loadListaPacientes();
 
-      this.buildPrecaucoes();
       CadastroPacienteComponent.atualizando.subscribe(
         () => {
           // this.loadListaPacientes();
         })
-        this.formularioCadastro = this.formBuilder.group({
-          idPaciente: [null],
-          prontuario: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
-          nome: [null],
-          nomeMae: [null],
-          cpf: [null],
-          sexo: [null],
-          dataNascimento: [null],
-          precaucao: this.buildPrecaucoes(),
-          departamento: [null]
-        })
-        this.formularioAtualizar = this.formBuilder.group({
-          idPaciente: [null],
-          prontuario: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
-          nome: [null],
-          nomeMae: [null],
-          cpf: [null],
-          sexo: [null],
-          dataNascimento: [null],
-          precaucao: this.buildPrecaucoes(),
-          departamento: [null]
-        })
+
         this.pesquisaForm = new FormGroup({
           pesquisar: new FormControl(null, Validators.required)
         });
       }
-        buildPrecaucoes(){
-          this.precaucaoService.getAll().subscribe(
-            data => {
-              this.listaPrecaucoes = data;
-              console.log('lista: ', this.listaPrecaucoes)
-            })
 
-            // let values = this.listaPrecaucoes.map((precaucao:Precaucao) =>{
-            //   this.listaPrecaucoes. = precaucao.nome, new FormControl(false), FormValidations.requiredMinCheckbox(1) }
-            // )
-            // console.log('values da lista: ', values)
-            // return this.formBuilder.array(values)
-          }
 
         limpar() {
         }
         cadastrar() {
           const modalRef = this.modalService.open(CadastroPacienteComponent, this.MODALOPTIONS);
           modalRef.componentInstance.formulario = this.formularioCadastro;
-          modalRef.componentInstance.listaChecklist = this.listaPrecaucoes;
+          // modalRef.componentInstance.listaChecklist = this.listaPrecaucoes;
         }
         atualizar() {
           const modalRef = this.modalService.open(CadastroPacienteComponent, this.MODALOPTIONS);
           if (this.formularioAtualizar != null) {
             modalRef.componentInstance.formulario = this.formularioAtualizar;
-            modalRef.componentInstance.listaPrecaucoes = this.listaPrecaucoes;
+            // modalRef.componentInstance.listaPrecaucoes = this.listaPrecaucoes;
           }
         }
         editar(id: number) {

@@ -11,7 +11,7 @@
     <div class="col-md-13">
       <app-alert type="danger" *ngIf="mensagemErro!==''">{{mensagemErro}}</app-alert>
     </div>
-    <form  [formGroup]="formulario" >
+    <form  [formGroup]="formulario"  >
       <label for="prontuario">Número do Prontuário:</label>
       <input  id="prontuario" class="form-control" aria-describedby="prontuarioHelp" maxLength="50"
       formControlName="prontuario" placeholder="Digite o número do prontuário" [ngClass]="aplicaCssErro('prontuario')">
@@ -43,15 +43,9 @@
       <br>
       <label for="precaucao">Precauções:</label>
       <div id="precaucao" class="row">
-        <div class="checkbox" class="col-sm-4"
-        formArrayName="precaucao"
-        *ngFor="let item of getPrecaucoes(); let i = index" >
+        <div class="checkbox" class="col-sm-4" formArrayName="precaucao"  *ngFor="let precaucao of listaPrecaucoes; let i=index" >
         <label class="checkbox-inline">
-          <input type="checkbox" [formControlName]="i" [ngClass]="aplicaCssErro('precaucao')"> {{ listaPrecaucoes[i] }} </label>
-        </div>
-        <div *ngIf="verificaValidTouched('precaucao')">
-          <span class="font-red">Precaução é obrigatória</span>
-        </div>
+          <input type="checkbox" [value]="precaucao.idPrecaucao" (change)="onCheckChange($event)"/>  {{precaucao.nome}}  </label>  </div>
       </div>
       <br>
       <label for="nomeMae">Data de nascimento:</label>
