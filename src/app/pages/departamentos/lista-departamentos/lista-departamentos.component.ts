@@ -20,6 +20,7 @@ export class ListaDepartamentosComponent implements OnInit {
   pageSize: number = 10;
   page: number = 1;
   ativo: number = 1;
+  statusSpinner: boolean = false;
   tipoDepartamento: number = 1;
   departamentoAux: Departamento;
   varConfirm: string;
@@ -59,6 +60,11 @@ export class ListaDepartamentosComponent implements OnInit {
         this.pesquisaForm = new FormGroup({
           pesquisar: new FormControl(null, Validators.required)
         });
+      }
+
+      public pesquisa(): void {
+        this.statusPesquisa = true;
+        this.loadListaDepartamentos();
       }
       refresh() {
         if (this.pesquisaForm.get('pesquisar').value === '') {
@@ -122,8 +128,10 @@ export class ListaDepartamentosComponent implements OnInit {
       this.loadListaDepartamentos();
     }
     loadListaDepartamentos(value?: string) {
+      this.lista = [];
+      this.statusSpinner = true;
       if (this.statusPesquisa === false) {
-        if (this.ativo == 2 && this.tipoDepartamento ==2 ) {
+        if (this.ativo == 2 && this.tipoDepartamento == 2 ) {
           this.departamentosService.getAllAtivosInternos().subscribe(
             data => {
               this.lista = data;
@@ -150,7 +158,7 @@ export class ListaDepartamentosComponent implements OnInit {
               }
             )
           }
-          else if(this.tipoDepartamento == 2  ){
+          else if(this.tipoDepartamento == 2 ){
             this.departamentosService.getAllInternos().subscribe(
               data => {
                 this.lista = data;

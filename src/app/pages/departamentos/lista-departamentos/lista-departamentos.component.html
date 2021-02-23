@@ -9,9 +9,9 @@
           <form [formGroup]="pesquisaForm" >
             <div class="input-group col-md-3" style="float:right">
               <input type="text"  class="form-control" name="pesquisar" (ngModelChange)="refresh()"  formControlName="pesquisar"  placeholder="Pesquisar">
-              <!-- <div class="input-group-append">
+              <div class="input-group-append">
                 <button  type="submit" (click)="pesquisa()" class="btn btn-icon btn-outline-primary"><i class="feather icon-search"></i></button>
-              </div> -->
+              </div>
             </div>
           </form>
           <button  style="float:left;" type="button" class="btn btn-outline-primary"  (click)="cadastrar()" ><i class="feather icon-plus-square"></i> Cadastrar</button>

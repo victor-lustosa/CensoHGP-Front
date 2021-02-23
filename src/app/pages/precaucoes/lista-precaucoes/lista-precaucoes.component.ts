@@ -18,6 +18,7 @@ export class ListaPrecaucoesComponent implements OnInit {
   sucesso: boolean = false;
   pageSize = 10;
   page = 1;
+  statusSpinner: boolean = false;
   precaucaoAux: Precaucao;
   varConfirm: string;
   statusPesquisa: boolean = false;
@@ -100,18 +101,25 @@ export class ListaPrecaucoesComponent implements OnInit {
     })
   }
   loadListaPrecaucoes() {
+    this.lista = [];
+    this.statusSpinner = true;
     if (this.statusPesquisa === false) {
-      this.precaucoesService.getAll()
-      .subscribe(
-        data => {
-          this.lista = data;
+      setTimeout(() => {
+        this.precaucoesService.getAll().subscribe(
+          data => {
+            this.lista = data;
+            this.statusSpinner = false;
+          }
+        );
 
-        });
-      } else {
-        if (this.pesquisaForm.valid) {
+      }, 400)
+    } else {
+      if (this.pesquisaForm.valid) {
+        setTimeout(() => {
           this.precaucoesService.getByNome(this.pesquisaForm.get('pesquisar').value).subscribe(
             data => {
               this.lista = data;
+              this.statusSpinner = false;
               if (this.lista.length <= 0) {
                 this.mensagem = "Nenhum registro foi encontrado.";
               } else {
@@ -119,15 +127,15 @@ export class ListaPrecaucoesComponent implements OnInit {
               }
               this.statusPesquisa = false;
             });
-          } else {
-            this.precaucoesService.getByNome(this.pesquisaForm.get('')).subscribe(
-              data => {
-                this.lista = data;
-                this.mensagem = "Nenhum registro foi encontrado.";
-              }
-            )
-          }
-        }
+
+        }, 400)
+      } else {
+        setTimeout(() => {
+          this.statusSpinner = false;
+          this.mensagem = "Nenhum registro foi encontrado.";
+        }, 100)
+      }
+    }
       }
       pegaId(id: number) {
         this.precaucoesService.getById(id).subscribe((precaucaosDis) => {

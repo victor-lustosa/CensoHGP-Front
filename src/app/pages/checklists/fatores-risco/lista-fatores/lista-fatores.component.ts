@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FatorRiscoService } from '../service/fator-risco.service';
 import { Fator } from '../model/fator';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
@@ -16,7 +16,7 @@ import { DescricaoFatorComponent } from '../descricao-fator/descricao-fator.comp
 export class ListaFatoresComponent implements OnInit {
   formularioCadastro: FormGroup = null;
   pesquisaForm: FormGroup = null;
-
+  statusSpinner: boolean = false;
   formularioAtualizar: FormGroup = null;
   status: boolean;
   lista: Fator[] = [];
@@ -81,42 +81,42 @@ export class ListaFatoresComponent implements OnInit {
       modalRef.componentInstance.tituloModal = "Descrição do fator de risco";
       modalRef.componentInstance.fatorRisco = fatores;
     }
-  )
-}
-editar(id: number) {
-  this.fatoresService.getById(id).subscribe((fatores) => {
-    this.updateForm(fatores);
-    if (this.formularioAtualizar != null) {
-      this.atualizar();
-    }
-  })
-}
-refresh(){
-  if(this.pesquisaForm.get('pesquisar').value===''){
-    this.mensagem = null;
-    this.loadListaFatores();
+    )
   }
-}
-pegaId(id: number) {
-  this.fatoresService.getById(id).subscribe((fatoresDis) => {
-    if (fatoresDis.ativo === true) {
-      this.varConfirm = 'desativar';
-    } else {
-      this.varConfirm = 'ativar';
+  editar(id: number) {
+    this.fatoresService.getById(id).subscribe((fatores) => {
+      this.updateForm(fatores);
+      if (this.formularioAtualizar != null) {
+        this.atualizar();
+      }
+    })
+  }
+  refresh() {
+    if (this.pesquisaForm.get('pesquisar').value === '') {
+      this.mensagem = null;
+      this.loadListaFatores();
     }
-    this.fatorAux = fatoresDis;
-  });
-}
-mudarStatus() {
-  if (this.fatorAux.ativo === true) {
-    this.fatorAux.ativo = false;
-    this.fatoresService.disable(this.fatorAux).subscribe(
-      () => this.loadListaFatores()
-    );
-  } else {
-    this.fatorAux.ativo = true;
-    this.fatoresService.disable(this.fatorAux).subscribe(
-      () => this.loadListaFatores());
+  }
+  pegaId(id: number) {
+    this.fatoresService.getById(id).subscribe((fatoresDis) => {
+      if (fatoresDis.ativo === true) {
+        this.varConfirm = 'desativar';
+      } else {
+        this.varConfirm = 'ativar';
+      }
+      this.fatorAux = fatoresDis;
+    });
+  }
+  mudarStatus() {
+    if (this.fatorAux.ativo === true) {
+      this.fatorAux.ativo = false;
+      this.fatoresService.disable(this.fatorAux).subscribe(
+        () => this.loadListaFatores()
+      );
+    } else {
+      this.fatorAux.ativo = true;
+      this.fatoresService.disable(this.fatorAux).subscribe(
+        () => this.loadListaFatores());
     }
   }
   pesquisa() {
@@ -132,18 +132,25 @@ mudarStatus() {
     })
   }
   loadListaFatores() {
+    this.lista = [];
+    this.statusSpinner = true;
     if (this.statusPesquisa === false) {
-      this.fatoresService.getAll()
-      .subscribe(
-        data => {
-          this.lista = data;
-        });
-      } else {
-        if (this.pesquisaForm.valid) {
+      setTimeout(() => {
+        this.fatoresService.getAll().subscribe(
+          data => {
+            this.lista = data;
+            this.statusSpinner = false;
+          }
+        );
+
+      }, 400)
+    } else {
+      if (this.pesquisaForm.valid) {
+        setTimeout(() => {
           this.fatoresService.getByNome(this.pesquisaForm.get('pesquisar').value).subscribe(
             data => {
-
               this.lista = data;
+              this.statusSpinner = false;
               if (this.lista.length <= 0) {
                 this.mensagem = "Nenhum registro foi encontrado.";
               } else {
@@ -151,13 +158,14 @@ mudarStatus() {
               }
               this.statusPesquisa = false;
             });
-          } else{
-            this.fatoresService.getByNome(this.pesquisaForm.get('')).subscribe(
-              data =>  {
-                this.lista = data;
-                this.mensagem = "Nenhum registro foi encontrado.";
-              })
-            }
-          }
-        }
+
+        }, 400)
+      } else {
+        setTimeout(() => {
+          this.statusSpinner = false;
+          this.mensagem = "Nenhum registro foi encontrado.";
+        }, 100)
       }
+    }
+  }
+}

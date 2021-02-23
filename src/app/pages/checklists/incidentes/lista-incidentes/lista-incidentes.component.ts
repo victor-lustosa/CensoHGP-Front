@@ -17,6 +17,7 @@ export class ListaIncidentesComponent implements OnInit {
   formularioAtualizar: FormGroup = null;
   pesquisaForm: FormGroup = null;
   lista: Incidente[] = [];
+  statusSpinner: boolean = false;
   msgError: string;
   sucesso: boolean = false;
   pageSize = 10;
@@ -51,6 +52,7 @@ export class ListaIncidentesComponent implements OnInit {
         pesquisar: new FormControl(null, Validators.required)
       });
     }
+
     public pesquisa(): void {
       this.statusPesquisa = true;
       this.loadListaIncidentes();
@@ -106,19 +108,25 @@ export class ListaIncidentesComponent implements OnInit {
     })
   }
   loadListaIncidentes() {
+    this.lista = [];
+    this.statusSpinner = true;
     if (this.statusPesquisa === false) {
-      this.incidentesService.getAll()
-      .subscribe(
-        data => {
-          this.lista = data;
+      setTimeout(() => {
+        this.incidentesService.getAll().subscribe(
+          data => {
+            this.lista = data;
+            this.statusSpinner = false;
+          }
+        );
 
-        });
-      } else {
-        if (this.pesquisaForm.valid) {
+      }, 400)
+    } else {
+      if (this.pesquisaForm.valid) {
+        setTimeout(() => {
           this.incidentesService.getByNome(this.pesquisaForm.get('pesquisar').value).subscribe(
             data => {
-
               this.lista = data;
+              this.statusSpinner = false;
               if (this.lista.length <= 0) {
                 this.mensagem = "Nenhum registro foi encontrado.";
               } else {
@@ -126,15 +134,15 @@ export class ListaIncidentesComponent implements OnInit {
               }
               this.statusPesquisa = false;
             });
-          } else {
-            this.incidentesService.getByNome(this.pesquisaForm.get('')).subscribe(
-              data => {
-                this.lista = data;
-                this.mensagem = "Nenhum registro foi encontrado.";
-              }
-            )
-          }
-        }
+
+        }, 400)
+      } else {
+        setTimeout(() => {
+          this.statusSpinner = false;
+          this.mensagem = "Nenhum registro foi encontrado.";
+        }, 100)
+      }
+    }
       }
       pegaId(id: number) {
         this.incidentesService.getById(id).subscribe((incidentesDis) => {
