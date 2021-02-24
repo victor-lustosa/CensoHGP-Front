@@ -24,15 +24,13 @@ import { ToggleFullScreenDirective } from './theme/shared/full-screen/toggle-ful
 /* Menu Items */
 import { NavigationItem } from './theme/layout/admin/navigation/navigation';
 import { NgbButtonsModule, NgbDropdownModule, NgbTabsetModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
-import { EnfermeiroComponent } from './theme/layout/enfermeiro/enfermeiro.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     AdminComponent,
-    EnfermeiroComponent,
-    AuthComponent,
+      AuthComponent,
     NavigationComponent,
     NavContentComponent,
     NavGroupComponent,

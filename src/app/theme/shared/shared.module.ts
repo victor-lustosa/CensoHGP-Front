@@ -17,7 +17,7 @@ import {ToastService} from './components/toast/toast.service';
 import { GalleryComponent } from './components/gallery/gallery.component';
 import {LightboxModule} from 'ngx-lightbox';
 import { FormDebugComponent } from './components/form-debug/form-debug.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 /*import 'hammerjs';
 import 'mousetrap';

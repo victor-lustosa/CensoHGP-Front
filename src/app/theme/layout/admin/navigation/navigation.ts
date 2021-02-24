@@ -107,10 +107,38 @@ const NavigationItems = [
     ]
   }
 ];
+const NavigationItems1 = [
+  {
+    id: 'navigation',
+    title: 'Menu',
+    type: 'group',
+    icon: 'feather icon-monitor',
+    children: [
+      {
+        id: 'dashboard',
+        title: 'Inicio',
+        type: 'item',
+        url: '/dashboard/inicio',
+        icon: 'feather icon-home',
+        breadcrumbs: false
+      },
+
+      {
+        id: 'pacientes',
+        title: 'Pacientes',
+        type: 'item',
+        url: '/pacientes/gerenciar-pacientes',
+        icon: 'feather icon-user',
+        breadcrumbs: false
+      }
+    ]
+  }
+];
 
 @Injectable()
 export class NavigationItem {
+
   public get() {
-    return NavigationItems;
+      return NavigationItems;
   }
 }

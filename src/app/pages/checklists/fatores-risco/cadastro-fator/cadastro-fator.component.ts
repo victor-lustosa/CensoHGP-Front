@@ -1,8 +1,7 @@
 import { Component, OnInit, Input, EventEmitter } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FatorRiscoService } from '../service/fator-risco.service';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { ListaFatoresComponent } from '../lista-fatores/lista-fatores.component';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Fator } from '../model/fator';
 @Component({
   selector: 'app-cadastro-fator',

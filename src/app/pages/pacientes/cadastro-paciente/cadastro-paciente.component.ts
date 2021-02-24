@@ -1,7 +1,6 @@
-import { Component, OnInit, Input, EventEmitter } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormValidations } from 'src/app/theme/shared/form-validations';
 import { Departamento } from '../../departamentos/model/departamento';
 import { DepartamentoService } from '../../departamentos/service';
 import { Precaucao } from '../../precaucoes/model/precaucao';
@@ -41,61 +40,26 @@ export class CadastroPacienteComponent implements OnInit {
       })
       this.loadListaPrecaucoes();
       this.loadListaDepartamento();
-      // this.getPrecaucoes();
       this.listaSexos = this.pacientesService.getSexos();
     }
 
-
 onCheckChange(event) {
   const formArray: FormArray = this.formulario.get('precaucao') as FormArray;
-
-  /* Selected */
   if(event.target.checked){
-    // Add a new control in the arrayForm
-    formArray.push(new FormControl(event.target.value));
+      formArray.push(new FormControl(event.target.value));
   }
-  /* unselected */
   else{
-    // find the unselected element
     let i: number = 0;
-
     formArray.controls.forEach((ctrl: FormControl) => {
       if(ctrl.value == event.target.value) {
-        // Remove the unselected element from the arrayForm
         formArray.removeAt(i);
         return;
       }
-
       i++;
     });
   }
 }
-    // submit(value: { listaPrecaucoes: any[]; }) {
-    //   const f = Object.assign({}, value, {
-    //     precaucao: value.listaPrecaucoes.map((s: any, i: string | number) => {
-    //     return {
-    //       id: this.listaPrecaucoes[i].idPrecaucao,
-    //       selected: s
-    //     }
-    //   })
-    //   })
-    //
-    //    console.log(f);
-    // }
-    // buildPrecaucoes(){
-    //     const checkbox = this.listaPrecaucoes.map(s => {
-    //     return this.formBuilder.control(s.status);
-    //   })
-    //   return this.formBuilder.array(checkbox);
-    // }
-    // getPrecaucoes(): FormArray {
-    //   return this.formulario.get('precaucao') as FormArray;
-    // }
-
-
-
-
-    loadListaPrecaucoes(){
+  loadListaPrecaucoes(){
       this.precaucaoService.getAll().subscribe(
         data => {
           this.listaPrecaucoes = data;
