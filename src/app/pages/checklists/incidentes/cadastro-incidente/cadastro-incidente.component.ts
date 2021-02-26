@@ -15,7 +15,7 @@ export class CadastroIncidenteComponent implements OnInit {
    @Input() public incidente: Incidente;
   errors: String[];
   sucesso: boolean = false;
-  tituloModal: string;
+  @Input() tituloModal: string;
   static atualizando = new EventEmitter<boolean>();
   at:boolean = true;
   mensagemErro: string = '';
