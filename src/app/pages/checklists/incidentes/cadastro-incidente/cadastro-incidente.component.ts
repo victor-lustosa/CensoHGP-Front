@@ -16,6 +16,7 @@ export class CadastroIncidenteComponent implements OnInit {
   static atualizando = new EventEmitter<boolean>();
   at:boolean = true;
   mensagemErro: string = '';
+  erroBack: string = '';
   constructor(
     public activeModal: NgbActiveModal, private incidentesService: IncidenteService) { }
 
@@ -49,6 +50,9 @@ export class CadastroIncidenteComponent implements OnInit {
               setTimeout(() => {
                 this.activeModal.close()
               }, 500);
+            },
+            (error) => {
+              this.erroBack = error;
             })
           }else{
             this.incidentesService.create(this.formulario.value)
@@ -61,6 +65,9 @@ export class CadastroIncidenteComponent implements OnInit {
                 setTimeout(() => {
                   this.activeModal.close()
                 }, 500);
+              },
+              (error) => {
+                this.erroBack = error;
               })
             }
           }

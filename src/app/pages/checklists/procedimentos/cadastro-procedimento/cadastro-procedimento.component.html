@@ -8,6 +8,9 @@
         <app-alert type="primary" *ngIf="sucesso == true">salvo com sucesso</app-alert>
       </div>
       <div class="col-md-13">
+        <app-alert type="danger" *ngIf="erroBack!==''">{{erroBack}}</app-alert>
+      </div>
+      <div class="col-md-13">
         <app-alert type="danger" *ngIf="mensagemErro!==''">{{mensagemErro}}</app-alert>
       </div>
     <form [formGroup]="formulario">

@@ -132,61 +132,84 @@ export class ListaDepartamentosComponent implements OnInit {
     this.statusSpinner = true;
     if (this.statusPesquisa === false) {
       if (this.ativo == 2 && this.tipoDepartamento == 2) {
-
+        setTimeout(() => {
         this.departamentosService.getAllAtivosInternos().subscribe(
           data => {
             this.lista = data;
+            this.statusSpinner = false;
           }
         )
+        } , 400)
       }
       else if (this.ativo == 2 && this.tipoDepartamento == 3) {
+        setTimeout(() => {
         this.departamentosService.getAllAtivosExternos().subscribe(
           data => {
             this.lista = data;
+            this.statusSpinner = false;
           }
         )
+        } , 400)
       }
       else if (this.ativo == 3 && this.tipoDepartamento == 2) {
+        setTimeout(() => {
         this.departamentosService.getAllInativosInternos().subscribe(
           data => {
             this.lista = data;
+            this.statusSpinner = false;
           }
         )
+        } , 400)
       }
       else if (this.ativo == 3 && this.tipoDepartamento == 3) {
+        setTimeout(() => {
         this.departamentosService.getAllInativosExternos().subscribe(
           data => {
             this.lista = data;
+            this.statusSpinner = false;
           }
         )
+        } , 400)
       }
       else if (this.tipoDepartamento == 2) {
+        setTimeout(() => {
         this.departamentosService.getAllInternos().subscribe(
           data => {
             this.lista = data;
+            this.statusSpinner = false;
           }
         )
+        } , 400)
       }
       else if (this.tipoDepartamento == 3) {
+        setTimeout(() => {
         this.departamentosService.getAllExternos().subscribe(
           data => {
             this.lista = data;
+            this.statusSpinner = false;
           }
         )
+        } , 400)
       }
       else if (this.ativo == 2) {
+        setTimeout(() => {
         this.departamentosService.getAllAtivos().subscribe(
           data => {
             this.lista = data;
+            this.statusSpinner = false;
           }
         )
+        } , 400)
       }
       else if (this.ativo == 3) {
+        setTimeout(() => {
         this.departamentosService.getAllInativos().subscribe(
           data => {
             this.lista = data;
+            this.statusSpinner = false;
           }
         )
+        } , 400)
       }
       else if (this.ativo == 3 && this.tipoDepartamento == 2) {
         this.departamentosService.getAllInativosExternos().subscribe(

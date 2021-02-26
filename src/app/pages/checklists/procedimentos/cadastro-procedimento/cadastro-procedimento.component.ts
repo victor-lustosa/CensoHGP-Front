@@ -14,6 +14,7 @@ export class CadastroProcedimentoComponent implements OnInit {
   @Input() public formulario: FormGroup;
   errors: String[];
   sucesso: boolean = false;
+  erroBack: string = '';
   tituloModal: string;
   static atualizando = new EventEmitter<boolean>();
    at:boolean = true;
@@ -51,7 +52,10 @@ export class CadastroProcedimentoComponent implements OnInit {
               setTimeout(() => {
                 this.activeModal.close();
               }, 500);
-            })
+            },(error) => {
+              this.erroBack = error;
+            }
+            )
           } else {
               this.procedimentosService.create(this.formulario.value)
               .subscribe(
@@ -63,6 +67,8 @@ export class CadastroProcedimentoComponent implements OnInit {
                   setTimeout(() => {
                     this.activeModal.close();
                   }, 500);
+                },(error) => {
+                  this.erroBack = error;
                 })
               }
             }
