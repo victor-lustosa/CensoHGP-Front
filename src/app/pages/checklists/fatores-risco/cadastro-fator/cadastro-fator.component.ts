@@ -11,7 +11,7 @@ import { Fator } from '../model/fator';
 })
 export class CadastroFatorComponent implements OnInit {
   @Input() public fatorRisco: Fator;
-  @Input() public formulario: FormGroup;
+   public formulario: FormGroup;
   errors: String[];
   erroBack: string = '';
   sucesso: boolean = false;
