@@ -70,12 +70,13 @@ export class ListaDepartamentosComponent implements OnInit {
 
 
   }
-  atualizar() {
-    const modalRef = this.modalService.open(CadastroDepartamentoComponent, this.MODALOPTIONS);
-    if (this.formularioAtualizar != null) {
+  editar(id: number) {
+    this.departamentosService.getById(id).subscribe((departamento) => {
+      const modalRef = this.modalService.open(CadastroDepartamentoComponent, this.MODALOPTIONS);
       modalRef.componentInstance.tituloModal = 'Editar departamento';
-      modalRef.componentInstance.formulario = this.formularioAtualizar;
+      modalRef.componentInstance.departamento = departamento;
     }
+    )
   }
   descricao(id: number) {
     this.departamentosService.getById(id).subscribe((departamento) => {
@@ -84,13 +85,6 @@ export class ListaDepartamentosComponent implements OnInit {
       modalRef.componentInstance.departamento = departamento;
     }
     )
-  }
-  editar(id: number) {
-    this.departamentosService.getById(id).subscribe((departamento) => {
-      const modalRef = this.modalService.open(CadastroDepartamentoComponent, this.MODALOPTIONS);
-      modalRef.componentInstance.tituloModal = 'Descrição do departamento';
-      modalRef.componentInstance.departamento = departamento;
-    })
   }
 
   filtroStatus(value: any) {

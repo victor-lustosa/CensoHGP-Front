@@ -15,6 +15,7 @@ export class CadastroUsuarioComponent implements OnInit {
   @Input() public usuario: Usuario;
   tipoUsuarios: any[];
   sucesso: boolean = false;
+  @Input() tituloModal: string;
   static atualizando = new EventEmitter<boolean>();
   at: boolean = true;
   senhaNovamente: string = null;

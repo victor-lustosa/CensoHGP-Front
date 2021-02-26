@@ -60,12 +60,12 @@ export class ListaUsuariosComponent implements OnInit {
   }
   cadastrar() {
     const modalRef = this.modalService.open(CadastroUsuarioComponent, this.MODALOPTIONS);
-    modalRef.componentInstance.tituloModal = "Cadastrar usuario";
+    modalRef.componentInstance.tituloModal = "Cadastrar usuário";
   }
   editar(id: number) {
     this.usuariosService.getById(id).subscribe((usuario) => {
       const modalRef = this.modalService.open(CadastroUsuarioComponent, this.MODALOPTIONS);
-      modalRef.componentInstance.tituloModal = "Editar usuario";
+      modalRef.componentInstance.tituloModal = "Editar usuário";
       modalRef.componentInstance.usuario = usuario;
     }
     )
