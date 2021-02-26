@@ -31,18 +31,7 @@ export class ListaProcedimentosComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadLista();
-    this.formularioCadastro = this.formBuilder.group({
-      idProcedimento: [null],
-      nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
-      descricao: [null],
-      ativo: ['true']
-    })
-    this.formularioAtualizar = this.formBuilder.group({
-      idProcedimento: [null],
-      nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
-      descricao: [null],
-      ativo: ['true']
-    })
+
     this.pesquisaForm = new FormGroup({
       pesquisar: new FormControl(null, Validators.required)
     });
@@ -73,7 +62,7 @@ export class ListaProcedimentosComponent implements OnInit {
     cadastrar() {
       const modalRef = this.modalService.open(CadastroProcedimentoComponent, this.MODALOPTIONS);
       modalRef.componentInstance.tituloModal = "Cadastrar procedimento";
-      modalRef.componentInstance.formulario = this.formularioCadastro;
+
     }
     atualizar() {
       const modalRef = this.modalService.open(CadastroProcedimentoComponent, this.MODALOPTIONS);
@@ -91,13 +80,12 @@ export class ListaProcedimentosComponent implements OnInit {
     )
   }
   editar(id: number) {
-    this.procedimentosService.getById(id).subscribe(
-      (procedimentos) => {
-        this.updateForm(procedimentos);
-        if (this.formularioAtualizar != null) {
-          this.atualizar();
-        }
-      })
+    this.procedimentosService.getById(id).subscribe((procedimento) => {
+      const modalRef = this.modalService.open(CadastroProcedimentoComponent, this.MODALOPTIONS);
+      modalRef.componentInstance.tituloModal = "Editar procedimento";
+      modalRef.componentInstance.procedimento = procedimento;
+    }
+  )
     }
     pegaId(id: number) {
       this.procedimentosService.getById(id).subscribe((procedimentosDis) => {
@@ -124,14 +112,7 @@ export class ListaProcedimentosComponent implements OnInit {
     }
 
 
-    updateForm(procedimentos: Procedimento) {
-      this.formularioAtualizar.patchValue({
-        idProcedimento: procedimentos.idProcedimento,
-        nome: procedimentos.nome,
-        descricao: procedimentos.descricao,
-        ativo: procedimentos.ativo
-      })
-    }
+
     loadListaProcedimentos() {
       this.lista = [];
       this.statusSpinner = true;

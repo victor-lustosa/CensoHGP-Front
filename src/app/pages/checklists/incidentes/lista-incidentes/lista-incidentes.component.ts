@@ -18,7 +18,7 @@ export class ListaIncidentesComponent implements OnInit {
   pesquisaForm: FormGroup = null;
   lista: Incidente[] = [];
   statusSpinner: boolean = false;
-  msgError: string;
+
   sucesso: boolean = false;
   pageSize = 10;
   page = 1;
@@ -30,7 +30,7 @@ export class ListaIncidentesComponent implements OnInit {
   constructor(private incidentesService: IncidenteService, public modalService: NgbModal, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-    this.msgError = null;
+
     this.loadListaIncidentes();
     CadastroIncidenteComponent.atualizando.subscribe(
       () => {

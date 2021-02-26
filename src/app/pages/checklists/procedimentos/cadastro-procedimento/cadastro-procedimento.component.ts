@@ -1,7 +1,8 @@
 import { Component, OnInit, Input, EventEmitter } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { ProcedimentoService } from '../service/procedimento.service';
+import { Procedimento } from '../model/procedimento';
 
 @Component({
   selector: 'app-cadastro-procedimento',
@@ -11,7 +12,8 @@ import { ProcedimentoService } from '../service/procedimento.service';
 
 })
 export class CadastroProcedimentoComponent implements OnInit {
-  @Input() public formulario: FormGroup;
+   public formulario: FormGroup;
+   @Input() public procedimento: Procedimento;
   errors: String[];
   sucesso: boolean = false;
   erroBack: string = '';
@@ -20,9 +22,32 @@ export class CadastroProcedimentoComponent implements OnInit {
    at:boolean = true;
   mensagemErro: string = '';
   constructor(
-    public activeModal: NgbActiveModal, private procedimentosService: ProcedimentoService) { }
+    public activeModal: NgbActiveModal, private procedimentosService: ProcedimentoService, private formBuilder: FormBuilder) { }
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+      this.novoFormulario();
+      if (this.procedimento != null) {
+        this.updateForm(this.procedimento);
+      }
+
+    }
+    novoFormulario(){
+      this.formulario = this.formBuilder.group({
+        idProcedimento: [null],
+        nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
+        descricao: [null],
+        ativo: [true]
+      })
+    }
+
+    updateForm(procedimentos: Procedimento) {
+      this.formulario.patchValue({
+        idProcedimento: procedimentos.idProcedimento,
+        nome: procedimentos.nome,
+        descricao: procedimentos.descricao,
+        ativo: procedimentos.ativo
+      })
+    }
     public verificaValidTouched(campo: any) {
       return !this.formulario.get(campo).valid && this.formulario.get(campo).touched;
     }
@@ -33,8 +58,8 @@ export class CadastroProcedimentoComponent implements OnInit {
     }
     valid(){
       if(this.formulario.valid){
-        this.mensagemErro=''
-        this.saveProcedimentos()}
+        this.mensagemErro='';
+        this.saveProcedimentos();}
         else{
         this.mensagemErro = "Por favor, preencha os campos obrigatórios";
       }
@@ -55,7 +80,7 @@ export class CadastroProcedimentoComponent implements OnInit {
             },(error) => {
               this.erroBack = error;
             }
-            )
+            );
           } else {
               this.procedimentosService.create(this.formulario.value)
               .subscribe(
@@ -69,7 +94,7 @@ export class CadastroProcedimentoComponent implements OnInit {
                   }, 500);
                 },(error) => {
                   this.erroBack = error;
-                })
+                });
               }
             }
           }
