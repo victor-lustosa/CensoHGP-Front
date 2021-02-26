@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, EventEmitter } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Usuario } from '../model/usuario';
 import { TipoUsuarioService } from '../service/tipo-usuario.service';
 import { UsuarioService } from '../service/usuario.service';
 
@@ -10,7 +11,8 @@ import { UsuarioService } from '../service/usuario.service';
   styleUrls: ['./cadastro-usuario.component.scss']
 })
 export class CadastroUsuarioComponent implements OnInit {
-  @Input() public formulario: FormGroup;
+  public formulario: FormGroup;
+  @Input() public usuario:Usuario;
   tipoUsuarios:any[];
   sucesso: boolean = false;
   static atualizando = new EventEmitter<boolean>();
@@ -20,18 +22,45 @@ export class CadastroUsuarioComponent implements OnInit {
   mensagemErro: string = '';
   constructor(
     public activeModal: NgbActiveModal, public modalService: NgbModal,
-    private usuariosService: UsuarioService,private tipoUsuarioService: TipoUsuarioService) { }
+    private usuariosService: UsuarioService,private tipoUsuarioService: TipoUsuarioService,
+  private formBuilder: FormBuilder) { }
 
     ngOnInit(): void {
+        this.novoFormulario();
+        if (this.usuario != null) {
+          this.updateForm(this.usuario);
+        }
       this.tipoUsuarios = this.tipoUsuarioService.getTipoUsuarios();
     }
     verificaValidTouched(campo:any){
       return !this.formulario.get(campo).valid && this.formulario.get(campo).touched;
     }
+    private novoFormulario() {
+      this.formulario = this.formBuilder.group({
+        idUsuario: [null],
+        nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+        email: [null,[Validators.required, Validators.email]],
+        matricula: [null, [Validators.required]],
+        ativo: [true],
+        senha: [null,[Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
+        admin:[null,[Validators.required]]
+      })
+    }
     aplicaCssErro(campo: any) {
       return {
         'border-red': this.verificaValidTouched(campo)
       };
+    }
+    updateForm(usuarios: Usuario){
+      this.formulario.patchValue({
+        idUsuario: usuarios.idUsuario,
+        nome: usuarios.nome,
+        email: usuarios.email,
+        matricula: usuarios.matricula,
+        ativo: usuarios.ativo,
+        senha: usuarios.senha,
+        admin:usuarios.admin
+      })
     }
     valid(){
       if(this.formulario.valid){

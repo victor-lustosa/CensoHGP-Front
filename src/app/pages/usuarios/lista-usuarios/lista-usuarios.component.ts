@@ -11,9 +11,7 @@ import { CadastroUsuarioComponent } from '../cadastro-usuario/cadastro-usuario.c
   styleUrls: ['./lista-usuarios.component.scss']
 })
 export class ListaUsuariosComponent implements OnInit {
-  formularioCadastro:FormGroup =null;
-  formularioAtualizar:FormGroup =null;
-    pesquisaForm: FormGroup = null;
+  pesquisaForm: FormGroup = null;
   lista: Usuario[]=[];
   sucesso: boolean = false;
   searchText: string;
@@ -32,24 +30,6 @@ export class ListaUsuariosComponent implements OnInit {
       () => {
           this.loadListaUsuarios();
         })
-    this.formularioCadastro = this.formBuilder.group({
-      idUsuario: [null],
-      nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
-      email: [null,[Validators.required, Validators.email]],
-      matricula: [null, [Validators.required]],
-      ativo: [true],
-      senha: [null,[Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
-      admin:[null,[Validators.required]]
-    })
-    this.formularioAtualizar = this.formBuilder.group({
-      idUsuario: [null],
-      nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
-      email: [null,[Validators.required, Validators.email]],
-      matricula: [null, [Validators.required]],
-      ativo: [true],
-      senha: [null,[Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
-      admin:[null,[Validators.required]]
-    })
     this.pesquisaForm = new FormGroup({
       pesquisar: new FormControl(null, Validators.required)
     });
@@ -77,39 +57,18 @@ export class ListaUsuariosComponent implements OnInit {
       );
     }
   }
-  cadastrar(){
-    const modalRef = this.modalService.open(CadastroUsuarioComponent, this.MODALOPTIONS)
-    modalRef.componentInstance.formulario = this.formularioCadastro;
-  }
-
-  atualizar() {
+  cadastrar() {
     const modalRef = this.modalService.open(CadastroUsuarioComponent, this.MODALOPTIONS);
-    if(this.formularioAtualizar != null){
-      modalRef.componentInstance.formulario = this.formularioAtualizar;
-    }
+    modalRef.componentInstance.tituloModal = "Cadastrar usuario";
   }
-  editar(id:number){
-    this.usuariosService.getById(id).subscribe((usuarios) => {
-      console.log(usuarios);
-      this.updateForm(usuarios);
-      console.log(this.formularioAtualizar)
-      if(this.formularioAtualizar != null){
-        this.atualizar();
-      }
-    })
+editar(id: number) {
+  this.usuariosService.getById(id).subscribe((usuario) => {
+    const modalRef = this.modalService.open(CadastroUsuarioComponent, this.MODALOPTIONS);
+    modalRef.componentInstance.tituloModal = "Editar usuario";
+    modalRef.componentInstance.usuario = usuario;
   }
-  updateForm(usuarios: Usuario){
-    this.formularioAtualizar.patchValue({
-      idUsuario: usuarios.idUsuario,
-      nome: usuarios.nome,
-      email: usuarios.email,
-      matricula: usuarios.matricula,
-      ativo: usuarios.ativo,
-      senha: usuarios.senha,
-      admin:usuarios.admin
-    })
-  }
-
+)
+}
   refresh() {
     if (this.pesquisaForm.get('pesquisar').value === '') {
       this.mensagem = null;
