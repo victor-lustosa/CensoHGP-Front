@@ -28,15 +28,10 @@
     </div>
     <br />
     <div>
-      <span> <b>Descrição: </b></span>
-      <textarea
-        disabled=""
-        class="form-control"
-        id="descricao"
-        [value]="incidente.descricao"
-        rows="5"
-      ></textarea>
-    </div>
+      <span> <b>Descrição: </b>
+      <span style="word-break: break-word;"> {{incidente.descricao}}</span></span>
+    <!-- <textarea disabled="" class="form-control" id="descricao" [value] =""rows="5"></textarea> -->
+  </div>
   </div>
   <div class="modal-footer"></div>
 </div>
