@@ -4,17 +4,17 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    children: [
-      {
-        path: 'recuperar-senha',
-        loadChildren: () => import('./recuperar-senha/recuperar-senha.module').then(module => module.RecuperarSenhaModule)
-      },
-      {
-        path: 'login',
-        loadChildren: () => import('./login/login.module').then(module => module.LoginModule)
-      }
-    ]
-  }
+    children: [      {
+      path: 'login',
+      loadChildren: () => import('./login/login.module').then(module => module.LoginModule)
+    },
+    {
+      path: 'recuperar-senha',
+      loadChildren: () => import('./recuperar-senha/recuperar-senha.module').then(module => module.RecuperarSenhaModule)
+    }
+
+  ]
+}
 ];
 
 @NgModule({
