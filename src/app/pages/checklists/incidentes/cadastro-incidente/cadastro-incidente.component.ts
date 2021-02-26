@@ -1,7 +1,9 @@
 import { Component, OnInit, Input, EventEmitter } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IncidenteService } from '../service/incidente.service';
+
+import { Incidente } from '../model/incidente';
 
 @Component({
   selector: 'app-cadastro-incidente',
@@ -9,7 +11,8 @@ import { IncidenteService } from '../service/incidente.service';
   styleUrls: ['./cadastro-incidente.component.scss']
 })
 export class CadastroIncidenteComponent implements OnInit {
-  @Input() public formulario: FormGroup;
+   public formulario: FormGroup;
+   @Input() public incidente: Incidente;
   errors: String[];
   sucesso: boolean = false;
   tituloModal: string;
@@ -18,9 +21,33 @@ export class CadastroIncidenteComponent implements OnInit {
   mensagemErro: string = '';
   erroBack: string = '';
   constructor(
-    public activeModal: NgbActiveModal, private incidentesService: IncidenteService) { }
+    public activeModal: NgbActiveModal, private incidentesService: IncidenteService, private formBuilder: FormBuilder) { }
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+      this.novoFormulario();
+      if (this.incidente != null) {
+        this.updateForm(this.incidente);
+      }
+
+    }
+
+    novoFormulario(){
+      this.formulario = this.formBuilder.group({
+        idIncidente: [null],
+        nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
+        descricao: [null],
+        ativo: [true]
+      })
+    }
+
+    updateForm(incidentes: Incidente) {
+      this.formulario.patchValue({
+        idIncidente: incidentes.idIncidente,
+        nome: incidentes.nome,
+        descricao: incidentes.descricao,
+        ativo: incidentes.ativo
+      })
+    }
     public verificaValidTouched(campo: any) {
       return !this.formulario.get(campo).valid && this.formulario.get(campo).touched;
     }

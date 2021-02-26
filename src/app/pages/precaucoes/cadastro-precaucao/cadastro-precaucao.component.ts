@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, EventEmitter } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Precaucao } from '../model/precaucao';
 import { PrecaucaoService } from '../service/precaucao.service';
 @Component({
   selector: 'app-cadastro-precaucao',
@@ -8,18 +9,24 @@ import { PrecaucaoService } from '../service/precaucao.service';
   styleUrls: ['./cadastro-precaucao.component.scss']
 })
 export class CadastroPrecaucaoComponent implements OnInit {
-
-  @Input() public formulario: FormGroup;
+  @Input() public precaucao: Precaucao;
+  formulario: FormGroup;
   @Input() tituloModal: string;
   errors: String[];
   sucesso: boolean = false;
   static atualizando = new EventEmitter<boolean>();
   at:boolean = true;
   mensagemErro: string= '';
-  constructor(
-    public activeModal: NgbActiveModal, public modalService: NgbModal, private precaucoesService: PrecaucaoService) { }
 
-    ngOnInit(): void {}
+  constructor(
+    public activeModal: NgbActiveModal, public modalService: NgbModal, private precaucoesService: PrecaucaoService, private formBuilder: FormBuilder) { }
+
+    ngOnInit(): void {
+        this.novoFormulario();
+      if (this.precaucao != null) {
+        this.updateForm(this.precaucao);
+      }
+    }
     public verificaValidTouched(campo: any) {
       return !this.formulario.get(campo).valid && this.formulario.get(campo).touched;
     }
@@ -27,6 +34,22 @@ export class CadastroPrecaucaoComponent implements OnInit {
       return {
         'border-red': this.verificaValidTouched(campo)
       };
+    }
+    novoFormulario(){
+      this.formulario = this.formBuilder.group({
+        idPrecaucao: [null],
+        nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
+        descricao: [null],
+        ativo: [true]
+      })
+    }
+    updateForm(precaucoes: Precaucao){
+      this.formulario.patchValue({
+        idPrecaucao: precaucoes.idPrecaucao,
+        nome:precaucoes.nome,
+        descricao: precaucoes.descricao,
+        ativo: precaucoes.ativo
+      })
     }
     valid(){
       if(this.formulario.valid){

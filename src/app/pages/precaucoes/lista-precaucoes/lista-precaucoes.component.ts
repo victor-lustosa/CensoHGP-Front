@@ -24,25 +24,13 @@ export class ListaPrecaucoesComponent implements OnInit {
   statusPesquisa: boolean = false;
   mensagem: string;
   MODALOPTIONS: NgbModalOptions = {keyboard : true, size : 'lg', backdrop : 'static'};
-  constructor(private precaucoesService: PrecaucaoService,  public modalService: NgbModal, private formBuilder: FormBuilder) { }
+  constructor(private precaucoesService: PrecaucaoService,  public modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.loadListaPrecaucoes();
     CadastroPrecaucaoComponent.atualizando.subscribe(
       () => {
         this.loadListaPrecaucoes();
-      })
-      this.formularioCadastro = this.formBuilder.group({
-        idPrecaucao: [null],
-        nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
-        descricao: [null],
-        ativo: [true]
-      })
-      this.formularioAtualizar = this.formBuilder.group({
-        idPrecaucao: [null],
-        nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
-        descricao: [null],
-        ativo: [true]
       })
       this.pesquisaForm = new FormGroup({
         pesquisar: new FormControl(null, Validators.required)
@@ -63,27 +51,18 @@ export class ListaPrecaucoesComponent implements OnInit {
       modalRef.componentInstance.formulario = this.formularioCadastro;
       modalRef.componentInstance.tituloModal = "Cadastrar precaução";
     }
-    atualizar() {
-      const modalRef = this.modalService.open(CadastroPrecaucaoComponent, this.MODALOPTIONS);
-      if(this.formularioAtualizar != null){
-        modalRef.componentInstance.tituloModal = "Editar precaução";
-        modalRef.componentInstance.formulario = this.formularioAtualizar;
-      }
-    }
     descricao(id: number) {
       this.precaucoesService.getById(id).subscribe((precaucao) => {
         const modalRef = this.modalService.open(DescricaoPrecaucaoComponent, this.MODALOPTIONS);
         modalRef.componentInstance.tituloModal = "Descrição da precaução";
         modalRef.componentInstance.precaucao = precaucao;
-      }
-    )
+      })
   }
   editar(id:number){
-    this.precaucoesService.getById(id).subscribe((precaucoes) => {
-      this.updateForm(precaucoes);
-      if(this.formularioAtualizar != null){
-        this.atualizar();
-      }
+    this.precaucoesService.getById(id).subscribe((precaucao) => {
+      const modalRef = this.modalService.open(CadastroPrecaucaoComponent, this.MODALOPTIONS);
+        modalRef.componentInstance.tituloModal = "Editar precaução";
+        modalRef.componentInstance.precaucao = precaucao;
     })
   }
     refresh(){
@@ -91,14 +70,6 @@ export class ListaPrecaucoesComponent implements OnInit {
       this.mensagem = null;
       this.loadListaPrecaucoes();
     }
-  }
-  updateForm(precaucoes: Precaucao){
-    this.formularioAtualizar.patchValue({
-      idPrecaucao: precaucoes.idPrecaucao,
-      nome:precaucoes.nome,
-      descricao: precaucoes.descricao,
-      ativo: precaucoes.ativo
-    })
   }
   loadListaPrecaucoes() {
     this.lista = [];

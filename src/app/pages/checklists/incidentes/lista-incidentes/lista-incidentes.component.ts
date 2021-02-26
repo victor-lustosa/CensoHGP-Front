@@ -13,7 +13,7 @@ import { DescricaoIncidenteComponent } from '../descricao-incidente/descricao-in
   styleUrls: ['./lista-incidentes.component.scss']
 })
 export class ListaIncidentesComponent implements OnInit {
-  formularioCadastro: FormGroup = null;
+
   formularioAtualizar: FormGroup = null;
   pesquisaForm: FormGroup = null;
   lista: Incidente[] = [];
@@ -35,19 +35,9 @@ export class ListaIncidentesComponent implements OnInit {
     CadastroIncidenteComponent.atualizando.subscribe(
       () => {
         this.loadListaIncidentes();
-      })
-      this.formularioCadastro = this.formBuilder.group({
-        idIncidente: [null],
-        nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
-        descricao: [null],
-        ativo: [true]
-      })
-      this.formularioAtualizar = this.formBuilder.group({
-        idIncidente: [null],
-        nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
-        descricao: [null],
-        ativo: [true]
-      })
+      });
+
+
       this.pesquisaForm = new FormGroup({
         pesquisar: new FormControl(null, Validators.required)
       });
@@ -66,8 +56,7 @@ export class ListaIncidentesComponent implements OnInit {
     cadastrar() {
       const modalRef = this.modalService.open(CadastroIncidenteComponent, this.MODALOPTIONS);
       modalRef.componentInstance.tituloModal = "Cadastrar incidente";
-      modalRef.componentInstance.formulario = this.formularioCadastro;
-      this.loadListaIncidentes();
+
     }
     atualizar() {
       const modalRef = this.modalService.open(CadastroIncidenteComponent, this.MODALOPTIONS);
@@ -87,11 +76,11 @@ export class ListaIncidentesComponent implements OnInit {
   }
   editar(id: number) {
     this.incidentesService.getById(id).subscribe((incidentes) => {
-      this.updateForm(incidentes);
-      if (this.formularioAtualizar != null) {
-        this.atualizar();
-      }
-    })
+      const modalRef = this.modalService.open(CadastroIncidenteComponent, this.MODALOPTIONS);
+      modalRef.componentInstance.tituloModal = "Editar incidente";
+      modalRef.componentInstance.incidente = incidentes;
+    }
+    )
   }
   refresh(){
     if(this.pesquisaForm.get('pesquisar').value===''){
@@ -99,14 +88,7 @@ export class ListaIncidentesComponent implements OnInit {
       this.loadListaIncidentes();
     }
   }
-  updateForm(incidentes: Incidente) {
-    this.formularioAtualizar.patchValue({
-      idIncidente: incidentes.idIncidente,
-      nome: incidentes.nome,
-      descricao: incidentes.descricao,
-      ativo: incidentes.ativo
-    })
-  }
+
   loadListaIncidentes() {
     this.lista = [];
     this.statusSpinner = true;
