@@ -204,9 +204,11 @@ export class ListaDepartamentosComponent implements OnInit {
       }
     } else {
       if (this.pesquisaForm.valid) {
-        this.departamentosService.getByNome(value).subscribe(
+        console.log(this.pesquisaForm.value);
+        this.departamentosService.getByNome(this.pesquisaForm.get('pesquisar').value).subscribe(
           data => {
             this.lista = data;
+            this.statusSpinner = false;
             if (this.lista.length <= 0) {
               this.mensagem = "Nenhum registro foi encontrado.";
             } else {
@@ -222,6 +224,7 @@ export class ListaDepartamentosComponent implements OnInit {
               .subscribe(
                 data => {
                   this.lista = data;
+                  this.statusSpinner = false;
                 });
           }
         )
