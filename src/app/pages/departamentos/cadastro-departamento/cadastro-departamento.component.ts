@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, EventEmitter } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Departamento } from '../model/departamento';
 import { DepartamentoService } from '../service';
 
 @Component({
@@ -10,20 +11,47 @@ import { DepartamentoService } from '../service';
 })
 export class CadastroDepartamentoComponent implements OnInit {
 
-  @Input() public formulario: FormGroup;
+  public formulario: FormGroup;
+  @Input() public departamento: Departamento;
   errors: String[];
   sucesso: boolean = false;
   erroBack:string = '';
   listaTipoDepartamento: any[];
-  tituloModal: string;
+  @Input() tituloModal: string;
   static atualizando = new EventEmitter<boolean>();
   at:boolean = true;
   mensagemErro:string='';
   constructor(
-    public activeModal: NgbActiveModal,private departamentosService: DepartamentoService) { }
+    public activeModal: NgbActiveModal,private departamentosService: DepartamentoService, private formBuilder: FormBuilder) { }
 
     ngOnInit(): void {
       this.listaTipoDepartamento = this.departamentosService.getTipoDepartamentos();
+      this.novoFormulario();
+      if (this.departamento != null) {
+        this.updateForm(this.departamento);
+      }
+    }
+
+    novoFormulario(){
+      this.formulario = this.formBuilder.group({
+        idDepartamento: [null],
+        nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
+        numero_leitos: [null, [Validators.required, Validators.nullValidator]],
+        ativo: [true],
+        interno: [true, [Validators.required]],
+        descricao: [null]
+      })
+    }
+
+    updateForm(departamentos: Departamento) {
+      this.formulario.patchValue({
+        idDepartamento: departamentos.idDepartamento,
+        nome: departamentos.nome,
+        numero_leitos: departamentos.numero_leitos,
+        ativo: departamentos.ativo,
+        interno: departamentos.interno,
+        descricao: departamentos.descricao
+      })
     }
 
     public verificaValidTouched(campo: any) {

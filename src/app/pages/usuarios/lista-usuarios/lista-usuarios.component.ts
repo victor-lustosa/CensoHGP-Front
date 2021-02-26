@@ -12,24 +12,25 @@ import { CadastroUsuarioComponent } from '../cadastro-usuario/cadastro-usuario.c
 })
 export class ListaUsuariosComponent implements OnInit {
   pesquisaForm: FormGroup = null;
-  lista: Usuario[]=[];
+  lista: Usuario[] = [];
   sucesso: boolean = false;
   searchText: string;
   pageSize = 10;
   page = 1;
+  statusSpinner: boolean = false;
   varConfirm: string;
   statusPesquisa: boolean = false;
   mensagem: string;
   usuarioAux: Usuario;
-  MODALOPTIONS: NgbModalOptions = {keyboard : true, size : 'lg', backdrop : 'static'};
-  constructor(private usuariosService: UsuarioService,  public modalService: NgbModal, private formBuilder: FormBuilder) { }
+  MODALOPTIONS: NgbModalOptions = { keyboard: true, size: 'lg', backdrop: 'static' };
+  constructor(private usuariosService: UsuarioService, public modalService: NgbModal, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.loadListaUsuarios();
     CadastroUsuarioComponent.atualizando.subscribe(
       () => {
-          this.loadListaUsuarios();
-        })
+        this.loadListaUsuarios();
+      })
     this.pesquisaForm = new FormGroup({
       pesquisar: new FormControl(null, Validators.required)
     });
@@ -61,18 +62,18 @@ export class ListaUsuariosComponent implements OnInit {
     const modalRef = this.modalService.open(CadastroUsuarioComponent, this.MODALOPTIONS);
     modalRef.componentInstance.tituloModal = "Cadastrar usuario";
   }
-editar(id: number) {
-  this.usuariosService.getById(id).subscribe((usuario) => {
-    const modalRef = this.modalService.open(CadastroUsuarioComponent, this.MODALOPTIONS);
-    modalRef.componentInstance.tituloModal = "Editar usuario";
-    modalRef.componentInstance.usuario = usuario;
+  editar(id: number) {
+    this.usuariosService.getById(id).subscribe((usuario) => {
+      const modalRef = this.modalService.open(CadastroUsuarioComponent, this.MODALOPTIONS);
+      modalRef.componentInstance.tituloModal = "Editar usuario";
+      modalRef.componentInstance.usuario = usuario;
+    }
+    )
   }
-)
-}
   refresh() {
     if (this.pesquisaForm.get('pesquisar').value === '') {
       this.mensagem = null;
-       this.loadListaUsuarios();
+      this.loadListaUsuarios();
     }
   }
   pegaId(id: number) {
@@ -86,17 +87,24 @@ editar(id: number) {
     });
   }
   loadListaUsuarios() {
+    this.lista = [];
+    this.statusSpinner = true;
     if (this.statusPesquisa === false) {
-      this.usuariosService.getAll()
-      .subscribe(
-        data => {
-          this.lista = data;
-        });
-      } else {
-        if (this.pesquisaForm.valid) {
+      setTimeout(() => {
+        this.usuariosService.getAll()
+          .subscribe(
+            data => {
+              this.lista = data;
+              this.statusSpinner = false;
+            });
+      }, 400)
+    } else {
+      if (this.pesquisaForm.valid) {
+        setTimeout(() => {
           this.usuariosService.getByNome(this.pesquisaForm.get('pesquisar').value).subscribe(
             data => {
               this.lista = data;
+              this.statusSpinner = false;
               if (this.lista.length <= 0) {
                 this.mensagem = "Nenhum registro foi encontrado.";
               } else {
@@ -104,14 +112,15 @@ editar(id: number) {
               }
               this.statusPesquisa = false;
             });
-          } else {
-            this.usuariosService.getByNome(this.pesquisaForm.get('')).subscribe(
-              data => {
-                this.lista = data;
-                this.mensagem = "Nenhum registro foi encontrado.";
-              }
-            )
-          }
-        }
+        }, 400)
+      }
+      else {
+        setTimeout(() => {
+          this.statusSpinner = false;
+          this.mensagem = "Nenhum registro foi encontrado.";
+        }, 100)
+
       }
     }
+  }
+}

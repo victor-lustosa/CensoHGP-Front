@@ -40,23 +40,7 @@ export class ListaDepartamentosComponent implements OnInit {
       () => {
         this.loadListaDepartamentos();
       })
-    this.formularioCadastro = this.formBuilder.group({
-      idDepartamento: [null],
-      nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
-      numero_leitos: [null, [Validators.required, Validators.nullValidator]],
-      ativo: [true],
-      interno: [true, [Validators.required]],
-      descricao: [null]
-    })
 
-    this.formularioAtualizar = this.formBuilder.group({
-      idDepartamento: [null],
-      nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
-      numero_leitos: [null, [Validators.required]],
-      ativo: [true],
-      interno: [true, [Validators.required]],
-      descricao: [null],
-    })
     this.pesquisaForm = new FormGroup({
       pesquisar: new FormControl(null, Validators.required)
     });
@@ -83,7 +67,7 @@ export class ListaDepartamentosComponent implements OnInit {
   cadastrar() {
     const modalRef = this.modalService.open(CadastroDepartamentoComponent, this.MODALOPTIONS);
     modalRef.componentInstance.tituloModal = 'Cadastrar departamento';
-    modalRef.componentInstance.formulario = this.formularioCadastro;
+
 
   }
   atualizar() {
@@ -102,23 +86,13 @@ export class ListaDepartamentosComponent implements OnInit {
     )
   }
   editar(id: number) {
-    this.departamentosService.getById(id).subscribe((departamentos) => {
-      this.updateForm(departamentos);
-      if (this.formularioAtualizar != null) {
-        this.atualizar();
-      }
+    this.departamentosService.getById(id).subscribe((departamento) => {
+      const modalRef = this.modalService.open(CadastroDepartamentoComponent, this.MODALOPTIONS);
+      modalRef.componentInstance.tituloModal = 'Descrição do departamento';
+      modalRef.componentInstance.departamento = departamento;
     })
   }
-  updateForm(departamentos: Departamento) {
-    this.formularioAtualizar.patchValue({
-      idDepartamento: departamentos.idDepartamento,
-      nome: departamentos.nome,
-      numero_leitos: departamentos.numero_leitos,
-      ativo: departamentos.ativo,
-      interno: departamentos.interno,
-      descricao: departamentos.descricao
-    })
-  }
+
   filtroStatus(value: any) {
     this.ativo = value;
     this.loadListaDepartamentos();
