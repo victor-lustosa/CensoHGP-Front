@@ -66,7 +66,7 @@ export class ListaPrecaucoesComponent implements OnInit {
     })
   }
     refresh(){
-    if(this.pesquisaForm.get('pesquisar').value===''){
+    if(this.pesquisaForm.get('pesquisar').value === ''){
       this.mensagem = null;
       this.loadListaPrecaucoes();
     }

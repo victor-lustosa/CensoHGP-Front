@@ -59,11 +59,15 @@ export class ListaDepartamentosComponent implements OnInit {
 
   }
   limpar() {
-    this.pesquisaForm.reset;
+
+    this.pesquisaForm.reset();
+    console.log(this.pesquisaForm.get('pesquisar').value);
     this.mensagem = null;
     this.statusPesquisa = false;
     this.loadListaDepartamentos();
+
   }
+
   cadastrar() {
     const modalRef = this.modalService.open(CadastroDepartamentoComponent, this.MODALOPTIONS);
     modalRef.componentInstance.tituloModal = 'Cadastrar departamento';
@@ -105,6 +109,12 @@ export class ListaDepartamentosComponent implements OnInit {
           data => {
             this.lista = data;
             this.statusSpinner = false;
+            if (this.lista.length <= 0) {
+              this.mensagem = "Nenhum registro foi encontrado.";
+            } else {
+              this.mensagem = null;
+            }
+            this.statusPesquisa = false;
           }
         )
         } , 400)
@@ -115,6 +125,12 @@ export class ListaDepartamentosComponent implements OnInit {
           data => {
             this.lista = data;
             this.statusSpinner = false;
+            if (this.lista.length <= 0) {
+              this.mensagem = "Nenhum registro foi encontrado.";
+            } else {
+              this.mensagem = null;
+            }
+            this.statusPesquisa = false;
           }
         )
         } , 400)
@@ -125,6 +141,12 @@ export class ListaDepartamentosComponent implements OnInit {
           data => {
             this.lista = data;
             this.statusSpinner = false;
+            if (this.lista.length <= 0) {
+              this.mensagem = "Nenhum registro foi encontrado.";
+            } else {
+              this.mensagem = null;
+            }
+            this.statusPesquisa = false;
           }
         )
         } , 400)
@@ -135,6 +157,12 @@ export class ListaDepartamentosComponent implements OnInit {
           data => {
             this.lista = data;
             this.statusSpinner = false;
+            if (this.lista.length <= 0) {
+              this.mensagem = "Nenhum registro foi encontrado.";
+            } else {
+              this.mensagem = null;
+            }
+            this.statusPesquisa = false;
           }
         )
         } , 400)
@@ -145,6 +173,12 @@ export class ListaDepartamentosComponent implements OnInit {
           data => {
             this.lista = data;
             this.statusSpinner = false;
+            if (this.lista.length <= 0) {
+              this.mensagem = "Nenhum registro foi encontrado.";
+            } else {
+              this.mensagem = null;
+            }
+            this.statusPesquisa = false;
           }
         )
         } , 400)
@@ -155,6 +189,12 @@ export class ListaDepartamentosComponent implements OnInit {
           data => {
             this.lista = data;
             this.statusSpinner = false;
+            if (this.lista.length <= 0) {
+              this.mensagem = "Nenhum registro foi encontrado.";
+            } else {
+              this.mensagem = null;
+            }
+            this.statusPesquisa = false;
           }
         )
         } , 400)
@@ -165,6 +205,12 @@ export class ListaDepartamentosComponent implements OnInit {
           data => {
             this.lista = data;
             this.statusSpinner = false;
+            if (this.lista.length <= 0) {
+              this.mensagem = "Nenhum registro foi encontrado.";
+            } else {
+              this.mensagem = null;
+            }
+            this.statusPesquisa = false;
           }
         )
         } , 400)
@@ -175,17 +221,32 @@ export class ListaDepartamentosComponent implements OnInit {
           data => {
             this.lista = data;
             this.statusSpinner = false;
+            if (this.lista.length <= 0) {
+              this.mensagem = "Nenhum registro foi encontrado.";
+            } else {
+              this.mensagem = null;
+            }
+            this.statusPesquisa = false;
           }
         )
         } , 400)
       }
       else if (this.ativo == 3 && this.tipoDepartamento == 2) {
-        this.departamentosService.getAllInativosExternos().subscribe(
+        setTimeout(() => {
+        this.departamentosService.getAllInativosInternos().subscribe(
           data => {
             this.lista = data;
+            this.statusSpinner = false;
+            if (this.lista.length <= 0) {
+              this.mensagem = "Nenhum registro foi encontrado.";
+            } else {
+              this.mensagem = null;
+            }
+            this.statusPesquisa = false;
           }
         )
-      }
+        } , 400)
+    }
       else {
         setTimeout(() => {
           this.departamentosService.getAll()
@@ -193,12 +254,132 @@ export class ListaDepartamentosComponent implements OnInit {
               data => {
                 this.lista = data;
                 this.statusSpinner = false;
-              });
+                if (this.lista.length <= 0) {
+                  this.mensagem = "Nenhum registro foi encontrado.";
+                } else {
+                  this.mensagem = null;
+                }
+                this.statusPesquisa = false;
+              }
+              );
         }, 400)
       }
     } else {
       if (this.pesquisaForm.valid) {
         console.log(this.pesquisaForm.value);
+        if(this.ativo == 1 && this.tipoDepartamento == 2 ){
+          setTimeout(() => {
+            this.departamentosService.getByNomeInternos(this.pesquisaForm.get('pesquisar').value).subscribe(
+              data => {
+                this.lista = data;
+                this.statusSpinner = false;
+                if (this.lista.length <= 0) {
+                  this.mensagem = "Nenhum registro foi encontrado.";
+                } else {
+                  this.mensagem = null;
+                }
+                this.statusPesquisa = false;
+              }
+            )
+            } , 400)
+        }
+        else if(this.ativo == 2 && this.tipoDepartamento == 1){
+          setTimeout(() => {
+            this.departamentosService.getByNomeAtivos(this.pesquisaForm.get('pesquisar').value).subscribe(
+              data => {
+                this.lista = data;
+                this.statusSpinner = false;
+                if (this.lista.length <= 0) {
+                  this.mensagem = "Nenhum registro foi encontrado.";
+                } else {
+                  this.mensagem = null;
+                }
+                this.statusPesquisa = false;
+              }
+            )
+            } , 400)
+        }
+        else if(this.ativo == 2 && this.tipoDepartamento == 2){
+          setTimeout(() => {
+            this.departamentosService.getByNomeAtivosInternos(this.pesquisaForm.get('pesquisar').value).subscribe(
+              data => {
+                this.lista = data;
+                this.statusSpinner = false;
+                if (this.lista.length <= 0) {
+                  this.mensagem = "Nenhum registro foi encontrado.";
+                } else {
+                  this.mensagem = null;
+                }
+                this.statusPesquisa = false;
+              }
+            )
+            } , 400)
+        }
+        else if(this.ativo == 2 && this.tipoDepartamento == 3){
+          setTimeout(() => {
+            this.departamentosService.getByNomeAtivosExternos(this.pesquisaForm.get('pesquisar').value).subscribe(
+              data => {
+                this.lista = data;
+                this.statusSpinner = false;
+                if (this.lista.length <= 0) {
+                  this.mensagem = "Nenhum registro foi encontrado.";
+                } else {
+                  this.mensagem = null;
+                }
+                this.statusPesquisa = false;
+              }
+            )
+            } , 400)
+        }
+        else if(this.ativo == 3 && this.tipoDepartamento == 1){
+          setTimeout(() => {
+            this.departamentosService.getByNomeInativos(this.pesquisaForm.get('pesquisar').value).subscribe(
+              data => {
+                this.lista = data;
+                this.statusSpinner = false;
+                if (this.lista.length <= 0) {
+                  this.mensagem = "Nenhum registro foi encontrado.";
+                } else {
+                  this.mensagem = null;
+                }
+                this.statusPesquisa = false;
+              }
+            )
+            } , 400)
+        }
+        else if(this.ativo == 3 && this.tipoDepartamento == 2){
+          setTimeout(() => {
+            this.departamentosService.getByNomeInativosInternos(this.pesquisaForm.get('pesquisar').value).subscribe(
+              data => {
+                this.lista = data;
+                this.statusSpinner = false;
+                if (this.lista.length <= 0) {
+                  this.mensagem = "Nenhum registro foi encontrado.";
+                } else {
+                  this.mensagem = null;
+                }
+                this.statusPesquisa = false;
+              }
+            )
+            } , 400)
+        }
+        else if(this.ativo == 3 && this.tipoDepartamento == 3){
+          setTimeout(() => {
+            this.departamentosService.getByNomeInativosExternos(this.pesquisaForm.get('pesquisar').value).subscribe(
+              data => {
+                this.lista = data;
+                this.statusSpinner = false;
+                if (this.lista.length <= 0) {
+                  this.mensagem = "Nenhum registro foi encontrado.";
+                } else {
+                  this.mensagem = null;
+                }
+                this.statusPesquisa = false;
+              }
+            )
+            } , 400)
+        }
+        else{
         this.departamentosService.getByNome(this.pesquisaForm.get('pesquisar').value).subscribe(
           data => {
             this.lista = data;
@@ -210,7 +391,7 @@ export class ListaDepartamentosComponent implements OnInit {
             }
             this.statusPesquisa = false;
           });
-      } else {
+      }} else {
         this.departamentosService.getByNome(this.pesquisaForm.get('')).subscribe(
           () => {
             this.statusPesquisa = false;
@@ -219,7 +400,15 @@ export class ListaDepartamentosComponent implements OnInit {
                 data => {
                   this.lista = data;
                   this.statusSpinner = false;
-                });
+                  if (this.lista.length <= 0) {
+                    this.mensagem = "Nenhum registro foi encontrado.";
+                  } else {
+                    this.mensagem = null;
+                  }
+                  this.statusPesquisa = false;
+                }
+                );
+
           }
         )
       }
