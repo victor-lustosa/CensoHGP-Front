@@ -12,21 +12,20 @@ import { AuthService } from '../service/auth.service';
 export class LoginComponent implements OnInit {
 
   constructor(private service: AuthService,
-    private router: Router) { }
-  public routers: typeof routes = routes;
+  ) { }
+
   public formulario: FormGroup;
-  public email = 'franciscovictor@unitins.br';
-   public password = '123456';
     public ngOnInit(): void {
       this.formulario = new FormGroup({
-        email: new FormControl(this.email, [Validators.required, Validators.email]),
-        password: new FormControl(this.password, [Validators.required])
+        email: new FormControl(null, [Validators.required, Validators.email]),
+        password: new FormControl(null, [Validators.required])
       });
     }
     public sendLoginForm(): void {
+        this.service.login(this.formulario);
       if (this.formulario.valid) {
-        this.service.login();
-        this.router.navigate([this.routers.DASHBOARD]).then();
+
+
       }
     }
 }
