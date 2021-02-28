@@ -9,20 +9,22 @@
             <br>
             <br>
             <br>
-            <div class="input-group mb-4">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="feather icon-user"></i></span>
+            <form  [formGroup]="formulario" >
+              <div class="input-group mb-4">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="feather icon-user"></i></span>
+                </div>
+                <input type="email" class="form-control" formControlName="email" placeholder="digite sua matrícula">
               </div>
-              <input type="email" class="form-control" placeholder="digite sua matrícula">
-            </div>
-            <div class="input-group mb-4">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="feather icon-lock"></i></span>
+              <div class="input-group mb-4">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="feather icon-lock"></i></span>
+                </div>
+                <input type="password" class="form-control" formControlName="password" placeholder="digite sua senha">
               </div>
-              <input type="password" class="form-control" placeholder="digite sua senha">
-            </div>
-            <button class="btn btn-block btn-primary mb-4" (click)="logar()">Entrar</button>
-            <p class="mb-2 text-muted">Esqueceu sua senha? <a  class="f-w-400"></a></p>
+              <button class="btn btn-block btn-primary mb-4" (click)="sendLoginForm()">Entrar</button>
+              <p class="mb-2 text-muted">Esqueceu sua senha? <a  class="f-w-400"></a></p>
+            </form>
           </div>
         </div>
       </div>
