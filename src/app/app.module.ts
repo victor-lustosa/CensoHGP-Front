@@ -17,20 +17,22 @@ import { NavBarComponent } from './theme/layout/admin/nav-bar/nav-bar.component'
 import { NavLeftComponent } from './theme/layout/admin/nav-bar/nav-left/nav-left.component';
 import { NavSearchComponent } from './theme/layout/admin/nav-bar/nav-left/nav-search/nav-search.component';
 import { NavRightComponent } from './theme/layout/admin/nav-bar/nav-right/nav-right.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ConfigurationComponent } from './theme/layout/admin/configuration/configuration.component';
 import { ToggleFullScreenDirective } from './theme/shared/full-screen/toggle-full-screen';
 
 /* Menu Items */
 import { NavigationItem } from './theme/layout/admin/navigation/navigation';
 import { NgbButtonsModule, NgbDropdownModule, NgbTabsetModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { AuthService } from './pages/auth/service/auth.service';
+import { TokenInterceptor } from './pages/auth/service/token.interceptor';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     AdminComponent,
-      AuthComponent,
+    AuthComponent,
     NavigationComponent,
     NavContentComponent,
     NavGroupComponent,
@@ -53,7 +55,15 @@ import { NgbButtonsModule, NgbDropdownModule, NgbTabsetModule, NgbTooltipModule 
     NgbButtonsModule,
     NgbTabsetModule,
     HttpClientModule  ],
-  providers: [NavigationItem],
+  providers: [
+    NavigationItem,
+    AuthService,
+   {
+     provide: HTTP_INTERCEPTORS,
+     useClass: TokenInterceptor,
+     multi: true
+   }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
