@@ -3,29 +3,29 @@
     <div class="card">
       <div class="row align-items-center text-center">
         <div class="col-md-12">
-          <div class="card-body" >
-            <img src="assets/images/logosi.png" alt="" class="img-fluid mb-5">
-            <br>
-            <br>
-            <br>
-            <br>
-            <form  [formGroup]="formulario" >
-              <div class="input-group mb-4">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="feather icon-user"></i></span>
+          <form  [formGroup]="formulario">
+            <div class="card-body" >
+              <img src="assets/images/logosi.png" class="img-fluid mb-5 mt-n1 ">
+              <div class="mt-n2">
+                <div class="input-group mb-4 field-size">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="feather icon-user"></i></span>
+                  </div>
+                  <input type="matricula" class="form-control field-size" formControlName="matricula" placeholder="digite sua matrícula" >
                 </div>
-                <input type="matricula" class="form-control" formControlName="matricula" placeholder="digite sua matrícula">
               </div>
-              <div class="input-group mb-4">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="feather icon-lock"></i></span>
+              <div class="mt-n3">
+                <div class="input-group mb-4 field-size">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="feather icon-lock"></i></span>
+                  </div>
+                  <input type="password" class="form-control field-size" formControlName="senha" placeholder="digite sua senha" >
                 </div>
-                <input type="password" class="form-control" formControlName="senha" placeholder="digite sua senha">
               </div>
-              <button type="submit" class="btn btn-block btn-primary mb-4" (click)="sendLoginForm()">Entrar</button>
-              <p class="mb-2 text-muted">Esqueceu sua senha? <a  class="f-w-400"></a></p>
-            </form>
-          </div>
+              <button type="submit" class="btn btn-block btn-primary mb-4 button field-size" (click)="sendLoginForm()">Entrar</button>
+              <p class="esq mb-2 text-muted">Esqueceu sua senha? <a  class="f-w-400"></a></p>
+            </div>
+          </form>
         </div>
       </div>
     </div>
