@@ -40,7 +40,6 @@
         <option *ngFor="let admin of tipoUsuarios" [value]="admin.valor">{{ admin.nome }}</option>
       </select>
       <div *ngIf="verificaValidTouched('admin')">
-        <span class="font-red">Tipo de usuário é obrigatório</span>
         <span class="font-red">Selecione um tipo de usuário</span>
       </div>
       <br>
