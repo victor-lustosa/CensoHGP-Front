@@ -3,7 +3,6 @@ import { ProcedimentoService } from '../service/procedimento.service';
 import { Procedimento } from '../model/procedimento';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { CadastroProcedimentoComponent } from '../cadastro-procedimento/cadastro-procedimento.component';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Location } from '@angular/common';
 import { DescricaoProcedimentoComponent } from '../descricao-procedimento/descricao-procedimento.component';
 @Component({
@@ -12,64 +11,35 @@ import { DescricaoProcedimentoComponent } from '../descricao-procedimento/descri
   styleUrls: ['./lista-procedimentos.component.scss']
 })
 export class ListaProcedimentosComponent implements OnInit {
-  formularioCadastro: FormGroup = null;
-  formularioAtualizar: FormGroup = null;
-  pesquisaForm: FormGroup = null;
+  searchText: string;
+  paginaAtual : number = 1 ;
+  contador : number = 10;
   lista: Procedimento[] = [];
   sucesso: boolean = false;
   statusPesquisa: boolean = false;
   statusSpinner: boolean = false;
-  pageSize = 10;
-  page = 1;
   varConfirm: string;
   procedimentoAux: Procedimento;
   mensagem: string;
-
   MODALOPTIONS: NgbModalOptions = { keyboard: true, size: 'lg', backdrop: 'static' };
-  constructor(private procedimentosService: ProcedimentoService, public modalService: NgbModal, private formBuilder: FormBuilder, location: Location) {
+  constructor(private procedimentosService: ProcedimentoService, public modalService: NgbModal) {
   }
-
   ngOnInit(): void {
-    this.loadLista();
-
-    this.pesquisaForm = new FormGroup({
-      pesquisar: new FormControl(null, Validators.required)
-    });
-  }
-  loadLista = () =>{
     this.loadListaProcedimentos();
     CadastroProcedimentoComponent.atualizando.subscribe(
       () => {
         this.loadListaProcedimentos();
       });
     }
-    refresh(){
-      if(this.pesquisaForm.get('pesquisar').value===''){
-        this.mensagem = null;
-        this.loadListaProcedimentos();
-      }
-    }
-    pesquisa() {
-      this.statusPesquisa = true;
-      this.loadListaProcedimentos();
-    }
     limpar() {
-      this.pesquisaForm.reset;
-      this.mensagem = null;
-      this.statusPesquisa = false;
-      this.loadListaProcedimentos();
+      this.searchText ='';
+    }
+    verifica(){
+        this.paginaAtual = 1;
     }
     cadastrar() {
       const modalRef = this.modalService.open(CadastroProcedimentoComponent, this.MODALOPTIONS);
       modalRef.componentInstance.tituloModal = "Cadastrar procedimento";
-
-    }
-    atualizar() {
-      const modalRef = this.modalService.open(CadastroProcedimentoComponent, this.MODALOPTIONS);
-      if (this.formularioAtualizar != null) {
-        modalRef.componentInstance.tituloModal = "Editar procedimento";
-        modalRef.componentInstance.formulario = this.formularioAtualizar;
-      }
     }
     descricao(id: number) {
       this.procedimentosService.getById(id).subscribe((procedimento) => {
@@ -110,9 +80,6 @@ export class ListaProcedimentosComponent implements OnInit {
         );
       }
     }
-
-
-
     loadListaProcedimentos() {
       this.lista = [];
       this.statusSpinner = true;
@@ -126,28 +93,6 @@ export class ListaProcedimentosComponent implements OnInit {
           );
 
         },400)
-      } else {
-        if (this.pesquisaForm.valid) {
-          setTimeout(()=>{
-            this.procedimentosService.getByNome(this.pesquisaForm.get('pesquisar').value).subscribe(
-              data => {
-                this.lista = data;
-                this.statusSpinner = false;
-                if (this.lista.length <= 0) {
-                  this.mensagem = "Nenhum registro foi encontrado.";
-                } else {
-                  this.mensagem = null;
-                }
-                this.statusPesquisa = false;
-              });
-
-            },400)
-          }else {
-            setTimeout(()=>{
-              this.statusSpinner = false;
-              this.mensagem = "Nenhum registro foi encontrado.";
-            },100)
-          }
-        }
+       }
       }
     }

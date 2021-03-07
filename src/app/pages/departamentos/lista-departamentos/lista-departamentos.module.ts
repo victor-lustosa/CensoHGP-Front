@@ -7,14 +7,17 @@ import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { CadastroDepartamentoComponent } from '../cadastro-departamento/cadastro-departamento.component';
 import {} from '@ng-bootstrap/ng-bootstrap';
 import { DescricaoDepartamentoComponent } from '../descricao-departamento/descricao-departamento.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { DepartamentosFilterPipe } from './departamentos-filter.pipe';
 @NgModule({
-  declarations: [ListaDepartamentosComponent, CadastroDepartamentoComponent, DescricaoDepartamentoComponent],
+  declarations: [ListaDepartamentosComponent, CadastroDepartamentoComponent, DescricaoDepartamentoComponent, DepartamentosFilterPipe],
   imports: [
     CommonModule,
     NgbPaginationModule,
     ListaDepartamentosRoutingModule,
     SharedModule,
-    NgbDropdownModule
+    NgbDropdownModule,
+    NgxPaginationModule
   ]
 })
 export class ListaDepartamentosModule {

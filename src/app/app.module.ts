@@ -26,6 +26,7 @@ import { NavigationItem } from './theme/layout/admin/navigation/navigation';
 import { NgbButtonsModule, NgbDropdownModule, NgbTabsetModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from './pages/auth/service/auth.service';
 import { TokenInterceptor } from './pages/auth/service/token.interceptor';
+import { NgxPaginationModule } from 'ngx-pagination/dist/ngx-pagination.module';
 
 
 @NgModule({

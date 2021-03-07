@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { Usuario } from '../model/usuario';
 import { UsuarioService } from '../service/usuario.service';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
@@ -11,19 +10,17 @@ import { CadastroUsuarioComponent } from '../cadastro-usuario/cadastro-usuario.c
   styleUrls: ['./lista-usuarios.component.scss']
 })
 export class ListaUsuariosComponent implements OnInit {
-  pesquisaForm: FormGroup = null;
+  searchText: string;
+  paginaAtual : number = 1 ;
+  contador : number = 10;
   lista: Usuario[] = [];
   sucesso: boolean = false;
-  searchText: string;
-  pageSize = 10;
-  page = 1;
   statusSpinner: boolean = false;
   varConfirm: string;
-  statusPesquisa: boolean = false;
   mensagem: string;
   usuarioAux: Usuario;
   MODALOPTIONS: NgbModalOptions = { keyboard: true, size: 'lg', backdrop: 'static' };
-  constructor(private usuariosService: UsuarioService, public modalService: NgbModal, private formBuilder: FormBuilder) { }
+  constructor(private usuariosService: UsuarioService, public modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.loadListaUsuarios();
@@ -31,19 +28,12 @@ export class ListaUsuariosComponent implements OnInit {
       () => {
         this.loadListaUsuarios();
       })
-    this.pesquisaForm = new FormGroup({
-      pesquisar: new FormControl(null, Validators.required)
-    });
   }
-  public pesquisa(): void {
-    this.statusPesquisa = true;
-    this.loadListaUsuarios();
+  verifica(){
+    this.paginaAtual = 1;
   }
   limpar() {
-    this.pesquisaForm.reset;
-    this.mensagem = null;
-    this.statusPesquisa = false;
-    this.loadListaUsuarios();
+    this.searchText ='';
   }
   mudarStatus() {
     if (this.usuarioAux.ativo === true) {
@@ -70,12 +60,6 @@ export class ListaUsuariosComponent implements OnInit {
     }
     )
   }
-  refresh() {
-    if (this.pesquisaForm.get('pesquisar').value === '') {
-      this.mensagem = null;
-      this.loadListaUsuarios();
-    }
-  }
   pegaId(id: number) {
     this.usuariosService.getById(id).subscribe((usuariosDis) => {
       if (usuariosDis.ativo === true) {
@@ -89,7 +73,6 @@ export class ListaUsuariosComponent implements OnInit {
   loadListaUsuarios() {
     this.lista = [];
     this.statusSpinner = true;
-    if (this.statusPesquisa === false) {
       setTimeout(() => {
         this.usuariosService.getAll()
           .subscribe(
@@ -98,29 +81,5 @@ export class ListaUsuariosComponent implements OnInit {
               this.statusSpinner = false;
             });
       }, 400)
-    } else {
-      if (this.pesquisaForm.valid) {
-        setTimeout(() => {
-          this.usuariosService.getByNome(this.pesquisaForm.get('pesquisar').value).subscribe(
-            data => {
-              this.lista = data;
-              this.statusSpinner = false;
-              if (this.lista.length <= 0) {
-                this.mensagem = "Nenhum registro foi encontrado.";
-              } else {
-                this.mensagem = null;
-              }
-              this.statusPesquisa = false;
-            });
-        }, 400)
-      }
-      else {
-        setTimeout(() => {
-          this.statusSpinner = false;
-          this.mensagem = "Nenhum registro foi encontrado.";
-        }, 100)
-
-      }
-    }
   }
 }

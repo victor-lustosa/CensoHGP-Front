@@ -11,7 +11,7 @@ import { Fator } from '../model/fator';
 })
 export class CadastroFatorComponent implements OnInit {
   @Input() public fatorRisco: Fator;
-   public formulario: FormGroup;
+  formulario: FormGroup;
   errors: String[];
   erroBack: string = '';
   sucesso: boolean = false;
@@ -19,7 +19,6 @@ export class CadastroFatorComponent implements OnInit {
   static atualizando = new EventEmitter<boolean>();
   at: boolean = true;
   mensagemErro: string = '';
-  editar: boolean = false;
   constructor(
     public activeModal: NgbActiveModal, public modalService: NgbModal, private fatoresService: FatorRiscoService, private formBuilder: FormBuilder) { }
   ngOnInit(): void {

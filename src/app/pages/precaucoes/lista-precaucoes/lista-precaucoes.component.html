@@ -1,23 +1,18 @@
 <div class="row">
   <div class="col-md-12">
     <app-card cardTitle="Consulta de Precauções" blockClass="table-border-style">
-      <form [formGroup]="pesquisaForm" >
         <div class="row">
           <div class="col-sm-12">
             <button style="float:right" type="reset" class="btn btn-outline-warning" (click)="limpar()"><i class="feather icon-delete"></i> Limpar</button>
             <div class="input-group col-md-3" style="float:right">
-            <input type="text"  class="form-control" name="pesquisar" (ngModelChange)="refresh()" formControlName="pesquisar"  placeholder="Pesquisar">
-            <div class="input-group-append">
-              <button  type="submit" (click)="pesquisa()" class="btn btn-icon btn-outline-primary"><i class="feather icon-search"></i></button>
-            </div>
+              <input type="text"  class="form-control" name="pesquisa" [(ngModel)]="searchText" (ngModelChange)="verifica()" placeholder="Pesquisar">
           </div>
           <button  style="float:left" type="button" class="btn btn-outline-primary"  (click)="cadastrar()" ><i class="feather icon-plus-square"></i> Cadastrar</button>
         </div>
       </div>
-      </form>
       <br>
       <div class="table-responsive" >
-        <table class="table table-hover"  >
+        <table class="table table-hover"  *ngIf="(lista | filter: searchText).length > 0; else noResults">
           <thead>
             <tr align="center">
               <th scope="col">Nome</th>
@@ -27,7 +22,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let precaucoes of lista | slice: (page-1) * pageSize : page * pageSize" align="center">
+            <tr *ngFor="let precaucoes of lista | filter: searchText | paginate: { itemsPerPage: contador, currentPage: paginaAtual }" align="center">
               <td class="padding">{{precaucoes.nome}}</td>
               <td class="td padding">{{precaucoes.descricao}}</td>
               <td class="padding"><label class="badge badge-{{precaucoes.ativo ? 'success' : 'danger'}}">{{precaucoes.ativo ? 'Ativo' : 'Inativo'}}</label></td>
@@ -43,19 +38,15 @@
                 </td>
             </tbody>
           </table>
-          <ngb-pagination *ngIf="statusSpinner===false"
-          class="d-flex justify-content-center"
-          [(page)]="page"
-          [pageSize]="pageSize"
-          [collectionSize]="lista.length"></ngb-pagination>
+          <pagination-controls *ngIf="statusSpinner===false" maxSize="5" responsive="true" directionLinks="true" autoHide="true" class="d-flex justify-content-center" (pageChange)="paginaAtual = $event" previousLabel="Anterior" nextLabel="Próximo"></pagination-controls>
+          <ng-template #noResults>
+          <p *ngIf="statusSpinner === false">Nenhum resultado encontrado.</p>
+          </ng-template>
         </div>
         <div class="spinner" *ngIf="statusSpinner===true">
           <div  class="spinner-border text-primary size" role="status">
         </div>
       </div>
-        <div class="col-md-6">
-          {{ mensagem }}
-        </div>
       </app-card>
     </div>
   </div>
