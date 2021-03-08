@@ -21,12 +21,15 @@ export class ListaUsuariosComponent implements OnInit {
   usuarioAux: Usuario;
   tipoUsuario:number = 1;
   listaTipoUsuario: any[];
+  ativo: number = 1;
+  listaAtivo: any[];
   MODALOPTIONS: NgbModalOptions = { keyboard: true, size: 'lg', backdrop: 'static' };
   constructor(private usuariosService: UsuarioService, public modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.loadListaUsuarios();
     this.listaTipoUsuario = this.usuariosService.getTipoUsuarios();
+    this.listaAtivo = this.usuariosService.getStatusUsuarios();
     CadastroUsuarioComponent.atualizando.subscribe(
       () => {
         this.loadListaUsuarios();
@@ -40,6 +43,10 @@ export class ListaUsuariosComponent implements OnInit {
     }
     filtroTipoUsuario(value: any) {
       this.tipoUsuario = value;
+      this.loadListaUsuarios();
+    }
+    filtroStatus(value: any) {
+      this.ativo = value;
       this.loadListaUsuarios();
     }
     mudarStatus() {
@@ -80,7 +87,49 @@ export class ListaUsuariosComponent implements OnInit {
   loadListaUsuarios() {
     this.lista =  [];
     this.statusSpinner = true;
-    if (this.tipoUsuario == 2) {
+    console.log('tipo '+this.tipoUsuario+' ativo: '+this.ativo)
+  if (this.tipoUsuario == 2 && this.ativo == 3) {
+      console.log('oiiiiiiii tipo '+this.tipoUsuario+' ativo: '+this.ativo)
+      setTimeout(() => {
+        this.usuariosService.getAllEnfermeirosInativos().subscribe(
+          data => {
+            this.lista = data;
+            this.statusSpinner = false;
+          }
+        )
+      } , 400)
+    }
+    else if (this.tipoUsuario == 3 && this.ativo == 3) {
+      setTimeout(() => {
+        this.usuariosService.getAllAdministradoresInativos().subscribe(
+          data => {
+            this.lista = data;
+            this.statusSpinner = false;
+          }
+        )
+      } , 400)
+    }
+    else if (this.tipoUsuario == 3 && this.ativo == 2) {
+      setTimeout(() => {
+        this.usuariosService.getAllAdministradoresAtivos().subscribe(
+          data => {
+            this.lista = data;
+            this.statusSpinner = false;
+          }
+        )
+      } , 400)
+    }
+    else if (this.tipoUsuario == 2 && this.ativo == 2 ) {
+      setTimeout(() => {
+        this.usuariosService.getAllEnfermeirosAtivos().subscribe(
+          data => {
+            this.lista = data;
+            this.statusSpinner = false;
+          }
+        )
+      } , 400)
+    }
+    else if (this.tipoUsuario == 2) {
       setTimeout(() => {
         this.usuariosService.getAllEnfermeiros().subscribe(
           data => {
@@ -93,6 +142,27 @@ export class ListaUsuariosComponent implements OnInit {
     else if (this.tipoUsuario == 3) {
       setTimeout(() => {
         this.usuariosService.getAllAdministradores().subscribe(
+          data => {
+            this.lista = data;
+            this.statusSpinner = false;
+          }
+        )
+      } , 400)
+    }
+
+    else if (this.ativo == 2) {
+      setTimeout(() => {
+        this.usuariosService.getAllAtivos().subscribe(
+          data => {
+            this.lista = data;
+            this.statusSpinner = false;
+          }
+        )
+      } , 400)
+    }
+    else if (this.ativo == 3) {
+      setTimeout(() => {
+        this.usuariosService.getAllInativos().subscribe(
           data => {
             this.lista = data;
             this.statusSpinner = false;
