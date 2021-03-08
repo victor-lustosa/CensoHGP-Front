@@ -70,6 +70,7 @@ export class ListaDepartamentosComponent implements OnInit {
     this.loadListaDepartamentos();
   }
   loadListaDepartamentos() {
+    this.lista =  [];
     this.statusSpinner = true;
       if (this.ativo == 2 && this.tipoDepartamento == 2) {
         setTimeout(() => {

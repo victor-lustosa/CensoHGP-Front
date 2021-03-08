@@ -21,10 +21,13 @@ export class ListaIncidentesComponent implements OnInit {
   varConfirm: string;
   incidenteAux: Incidente;
   mensagem: string;
+  ativo: number = 1;
+  listaAtivo: any[];
   MODALOPTIONS: NgbModalOptions = { keyboard: true, size: 'lg', backdrop: 'static' };
   constructor(private incidentesService: IncidenteService, public modalService: NgbModal) { }
   ngOnInit(): void {
     this.loadListaIncidentes();
+    this.listaAtivo = this.incidentesService.getStatusIncidentes();
     CadastroIncidenteComponent.atualizando.subscribe(
       () => {
         this.loadListaIncidentes();
@@ -35,6 +38,10 @@ export class ListaIncidentesComponent implements OnInit {
     }
     limpar() {
       this.searchText ='';
+    }
+    filtroStatus(value: any) {
+      this.ativo = value;
+      this.loadListaIncidentes();
     }
     cadastrar() {
       const modalRef = this.modalService.open(CadastroIncidenteComponent, this.MODALOPTIONS);
@@ -57,15 +64,38 @@ export class ListaIncidentesComponent implements OnInit {
   )
 }
 loadListaIncidentes() {
+  this.lista =  [];
   this.statusSpinner = true;
-  setTimeout(() => {
-    this.incidentesService.getAll().subscribe(
-      data => {
-        this.lista = data;
-        this.statusSpinner = false;
-      }
-    );
-  }, 400)
+  if (this.ativo == 2) {
+    setTimeout(() => {
+      this.incidentesService.getAllAtivos().subscribe(
+        data => {
+          this.lista = data;
+          this.statusSpinner = false;
+        }
+      )
+    } , 400)
+  }
+  else if (this.ativo == 3) {
+    setTimeout(() => {
+      this.incidentesService.getAllInativos().subscribe(
+        data => {
+          this.lista = data;
+          this.statusSpinner = false;
+        }
+      )
+    } , 400)
+  }
+  else {
+    setTimeout(() => {
+      this.incidentesService.getAll().subscribe(
+        data => {
+          this.lista = data;
+          this.statusSpinner = false;
+        }
+      );
+    }, 400)
+  }
 }
 pegaId(id: number) {
   this.incidentesService.getById(id).subscribe((incidentesDis) => {

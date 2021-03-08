@@ -19,10 +19,13 @@ export class ListaPrecaucoesComponent implements OnInit {
   precaucaoAux: Precaucao;
   varConfirm: string;
   mensagem: string;
+  ativo: number = 1;
+  listaAtivo: any[];
   MODALOPTIONS: NgbModalOptions = {keyboard : true, size : 'lg', backdrop : 'static'};
   constructor(private precaucoesService: PrecaucaoService,  public modalService: NgbModal) { }
   ngOnInit(): void {
     this.loadListaPrecaucoes();
+    this.listaAtivo = this.precaucoesService.getStatusPrecaucoes();
     CadastroPrecaucaoComponent.atualizando.subscribe(
       () => {
         this.loadListaPrecaucoes();
@@ -33,6 +36,10 @@ export class ListaPrecaucoesComponent implements OnInit {
     }
     limpar() {
       this.searchText ='';
+    }
+    filtroStatus(value: any) {
+      this.ativo = value;
+      this.loadListaPrecaucoes();
     }
     cadastrar(){
       const modalRef = this.modalService.open(CadastroPrecaucaoComponent, this.MODALOPTIONS)
@@ -53,16 +60,38 @@ export class ListaPrecaucoesComponent implements OnInit {
       })
     }
     loadListaPrecaucoes() {
-      this.lista = [];
+      this.lista =  [];
       this.statusSpinner = true;
-      setTimeout(() => {
-        this.precaucoesService.getAll().subscribe(
-          data => {
-            this.lista = data;
-            this.statusSpinner = false;
-          }
-        );
-      }, 400)
+      if (this.ativo == 2) {
+        setTimeout(() => {
+          this.precaucoesService.getAllAtivos().subscribe(
+            data => {
+              this.lista = data;
+              this.statusSpinner = false;
+            }
+          )
+        } , 400)
+      }
+      else if (this.ativo == 3) {
+        setTimeout(() => {
+          this.precaucoesService.getAllInativos().subscribe(
+            data => {
+              this.lista = data;
+              this.statusSpinner = false;
+            }
+          )
+        } , 400)
+      }
+      else {
+        setTimeout(() => {
+          this.precaucoesService.getAll().subscribe(
+            data => {
+              this.lista = data;
+              this.statusSpinner = false;
+            }
+          );
+        }, 400)
+      }
     }
     pegaId(id: number) {
       this.precaucoesService.getById(id).subscribe((precaucaosDis) => {

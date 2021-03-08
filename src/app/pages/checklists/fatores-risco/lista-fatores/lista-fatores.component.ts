@@ -20,15 +20,22 @@ export class ListaFatoresComponent implements OnInit {
   varConfirm: string;
   fatorAux: Fator;
   mensagem: string;
+  ativo: number = 1;
+  listaAtivo: any[];
   MODALOPTIONS: NgbModalOptions = { keyboard: true, size: 'lg', backdrop: 'static' };
   constructor(private fatoresService: FatorRiscoService, public modalService: NgbModal) { }
   ngOnInit(): void {
     this.loadListaFatores();
+    this.listaAtivo = this.fatoresService.getStatusFatores();
     CadastroFatorComponent.atualizando.subscribe(
       () => {
         this.loadListaFatores()
       }
     );
+  }
+  filtroStatus(value: any) {
+    this.ativo = value;
+    this.loadListaFatores();
   }
   verifica(){
     this.paginaAtual = 1;
@@ -54,7 +61,7 @@ editar(id: number) {
     modalRef.componentInstance.tituloModal = "Editar fator de risco";
     modalRef.componentInstance.fatorRisco = fatores;
   }
- )
+)
 }
 pegaId(id: number) {
   this.fatoresService.getById(id).subscribe((fatoresDis) => {
@@ -79,14 +86,37 @@ mudarStatus() {
     }
   }
   loadListaFatores() {
+    this.lista =  [];
     this.statusSpinner = true;
-    setTimeout(() => {
-      this.fatoresService.getAll().subscribe(
-        data => {
-          this.lista = data;
-          this.statusSpinner = false;
-        }
-      );
-    }, 400)
+    if (this.ativo == 2) {
+      setTimeout(() => {
+        this.fatoresService.getAllAtivos().subscribe(
+          data => {
+            this.lista = data;
+            this.statusSpinner = false;
+          }
+        )
+      } , 400)
+    }
+    else if (this.ativo == 3) {
+      setTimeout(() => {
+        this.fatoresService.getAllInativos().subscribe(
+          data => {
+            this.lista = data;
+            this.statusSpinner = false;
+          }
+        )
+      } , 400)
+    }
+    else {
+      setTimeout(() => {
+        this.fatoresService.getAll().subscribe(
+          data => {
+            this.lista = data;
+            this.statusSpinner = false;
+          }
+        );
+      }, 400)
+    }
   }
 }

@@ -8,6 +8,14 @@
                 <input type="text"  class="form-control" name="pesquisa" [(ngModel)]="searchText" (ngModelChange)="verifica()" placeholder="Pesquisar">
             </div>
             <button  style="float:left" type="button" class="btn btn-outline-primary"  (click)="cadastrar()" ><i class="feather icon-plus-square"></i> Cadastrar</button>
+            <div class="row" >
+              <div class="form-group  col-4 d-flex justify-content-between">
+                <label for="tipodeusuario" class="form-check-label mr-2">Tipo:</label>
+                <select (ngModelChange)="filtroTipoUsuario($event)" class="custom-select" id="tipodeusuario"  [(ngModel)]="tipoUsuario">
+                  <option *ngFor="let tipoUsuario of listaTipoUsuario" [value]="tipoUsuario.valor">{{ tipoUsuario.nome  }}</option>
+                </select>
+              </div>
+            </div>
           </div>
         </div>
       <br>

@@ -3,7 +3,6 @@ import { ProcedimentoService } from '../service/procedimento.service';
 import { Procedimento } from '../model/procedimento';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { CadastroProcedimentoComponent } from '../cadastro-procedimento/cadastro-procedimento.component';
-import { Location } from '@angular/common';
 import { DescricaoProcedimentoComponent } from '../descricao-procedimento/descricao-procedimento.component';
 @Component({
   selector: 'app-lista-procedimentos',
@@ -21,10 +20,13 @@ export class ListaProcedimentosComponent implements OnInit {
   varConfirm: string;
   procedimentoAux: Procedimento;
   mensagem: string;
+  ativo: number = 1;
+  listaAtivo: any[];
   MODALOPTIONS: NgbModalOptions = { keyboard: true, size: 'lg', backdrop: 'static' };
   constructor(private procedimentosService: ProcedimentoService, public modalService: NgbModal) {
   }
   ngOnInit(): void {
+    this.listaAtivo = this.procedimentosService.getStatusProcedimentos();
     this.loadListaProcedimentos();
     CadastroProcedimentoComponent.atualizando.subscribe(
       () => {
@@ -35,7 +37,11 @@ export class ListaProcedimentosComponent implements OnInit {
       this.searchText ='';
     }
     verifica(){
-        this.paginaAtual = 1;
+      this.paginaAtual = 1;
+    }
+    filtroStatus(value: any) {
+      this.ativo = value;
+      this.loadListaProcedimentos();
     }
     cadastrar() {
       const modalRef = this.modalService.open(CadastroProcedimentoComponent, this.MODALOPTIONS);
@@ -56,43 +62,62 @@ export class ListaProcedimentosComponent implements OnInit {
       modalRef.componentInstance.procedimento = procedimento;
     }
   )
+}
+pegaId(id: number) {
+  this.procedimentosService.getById(id).subscribe((procedimentosDis) => {
+    if (procedimentosDis.ativo === true) {
+      this.varConfirm = 'desativar';
+    } else {
+      this.varConfirm = 'ativar';
     }
-    pegaId(id: number) {
-      this.procedimentosService.getById(id).subscribe((procedimentosDis) => {
-        if (procedimentosDis.ativo === true) {
-          this.varConfirm = 'desativar';
-        } else {
-          this.varConfirm = 'ativar';
+    this.procedimentoAux = procedimentosDis;
+  });
+}
+mudarStatus() {
+  if (this.procedimentoAux.ativo === true) {
+    this.procedimentoAux.ativo = false;
+    this.procedimentosService.disable(this.procedimentoAux).subscribe(
+      () => this.loadListaProcedimentos()
+    );
+  } else {
+    this.procedimentoAux.ativo = true;
+    this.procedimentosService.disable(this.procedimentoAux).subscribe(
+      () => this.loadListaProcedimentos()
+    );
+  }
+}
+loadListaProcedimentos() {
+  this.lista =  [];
+  this.statusSpinner = true;
+  if (this.ativo == 2) {
+    setTimeout(() => {
+      this.procedimentosService.getAllAtivos().subscribe(
+        data => {
+          this.lista = data;
+          this.statusSpinner = false;
         }
-        this.procedimentoAux = procedimentosDis;
-      });
-    }
-    mudarStatus() {
-      if (this.procedimentoAux.ativo === true) {
-        this.procedimentoAux.ativo = false;
-        this.procedimentosService.disable(this.procedimentoAux).subscribe(
-          () => this.loadListaProcedimentos()
-        );
-      } else {
-        this.procedimentoAux.ativo = true;
-        this.procedimentosService.disable(this.procedimentoAux).subscribe(
-          () => this.loadListaProcedimentos()
-        );
-      }
-    }
-    loadListaProcedimentos() {
-      this.lista = [];
-      this.statusSpinner = true;
-      if (this.statusPesquisa === false) {
-        setTimeout(()=>{
-          this.procedimentosService.getAll().subscribe(
-            data => {
-              this.lista = data;
-              this.statusSpinner = false;
-            }
-          );
-
-        },400)
-       }
-      }
-    }
+      )
+    } , 400)
+  }
+  else if (this.ativo == 3) {
+    setTimeout(() => {
+      this.procedimentosService.getAllInativos().subscribe(
+        data => {
+          this.lista = data;
+          this.statusSpinner = false;
+        }
+      )
+    } , 400)
+  }
+  else {
+    setTimeout(()=>{
+      this.procedimentosService.getAll().subscribe(
+        data => {
+          this.lista = data;
+          this.statusSpinner = false;
+        }
+      );
+    },400)
+  }
+}
+}

@@ -10,6 +10,14 @@
             </div>
             <button style="float: left" type="button" class="btn btn-outline-primary" (click)="cadastrar()">
               <i class="feather icon-plus-square"></i> Cadastrar</button>
+              <div class="row" >
+                <div class="form-group   col-4 d-flex justify-content-between" style="margin-left:50px;" >
+                  <label for="ativo" class="form-check-label mr-2">Status:</label>
+                  <select (ngModelChange)="filtroStatus($event)" class="custom-select" id="ativo" [(ngModel)]="ativo">
+                    <option *ngFor="let ativo of listaAtivo" [value]="ativo.valor">{{ ativo.nome  }}</option>
+                  </select>
+                </div>
+              </div>
             </div>
           </div>
           <br />
