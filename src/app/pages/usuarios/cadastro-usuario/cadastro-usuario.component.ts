@@ -45,7 +45,7 @@ export class CadastroUsuarioComponent implements OnInit {
       matricula: [null, [Validators.required]],
       ativo: [true],
       senha: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
-      admin: [true, [Validators.required]]
+      perfil: [true, [Validators.required]]
     })
   }
   aplicaCssErro(campo: any) {
@@ -61,7 +61,7 @@ export class CadastroUsuarioComponent implements OnInit {
       matricula: usuarios.matricula,
       ativo: usuarios.ativo,
       senha: usuarios.senha,
-      admin: usuarios.admin
+      perfil: usuarios.perfil
     })
   }
   valid() {

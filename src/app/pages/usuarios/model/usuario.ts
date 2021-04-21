@@ -5,5 +5,5 @@ export interface Usuario {
   matricula:string;
   senha: string;
   ativo:boolean;
-  admin:boolean;
+  perfil:number;
 }
