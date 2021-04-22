@@ -22,14 +22,16 @@ export class LoginComponent implements OnInit {
   }
   sendLoginForm() {
     if (this.formulario.valid) {
-      this.service.tentarLogar(this.formulario.get('matricula').value, this.formulario.get('senha').value)
-      .subscribe((response: any) => {
-        const access_token = JSON.stringify(response);
-        localStorage.setItem('access_token', access_token)
-        this.router.navigate([this.routers.LOGIN]).then();
-      }, error => {
-        this.mensagemErro = 'Usuário e/ou senha incorreto(s).'
-      })
+      this.service.tentarLogar(this.formulario.value).subscribe(
+        response => {
+          console.log("deu certo");
+          // this.service.successfulLogin(response.headers.get('Authorization'));
+            console.log(response.headers.get('Authorization'));
+          this.router.navigate([this.routers.DASHBOARD]).then();
+        }, () => {
+            console.log("nao deu certo");
+          this.mensagemErro = 'Usuário e/ou senha incorreto(s).'
+        })
+      }
     }
   }
-}
