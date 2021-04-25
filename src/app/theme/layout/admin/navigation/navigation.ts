@@ -1,4 +1,7 @@
 import { Injectable } from '@angular/core';
+import { StorageService } from 'src/app/pages/auth/service/storage.service';
+import { Usuario } from 'src/app/pages/usuarios/model/usuario';
+import { UsuarioService } from 'src/app/pages/usuarios/service/usuario.service';
 
 export interface NavigationItem {
   id: string;
@@ -137,8 +140,19 @@ const NavigationItems1 = [
 
 @Injectable()
 export class NavigationItem {
+  constructor(){}
+  get(perfil?:string) {
+    console.log(perfil);
+      if(perfil == "Administrador"){
 
-  public get() {
-      return NavigationItems;
+        console.log('perfil: ' + perfil);
+        console.log('entrou no 1, ADM ');
+        return NavigationItems;
+      }else if(perfil == "Enfermeiro"){
+
+        console.log('perfil: ' + perfil);
+        console.log('entrou no 2, ENF ');
+        return NavigationItems1;
+      }
   }
 }

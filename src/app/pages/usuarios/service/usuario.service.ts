@@ -27,6 +27,7 @@ export class UsuarioService extends CRUD<Usuario> {
       { valor: 3, nome: 'Inativo' }
     ];
   }
+
   getAllEnfermeirosAtivos(): Observable<Usuario[]>  {
     return this.http.get<Usuario[]>(`${environment.API}apicensohgp/usuarios/enfermeiros-ativos`).pipe(retry(1), catchError(this.handleError));
   }
