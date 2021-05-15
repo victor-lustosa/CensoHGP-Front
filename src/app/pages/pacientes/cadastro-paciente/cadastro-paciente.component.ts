@@ -63,7 +63,6 @@ onCheckChange(event) {
       this.precaucaoService.getAll().subscribe(
         data => {
           this.listaPrecaucoes = data;
-          console.log('lista: ', this.listaPrecaucoes)
         });
       }
       loadListaDepartamento() {

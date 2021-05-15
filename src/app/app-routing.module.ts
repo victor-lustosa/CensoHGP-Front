@@ -11,12 +11,12 @@ const routes: Routes = [
   ]
 }
 , { path: '',  component: AdminComponent, children: [
-    { path: 'dashboard', loadChildren: () => import('./pages/dashboard/dashboard.module').then(module => module.DashboardModule)},
-    { path: 'usuarios', loadChildren: () => import('./pages/usuarios/usuarios.module').then(module => module.UsuariosModule)},
-    { path: 'precaucoes', loadChildren: () => import('./pages/precaucoes/precaucoes.module').then(module => module.PrecaucoesModule)},
-    { path: 'departamentos', loadChildren: () => import('./pages/departamentos/departamentos.module').then(module => module.DepartamentosModule)},
-    { path: 'pacientes', loadChildren: () => import('./pages/pacientes/pacientes.module').then(module => module.PacientesModule)},
-    { path: 'checklists', loadChildren: () => import('./pages/checklists/checklists.module').then(module => module.ChecklistsModule)}
+    { path: 'dashboard', loadChildren: () => import('./pages/dashboard/dashboard.module').then(module => module.DashboardModule), canActivate : [AuthGuard]},
+    { path: 'usuarios', loadChildren: () => import('./pages/usuarios/usuarios.module').then(module => module.UsuariosModule), canActivate : [AuthGuard]},
+    { path: 'precaucoes', loadChildren: () => import('./pages/precaucoes/precaucoes.module').then(module => module.PrecaucoesModule), canActivate : [AuthGuard]},
+    { path: 'departamentos', loadChildren: () => import('./pages/departamentos/departamentos.module').then(module => module.DepartamentosModule), canActivate : [AuthGuard]},
+    { path: 'pacientes', loadChildren: () => import('./pages/pacientes/pacientes.module').then(module => module.PacientesModule), canActivate : [AuthGuard]},
+    { path: 'checklists', loadChildren: () => import('./pages/checklists/checklists.module').then(module => module.ChecklistsModule), canActivate : [AuthGuard]}
 ]
 }
 ];

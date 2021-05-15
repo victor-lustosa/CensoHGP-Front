@@ -28,6 +28,7 @@ import { AuthService } from './pages/auth/service/auth.service';
 import { TokenInterceptorProvider } from './pages/auth/service/token.interceptor';
 import { StorageService } from './pages/auth/service/storage.service';
 import { UsuarioService } from './pages/usuarios/service/usuario.service';
+import { AuthGuard } from './pages/auth/guards';
 
 
 
@@ -63,6 +64,7 @@ import { UsuarioService } from './pages/usuarios/service/usuario.service';
       StorageService,
       TokenInterceptorProvider,
       AuthService,
+      AuthGuard,
       NavigationItem
     ],
     bootstrap: [AppComponent]

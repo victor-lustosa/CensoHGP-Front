@@ -94,7 +94,6 @@ export class CadastroUsuarioComponent implements OnInit {
           this.validaSenha = true;
         }
       } else {
-        console.log(this.formulario.get('senha').value)
         if (this.senhaNovamente === this.formulario.get('senha').value) {
           this.usuariosService.create(this.formulario.value)
             .subscribe(

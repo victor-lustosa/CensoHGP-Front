@@ -36,9 +36,7 @@ export class LoginComponent implements OnInit {
       this.authService.tentarLogar(this.formulario.value).subscribe(
         (response: any) => {
           this.authService.successfulLogin(response.headers.get('Authorization'));
-          console.log('perfil: ', response.headers.get('Authorization'));
           this.router.navigate([this.routers.DASHBOARD]).then();
-
         },
         () => {
           this.mensagemErro = 'Usuário e/ou senha incorreto(s).';

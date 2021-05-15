@@ -150,22 +150,18 @@ export class NavigationItem {
   constructor( private storage: StorageService) { }
   perfilDef: string;
   verificaPerfil(){
-
   this.perfilDef = this.storage.getLocalUser().perfil;
   }
   get() {
     this.verificaPerfil();
     if (this.perfilDef != null) {
-    console.log('perfil: '+  this.perfilDef);
-      if (this.perfilDef == "[ROLE_ADMIN]") {
-        console.log('perfil: ' + this.perfilDef);
+    if (this.perfilDef == '[ROLE_ADMIN]') {
         return NavigationItems;
-      } else if (this.perfilDef == "[ROLE_ENFER]") {
-        console.log('perfil: ' + this.perfilDef);
+      } else if (this.perfilDef == '[ROLE_ENFER]') {
         return NavigationItems1;
       }
     } else{
-      this.verificaPerfil()
+      this.verificaPerfil();
     }
   }
 }

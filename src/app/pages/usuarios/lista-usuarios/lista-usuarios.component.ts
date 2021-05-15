@@ -87,9 +87,7 @@ export class ListaUsuariosComponent implements OnInit {
   loadListaUsuarios() {
     this.lista =  [];
     this.statusSpinner = true;
-    console.log('tipo ' + this.tipoUsuario + ' ativo: ' + this.ativo);
     if (this.tipoUsuario == 2 && this.ativo == 3) {
-      console.log('oiiiiiiii tipo ' + this.tipoUsuario + ' ativo: ' + this.ativo)
       setTimeout(() => {
         this.usuariosService.getAllEnfermeirosInativos().subscribe(
           data => {
