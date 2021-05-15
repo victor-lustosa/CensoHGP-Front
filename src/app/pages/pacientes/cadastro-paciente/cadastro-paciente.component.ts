@@ -15,15 +15,15 @@ import { PacienteService } from '../service/paciente.service';
 export class CadastroPacienteComponent implements OnInit {
   public formulario: FormGroup;
   listaPrecaucoes: Precaucao[] = [];
-  listaSexos:any[]=[];
-  listaDepartamento:Departamento[]=[];
+  listaSexos: any[] = [];
+  listaDepartamento: Departamento[] = [];
   sucesso: boolean = false;
   at:boolean = true;
   static atualizando = new EventEmitter<boolean>();
   mensagemErro: string = '';
 
-  constructor( public activeModal: NgbActiveModal,private pacientesService: PacienteService,
-    private departamentoService:DepartamentoService,private formBuilder: FormBuilder,
+  constructor( public activeModal: NgbActiveModal, private pacientesService: PacienteService,
+    private departamentoService: DepartamentoService, private formBuilder: FormBuilder,
     private precaucaoService: PrecaucaoService) { }
 
     ngOnInit(): void {
@@ -35,9 +35,9 @@ export class CadastroPacienteComponent implements OnInit {
         cpf: [null],
         sexo: [null],
         dataNascimento: [null],
-        precaucao:new FormArray([]),
+        precaucao: new FormArray([]),
         departamento: [null]
-      })
+      });
       this.loadListaPrecaucoes();
       this.loadListaDepartamento();
       this.listaSexos = this.pacientesService.getSexos();
@@ -45,13 +45,13 @@ export class CadastroPacienteComponent implements OnInit {
 
 onCheckChange(event) {
   const formArray: FormArray = this.formulario.get('precaucao') as FormArray;
-  if(event.target.checked){
+  if (event.target.checked){
       formArray.push(new FormControl(event.target.value));
   }
   else{
     let i: number = 0;
     formArray.controls.forEach((ctrl: FormControl) => {
-      if(ctrl.value == event.target.value) {
+      if (ctrl.value == event.target.value) {
         formArray.removeAt(i);
         return;
       }
@@ -63,15 +63,14 @@ onCheckChange(event) {
       this.precaucaoService.getAll().subscribe(
         data => {
           this.listaPrecaucoes = data;
-          console.log('lista: ', this.listaPrecaucoes)
-        })
+        });
       }
       loadListaDepartamento() {
         this.departamentoService.getAll()
         .subscribe(
           data => {
             this.listaDepartamento = data;
-          })
+          });
         }
         public verificaValidTouched(campo: any) {
           return !this.formulario.get(campo).valid && this.formulario.get(campo).touched;
@@ -82,11 +81,12 @@ onCheckChange(event) {
           };
         }
         valid(){
-          if(this.formulario.valid){
-            this.mensagemErro=''
-            this.savePacientes()}
+          if (this.formulario.valid){
+            this.mensagemErro = '';
+            this.savePacientes();
+          }
             else{
-              this.mensagemErro = "Por favor, preencha os campos obrigatórios";
+              this.mensagemErro = 'Por favor, preencha os campos obrigatórios';
             }
           }
           savePacientes() {
@@ -99,9 +99,9 @@ onCheckChange(event) {
                     this.formulario.reset(),
                     CadastroPacienteComponent.atualizando.emit(this.at),
                     setTimeout(() => {
-                      this.activeModal.close()
-                    }, 500)
-                  })
+                      this.activeModal.close();
+                    }, 500);
+                  });
                 } else {
                   this.pacientesService.create(this.formulario.value)
                   .subscribe(
@@ -110,10 +110,10 @@ onCheckChange(event) {
                       this.formulario.reset(),
                       CadastroPacienteComponent.atualizando.emit(this.at),
                       setTimeout(() => {
-                        this.activeModal.close()
-                      }, 500)
+                        this.activeModal.close();
+                      }, 500);
                     }
-                  )
+                  );
                 }
               }
             }

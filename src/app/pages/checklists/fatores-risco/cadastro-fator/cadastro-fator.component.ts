@@ -41,15 +41,15 @@ export class CadastroFatorComponent implements OnInit {
       nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
       descricao: [null],
       ativo: [true]
-    })
+    });
   }
   valid() {
     if (this.formulario.valid) {
-      this.mensagemErro = ''
-      this.saveFatores()
+      this.mensagemErro = '';
+      this.saveFatores();
     }
     else {
-      this.mensagemErro = "Por favor, preencha os campos obrigatórios";
+      this.mensagemErro = 'Por favor, preencha os campos obrigatórios';
     }
   }
   updateForm(fatores: Fator) {
@@ -58,7 +58,7 @@ export class CadastroFatorComponent implements OnInit {
       nome: fatores.nome,
       descricao: fatores.descricao,
       ativo: fatores.ativo
-    })
+    });
   }
   saveFatores() {
     this.erroBack = '';
@@ -71,13 +71,13 @@ export class CadastroFatorComponent implements OnInit {
                 this.formulario.reset(),
                 CadastroFatorComponent.atualizando.emit(this.at),
                 setTimeout(() => {
-                  this.activeModal.close()
-                }, 500)
+                  this.activeModal.close();
+                }, 500);
             },
             (error) => {
               this.erroBack = error;
             }
-          )
+          );
       } else {
         this.fatoresService.create(this.formulario.value)
           .subscribe(
@@ -86,12 +86,12 @@ export class CadastroFatorComponent implements OnInit {
                 this.formulario.reset(),
                 CadastroFatorComponent.atualizando.emit(this.at),
                 setTimeout(() => {
-                  this.activeModal.close()
-                }, 500)
+                  this.activeModal.close();
+                }, 500);
             }, (error) => {
               this.erroBack = error;
             }
-          )
+          );
       }
     }
   }

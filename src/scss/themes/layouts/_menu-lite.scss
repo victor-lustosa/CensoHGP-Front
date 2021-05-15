@@ -2518,7 +2518,7 @@ $style-block-width: 400px;
             $i: index($color-header-name, $value);
 
             > a {
-                &[data-value="header-#{$value}"] {
+                &[data-value="header-#{"" + $value}"] {
                     > span:nth-child(1) {
                         background: linear-gradient(to right, nth($color-header-color,$i), nth($color-header-color2,$i));
 
@@ -2531,7 +2531,7 @@ $style-block-width: 400px;
             }
 
             &.small > a {
-                &[data-value="header-#{$value}"] {
+                &[data-value="header-#{"" + $value}"] {
                     background: nth($color-header-color,$i);
                 }
             }
@@ -2543,7 +2543,7 @@ $style-block-width: 400px;
             $i: index($color-menu-name, $value);
 
             > a {
-                &[data-value="navbar-#{$value}"] {
+                &[data-value="navbar-#{"" + $value}"] {
                     > span:nth-child(2) {
                         &:before {
                             background: nth($color-menu-color,$i);
@@ -2553,7 +2553,7 @@ $style-block-width: 400px;
             }
 
             &.small > a {
-                &[data-value="navbar-#{$value}"] {
+                &[data-value="navbar-#{"" + $value}"] {
                     background: nth($color-menu-color,$i);
                 }
             }
@@ -2565,7 +2565,7 @@ $style-block-width: 400px;
             $i: index($color-header-name, $value);
 
             > a {
-                &[data-value="brand-#{$value}"] {
+                &[data-value="brand-#{"" + $value}"] {
                     > span:nth-child(1) {
                         &:before {
                             background: nth($color-header-color,$i);
@@ -2575,7 +2575,7 @@ $style-block-width: 400px;
             }
 
             &.small > a {
-                &[data-value="brand-#{$value}"] {
+                &[data-value="brand-#{"" + $value}"] {
                     background: nth($color-header-color,$i);
                 }
             }
@@ -2680,7 +2680,7 @@ $style-block-width: 400px;
             $i: index($color-header-name, $value);
 
             > a {
-                &[data-value="header-#{$value}"] {
+                &[data-value="header-#{"" + $value}"] {
                     > span:nth-child(1) {
                         background: linear-gradient(to right, nth($color-header-color,$i), nth($color-header-color2,$i));
 
@@ -2699,7 +2699,7 @@ $style-block-width: 400px;
             $i: index($color-header-name, $value);
 
             > a {
-                &[data-value="brand-#{$value}"] {
+                &[data-value="brand-#{"" + $value}"] {
                     > span:nth-child(1) {
                         &:before {
                             background: nth($color-header-color,$i);
@@ -2916,7 +2916,7 @@ $style-block-width: 400px;
     @each $value in $color-header-name {
         $i: index($color-header-name, $value);
 
-        &.header-#{$value} {
+        &.header-#{"" + $value} {
             background: linear-gradient(to right, nth($color-header-color,$i), nth($color-header-color2,$i));
             color: rgba(256,256,256,0.8);
 
@@ -3090,8 +3090,8 @@ $style-block-width: 400px;
     }
     @each $value in $color-header-name {
         $i: index($color-header-name, $value);
-        &.brand-#{$value} .m-header,
-        &[class*="header-"].brand-#{$value} .m-header {
+        &.brand-#{"" + $value} .m-header,
+        &[class*="header-"].brand-#{"" + $value} .m-header {
             background: nth($color-header-color,$i);
             @if($value=="dark") {
                 .b-bg {

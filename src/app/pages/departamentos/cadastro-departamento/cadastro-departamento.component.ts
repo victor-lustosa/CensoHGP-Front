@@ -15,14 +15,14 @@ export class CadastroDepartamentoComponent implements OnInit {
   @Input() public departamento: Departamento;
   errors: String[];
   sucesso: boolean = false;
-  erroBack:string = '';
+  erroBack: string = '';
   listaTipoDepartamento: any[];
   @Input() tituloModal: string;
   static atualizando = new EventEmitter<boolean>();
-  at:boolean = true;
-  mensagemErro:string='';
+  at: boolean = true;
+  mensagemErro: string = '';
   constructor(
-    public activeModal: NgbActiveModal,private departamentosService: DepartamentoService, private formBuilder: FormBuilder) { }
+    public activeModal: NgbActiveModal, private departamentosService: DepartamentoService, private formBuilder: FormBuilder) { }
 
     ngOnInit(): void {
       this.listaTipoDepartamento = this.departamentosService.getTipoDepartamentos();
@@ -40,7 +40,7 @@ export class CadastroDepartamentoComponent implements OnInit {
         ativo: [true],
         interno: [true, [Validators.required]],
         descricao: [null]
-      })
+      });
     }
 
     updateForm(departamentos: Departamento) {
@@ -51,7 +51,7 @@ export class CadastroDepartamentoComponent implements OnInit {
         ativo: departamentos.ativo,
         interno: departamentos.interno,
         descricao: departamentos.descricao
-      })
+      });
     }
 
     public verificaValidTouched(campo: any) {
@@ -64,10 +64,11 @@ export class CadastroDepartamentoComponent implements OnInit {
     }
     valid(){
       if(this.formulario.valid){
-        this.mensagemErro=''
-        this.saveDepartamentos()}
+        this.mensagemErro = '';
+        this.saveDepartamentos();
+      }
         else{
-        this.mensagemErro = "Por favor, preencha os campos obrigatórios";
+        this.mensagemErro = 'Por favor, preencha os campos obrigatórios';
       }
     }
     saveDepartamentos() {
@@ -81,13 +82,13 @@ export class CadastroDepartamentoComponent implements OnInit {
               this.formulario.reset(),
               CadastroDepartamentoComponent.atualizando.emit(this.at),
               setTimeout(() => {
-                this.activeModal.close()
+                this.activeModal.close();
               }, 500);
             },
             (error) => {
               this.erroBack = error;
             }
-          )
+          );
         }
         else {
           this.departamentosService.create(this.formulario.value)
@@ -97,13 +98,13 @@ export class CadastroDepartamentoComponent implements OnInit {
               this.formulario.reset(),
               CadastroDepartamentoComponent.atualizando.emit(this.at),
               setTimeout(() => {
-                this.activeModal.close()
+                this.activeModal.close();
               }, 500);
             },
             (error) => {
               this.erroBack = error;
             }
-          )
+          );
         }
       }
     }

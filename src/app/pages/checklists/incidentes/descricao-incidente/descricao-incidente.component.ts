@@ -9,8 +9,8 @@ import { Incidente } from '../model/incidente';
   styleUrls: ['./descricao-incidente.component.scss']
 })
 export class DescricaoIncidenteComponent implements OnInit {
-  @Input() tituloModal:string;
-  @Input() incidente:Incidente;
+  @Input() tituloModal: string;
+  @Input() incidente: Incidente;
   constructor(public activeModal: NgbActiveModal) { }
 
   ngOnInit(): void {

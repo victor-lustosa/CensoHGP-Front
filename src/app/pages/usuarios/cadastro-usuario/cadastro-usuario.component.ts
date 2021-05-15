@@ -45,8 +45,8 @@ export class CadastroUsuarioComponent implements OnInit {
       matricula: [null, [Validators.required]],
       ativo: [true],
       senha: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
-      admin: [true, [Validators.required]]
-    })
+      perfil: [true, [Validators.required]]
+    });
   }
   aplicaCssErro(campo: any) {
     return {
@@ -61,16 +61,16 @@ export class CadastroUsuarioComponent implements OnInit {
       matricula: usuarios.matricula,
       ativo: usuarios.ativo,
       senha: usuarios.senha,
-      admin: usuarios.admin
-    })
+      perfil: usuarios.perfil
+    });
   }
   valid() {
     if (this.formulario.valid) {
-      this.mensagemErro = ''
-      this.saveUsuarios()
+      this.mensagemErro = '';
+      this.saveUsuarios();
     }
     else {
-      this.mensagemErro = "Por favor, preencha os campos obrigatórios";
+      this.mensagemErro = 'Por favor, preencha os campos obrigatórios';
     }
   }
   saveUsuarios() {
@@ -85,16 +85,15 @@ export class CadastroUsuarioComponent implements OnInit {
                   this.senhaNovamente = null;
                 CadastroUsuarioComponent.atualizando.emit(this.at),
                   setTimeout(() => {
-                    this.activeModal.close()
-                  }, 500)
+                    this.activeModal.close();
+                  }, 500);
               }, (error) => {
                 this.erroBack = error;
-              })
+              });
         } else {
           this.validaSenha = true;
         }
       } else {
-        console.log(this.formulario.get('senha').value)
         if (this.senhaNovamente === this.formulario.get('senha').value) {
           this.usuariosService.create(this.formulario.value)
             .subscribe(
@@ -104,11 +103,11 @@ export class CadastroUsuarioComponent implements OnInit {
                   this.senhaNovamente = null;
                 CadastroUsuarioComponent.atualizando.emit(this.at),
                   setTimeout(() => {
-                    this.activeModal.close()
-                  }, 500)
+                    this.activeModal.close();
+                  }, 500);
               }, (error) => {
                 this.erroBack = error;
-              })
+              });
         } else {
           this.validaSenha = true;
         }

@@ -23,10 +23,12 @@ export class IncidenteService extends CRUD<Incidente> {
      ];
    }
    getAllAtivos(): Observable<Incidente[]>  {
-     return this.http.get<Incidente[]>(`${environment.API}apicensohgp/incidentes/ativos`).pipe(retry(1), catchError(this.handleError));
+     return this.http.get<Incidente[]>(`${environment.API}apicensohgp/incidentes/ativos`)
+     .pipe(retry(1), catchError(this.handleError));
    }
 
    getAllInativos(): Observable<Incidente[]> {
-     return this.http.get<Incidente[]>(`${environment.API}apicensohgp/incidentes/inativos`).pipe(retry(1), catchError(this.handleError));
+     return this.http.get<Incidente[]>(`${environment.API}apicensohgp/incidentes/inativos`)
+     .pipe(retry(1), catchError(this.handleError));
    }
 }

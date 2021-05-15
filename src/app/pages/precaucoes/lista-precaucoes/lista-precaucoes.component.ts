@@ -10,10 +10,10 @@ import { DescricaoPrecaucaoComponent } from '../descricao-precaucao/descricao-pr
   styleUrls: ['./lista-precaucoes.component.scss']
 })
 export class ListaPrecaucoesComponent implements OnInit {
-  paginaAtual : number = 1 ;
+  paginaAtual: number = 1 ;
   searchText: string;
-  contador : number = 10;
-  lista: Precaucao[]=[];
+  contador: number = 10;
+  lista: Precaucao[] = [];
   sucesso: boolean = false;
   statusSpinner: boolean = false;
   precaucaoAux: Precaucao;
@@ -29,13 +29,13 @@ export class ListaPrecaucoesComponent implements OnInit {
     CadastroPrecaucaoComponent.atualizando.subscribe(
       () => {
         this.loadListaPrecaucoes();
-      })
+      });
     }
     verifica(){
       this.paginaAtual = 1;
     }
     limpar() {
-      this.searchText ='';
+      this.searchText = '';
     }
     filtroStatus(value: any) {
       this.ativo = value;
@@ -43,21 +43,21 @@ export class ListaPrecaucoesComponent implements OnInit {
     }
     cadastrar(){
       const modalRef = this.modalService.open(CadastroPrecaucaoComponent, this.MODALOPTIONS)
-      modalRef.componentInstance.tituloModal = "Cadastrar precaução";
+      modalRef.componentInstance.tituloModal = 'Cadastrar precaução';
     }
     descricao(id: number) {
       this.precaucoesService.getById(id).subscribe((precaucao) => {
         const modalRef = this.modalService.open(DescricaoPrecaucaoComponent, this.MODALOPTIONS);
-        modalRef.componentInstance.tituloModal = "Descrição da precaução";
+        modalRef.componentInstance.tituloModal = 'Descrição da precaução';
         modalRef.componentInstance.precaucao = precaucao;
-      })
+      });
     }
-    editar(id:number){
+    editar(id: number){
       this.precaucoesService.getById(id).subscribe((precaucao) => {
         const modalRef = this.modalService.open(CadastroPrecaucaoComponent, this.MODALOPTIONS);
-        modalRef.componentInstance.tituloModal = "Editar precaução";
+        modalRef.componentInstance.tituloModal = 'Editar precaução';
         modalRef.componentInstance.precaucao = precaucao;
-      })
+      });
     }
     loadListaPrecaucoes() {
       this.lista =  [];
@@ -69,8 +69,8 @@ export class ListaPrecaucoesComponent implements OnInit {
               this.lista = data;
               this.statusSpinner = false;
             }
-          )
-        } , 400)
+          );
+        } , 400);
       }
       else if (this.ativo == 3) {
         setTimeout(() => {
@@ -79,8 +79,8 @@ export class ListaPrecaucoesComponent implements OnInit {
               this.lista = data;
               this.statusSpinner = false;
             }
-          )
-        } , 400)
+          );
+        } , 400);
       }
       else {
         setTimeout(() => {
@@ -90,7 +90,7 @@ export class ListaPrecaucoesComponent implements OnInit {
               this.statusSpinner = false;
             }
           );
-        }, 400)
+        }, 400);
       }
     }
     pegaId(id: number) {

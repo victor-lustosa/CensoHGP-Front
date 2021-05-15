@@ -15,8 +15,8 @@ export class ListaIncidentesComponent implements OnInit {
   lista: Incidente[] = [];
   searchText: string;
   statusSpinner: boolean = false;
-  paginaAtual : number = 1 ;
-  contador : number = 10;
+  paginaAtual: number = 1 ;
+  contador: number = 10;
   sucesso: boolean = false;
   varConfirm: string;
   incidenteAux: Incidente;
@@ -37,7 +37,7 @@ export class ListaIncidentesComponent implements OnInit {
       this.paginaAtual = 1;
     }
     limpar() {
-      this.searchText ='';
+      this.searchText = '';
     }
     filtroStatus(value: any) {
       this.ativo = value;
@@ -45,23 +45,23 @@ export class ListaIncidentesComponent implements OnInit {
     }
     cadastrar() {
       const modalRef = this.modalService.open(CadastroIncidenteComponent, this.MODALOPTIONS);
-      modalRef.componentInstance.tituloModal = "Cadastrar incidente";
+      modalRef.componentInstance.tituloModal = 'Cadastrar incidente';
     }
     descricao(id: number) {
       this.incidentesService.getById(id).subscribe((incidente) => {
         const modalRef = this.modalService.open(DescricaoIncidenteComponent, this.MODALOPTIONS);
-        modalRef.componentInstance.tituloModal = "Descrição do incidente";
+        modalRef.componentInstance.tituloModal = 'Descrição do incidente';
         modalRef.componentInstance.incidente = incidente;
       }
-    )
+    );
   }
   editar(id: number) {
     this.incidentesService.getById(id).subscribe((incidentes) => {
       const modalRef = this.modalService.open(CadastroIncidenteComponent, this.MODALOPTIONS);
-      modalRef.componentInstance.tituloModal = "Editar incidente";
+      modalRef.componentInstance.tituloModal = 'Editar incidente';
       modalRef.componentInstance.incidente = incidentes;
     }
-  )
+  );
 }
 loadListaIncidentes() {
   this.lista =  [];
@@ -73,8 +73,8 @@ loadListaIncidentes() {
           this.lista = data;
           this.statusSpinner = false;
         }
-      )
-    } , 400)
+      );
+    } , 400);
   }
   else if (this.ativo == 3) {
     setTimeout(() => {
@@ -83,8 +83,8 @@ loadListaIncidentes() {
           this.lista = data;
           this.statusSpinner = false;
         }
-      )
-    } , 400)
+      );
+    } , 400);
   }
   else {
     setTimeout(() => {
@@ -94,7 +94,7 @@ loadListaIncidentes() {
           this.statusSpinner = false;
         }
       );
-    }, 400)
+    }, 400);
   }
 }
 pegaId(id: number) {

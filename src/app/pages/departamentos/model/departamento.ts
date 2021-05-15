@@ -5,5 +5,5 @@ export interface Departamento {
     numero_leitos: number;
     ativo: boolean;
     interno: boolean;
-    descricao:string;
+    descricao: string;
 }

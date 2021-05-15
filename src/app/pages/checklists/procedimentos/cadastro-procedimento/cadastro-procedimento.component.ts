@@ -19,7 +19,7 @@ export class CadastroProcedimentoComponent implements OnInit {
   erroBack: string = '';
   tituloModal: string;
   static atualizando = new EventEmitter<boolean>();
-   at:boolean = true;
+   at: boolean = true;
   mensagemErro: string = '';
   constructor(
     public activeModal: NgbActiveModal, private procedimentosService: ProcedimentoService, private formBuilder: FormBuilder) { }
@@ -37,7 +37,7 @@ export class CadastroProcedimentoComponent implements OnInit {
         nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
         descricao: [null],
         ativo: [true]
-      })
+      });
     }
 
     updateForm(procedimentos: Procedimento) {
@@ -46,7 +46,7 @@ export class CadastroProcedimentoComponent implements OnInit {
         nome: procedimentos.nome,
         descricao: procedimentos.descricao,
         ativo: procedimentos.ativo
-      })
+      });
     }
     public verificaValidTouched(campo: any) {
       return !this.formulario.get(campo).valid && this.formulario.get(campo).touched;
@@ -57,11 +57,12 @@ export class CadastroProcedimentoComponent implements OnInit {
       };
     }
     valid(){
-      if(this.formulario.valid){
-        this.mensagemErro='';
-        this.saveProcedimentos();}
+      if (this.formulario.valid){
+        this.mensagemErro = '';
+        this.saveProcedimentos();
+      }
         else{
-        this.mensagemErro = "Por favor, preencha os campos obrigatórios";
+        this.mensagemErro = 'Por favor, preencha os campos obrigatórios';
       }
     }
     saveProcedimentos() {
@@ -77,7 +78,7 @@ export class CadastroProcedimentoComponent implements OnInit {
               setTimeout(() => {
                 this.activeModal.close();
               }, 500);
-            },(error) => {
+            }, (error) => {
               this.erroBack = error;
             }
             );
@@ -92,7 +93,7 @@ export class CadastroProcedimentoComponent implements OnInit {
                   setTimeout(() => {
                     this.activeModal.close();
                   }, 500);
-                },(error) => {
+                }, (error) => {
                   this.erroBack = error;
                 });
               }

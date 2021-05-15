@@ -12,8 +12,8 @@ import { DescricaoDepartamentoComponent } from '../descricao-departamento/descri
 })
 export class ListaDepartamentosComponent implements OnInit {
   lista: Departamento[] = [];
-  paginaAtual : number = 1 ;
-  contador : number = 10;
+  paginaAtual: number = 1 ;
+  contador: number = 10;
   ativo: number = 1;
   searchText: string;
   statusSpinner: boolean = false;
@@ -33,10 +33,10 @@ export class ListaDepartamentosComponent implements OnInit {
       CadastroDepartamentoComponent.atualizando.subscribe(
         () => {
           this.loadListaDepartamentos();
-        })
+        });
       }
       limpar() {
-        this.searchText ='';
+        this.searchText = '';
       }
       verifica(){
           this.paginaAtual = 1;
@@ -51,7 +51,7 @@ export class ListaDepartamentosComponent implements OnInit {
           modalRef.componentInstance.tituloModal = 'Editar departamento';
           modalRef.componentInstance.departamento = departamento;
         }
-      )
+      );
     }
     descricao(id: number) {
       this.departamentosService.getById(id).subscribe((departamento) => {
@@ -59,7 +59,7 @@ export class ListaDepartamentosComponent implements OnInit {
         modalRef.componentInstance.tituloModal = 'Descrição do departamento';
         modalRef.componentInstance.departamento = departamento;
       }
-    )
+    );
   }
   filtroStatus(value: any) {
     this.ativo = value;
@@ -72,107 +72,107 @@ export class ListaDepartamentosComponent implements OnInit {
   loadListaDepartamentos() {
     this.lista =  [];
     this.statusSpinner = true;
-      if (this.ativo == 2 && this.tipoDepartamento == 2) {
-        setTimeout(() => {
-          this.departamentosService.getAllAtivosInternos().subscribe(
-            data => {
-              this.lista = data;
-              this.statusSpinner = false;
-            }
-          )
-        } , 400)
-      }
-      else if (this.ativo == 2 && this.tipoDepartamento == 3) {
-        setTimeout(() => {
-          this.departamentosService.getAllAtivosExternos().subscribe(
-            data => {
-              this.lista = data;
-              this.statusSpinner = false;
-            }
-          )
-        } , 400)
-      }
-      else if (this.ativo == 3 && this.tipoDepartamento == 2) {
-        setTimeout(() => {
-          this.departamentosService.getAllInativosInternos().subscribe(
-            data => {
-              this.lista = data;
-              this.statusSpinner = false;
-            }
-          )
-        } , 400)
-      }
-      else if (this.ativo == 3 && this.tipoDepartamento == 3) {
-        setTimeout(() => {
-          this.departamentosService.getAllInativosExternos().subscribe(
-            data => {
-              this.lista = data;
-              this.statusSpinner = false;
-            }
-          )
-        } , 400)
-      }
-      else if (this.tipoDepartamento == 2) {
-        setTimeout(() => {
-          this.departamentosService.getAllInternos().subscribe(
-            data => {
-              this.lista = data;
-              this.statusSpinner = false;
-            }
-          )
-        } , 400)
-      }
-      else if (this.tipoDepartamento == 3) {
-        setTimeout(() => {
-          this.departamentosService.getAllExternos().subscribe(
-            data => {
-              this.lista = data;
-              this.statusSpinner = false;
-            }
-          )
-        } , 400)
-      }
-      else if (this.ativo == 2) {
-        setTimeout(() => {
-          this.departamentosService.getAllAtivos().subscribe(
-            data => {
-              this.lista = data;
-              this.statusSpinner = false;
-            }
-          )
-        } , 400)
-      }
-      else if (this.ativo == 3) {
-        setTimeout(() => {
-          this.departamentosService.getAllInativos().subscribe(
-            data => {
-              this.lista = data;
-              this.statusSpinner = false;
-            }
-          )
-        } , 400)
-      }
-      else if (this.ativo == 3 && this.tipoDepartamento == 2) {
-        setTimeout(() => {
-          this.departamentosService.getAllInativosInternos().subscribe(
-            data => {
-              this.lista = data;
-              this.statusSpinner = false;
-            }
-          )
-        } , 400)
-      }
-      else {
-        setTimeout(() => {
-          this.departamentosService.getAll()
-          .subscribe(
-            data => {
-              this.lista = data;
-              this.statusSpinner = false;
-            }
-          );
-        }, 400)
-      }
+    if (this.ativo == 2 && this.tipoDepartamento == 2) {
+      setTimeout(() => {
+        this.departamentosService.getAllAtivosInternos().subscribe(
+          data => {
+            this.lista = data;
+            this.statusSpinner = false;
+          }
+        );
+      }, 400);
+    }
+    else if (this.ativo == 2 && this.tipoDepartamento == 3) {
+      setTimeout(() => {
+        this.departamentosService.getAllAtivosExternos().subscribe(
+          data => {
+            this.lista = data;
+            this.statusSpinner = false;
+          }
+        );
+      }, 400);
+    }
+    else if (this.ativo == 3 && this.tipoDepartamento == 2) {
+      setTimeout(() => {
+        this.departamentosService.getAllInativosInternos().subscribe(
+          data => {
+            this.lista = data;
+            this.statusSpinner = false;
+          }
+        );
+      }, 400);
+    }
+    else if (this.ativo == 3 && this.tipoDepartamento == 3) {
+      setTimeout(() => {
+        this.departamentosService.getAllInativosExternos().subscribe(
+          data => {
+            this.lista = data;
+            this.statusSpinner = false;
+          }
+        );
+      }, 400);
+    }
+    else if (this.tipoDepartamento == 2) {
+      setTimeout(() => {
+        this.departamentosService.getAllInternos().subscribe(
+          data => {
+            this.lista = data;
+            this.statusSpinner = false;
+          }
+        );
+      }, 400);
+    }
+    else if (this.tipoDepartamento == 3) {
+      setTimeout(() => {
+        this.departamentosService.getAllExternos().subscribe(
+          data => {
+            this.lista = data;
+            this.statusSpinner = false;
+          }
+        );
+      }, 400);
+    }
+    else if (this.ativo == 2) {
+      setTimeout(() => {
+        this.departamentosService.getAllAtivos().subscribe(
+          data => {
+            this.lista = data;
+            this.statusSpinner = false;
+          }
+        );
+      }, 400);
+    }
+    else if (this.ativo == 3) {
+      setTimeout(() => {
+        this.departamentosService.getAllInativos().subscribe(
+          data => {
+            this.lista = data;
+            this.statusSpinner = false;
+          }
+        );
+      }, 400);
+    }
+    else if (this.ativo == 3 && this.tipoDepartamento == 2) {
+      setTimeout(() => {
+        this.departamentosService.getAllInativosInternos().subscribe(
+          data => {
+            this.lista = data;
+            this.statusSpinner = false;
+          }
+        );
+      }, 400);
+    }
+    else {
+      setTimeout(() => {
+        this.departamentosService.getAll()
+        .subscribe(
+          data => {
+            this.lista = data;
+            this.statusSpinner = false;
+          }
+        );
+      }, 400);
+    }
   }
   pegaId(id: number) {
     this.departamentosService.getById(id).subscribe((departamentosDis) => {

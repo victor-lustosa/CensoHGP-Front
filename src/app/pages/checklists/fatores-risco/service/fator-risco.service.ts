@@ -27,10 +27,12 @@ export class FatorRiscoService extends CRUD<Fator>{
     ];
   }
   getAllAtivos(): Observable<Fator[]>  {
-    return this.http.get<Fator[]>(`${environment.API}apicensohgp/fator-riscos/ativos`).pipe(retry(1), catchError(this.handleError));
+    return this.http.get<Fator[]>(`${environment.API}apicensohgp/fator-riscos/ativos`)
+    .pipe(retry(1), catchError(this.handleError));
   }
 
   getAllInativos(): Observable<Fator[]> {
-    return this.http.get<Fator[]>(`${environment.API}apicensohgp/fator-riscos/inativos`).pipe(retry(1), catchError(this.handleError));
+    return this.http.get<Fator[]>(`${environment.API}apicensohgp/fator-riscos/inativos`)
+    .pipe(retry(1), catchError(this.handleError));
   }
 }

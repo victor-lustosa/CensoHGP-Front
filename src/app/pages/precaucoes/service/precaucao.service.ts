@@ -21,10 +21,12 @@ export class PrecaucaoService extends CRUD<Precaucao> {
     ];
   }
   getAllAtivos(): Observable<Precaucao[]>  {
-    return this.http.get<Precaucao[]>(`${environment.API}apicensohgp/precaucaos/ativos`).pipe(retry(1), catchError(this.handleError));
+    return this.http.get<Precaucao[]>(`${environment.API}apicensohgp/precaucaos/ativos`)
+    .pipe(retry(1), catchError(this.handleError));
   }
 
   getAllInativos(): Observable<Precaucao[]> {
-    return this.http.get<Precaucao[]>(`${environment.API}apicensohgp/precaucaos/inativos`).pipe(retry(1), catchError(this.handleError));
+    return this.http.get<Precaucao[]>(`${environment.API}apicensohgp/precaucaos/inativos`)
+    .pipe(retry(1), catchError(this.handleError));
   }
  }

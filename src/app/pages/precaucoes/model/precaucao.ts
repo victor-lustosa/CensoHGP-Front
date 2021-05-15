@@ -3,5 +3,5 @@ export interface Precaucao {
     nome: string;
     descricao: string;
     ativo: boolean;
-    selected:boolean;
+    selected: boolean;
 }

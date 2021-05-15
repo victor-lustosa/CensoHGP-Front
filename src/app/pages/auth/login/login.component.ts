@@ -3,6 +3,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { routes } from '../../const';
 import { AuthService } from '../service/auth.service';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+
 
 @Component({
   selector: 'app-login',
@@ -10,9 +13,10 @@ import { AuthService } from '../service/auth.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  public mensagemErro:string;
+  public mensagemErro: string = '';
+  perfil: string;
   public routers: typeof routes = routes;
-  constructor(private service: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) { }
   public formulario: FormGroup;
   public ngOnInit(): void {
     this.formulario = new FormGroup({
@@ -20,16 +24,17 @@ export class LoginComponent implements OnInit {
       senha: new FormControl(null, [Validators.required])
     });
   }
+
   sendLoginForm() {
     if (this.formulario.valid) {
-      this.service.tentarLogar(this.formulario.get('matricula').value, this.formulario.get('senha').value)
-      .subscribe((response: any) => {
-        const access_token = JSON.stringify(response);
-        localStorage.setItem('access_token', access_token)
-        this.router.navigate([this.routers.LOGIN]).then();
-      }, error => {
-        this.mensagemErro = 'Usuário e/ou senha incorreto(s).'
-      })
+      this.authService.tentarLogar(this.formulario.value).subscribe(
+        (response: any) => {
+          this.authService.successfulLogin(response.headers.get('Authorization'));
+          this.router.navigate([this.routers.DASHBOARD]).then();
+        },
+        () => {
+          this.mensagemErro = 'Usuário e/ou senha incorreto(s).';
+        });
     }
   }
 }

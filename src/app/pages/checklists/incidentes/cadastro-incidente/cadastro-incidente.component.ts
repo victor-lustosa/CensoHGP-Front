@@ -46,7 +46,7 @@ export class CadastroIncidenteComponent implements OnInit {
         nome: incidentes.nome,
         descricao: incidentes.descricao,
         ativo: incidentes.ativo
-      })
+      });
     }
     public verificaValidTouched(campo: any) {
       return !this.formulario.get(campo).valid && this.formulario.get(campo).touched;
@@ -57,11 +57,12 @@ export class CadastroIncidenteComponent implements OnInit {
       };
     }
     valid(){
-      if(this.formulario.valid){
-        this.mensagemErro=''
-        this.saveIncidentes()}
-        else{
-        this.mensagemErro = "Por favor, preencha os campos obrigatórios";
+      if (this.formulario.valid){
+        this.mensagemErro = '';
+        this.saveIncidentes();
+      }
+      else{
+        this.mensagemErro = 'Por favor, preencha os campos obrigatórios';
       }
     }
     saveIncidentes() {
@@ -75,12 +76,12 @@ export class CadastroIncidenteComponent implements OnInit {
               this.formulario.reset(),
               CadastroIncidenteComponent.atualizando.emit(this.at),
               setTimeout(() => {
-                this.activeModal.close()
+                this.activeModal.close();
               }, 500);
             },
             (error) => {
               this.erroBack = error;
-            })
+            });
           }else{
             this.incidentesService.create(this.formulario.value)
             .subscribe(
@@ -90,12 +91,12 @@ export class CadastroIncidenteComponent implements OnInit {
                 this.formulario.reset(),
                 CadastroIncidenteComponent.atualizando.emit(this.at),
                 setTimeout(() => {
-                  this.activeModal.close()
+                  this.activeModal.close();
                 }, 500);
               },
               (error) => {
                 this.erroBack = error;
-              })
+              });
             }
           }
         }

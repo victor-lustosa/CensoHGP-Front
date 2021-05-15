@@ -11,15 +11,15 @@ import { CadastroUsuarioComponent } from '../cadastro-usuario/cadastro-usuario.c
 })
 export class ListaUsuariosComponent implements OnInit {
   searchText: string;
-  paginaAtual : number = 1 ;
-  contador : number = 10;
+  paginaAtual: number = 1 ;
+  contador: number = 10;
   lista: Usuario[] = [];
   sucesso: boolean = false;
   statusSpinner: boolean = false;
   varConfirm: string;
   mensagem: string;
   usuarioAux: Usuario;
-  tipoUsuario:number = 1;
+  tipoUsuario: number = 1;
   listaTipoUsuario: any[];
   ativo: number = 1;
   listaAtivo: any[];
@@ -33,13 +33,13 @@ export class ListaUsuariosComponent implements OnInit {
     CadastroUsuarioComponent.atualizando.subscribe(
       () => {
         this.loadListaUsuarios();
-      })
+      });
     }
     verifica(){
       this.paginaAtual = 1;
     }
     limpar() {
-      this.searchText ='';
+      this.searchText = '';
     }
     filtroTipoUsuario(value: any) {
       this.tipoUsuario = value;
@@ -64,15 +64,15 @@ export class ListaUsuariosComponent implements OnInit {
     }
     cadastrar() {
       const modalRef = this.modalService.open(CadastroUsuarioComponent, this.MODALOPTIONS);
-      modalRef.componentInstance.tituloModal = "Cadastrar usuário";
+      modalRef.componentInstance.tituloModal = 'Cadastrar usuário';
     }
     editar(id: number) {
       this.usuariosService.getById(id).subscribe((usuario) => {
         const modalRef = this.modalService.open(CadastroUsuarioComponent, this.MODALOPTIONS);
-        modalRef.componentInstance.tituloModal = "Editar usuário";
+        modalRef.componentInstance.tituloModal = 'Editar usuário';
         modalRef.componentInstance.usuario = usuario;
       }
-    )
+    );
   }
   pegaId(id: number) {
     this.usuariosService.getById(id).subscribe((usuariosDis) => {
@@ -87,17 +87,15 @@ export class ListaUsuariosComponent implements OnInit {
   loadListaUsuarios() {
     this.lista =  [];
     this.statusSpinner = true;
-    console.log('tipo '+this.tipoUsuario+' ativo: '+this.ativo)
-  if (this.tipoUsuario == 2 && this.ativo == 3) {
-      console.log('oiiiiiiii tipo '+this.tipoUsuario+' ativo: '+this.ativo)
+    if (this.tipoUsuario == 2 && this.ativo == 3) {
       setTimeout(() => {
         this.usuariosService.getAllEnfermeirosInativos().subscribe(
           data => {
             this.lista = data;
             this.statusSpinner = false;
           }
-        )
-      } , 400)
+        );
+      }, 400);
     }
     else if (this.tipoUsuario == 3 && this.ativo == 3) {
       setTimeout(() => {
@@ -106,8 +104,8 @@ export class ListaUsuariosComponent implements OnInit {
             this.lista = data;
             this.statusSpinner = false;
           }
-        )
-      } , 400)
+        );
+      }, 400);
     }
     else if (this.tipoUsuario == 3 && this.ativo == 2) {
       setTimeout(() => {
@@ -116,8 +114,8 @@ export class ListaUsuariosComponent implements OnInit {
             this.lista = data;
             this.statusSpinner = false;
           }
-        )
-      } , 400)
+        );
+      }, 400);
     }
     else if (this.tipoUsuario == 2 && this.ativo == 2 ) {
       setTimeout(() => {
@@ -126,8 +124,8 @@ export class ListaUsuariosComponent implements OnInit {
             this.lista = data;
             this.statusSpinner = false;
           }
-        )
-      } , 400)
+        );
+      }, 400);
     }
     else if (this.tipoUsuario == 2) {
       setTimeout(() => {
@@ -136,8 +134,8 @@ export class ListaUsuariosComponent implements OnInit {
             this.lista = data;
             this.statusSpinner = false;
           }
-        )
-      } , 400)
+        );
+      }, 400);
     }
     else if (this.tipoUsuario == 3) {
       setTimeout(() => {
@@ -146,8 +144,8 @@ export class ListaUsuariosComponent implements OnInit {
             this.lista = data;
             this.statusSpinner = false;
           }
-        )
-      } , 400)
+        );
+      }, 400);
     }
 
     else if (this.ativo == 2) {
@@ -157,8 +155,8 @@ export class ListaUsuariosComponent implements OnInit {
             this.lista = data;
             this.statusSpinner = false;
           }
-        )
-      } , 400)
+        );
+      }, 400);
     }
     else if (this.ativo == 3) {
       setTimeout(() => {
@@ -167,8 +165,8 @@ export class ListaUsuariosComponent implements OnInit {
             this.lista = data;
             this.statusSpinner = false;
           }
-        )
-      } , 400)
+        );
+      }, 400);
     }
     else {
       setTimeout(() => {
@@ -178,7 +176,7 @@ export class ListaUsuariosComponent implements OnInit {
             this.lista = data;
             this.statusSpinner = false;
           });
-        }, 400)
+        }, 400);
       }
     }
   }

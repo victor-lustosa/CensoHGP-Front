@@ -27,10 +27,12 @@ export class ProcedimentoService extends CRUD<Procedimento>{
     ];
   }
   getAllAtivos(): Observable<Procedimento[]>  {
-    return this.http.get<Procedimento[]>(`${environment.API}apicensohgp/procedimentos/ativos`).pipe(retry(1), catchError(this.handleError));
+    return this.http.get<Procedimento[]>(`${environment.API}apicensohgp/procedimentos/ativos`)
+    .pipe(retry(1), catchError(this.handleError));
   }
 
   getAllInativos(): Observable<Procedimento[]> {
-    return this.http.get<Procedimento[]>(`${environment.API}apicensohgp/procedimentos/inativos`).pipe(retry(1), catchError(this.handleError));
+    return this.http.get<Procedimento[]>(`${environment.API}apicensohgp/procedimentos/inativos`)
+    .pipe(retry(1), catchError(this.handleError));
   }
 }

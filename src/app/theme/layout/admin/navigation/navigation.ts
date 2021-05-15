@@ -1,4 +1,14 @@
+import { Credenciais } from './../../../../pages/auth/model/Credenciais';
 import { Injectable } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/pages/auth/service/auth.service';
+import { routes } from 'src/app/pages/const';
+import { UsuarioService } from 'src/app/pages/usuarios/service/usuario.service';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { StorageService } from 'src/app/pages/auth/service/storage.service';
 
 export interface NavigationItem {
   id: string;
@@ -137,8 +147,21 @@ const NavigationItems1 = [
 
 @Injectable()
 export class NavigationItem {
-
-  public get() {
-      return NavigationItems;
+  constructor( private storage: StorageService) { }
+  perfilDef: string;
+  verificaPerfil(){
+  this.perfilDef = this.storage.getLocalUser().perfil;
+  }
+  get() {
+    this.verificaPerfil();
+    if (this.perfilDef != null) {
+    if (this.perfilDef == '[ROLE_ADMIN]') {
+        return NavigationItems;
+      } else if (this.perfilDef == '[ROLE_ENFER]') {
+        return NavigationItems1;
+      }
+    } else{
+      this.verificaPerfil();
+    }
   }
 }
