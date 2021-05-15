@@ -22,10 +22,16 @@
                   <input type="password" class="form-control field-size" formControlName="senha" placeholder="digite sua senha" >
                 </div>
               </div>
+
               <button type="submit" class="btn btn-block btn-primary mb-4 button field-size" (click)="sendLoginForm()">Entrar</button>
               <p class="esq mb-2 text-muted">Esqueceu sua senha? <a  class="f-w-400"></a></p>
+              <div class="col-md-13">
+                <app-alert type="danger" *ngIf="mensagemErro!==''">{{mensagemErro}}</app-alert>
+              </div>
             </div>
+
           </form>
+
         </div>
       </div>
     </div>

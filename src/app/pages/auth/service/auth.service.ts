@@ -15,7 +15,10 @@ export class AuthService {
 
   constructor(private storage: StorageService, private http: HttpClient) {
   }
-
+  
+  logout() {
+    this.storage.setLocalUser(null);
+  }
   isAuthenticated(): boolean {
     const token = this.storage.getLocalUser().token;
     if (token) {
@@ -25,15 +28,15 @@ export class AuthService {
     return false;
   }
   successfulLogin(authorizationValue: string) {
-      let tok = authorizationValue.substring(19);
-      let perfil = authorizationValue.substring(0, 12);
-      let user: LocalUser = {
-        token: tok,
-        matricula: this.jwtHelper.decodeToken(tok).sub,
-        perfil: perfil
+    let tok = authorizationValue.substring(19);
+    let perfil = authorizationValue.substring(0, 12);
+    let user: LocalUser = {
+      token: tok,
+      matricula: this.jwtHelper.decodeToken(tok).sub,
+      perfil: perfil
     };
-      this.storage.setLocalUser(user);
-   }
+    this.storage.setLocalUser(user);
+  }
   tentarLogar(creds: Credenciais) {
     return this.http.post(`${environment.API}login`, creds,
       {

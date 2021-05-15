@@ -4,9 +4,9 @@ import { HttpClient} from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { CRUD } from 'src/app/theme/shared/CRUD';
 import { Usuario } from '../model/usuario';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-import { UsuarioDTO } from '../model/usuario-dto';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -14,7 +14,7 @@ export class UsuarioService extends CRUD<Usuario> {
   constructor(http: HttpClient){
     super(http, `${environment.API}apicensohgp/usuario`);
   }
-  private emissor$ = new Subject<string>();
+
   getTipoUsuarios(){
     return [
       { valor: 1, nome: 'Todos' },
@@ -30,8 +30,8 @@ export class UsuarioService extends CRUD<Usuario> {
     ];
   }
 
-  getUsuarioByMatricula(matricula: string): Observable<string[]> {
-    return this.http.get<string[]>(`${environment.API}apicensohgp/usuario/matricula/string/${matricula}`);
+  getUsuarioByMatricula(matricula: string): Observable<Usuario> {
+    return this.http.get<Usuario>(`${environment.API}apicensohgp/usuario/matricula/${matricula}`);
   }
 
   getAllEnfermeirosAtivos(): Observable<Usuario[]>  {

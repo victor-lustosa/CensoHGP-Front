@@ -1,16 +1,11 @@
-import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable, Subject, throwError } from 'rxjs';
-import { NavigationItem } from 'src/app/theme/layout/admin/navigation/navigation';
 import { routes } from '../../const';
-import { UsuarioService } from '../../usuarios/service/usuario.service';
 import { AuthService } from '../service/auth.service';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import { exhaustMap, map } from 'rxjs/operators';
-import { StorageService } from '../service/storage.service';
+
 
 @Component({
   selector: 'app-login',
@@ -18,11 +13,10 @@ import { StorageService } from '../service/storage.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  public mensagemErro: string;
+  public mensagemErro: string = '';
   perfil: string;
   public routers: typeof routes = routes;
-  constructor(private authService: AuthService, private router: Router,
-    private menu: NavigationItem) { }
+  constructor(private authService: AuthService, private router: Router) { }
   public formulario: FormGroup;
   public ngOnInit(): void {
     this.formulario = new FormGroup({
@@ -41,7 +35,6 @@ export class LoginComponent implements OnInit {
         () => {
           this.mensagemErro = 'Usuário e/ou senha incorreto(s).';
         });
-
     }
   }
 }
