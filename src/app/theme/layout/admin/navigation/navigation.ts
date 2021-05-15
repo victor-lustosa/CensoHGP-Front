@@ -1,7 +1,14 @@
+import { Credenciais } from './../../../../pages/auth/model/Credenciais';
 import { Injectable } from '@angular/core';
-import { StorageService } from 'src/app/pages/auth/service/storage.service';
-import { Usuario } from 'src/app/pages/usuarios/model/usuario';
+import { FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/pages/auth/service/auth.service';
+import { routes } from 'src/app/pages/const';
 import { UsuarioService } from 'src/app/pages/usuarios/service/usuario.service';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { StorageService } from 'src/app/pages/auth/service/storage.service';
 
 export interface NavigationItem {
   id: string;
@@ -140,19 +147,25 @@ const NavigationItems1 = [
 
 @Injectable()
 export class NavigationItem {
-  constructor(){}
-  get(perfil?:string) {
-    console.log(perfil);
-      if(perfil == "Administrador"){
+  constructor( private storage: StorageService) { }
+  perfilDef: string;
+  verificaPerfil(){
 
-        console.log('perfil: ' + perfil);
-        console.log('entrou no 1, ADM ');
+  this.perfilDef = this.storage.getLocalUser().perfil;
+  }
+  get() {
+    this.verificaPerfil();
+    if (this.perfilDef != null) {
+    console.log('perfil: '+  this.perfilDef);
+      if (this.perfilDef == "[ROLE_ADMIN]") {
+        console.log('perfil: ' + this.perfilDef);
         return NavigationItems;
-      }else if(perfil == "Enfermeiro"){
-
-        console.log('perfil: ' + perfil);
-        console.log('entrou no 2, ENF ');
+      } else if (this.perfilDef == "[ROLE_ENFER]") {
+        console.log('perfil: ' + this.perfilDef);
         return NavigationItems1;
       }
+    } else{
+      this.verificaPerfil()
+    }
   }
 }

@@ -12,8 +12,8 @@ import { DescricaoFatorComponent } from '../descricao-fator/descricao-fator.comp
 })
 export class ListaFatoresComponent implements OnInit {
   searchText: string;
-  paginaAtual : number = 1 ;
-  contador : number = 10;
+  paginaAtual: number = 1 ;
+  contador: number = 10;
   statusSpinner: boolean = false;
   lista: Fator[] = [];
   sucesso: boolean = false;
@@ -29,7 +29,7 @@ export class ListaFatoresComponent implements OnInit {
     this.listaAtivo = this.fatoresService.getStatusFatores();
     CadastroFatorComponent.atualizando.subscribe(
       () => {
-        this.loadListaFatores()
+        this.loadListaFatores();
       }
     );
   }
@@ -41,16 +41,16 @@ export class ListaFatoresComponent implements OnInit {
     this.paginaAtual = 1;
   }
   limpar() {
-    this.searchText ='';
+    this.searchText = '';
   }
   cadastrar() {
     const modalRef = this.modalService.open(CadastroFatorComponent, this.MODALOPTIONS);
-    modalRef.componentInstance.tituloModal = "Cadastrar fator de risco";
+    modalRef.componentInstance.tituloModal = 'Cadastrar fator de risco';
   }
   descricao(id: number) {
     this.fatoresService.getById(id).subscribe((fatores) => {
       const modalRef = this.modalService.open(DescricaoFatorComponent, this.MODALOPTIONS);
-      modalRef.componentInstance.tituloModal = "Descrição do fator de risco";
+      modalRef.componentInstance.tituloModal = 'Descrição do fator de risco';
       modalRef.componentInstance.fatorRisco = fatores;
     }
   )
@@ -58,7 +58,7 @@ export class ListaFatoresComponent implements OnInit {
 editar(id: number) {
   this.fatoresService.getById(id).subscribe((fatores) => {
     const modalRef = this.modalService.open(CadastroFatorComponent, this.MODALOPTIONS);
-    modalRef.componentInstance.tituloModal = "Editar fator de risco";
+    modalRef.componentInstance.tituloModal = 'Editar fator de risco';
     modalRef.componentInstance.fatorRisco = fatores;
   }
 )
@@ -95,8 +95,8 @@ mudarStatus() {
             this.lista = data;
             this.statusSpinner = false;
           }
-        )
-      } , 400)
+        );
+      }, 400);
     }
     else if (this.ativo == 3) {
       setTimeout(() => {
@@ -105,8 +105,8 @@ mudarStatus() {
             this.lista = data;
             this.statusSpinner = false;
           }
-        )
-      } , 400)
+        );
+      }, 400);
     }
     else {
       setTimeout(() => {
@@ -116,7 +116,7 @@ mudarStatus() {
             this.statusSpinner = false;
           }
         );
-      }, 400)
+      }, 400);
     }
   }
 }

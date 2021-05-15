@@ -1,9 +1,9 @@
 export interface UsuarioDTO {
   idUsuario: number;
-  nome:string;
+  nome: string;
   email: string;
-  matricula:string;
+  matricula: string;
   senha: string;
-  ativo:boolean;
-  perfil:[];
+  ativo: boolean;
+  perfil: [];
 }

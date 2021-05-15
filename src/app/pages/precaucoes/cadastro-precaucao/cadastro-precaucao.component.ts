@@ -13,18 +13,18 @@ export class CadastroPrecaucaoComponent implements OnInit {
   formulario: FormGroup;
   @Input() tituloModal: string;
   errors: String[];
-  erroBack:string = '';
+  erroBack: string = '';
   sucesso: boolean = false;
   static atualizando = new EventEmitter<boolean>();
-  at:boolean = true;
-  mensagemErro: string= '';
+  at: boolean = true;
+  mensagemErro: string = '';
 
   constructor(
     public activeModal: NgbActiveModal, public modalService: NgbModal, private precaucoesService: PrecaucaoService, private formBuilder: FormBuilder) { }
 
     ngOnInit(): void {
         this.novoFormulario();
-      if (this.precaucao != null) {
+        if (this.precaucao != null) {
         this.updateForm(this.precaucao);
       }
     }
@@ -42,7 +42,7 @@ export class CadastroPrecaucaoComponent implements OnInit {
         nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
         descricao: [null],
         ativo: [true]
-      })
+      });
     }
     updateForm(precaucoes: Precaucao){
       this.formulario.patchValue({
@@ -50,14 +50,15 @@ export class CadastroPrecaucaoComponent implements OnInit {
         nome:precaucoes.nome,
         descricao: precaucoes.descricao,
         ativo: precaucoes.ativo
-      })
+      });
     }
     valid(){
-      if(this.formulario.valid){
-        this.mensagemErro=''
-        this.savePrecaucoes()}
+      if (this.formulario.valid){
+        this.mensagemErro = '';
+        this.savePrecaucoes();
+      }
         else{
-        this.mensagemErro = "Por favor, preencha os campos obrigatórios";
+        this.mensagemErro = 'Por favor, preencha os campos obrigatórios';
       }
     }
     savePrecaucoes() {
@@ -70,14 +71,14 @@ export class CadastroPrecaucaoComponent implements OnInit {
               this.formulario.reset(),
               CadastroPrecaucaoComponent.atualizando.emit(this.at),
               setTimeout(() => {
-                this.activeModal.close()
-              }, 500)
+                this.activeModal.close();
+              }, 500);
             }, (error) => {
               this.erroBack = error;
             }
-          )
+          );
           }else {
-            if(this.formulario.value.ativo != true){
+            if (this.formulario.value.ativo != true){
               this.formulario.value.ativo = true;
             }
             this.precaucoesService.create(this.formulario.value)
@@ -87,12 +88,12 @@ export class CadastroPrecaucaoComponent implements OnInit {
                 this.formulario.reset(),
                 CadastroPrecaucaoComponent.atualizando.emit(this.at),
                 setTimeout(() => {
-                  this.activeModal.close()
-                }, 500)
+                  this.activeModal.close();
+                }, 500);
               }, (error) => {
                 this.erroBack = error;
               }
-            )
+            );
           }
         }
       }

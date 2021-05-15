@@ -11,8 +11,8 @@ import { DescricaoProcedimentoComponent } from '../descricao-procedimento/descri
 })
 export class ListaProcedimentosComponent implements OnInit {
   searchText: string;
-  paginaAtual : number = 1 ;
-  contador : number = 10;
+  paginaAtual: number = 1 ;
+  contador: number = 10;
   lista: Procedimento[] = [];
   sucesso: boolean = false;
   statusPesquisa: boolean = false;
@@ -34,7 +34,7 @@ export class ListaProcedimentosComponent implements OnInit {
       });
     }
     limpar() {
-      this.searchText ='';
+      this.searchText = '';
     }
     verifica(){
       this.paginaAtual = 1;
@@ -45,23 +45,23 @@ export class ListaProcedimentosComponent implements OnInit {
     }
     cadastrar() {
       const modalRef = this.modalService.open(CadastroProcedimentoComponent, this.MODALOPTIONS);
-      modalRef.componentInstance.tituloModal = "Cadastrar procedimento";
+      modalRef.componentInstance.tituloModal = 'Cadastrar procedimento';
     }
     descricao(id: number) {
       this.procedimentosService.getById(id).subscribe((procedimento) => {
         const modalRef = this.modalService.open(DescricaoProcedimentoComponent, this.MODALOPTIONS);
-        modalRef.componentInstance.tituloModal = "Descrição do procedimento";
+        modalRef.componentInstance.tituloModal = 'Descrição do procedimento';
         modalRef.componentInstance.procedimento = procedimento;
       }
-    )
+    );
   }
   editar(id: number) {
     this.procedimentosService.getById(id).subscribe((procedimento) => {
       const modalRef = this.modalService.open(CadastroProcedimentoComponent, this.MODALOPTIONS);
-      modalRef.componentInstance.tituloModal = "Editar procedimento";
+      modalRef.componentInstance.tituloModal = 'Editar procedimento';
       modalRef.componentInstance.procedimento = procedimento;
     }
-  )
+  );
 }
 pegaId(id: number) {
   this.procedimentosService.getById(id).subscribe((procedimentosDis) => {
@@ -96,8 +96,8 @@ loadListaProcedimentos() {
           this.lista = data;
           this.statusSpinner = false;
         }
-      )
-    } , 400)
+      );
+    }, 400);
   }
   else if (this.ativo == 3) {
     setTimeout(() => {
@@ -106,18 +106,18 @@ loadListaProcedimentos() {
           this.lista = data;
           this.statusSpinner = false;
         }
-      )
-    } , 400)
+      );
+    }, 400);
   }
   else {
-    setTimeout(()=>{
+    setTimeout(() => {
       this.procedimentosService.getAll().subscribe(
         data => {
           this.lista = data;
           this.statusSpinner = false;
         }
       );
-    },400)
+    }, 400);
   }
 }
 }

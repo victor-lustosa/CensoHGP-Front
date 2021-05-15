@@ -11,7 +11,7 @@ import { catchError } from 'rxjs/operators';
 })
 export class DepartamentoService extends CRUD<Departamento> {
 
-  constructor(  http:HttpClient ){
+  constructor(  http: HttpClient ){
     super(http, `${environment.API}apicensohgp/departamento`);
   }
   getTipoDepartamentos(){
@@ -37,34 +37,42 @@ export class DepartamentoService extends CRUD<Departamento> {
       }
 
       getAllAtivosInternos(): Observable<Departamento[]> {
-        return this.http.get<Departamento[]>(`${environment.API}apicensohgp/departamentos/ativos-internos`).pipe(retry(1), catchError(this.handleError));
+        return this.http.get<Departamento[]>(`${environment.API}apicensohgp/departamentos/ativos-internos`)
+        .pipe(retry(1), catchError(this.handleError));
       }
 
       getAllAtivosExternos(): Observable<Departamento[]> {
-        return this.http.get<Departamento[]>(`${environment.API}apicensohgp/departamentos/ativos-externos`).pipe(retry(1), catchError(this.handleError));
+        return this.http.get<Departamento[]>(`${environment.API}apicensohgp/departamentos/ativos-externos`)
+        .pipe(retry(1), catchError(this.handleError));
       }
 
       getAllInativosInternos(): Observable<Departamento[]> {
-        return this.http.get<Departamento[]>(`${environment.API}apicensohgp/departamentos/inativos-internos`).pipe(retry(1), catchError(this.handleError));
+        return this.http.get<Departamento[]>(`${environment.API}apicensohgp/departamentos/inativos-internos`)
+        .pipe(retry(1), catchError(this.handleError));
       }
 
       getAllInativosExternos(): Observable<Departamento[]> {
-        return this.http.get<Departamento[]>(`${environment.API}apicensohgp/departamentos/inativos-externos`).pipe(retry(1), catchError(this.handleError));
+        return this.http.get<Departamento[]>(`${environment.API}apicensohgp/departamentos/inativos-externos`)
+        .pipe(retry(1), catchError(this.handleError));
       }
 
       getAllInternos(): Observable<Departamento[]> {
-        return this.http.get<Departamento[]>(`${environment.API}apicensohgp/departamentos/internos`).pipe(retry(1), catchError(this.handleError));
+        return this.http.get<Departamento[]>(`${environment.API}apicensohgp/departamentos/internos`)
+        .pipe(retry(1), catchError(this.handleError));
       }
 
       getAllExternos(): Observable<Departamento[]> {
-        return this.http.get<Departamento[]>(`${environment.API}apicensohgp/departamentos/externos`).pipe(retry(1), catchError(this.handleError));
+        return this.http.get<Departamento[]>(`${environment.API}apicensohgp/departamentos/externos`)
+        .pipe(retry(1), catchError(this.handleError));
       }
 
       getAllAtivos(): Observable<Departamento[]>  {
-        return this.http.get<Departamento[]>(`${environment.API}apicensohgp/departamentos/ativos`).pipe(retry(1), catchError(this.handleError));
+        return this.http.get<Departamento[]>(`${environment.API}apicensohgp/departamentos/ativos`)
+        .pipe(retry(1), catchError(this.handleError));
       }
 
       getAllInativos(): Observable<Departamento[]> {
-        return this.http.get<Departamento[]>(`${environment.API}apicensohgp/departamentos/inativos`).pipe(retry(1), catchError(this.handleError));
+        return this.http.get<Departamento[]>(`${environment.API}apicensohgp/departamentos/inativos`)
+        .pipe(retry(1), catchError(this.handleError));
       }
 }

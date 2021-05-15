@@ -46,7 +46,7 @@ export class CadastroUsuarioComponent implements OnInit {
       ativo: [true],
       senha: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
       perfil: [true, [Validators.required]]
-    })
+    });
   }
   aplicaCssErro(campo: any) {
     return {
@@ -62,15 +62,15 @@ export class CadastroUsuarioComponent implements OnInit {
       ativo: usuarios.ativo,
       senha: usuarios.senha,
       perfil: usuarios.perfil
-    })
+    });
   }
   valid() {
     if (this.formulario.valid) {
-      this.mensagemErro = ''
-      this.saveUsuarios()
+      this.mensagemErro = '';
+      this.saveUsuarios();
     }
     else {
-      this.mensagemErro = "Por favor, preencha os campos obrigatórios";
+      this.mensagemErro = 'Por favor, preencha os campos obrigatórios';
     }
   }
   saveUsuarios() {
@@ -85,11 +85,11 @@ export class CadastroUsuarioComponent implements OnInit {
                   this.senhaNovamente = null;
                 CadastroUsuarioComponent.atualizando.emit(this.at),
                   setTimeout(() => {
-                    this.activeModal.close()
-                  }, 500)
+                    this.activeModal.close();
+                  }, 500);
               }, (error) => {
                 this.erroBack = error;
-              })
+              });
         } else {
           this.validaSenha = true;
         }
@@ -104,11 +104,11 @@ export class CadastroUsuarioComponent implements OnInit {
                   this.senhaNovamente = null;
                 CadastroUsuarioComponent.atualizando.emit(this.at),
                   setTimeout(() => {
-                    this.activeModal.close()
-                  }, 500)
+                    this.activeModal.close();
+                  }, 500);
               }, (error) => {
                 this.erroBack = error;
-              })
+              });
         } else {
           this.validaSenha = true;
         }

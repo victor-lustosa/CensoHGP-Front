@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+  import { Injectable } from '@angular/core';
 import {
   HttpRequest,
   HttpHandler,
@@ -22,18 +22,22 @@ export class TokenInterceptor implements HttpInterceptor {
 
             let N = environment.API.length;
             let requestToAPI = req.url.substring(0, N) == environment.API;
-
+            console.log('requestToAPI: ' + requestToAPI)
+            console.log('localUser: '+ localUser)
             if (localUser && requestToAPI) {
+                console.log('entrei')
                 const authReq = req.clone({headers: req.headers.set('Authorization', 'Bearer ' + localUser.token)});
+                console.log('oiiiiii',authReq);
                 return next.handle(authReq);
             }
             else {
+                // /console.log('req:'+req);
                 return next.handle(req);
             }
         }
     }
 
-    export const TokenInterceptorProvider = {
+export const TokenInterceptorProvider = {
         provide: HTTP_INTERCEPTORS,
         useClass: TokenInterceptor,
         multi: true,

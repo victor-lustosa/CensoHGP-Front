@@ -1,13 +1,13 @@
 export interface Paciente {
   idPaciente: number;
-  prontuario:string;
+  prontuario: string;
   nome: string;
-  nomeMae:string;
-  cpf:string;
-  sexo:number;
-  dataNascimento:Date;
-  precaucao:number;
-  departamento:number;
-  checklist:number;
-  transferencia:number;
+  nomeMae: string;
+  cpf: string;
+  sexo: number;
+  dataNascimento: Date;
+  precaucao: number;
+  departamento: number;
+  checklist: number;
+  transferencia: number;
 }

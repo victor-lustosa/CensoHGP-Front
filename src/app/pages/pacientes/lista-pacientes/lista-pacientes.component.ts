@@ -66,43 +66,44 @@ export class ListaPacientesComponent implements OnInit {
     ];
 
     // lista: Paciente[] = [];
-    paginaAtual : number = 1 ;
-    contador : number = 10;
+    paginaAtual: number = 1 ;
+    contador: number = 10;
     mensagem: string;
     MODALOPTIONS: NgbModalOptions = { keyboard: true, size: 'lg', backdrop: 'static' };
     ngOnInit(): void {
+      // tslint:disable-next-line: no-unused-expression
       this.lista;
       // this.loadListaPacientes();
       CadastroPacienteComponent.atualizando.subscribe(
         () => {
           // this.loadListaPacientes();
-        })
+        });
       }
 
       limpar() {
-        this.searchText ='';
+        this.searchText = '';
       }
       verifica(){
         this.paginaAtual = 1;
       }
       cadastrar() {
         const modalRef = this.modalService.open(CadastroPacienteComponent, this.MODALOPTIONS);
-          modalRef.componentInstance.tituloModal = "Cadastrar Paciente";
+        modalRef.componentInstance.tituloModal = 'Cadastrar Paciente';
       }
       editar(id: number) {
         this.pacientesService.getById(id).subscribe((pacientes) => {
           const modalRef = this.modalService.open(CadastroPacienteComponent, this.MODALOPTIONS);
-          modalRef.componentInstance.tituloModal = "Editar Paciente";
+          modalRef.componentInstance.tituloModal = 'Editar Paciente';
           modalRef.componentInstance.incidente = pacientes;
         }
-      )
+      );
     }
       descricao(id: number) {
         this.pacientesService.getById(id).subscribe((pacientes) => {
           const modalRef = this.modalService.open(CadastroPacienteComponent, this.MODALOPTIONS);
-          modalRef.componentInstance.tituloModal = "Descrição do Paciente";
+          modalRef.componentInstance.tituloModal = 'Descrição do Paciente';
           modalRef.componentInstance.fatorRisco = pacientes;
         }
-      )
+      );
     }
   }
