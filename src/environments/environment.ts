@@ -5,11 +5,6 @@
 export const environment = {
   production: false,
   API: 'http://localhost:8080/',
-  enfermeiroId: 'my-angular-app',
-  enfermeiroSecret: '@321',
-  admId: 'my-angular-app',
-  admSecret: '@321',
-  obterTokenUrl: '/auth/token'
 };
 
 /*
