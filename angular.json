@@ -20,10 +20,10 @@
             "outputPath": "dist/ng-gradient-able",
             "index": "src/index.html",
             "main": "src/main.ts",
-            "src/_redirects",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": true,
+            "src/_redirects",
             "assets": [
               "src/favicon.ico",
               "src/assets",
