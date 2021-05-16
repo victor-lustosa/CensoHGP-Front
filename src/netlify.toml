@@ -1,4 +1,5 @@
 [build]
+  base = "CensoHGP-Front/"
   publish = "dist/CensoHGP-Front"
   command = "ng build --prod"
 [[redirects]]
