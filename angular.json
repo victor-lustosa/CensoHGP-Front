@@ -23,10 +23,11 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": true,
-            "src/_redirects",
+
             "assets": [
               "src/favicon.ico",
               "src/assets",
+              "src/_redirects",
               "src/fake-data"
             ],
             "styles": [
