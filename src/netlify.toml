@@ -1,6 +1,5 @@
 [build]
-  base = "CensoHGP-Front/"
-  publish = "dist/CensoHGP-Front"
+  publish = "dist/ng-gradient-able"
   command = "ng build --prod"
 [[redirects]]
   from = "/*"
