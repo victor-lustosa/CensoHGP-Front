@@ -6,8 +6,8 @@ import { Injectable } from '@angular/core';
 export class TipoUsuarioService  {
   getTipoUsuarios() {
     return [
-      { valor: true, nome: 'Administrador' },
-      { valor: false, nome: 'Enfermeiro' }
+      { valor: 1, nome: 'Administrador' },
+      { valor: 2, nome: 'Enfermeiro' }
     ];
   }
  }

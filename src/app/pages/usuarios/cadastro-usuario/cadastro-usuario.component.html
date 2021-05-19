@@ -35,11 +35,11 @@
         <span class="font-red">E-mail é obrigatório</span>
       </div>
       <br>
-      <label for="admin">Tipo de Usuário:</label>
-      <select type="admin" class="form-control" id="admin" formControlName="admin" [ngClass]="aplicaCssErro('admin')">
-        <option *ngFor="let admin of tipoUsuarios" [value]="admin.valor">{{ admin.nome }}</option>
+      <label for="perfil">Tipo de Usuário:</label>
+      <select type="perfil" class="form-control" id="perfil" formControlName="perfil" [ngClass]="aplicaCssErro('perfil')">
+        <option *ngFor="let perfil of tipoUsuarios" [value]="perfil.valor">{{ perfil.nome }}</option>
       </select>
-      <div *ngIf="verificaValidTouched('admin')">
+      <div *ngIf="verificaValidTouched('perfil')">
         <span class="font-red">Selecione um tipo de usuário</span>
       </div>
       <br>
