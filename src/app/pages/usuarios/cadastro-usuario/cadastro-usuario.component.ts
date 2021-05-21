@@ -2,7 +2,6 @@ import { Component, OnInit, Input, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Usuario } from '../model/usuario';
-import { TipoUsuarioService } from '../service/tipo-usuario.service';
 import { UsuarioService } from '../service/usuario.service';
 
 @Component({
@@ -24,7 +23,7 @@ export class CadastroUsuarioComponent implements OnInit {
   erroBack: string = '';
   constructor(
     public activeModal: NgbActiveModal, public modalService: NgbModal,
-    private usuariosService: UsuarioService, private tipoUsuarioService: TipoUsuarioService,
+    private usuariosService: UsuarioService,
     private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
@@ -32,7 +31,7 @@ export class CadastroUsuarioComponent implements OnInit {
     if (this.usuario != null) {
       this.updateForm(this.usuario);
     }
-    this.tipoUsuarios = this.tipoUsuarioService.getTipoUsuarios();
+    this.tipoUsuarios = this.usuariosService.getTipoUsuarios();
   }
   verificaValidTouched(campo: any) {
     return !this.formulario.get(campo).valid && this.formulario.get(campo).touched;
@@ -75,6 +74,7 @@ export class CadastroUsuarioComponent implements OnInit {
   }
   saveUsuarios() {
     if (this.formulario.valid) {
+      console.log(this.formulario.value);
       if (this.formulario.get('idUsuario').value != null) {
         if (this.senhaNovamente === this.formulario.get('senha').value) {
           this.usuariosService.update(this.formulario.value)

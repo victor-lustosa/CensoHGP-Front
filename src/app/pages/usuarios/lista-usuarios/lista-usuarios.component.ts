@@ -50,17 +50,14 @@ export class ListaUsuariosComponent implements OnInit {
       this.loadListaUsuarios();
     }
     mudarStatus() {
-      if (this.usuarioAux.ativo === true) {
-        this.usuarioAux.ativo = false;
-        this.usuariosService.disable(this.usuarioAux).subscribe(
-          () => this.loadListaUsuarios()
-        );
-      } else {
-        this.usuarioAux.ativo = true;
-        this.usuariosService.disable(this.usuarioAux).subscribe(
-          () => this.loadListaUsuarios()
-        );
+      if(this.usuarioAux.perfil[0] == 'Administrador'){
+        this.usuarioAux.perfil = 1;
+      } else if(this.usuarioAux.perfil[0] == 'Enfermeiro'){
+        this.usuarioAux.perfil = 2;
       }
+        this.usuariosService.disable(this.usuarioAux).subscribe(
+          () => this.loadListaUsuarios()
+        );
     }
     cadastrar() {
       const modalRef = this.modalService.open(CadastroUsuarioComponent, this.MODALOPTIONS);

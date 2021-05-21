@@ -17,9 +17,8 @@ export class UsuarioService extends CRUD<Usuario> {
 
   getTipoUsuarios(){
     return [
-      { valor: 1, nome: 'Todos' },
-      { valor: 2, nome: 'Enfermeiro' },
-      { valor: 3, nome: 'Administrador' }
+      { valor: 1, nome: 'Administrador' },
+      { valor: 2, nome: 'Enfermeiro' }
     ];
   }
   getStatusUsuarios(){
@@ -29,6 +28,7 @@ export class UsuarioService extends CRUD<Usuario> {
       { valor: 3, nome: 'Inativo' }
     ];
   }
+
 
   getUsuarioByMatricula(matricula: string): Observable<Usuario> {
     return this.http.get<Usuario>(`${environment.API}apicensohgp/usuario/matricula/${matricula}`);
