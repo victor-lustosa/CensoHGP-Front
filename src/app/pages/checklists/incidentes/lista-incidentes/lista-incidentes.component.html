@@ -3,12 +3,12 @@
     <app-card cardTitle="Consulta de Incidentes" blockClass="table-border-style">
       <div class="row">
         <div class="col-sm-12">
-          <button style="float: right" type="reset" class="btn btn-outline-warning" (click)="limpar()">
+          <button style="float: right" type="reset" class="btn btn-warning" (click)="limpar()">
             <i class="feather icon-delete"></i> Limpar</button>
             <div class="input-group col-md-3" style="float: right">
               <input type="text"  class="form-control" name="pesquisa" [(ngModel)]="searchText" (ngModelChange)="verifica()" placeholder="Pesquisar">
             </div>
-            <button style="float: left" type="button" class="btn btn-outline-primary" (click)="cadastrar()">
+            <button style="float: left" type="button" class="btn btn-primary" (click)="cadastrar()">
               <i class="feather icon-plus-square"></i> Cadastrar</button>
               <div class="row" >
                 <div class="form-group   col-4 d-flex justify-content-between" style="margin-left:50px;" >

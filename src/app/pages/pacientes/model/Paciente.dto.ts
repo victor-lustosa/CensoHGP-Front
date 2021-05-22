@@ -1,4 +1,6 @@
-export interface Paciente {
+import { Departamento } from '../../departamentos/model/departamento';
+
+export interface PacienteDTO {
   idPaciente: number;
   prontuario: string;
   nome: string;
@@ -8,7 +10,7 @@ export interface Paciente {
   sexo: number;
   dataNascimento: Date;
   precaucao: number;
-  departamento: number;
+  departamento: Departamento;
   checklist: number;
   transferencia: number;
 }
