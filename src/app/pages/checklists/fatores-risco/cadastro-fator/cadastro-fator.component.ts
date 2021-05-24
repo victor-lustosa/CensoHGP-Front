@@ -13,7 +13,6 @@ export class CadastroFatorComponent implements OnInit {
   @Input() public fatorRisco: Fator;
   formulario: FormGroup;
   errors: String[];
-  erroBack: string = '';
   sucesso: boolean = false;
   tituloModal: string;
   static atualizando = new EventEmitter<boolean>();
@@ -61,7 +60,7 @@ export class CadastroFatorComponent implements OnInit {
     });
   }
   saveFatores() {
-    this.erroBack = '';
+    this.mensagemErro = '';
     if (this.formulario.valid) {
       if (this.formulario.get('idFatorRisco').value != null) {
         this.fatoresService.update(this.formulario.value)
@@ -75,7 +74,7 @@ export class CadastroFatorComponent implements OnInit {
                 }, 500);
             },
             (error) => {
-              this.erroBack = error;
+              this.mensagemErro = error;
             }
           );
       } else {
@@ -89,7 +88,7 @@ export class CadastroFatorComponent implements OnInit {
                   this.activeModal.close();
                 }, 500);
             }, (error) => {
-              this.erroBack = error;
+              this.mensagemErro = error;
             }
           );
       }

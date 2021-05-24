@@ -21,7 +21,6 @@ export class CadastroPacienteComponent implements OnInit {
   at: boolean = true;
   static atualizando = new EventEmitter<boolean>();
   mensagemErro: string = '';
-  erroBack: string = '';
   constructor(public activeModal: NgbActiveModal, private pacientesService: PacienteService,
     private departamentoService: DepartamentoService, private formBuilder: FormBuilder,
     private precaucaoService: PrecaucaoService) { }
@@ -103,7 +102,7 @@ export class CadastroPacienteComponent implements OnInit {
                   this.activeModal.close();
                 }, 500);
             }, (error) => {
-              this.erroBack = error;
+              this.mensagemErro = error;
             });
       } else {
         this.pacientesService.create(this.formulario.value)
@@ -116,7 +115,7 @@ export class CadastroPacienteComponent implements OnInit {
                   this.activeModal.close();
                 }, 500);
             }, (error) => {
-              this.erroBack = error;
+              this.mensagemErro = error;
             });
       }
     }

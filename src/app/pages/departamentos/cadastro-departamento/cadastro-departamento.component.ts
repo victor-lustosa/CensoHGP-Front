@@ -15,7 +15,6 @@ export class CadastroDepartamentoComponent implements OnInit {
   @Input() public departamento: Departamento;
   errors: String[];
   sucesso: boolean = false;
-  erroBack: string = '';
   listaTipoDepartamento: any[];
   @Input() tituloModal: string;
   static atualizando = new EventEmitter<boolean>();
@@ -72,7 +71,7 @@ export class CadastroDepartamentoComponent implements OnInit {
       }
     }
     saveDepartamentos() {
-      this.erroBack = '';
+      this.mensagemErro = '';
       if (this.formulario.valid) {
         if ( this.formulario.get('idDepartamento').value != null) {
           this.departamentosService.update(this.formulario.value)
@@ -86,7 +85,7 @@ export class CadastroDepartamentoComponent implements OnInit {
               }, 500);
             },
             (error) => {
-              this.erroBack = error;
+              this.mensagemErro = error;
             }
           );
         }
@@ -102,7 +101,7 @@ export class CadastroDepartamentoComponent implements OnInit {
               }, 500);
             },
             (error) => {
-              this.erroBack = error;
+              this.mensagemErro = error;
             }
           );
         }

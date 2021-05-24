@@ -20,7 +20,7 @@ export class CadastroUsuarioComponent implements OnInit {
   senhaNovamente: string = null;
   validaSenha: boolean = false;
   mensagemErro: string = '';
-  erroBack: string = '';
+
   constructor(
     public activeModal: NgbActiveModal, public modalService: NgbModal,
     private usuariosService: UsuarioService,
@@ -80,7 +80,7 @@ export class CadastroUsuarioComponent implements OnInit {
           this.usuariosService.update(this.formulario.value)
             .subscribe(
               () => {
-                this.sucesso = true,
+                  this.sucesso = true,
                   this.formulario.reset(),
                   this.senhaNovamente = null;
                 CadastroUsuarioComponent.atualizando.emit(this.at),
@@ -88,7 +88,7 @@ export class CadastroUsuarioComponent implements OnInit {
                     this.activeModal.close();
                   }, 500);
               }, (error) => {
-                this.erroBack = error;
+                this.mensagemErro = error;
               });
         } else {
           this.validaSenha = true;
@@ -99,7 +99,7 @@ export class CadastroUsuarioComponent implements OnInit {
           this.usuariosService.create(this.formulario.value)
             .subscribe(
               () => {
-                this.sucesso = true,
+                  this.sucesso = true,
                   this.formulario.reset(),
                   this.senhaNovamente = null;
                 CadastroUsuarioComponent.atualizando.emit(this.at),
@@ -107,7 +107,7 @@ export class CadastroUsuarioComponent implements OnInit {
                     this.activeModal.close();
                   }, 500);
               }, (error) => {
-                this.erroBack = error;
+                this.mensagemErro = error;
               });
         } else {
           this.validaSenha = true;

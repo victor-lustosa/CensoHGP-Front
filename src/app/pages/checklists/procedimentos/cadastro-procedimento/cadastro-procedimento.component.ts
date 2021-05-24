@@ -16,7 +16,6 @@ export class CadastroProcedimentoComponent implements OnInit {
    @Input() public procedimento: Procedimento;
   errors: String[];
   sucesso: boolean = false;
-  erroBack: string = '';
   tituloModal: string;
   static atualizando = new EventEmitter<boolean>();
    at: boolean = true;
@@ -79,7 +78,7 @@ export class CadastroProcedimentoComponent implements OnInit {
                 this.activeModal.close();
               }, 500);
             }, (error) => {
-              this.erroBack = error;
+              this.mensagemErro = error;
             }
             );
           } else {
@@ -94,7 +93,7 @@ export class CadastroProcedimentoComponent implements OnInit {
                     this.activeModal.close();
                   }, 500);
                 }, (error) => {
-                  this.erroBack = error;
+                  this.mensagemErro = error;
                 });
               }
             }

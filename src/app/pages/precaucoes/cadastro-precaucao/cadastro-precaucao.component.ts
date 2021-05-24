@@ -13,7 +13,6 @@ export class CadastroPrecaucaoComponent implements OnInit {
   formulario: FormGroup;
   @Input() tituloModal: string;
   errors: String[];
-  erroBack: string = '';
   sucesso: boolean = false;
   static atualizando = new EventEmitter<boolean>();
   at: boolean = true;
@@ -74,7 +73,7 @@ export class CadastroPrecaucaoComponent implements OnInit {
                 this.activeModal.close();
               }, 500);
             }, (error) => {
-              this.erroBack = error;
+              this.mensagemErro = error;
             }
           );
           }else {
@@ -91,7 +90,7 @@ export class CadastroPrecaucaoComponent implements OnInit {
                   this.activeModal.close();
                 }, 500);
               }, (error) => {
-                this.erroBack = error;
+                this.mensagemErro = error;
               }
             );
           }

@@ -10,9 +10,7 @@
     <div class="col-md-13">
       <app-alert type="danger" *ngIf="mensagemErro!==''">{{mensagemErro}}</app-alert>
     </div>
-    <div class="col-md-13">
-      <app-alert type="danger" *ngIf="erroBack!==''">{{erroBack}}</app-alert>
-    </div>
+
     <form  [formGroup]="formulario">
       <label for="nome">Nome:</label>
       <input  id="nome" formControlName="nome" class="form-control" aria-describedby="nomeHelp" maxLength="50"
