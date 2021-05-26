@@ -12,7 +12,7 @@ import { Credenciais } from '../model/Credenciais';
 export class AuthService {
 
   jwtHelper: JwtHelperService = new JwtHelperService();
-
+  
   constructor(private storage: StorageService, private http: HttpClient) {
   }
 
@@ -27,6 +27,16 @@ export class AuthService {
     }
     return false;
   }
+
+  isEnferAuthenticated(): boolean {
+    let perfil = this.jwtHelper.decodeToken(this.storage.getLocalUser().token).sub.substring(0,12)
+    if (perfil=='[ROLE_ENFER]') {
+      console.log('opaaa, entrei no is enfer '+ perfil)
+      return true;
+    }
+    return false;
+  }
+
   successfulLogin(authorizationValue: string) {
     let tok = authorizationValue.substring(7);
     console.log('tokk '+ tok)
