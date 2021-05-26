@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { StorageService } from 'src/app/pages/auth/service/storage.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 export interface NavigationItem {
   id: string;
@@ -149,8 +150,10 @@ const NavigationItems1 = [
 export class NavigationItem {
   constructor( private storage: StorageService) { }
   perfilDef: string;
+  jwtHelper: JwtHelperService = new JwtHelperService();
   verificaPerfil(){
-  this.perfilDef = this.storage.getLocalUser().perfil;
+  this.perfilDef = this.jwtHelper.decodeToken(this.storage.getLocalUser().token).sub.substring(0,12);
+  console.log('this.perfilDef: '+this.perfilDef)
   }
   get() {
     this.verificaPerfil();

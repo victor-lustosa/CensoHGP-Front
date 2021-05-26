@@ -8,6 +8,7 @@ import { routes } from 'src/app/pages/const';
 import { StorageService } from 'src/app/pages/auth/service/storage.service';
 import { UsuarioService } from 'src/app/pages/usuarios/service/usuario.service';
 import { Usuario } from 'src/app/pages/usuarios/model/usuario';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-nav-right',
@@ -42,7 +43,8 @@ export class NavRightComponent implements OnInit, DoCheck {
   public gradientConfig: any;
   public routers: typeof routes = routes;
   public usuario: Usuario;
-
+  jwtHelper: JwtHelperService = new JwtHelperService();
+  public matricula: string
   constructor(private authService: AuthService,
     private router: Router, private storage: StorageService, private usuarioService: UsuarioService) {
     this.visibleUserList = false;
@@ -54,9 +56,11 @@ export class NavRightComponent implements OnInit, DoCheck {
     this.loadData();
   }
   loadData() {
-    let localUser = this.storage.getLocalUser();
-    if (localUser && localUser.matricula) {
-      this.usuarioService.getUsuarioByMatricula(localUser.matricula)
+    console.log("esse é o jwt chegando na nav bar: "+this.jwtHelper.decodeToken(this.storage.getLocalUser().token).sub)
+    this.matricula = this.jwtHelper.decodeToken(this.storage.getLocalUser().token).sub.substring(13);
+    console.log('matricula vindo do navbar: '+ this.matricula)
+    if (this.matricula) {
+      this.usuarioService.getUsuarioByMatricula(this.matricula)
         .subscribe(response => {
           this.usuario = response as Usuario;
         }, error => {

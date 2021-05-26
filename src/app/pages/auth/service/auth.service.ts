@@ -15,7 +15,7 @@ export class AuthService {
 
   constructor(private storage: StorageService, private http: HttpClient) {
   }
-  
+
   logout() {
     this.storage.setLocalUser(null);
   }
@@ -28,13 +28,12 @@ export class AuthService {
     return false;
   }
   successfulLogin(authorizationValue: string) {
-    let tok = authorizationValue.substring(19);
-    let perfil = authorizationValue.substring(0, 12);
+    let tok = authorizationValue.substring(7);
+    console.log('tokk '+ tok)
     let user: LocalUser = {
-      token: tok,
-      matricula: this.jwtHelper.decodeToken(tok).sub,
-      perfil: perfil
+      token: tok
     };
+    console.log('imprimindo token decodificado: '+this.jwtHelper.decodeToken(tok).sub);
     this.storage.setLocalUser(user);
   }
   tentarLogar(creds: Credenciais) {
