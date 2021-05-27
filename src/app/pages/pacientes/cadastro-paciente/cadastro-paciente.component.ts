@@ -32,7 +32,7 @@ export class CadastroPacienteComponent implements OnInit {
       nome: [null],
       nomeMae: [null],
       cpf: [null],
-      sexo: [null],
+      genero: [null],
       rg: [null],
       dataNascimento: [null],
       precaucao: new FormArray([]),

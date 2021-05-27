@@ -5,7 +5,7 @@ export interface Paciente {
   nomeMae: string;
   cpf: string;
   rg: string;
-  sexo: number;
+  genero: number;
   dataNascimento: Date;
   precaucao: number;
   departamento: number;
