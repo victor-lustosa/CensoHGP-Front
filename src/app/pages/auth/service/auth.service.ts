@@ -12,7 +12,7 @@ import { Credenciais } from '../model/Credenciais';
 export class AuthService {
 
   jwtHelper: JwtHelperService = new JwtHelperService();
-  
+
   constructor(private storage: StorageService, private http: HttpClient) {
   }
 
@@ -39,11 +39,9 @@ export class AuthService {
 
   successfulLogin(authorizationValue: string) {
     let tok = authorizationValue.substring(7);
-    console.log('tokk '+ tok)
     let user: LocalUser = {
       token: tok
     };
-    console.log('imprimindo token decodificado: '+this.jwtHelper.decodeToken(tok).sub);
     this.storage.setLocalUser(user);
   }
   tentarLogar(creds: Credenciais) {

@@ -153,7 +153,6 @@ export class NavigationItem {
   jwtHelper: JwtHelperService = new JwtHelperService();
   verificaPerfil(){
   this.perfilDef = this.jwtHelper.decodeToken(this.storage.getLocalUser().token).sub.substring(0,12);
-  console.log('this.perfilDef: '+this.perfilDef)
   }
   get() {
     this.verificaPerfil();

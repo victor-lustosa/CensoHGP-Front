@@ -29,7 +29,6 @@ export class LoginComponent implements OnInit {
     if (this.formulario.valid) {
       this.authService.tentarLogar(this.formulario.value).subscribe(
         (response: any) => {
-          console.log(response.headers.get('Authorization'));
           this.authService.successfulLogin(response.headers.get('Authorization'));
           this.router.navigate([this.routers.DASHBOARD]).then();
         },
