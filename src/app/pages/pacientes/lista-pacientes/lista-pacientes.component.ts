@@ -50,18 +50,18 @@ export class ListaPacientesComponent implements OnInit {
     modalRef.componentInstance.tituloModal = 'Cadastrar Paciente';
   }
   editar(id: number) {
-    this.pacientesService.getById(id).subscribe((pacientes) => {
+    this.pacientesService.getById(id).subscribe((paciente) => {
       const modalRef = this.modalService.open(CadastroPacienteComponent, this.MODALOPTIONS);
       modalRef.componentInstance.tituloModal = 'Editar Paciente';
-      modalRef.componentInstance.incidente = pacientes;
+      modalRef.componentInstance.paciente = paciente;
     }
     );
   }
   descricao(id: number) {
-    this.pacientesService.getById(id).subscribe((pacientes) => {
+    this.pacientesService.getById(id).subscribe((paciente) => {
       const modalRef = this.modalService.open(CadastroPacienteComponent, this.MODALOPTIONS);
       modalRef.componentInstance.tituloModal = 'Descrição do Paciente';
-      modalRef.componentInstance.fatorRisco = pacientes;
+      modalRef.componentInstance.paciente = paciente;
     }
     );
   }

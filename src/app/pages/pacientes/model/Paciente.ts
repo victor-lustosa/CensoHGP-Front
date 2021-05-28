@@ -7,8 +7,9 @@ export interface Paciente {
   rg: string;
   genero: number;
   dataNascimento: Date;
-  precaucao: number;
+  precaucao: number[];
   departamento: number;
   checklist: number;
   transferencia: number;
+  matriculaUsuario: string;
 }
