@@ -5,10 +5,11 @@ export interface Paciente {
   nomeMae: string;
   cpf: string;
   rg: string;
-  sexo: number;
+  genero: number;
   dataNascimento: Date;
-  precaucao: number;
+  precaucao: number[];
   departamento: number;
   checklist: number;
   transferencia: number;
+  matriculaUsuario: string;
 }

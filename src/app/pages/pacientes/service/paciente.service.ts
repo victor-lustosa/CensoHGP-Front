@@ -1,6 +1,6 @@
 import { Checklist } from './../model/Checklist';
 import { Injectable } from '@angular/core';
-import { HttpClient} from '@angular/common/http';
+import { HttpClient, HttpParams} from '@angular/common/http';
 
 import { environment } from 'src/environments/environment';
 import { Paciente } from '../model/Paciente';
@@ -20,15 +20,32 @@ export class PacienteService extends CRUD<Paciente> {
     .pipe(retry(1), catchError(this.handleError));
   }
 
+
   createChecklist(checklist: Checklist): Observable<Checklist> {
     return this.http.post<Checklist>(`${environment.API}apicensohgp/checklist`, checklist)
     .pipe(retry(1), catchError(this.handleError));
   }
 
+
+  createPaciente(paciente: Paciente, matriculaUsuario:string): Observable<Paciente> {
+    const httpParams = new HttpParams()
+      .set("matriculaUsuario", matriculaUsuario);
+    const url = `${environment.API}apicensohgp/paciente` + "?" + httpParams.toString();
+    return this.http.post<Paciente>(url, paciente)
+    .pipe(retry(1), catchError(this.handleError));
+  }
+  updatePaciente(paciente: Paciente, matriculaUsuario:string): Observable<Paciente> {
+    const httpParams = new HttpParams()
+      .set("matriculaUsuario", matriculaUsuario);
+    const url = `${environment.API}apicensohgp/paciente` + "?" + httpParams.toString();
+    return this.http.put<Paciente>(url, paciente)
+    .pipe(retry(1), catchError(this.handleError));
+  }
+
   getSexos(){
     return [
-      { valor: 1, nome: 'Masculino' },
-      { valor: 2, nome: 'Feminino' }
+      { valor: 2, nome: 'Masculino' },
+      { valor: 1, nome: 'Feminino' }
     ];
   }
  }
