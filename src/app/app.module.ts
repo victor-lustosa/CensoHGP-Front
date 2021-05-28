@@ -29,7 +29,7 @@ import { TokenInterceptorProvider } from './pages/auth/service/token.interceptor
 import { StorageService } from './pages/auth/service/storage.service';
 import { UsuarioService } from './pages/usuarios/service/usuario.service';
 import { AuthGuard } from './pages/auth/guards';
-import { EnferGuard } from './pages/auth/guards/enfer.guard';
+
 
 
 
@@ -66,7 +66,6 @@ import { EnferGuard } from './pages/auth/guards/enfer.guard';
       TokenInterceptorProvider,
       AuthService,
       AuthGuard,
-      EnferGuard,
       NavigationItem
     ],
     bootstrap: [AppComponent]

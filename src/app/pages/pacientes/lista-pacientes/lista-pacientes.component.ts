@@ -58,10 +58,11 @@ export class ListaPacientesComponent implements OnInit {
     }
     );
   }
-  gerarChecklist(id:number){
+  gerarChecklist(id:number, nome:string){
 
       const modalRef = this.modalService.open(ChecklistPacienteComponent, this.MODALOPTIONS);
       modalRef.componentInstance.idPaciente = id;
+      modalRef.componentInstance.nomePaciente = nome; 
 
 
   }

@@ -37,7 +37,7 @@
                     <button class="dropdown-item button"  (click)="editar(paciente.idPaciente)"><i class="feather icon-edit"></i> Editar</button>
                     <button class="dropdown-item button"  (click)="descricao(paciente.idPaciente)"><i class="feather icon-eye"></i> Visualizar</button>
                     <div class="dropdown-divider"></div>
-                    <button class="dropdown-item button" (click)="gerarChecklist(paciente.idPaciente)"><i class="feather icon-check-square"></i> Checklist</button>
+                    <button class="dropdown-item button" (click)="gerarChecklist(paciente.idPaciente, paciente.nome)"><i class="feather icon-check-square"></i> Checklist</button>
                     <button class="dropdown-item button" href="javascript:"><i class="feather icon-clipboard"></i> Histórico checklist</button>
                     <div class="dropdown-divider"></div>
                     <button class="dropdown-item button" href="javascript:"><i class="feather icon-external-link"></i> Transferência</button>

@@ -25,17 +25,19 @@ export class ChecklistPacienteComponent implements OnInit {
   listaIncidentes: Incidente[] = [];
   listaFatoresRisco: Fator[] = [];
   @Input() idPaciente: number;
+  @Input() nomePaciente: string;
 
   jwtHelper: JwtHelperService = new JwtHelperService();
 
   static atualizando = new EventEmitter<boolean>();
-checklist : Checklist;
+  checklist: Checklist;
+
 
   sucesso: boolean = false;
   at: boolean = true;
 
   mensagemErro: string = '';
-  constructor(  private storage: StorageService,public activeModal: NgbActiveModal, private pacientesService: PacienteService,
+  constructor(private storage: StorageService, public activeModal: NgbActiveModal, private pacientesService: PacienteService,
     private incidenteService: IncidenteService, private formBuilder: FormBuilder, private fatorRiscoService: FatorRiscoService,
     private procedimentoService: ProcedimentoService) { }
 
@@ -148,22 +150,11 @@ checklist : Checklist;
   }
   saveChecklists() {
     if (this.formulario.valid) {
-
-
-
-
-
-      this.formulario.patchValue({
-        incidente: this.checklist.incidente,
-        // procedimento: this.checklist.procedimento,
-        // fatorRisco: this.checklist.fatorRisco,
-        // observacao: this.checklist.observacao
-
-      });
-this.checklist.matriculaUsuario = this.jwtHelper.decodeToken(this.storage.getLocalUser().token).sub.substring(13);
-this.checklist.idPaciente = this.idPaciente;
-if(this.checklist != null){
-  console.log('Checklist ' , this.checklist);
+      this.checklist = this.formulario.value as Checklist;
+      this.checklist.matriculaUsuario = this.jwtHelper.decodeToken(this.storage.getLocalUser().token).sub.substring(13);
+      this.checklist.idPaciente = this.idPaciente;
+      if (this.checklist != null) {
+        console.log('Checklist ', this.checklist);
         this.pacientesService.createChecklist(this.checklist)
           .subscribe(
             () => {
@@ -176,7 +167,7 @@ if(this.checklist != null){
             }, (error) => {
               this.mensagemErro = error;
             });
-          }
+      }
     }
   }
 }

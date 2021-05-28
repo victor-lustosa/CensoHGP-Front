@@ -1,6 +1,6 @@
 <div class="modal-content"  >
   <div class="modal-header">
-    <h5  class="modal-title">Checklist Paciente </h5>
+    <h5  class="modal-title">Checklist Paciente -  </h5><h5  class="modal-title" style="color: 1a85ff;"> {{nomePaciente}}</h5>
     <button type="reset" class="close basic-close" data-dismiss="modal" aria-label="Close" (click)="activeModal.close()"><span aria-hidden="true">&times;</span></button>
   </div>
   <div class="modal-body">
@@ -13,25 +13,26 @@
     <form  [formGroup]="formulario"  >
 
 
-      <label for="incidente">Incidentes:</label>
-      <div id="incidente" class="row">
-        <div class="checkbox" class="col-sm-4" formArrayName="incidente"  *ngFor="let incidente of listaIncidentes; let i=index" >
+      <label for="incidente"> <strong>Incidentes </strong></label>
+      <div id="incidente" style="border-radius: 5px; border: 1px solid #ccc; padding: 10px 0 " id="fator-risco" class="row ml-0 mr-0">
+        <div class="checkbox; col-sm-6" style="word-break: break-word;" formArrayName="incidente"  *ngFor="let incidente of listaIncidentes; let i=index" >
         <label class="checkbox-inline">
           <input type="checkbox" [value]="incidente.idIncidente" (change)="onCheckChangeIncidente($event)"/>  {{incidente.nome}}  </label>  </div>
       </div>
       <br>
 
-      <label for="procedimento">Procedimentos:</label>
-      <div id="procedimento" class="row">
-        <div class="checkbox" class="col-sm-4" formArrayName="procedimento"  *ngFor="let procedimento of listaProcedimentos; let i=index" >
+      <label for="procedimento"> <strong>Procedimentos </strong></label>
+      <div style="border-radius: 5px; border: 1px solid #ccc; padding: 10px 0 " id="fator-risco" class="row ml-0 mr-0" id="procedimento" >
+        <div class="checkbox; col-sm-6" style="word-break: break-word;"  formArrayName="procedimento"  *ngFor="let procedimento of listaProcedimentos; let i=index" >
         <label class="checkbox-inline">
           <input type="checkbox" [value]="procedimento.idProcedimento" (change)="onCheckChangeProcedimento($event)"/>  {{procedimento.nome}}  </label>  </div>
       </div>
 
       <br>
-      <label for="fator-risco">Fatores de risco:</label>
-      <div id="fator-risco" class="row">
-        <div class="checkbox" class="col-sm-4" formArrayName="fatorRisco"  *ngFor="let fatorRisco of listaFatoresRisco; let i=index" >
+      
+      <label for="fator-risco"> <strong>Fatores de risco</strong></label>
+      <div style="border-radius: 5px; border: 1px solid #ccc; padding: 10px 0 " id="fator-risco" class="row ml-0 mr-0">
+        <div  class="checkbox; col-sm-6" style=" word-wrap: break-word;" formArrayName="fatorRisco"  *ngFor="let fatorRisco of listaFatoresRisco; let i=index" >
         <label class="checkbox-inline">
           <input type="checkbox" [value]="fatorRisco.idFatorRisco" (change)="onCheckChangeFatorRisco($event)"/>  {{fatorRisco.nome}}  </label>  </div>
       </div>
@@ -42,7 +43,7 @@
         placeholder="Digite a Observação" formControlName="observacao"
         rows="5"
       ></textarea>
-      <app-form-debug  [form]="formulario"></app-form-debug>
+      <!-- <app-form-debug  [form]="formulario"></app-form-debug> -->
 
       </form>
   </div>
