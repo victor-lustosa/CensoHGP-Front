@@ -1,3 +1,4 @@
+import { ChecklistPacienteComponent } from './../checklist-paciente/checklist-paciente.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -12,7 +13,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
-  declarations: [ListaPacientesComponent, CadastroPacienteComponent, PacientesFilterPipe],
+  declarations: [ChecklistPacienteComponent, ListaPacientesComponent, CadastroPacienteComponent, PacientesFilterPipe],
   imports: [
     CommonModule,
     ListaPacientesRoutingModule,
@@ -22,6 +23,6 @@ import { NgxPaginationModule } from 'ngx-pagination';
     ReactiveFormsModule,
     NgxPaginationModule
   ],
-  bootstrap:[CadastroPacienteComponent]
+  bootstrap:[CadastroPacienteComponent, ChecklistPacienteComponent]
 })
 export class ListaPacientesModule { }

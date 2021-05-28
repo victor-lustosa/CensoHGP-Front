@@ -7,7 +7,7 @@ import { TransferenciaPacienteComponent } from './transferencia-paciente/transfe
 
 
 @NgModule({
-  declarations: [ChecklistPacienteComponent, TransferenciaPacienteComponent],
+  declarations: [],
   imports: [
     CommonModule,
     PacientesRoutingModule

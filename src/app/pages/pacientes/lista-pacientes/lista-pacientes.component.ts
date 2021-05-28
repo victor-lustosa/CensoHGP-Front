@@ -4,6 +4,7 @@ import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { PacienteService } from '../service/paciente.service';
 import { CadastroPacienteComponent } from '../cadastro-paciente/cadastro-paciente.component';
 import { PacienteDTO } from '../model/Paciente.dto';
+import { ChecklistPacienteComponent } from '../checklist-paciente/checklist-paciente.component';
 
 @Component({
   selector: 'app-lista-pacientes',
@@ -56,6 +57,13 @@ export class ListaPacientesComponent implements OnInit {
       modalRef.componentInstance.incidente = pacientes;
     }
     );
+  }
+  gerarChecklist(id:number){
+
+      const modalRef = this.modalService.open(ChecklistPacienteComponent, this.MODALOPTIONS);
+      modalRef.componentInstance.idPaciente = id;
+
+
   }
   descricao(id: number) {
     this.pacientesService.getById(id).subscribe((pacientes) => {
