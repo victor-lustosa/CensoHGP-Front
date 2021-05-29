@@ -24,13 +24,21 @@ export class AuthGuard implements CanActivate, CanActivateChild {
   }
   canActivateChild(next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | boolean {
-      const enferAuthenticated = this.authService.isEnferAuthenticated();
-      if(state.url.includes('departamentos') && enferAuthenticated || state.url.includes('precaucoes') ||
-      state.url.includes('fator-riscos') || state.url.includes('procedimentos') ||
-       state.url.includes('incidentes') ||  state.url.includes('usuarios')){
-        return false;
-      }
-      return true;
+    const enferAuthenticated = this.authService.isEnferAuthenticated();
+    if (state.url.includes('incidentes') && enferAuthenticated) {
+      return false;
+    } else if (enferAuthenticated && state.url.includes('gerenciar-usuarios')) {
+      return false;
+    } else if(enferAuthenticated && state.url.includes('procedimentos')){
+      return false;
+    } else if(enferAuthenticated && state.url.includes('precaucoes')){
+      return false;
+    } else if(enferAuthenticated && state.url.includes('departamentos')){
+      return false;
+    } else if(enferAuthenticated && state.url.includes('fator-riscos')){
+      return false;
+    }
+    return true;
   }
 
 }

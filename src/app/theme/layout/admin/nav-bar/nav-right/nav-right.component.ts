@@ -56,9 +56,7 @@ export class NavRightComponent implements OnInit, DoCheck {
     this.loadData();
   }
   loadData() {
-    console.log("esse é o jwt chegando na nav bar: "+this.jwtHelper.decodeToken(this.storage.getLocalUser().token).sub)
     this.matricula = this.jwtHelper.decodeToken(this.storage.getLocalUser().token).sub.substring(13);
-    console.log('matricula vindo do navbar: '+ this.matricula)
     if (this.matricula) {
       this.usuarioService.getUsuarioByMatricula(this.matricula)
         .subscribe(response => {
