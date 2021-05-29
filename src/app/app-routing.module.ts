@@ -12,7 +12,7 @@ const routes: Routes = [
 }
 , { path: '',  component: AdminComponent, children: [
     { path: 'dashboard', loadChildren: () => import('./pages/dashboard/dashboard.module').then(module => module.DashboardModule), canActivate : [AuthGuard]},
-    { path: 'usuarios', loadChildren: () => import('./pages/usuarios/usuarios.module').then(module => module.UsuariosModule), canActivate : [AuthGuard], canActivateChild: [AuthGuard]},
+    { path: 'usuarios', loadChildren: () => import('./pages/usuarios/usuarios.module').then(module => module.UsuariosModule), canActivate : [AuthGuard]},
     { path: 'precaucoes', loadChildren: () => import('./pages/precaucoes/precaucoes.module').then(module => module.PrecaucoesModule), canActivate : [AuthGuard], canActivateChild: [AuthGuard]},
     { path: 'departamentos', loadChildren: () => import('./pages/departamentos/departamentos.module').then(module => module.DepartamentosModule), canActivate : [AuthGuard], canActivateChild: [AuthGuard]},
     { path: 'pacientes', loadChildren: () => import('./pages/pacientes/pacientes.module').then(module => module.PacientesModule), canActivate : [AuthGuard]},
