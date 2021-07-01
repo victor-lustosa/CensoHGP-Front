@@ -35,7 +35,7 @@
       placeholder="Digite o nome da Mãe" formControlName="nomeMae">
       <br>
       <label>Genero:</label>
-      <select class="form-control"  id="genero" formControlName="genero" >
+      <select class="form-control col-sm-7"  id="genero" formControlName="genero" >
         <option *ngFor="let genero of listaSexos" [value]="genero.valor">{{genero.nome}}</option>
       </select>
       <br>
@@ -45,8 +45,8 @@
       </select>
       <br>
       <label for="precaucao">Precauções:</label>
-      <div id="precaucao" class="row">
-        <div class="checkbox" class="col-sm-4" formArrayName="precaucao"  *ngFor="let precaucao of listaPrecaucoes; let i=index" >
+      <div id="precaucao" style="border-radius: 5px; border: 1px solid #ccc; padding: 10px 0 " class="row  ml-0 mr-0">
+        <div class="checkbox" class="col-sm-6" formArrayName="precaucao"  *ngFor="let precaucao of listaPrecaucoes; let i=index" >
         <label class="checkbox-inline">
           <input type="checkbox" [value]="precaucao.idPrecaucao" (change)="onCheckChange($event)"/>  {{precaucao.nome}}  </label>  </div>
       </div>
@@ -55,7 +55,7 @@
       <br>
       <div class="row" >
         <div class="form-group col-md-6">
-            <input class="form-control" type="date" formControlName="dataNascimento" id="datepicker" >
+          <input type="date" required="true" class="form-control" formControlName="dataNascimento"  [(ngModel)]="today" id="dataNascimento" >
         </div>
       </div>
 

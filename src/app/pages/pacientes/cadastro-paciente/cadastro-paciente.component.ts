@@ -16,6 +16,8 @@ import { PacienteService } from '../service/paciente.service';
   styleUrls: ['./cadastro-paciente.component.scss'],
 })
 export class CadastroPacienteComponent implements OnInit {
+  today: string;
+  dataAtual: Date;
   public formulario: FormGroup;
   listaPrecaucoes: Precaucao[] = [];
   listaSexos: any[] = [];
@@ -33,9 +35,14 @@ export class CadastroPacienteComponent implements OnInit {
 
   ngOnInit(): void {
     this.novoFormulario();
+
     if (this.paciente != null) {
+      this.today = new Date(this.formulario.value.dataNascimento).toISOString().split('T')[0];
       console.log(this.paciente)
       this.updateForm(this.paciente);
+    }else{
+      this.today = new Date().toISOString().split('T')[0];
+      console.log(this.today);
     }
     this.loadListaPrecaucoes();
     this.loadListaDepartamento();
@@ -50,7 +57,7 @@ export class CadastroPacienteComponent implements OnInit {
       cpf: [null],
       genero: [null],
       rg: [null],
-      dataNascimento: [null],
+      dataNascimento: this.today,
       precaucao: new FormArray([]),
       departamento: [null]
     });
@@ -64,7 +71,7 @@ export class CadastroPacienteComponent implements OnInit {
       cpf: paciente.cpf,
       genero: paciente.genero,
       rg: paciente.rg,
-      dataNascimento: paciente.dataNascimento,
+      dataNascimento: this.today,
       precaucao: paciente.precaucao,
       departamento: paciente.precaucao
     })

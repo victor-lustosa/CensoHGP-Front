@@ -25,7 +25,6 @@ export class ListaPrecaucoesComponent implements OnInit {
   constructor(private precaucoesService: PrecaucaoService,  public modalService: NgbModal) { }
   ngOnInit(): void {
     this.loadListaPrecaucoes();
-    this.listaAtivo = this.precaucoesService.getStatusPrecaucoes();
     CadastroPrecaucaoComponent.atualizando.subscribe(
       () => {
         this.loadListaPrecaucoes();
