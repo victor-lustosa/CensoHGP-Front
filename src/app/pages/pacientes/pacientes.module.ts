@@ -6,6 +6,7 @@ import { ChecklistPacienteComponent } from './checklist-paciente/checklist-pacie
 import { TransferenciaPacienteComponent } from './transferencia-paciente/transferencia-paciente.component';
 
 
+
 @NgModule({
   declarations: [],
   imports: [

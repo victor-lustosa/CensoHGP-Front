@@ -1,0 +1,60 @@
+<div class="row">
+  <div class="col-md-12">
+    <app-card cardTitle="Checklists " blockClass="table-border-style">
+      <div class="row">
+        <div class="col-sm-12">
+          <button style="float:right" type="reset" class="btn btn-warning" (click)="limpar()"><i class="feather icon-delete"></i> Limpar</button>
+          <div class="input-group col-md-3" style="float:right">
+            <input type="text"  class="form-control" name="pesquisa" [(ngModel)]="searchText" (ngModelChange)="verifica()" placeholder="Pesquisar">
+          </div>
+          <button  style="float:left" type="button" class="btn btn-primary"  (click)="cadastrar()" ><i class="feather icon-plus-square"></i> Gerar novo checklist</button>
+        </div>
+      </div>
+      <br>
+      <div class="table-responsive"  >
+        <table class="table table-hover" *ngIf="(lista | filter: searchText).length > 0; else noResults">
+          <thead>
+            <tr align="center">
+              <th scope="col">Quem fez</th>
+              <th scope="col">Onde fez</th>
+              <th scope="col">Nome da Mãe</th>
+              <th scope="col">CPF</th>
+              <th scope="col">Departamento</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let checklist of lista| filter: searchText | paginate: { itemsPerPage: contador, currentPage: paginaAtual }" align="center">
+              <td class="td padding">{{paciente.prontuario}}</td>
+              <td class="td padding">{{paciente.nome}}</td>
+              <td class="td padding">{{paciente.nomeMae}}</td>
+              <td class="padding">{{paciente.cpf}}</td>
+              <td class="padding">{{paciente.departamento.nome}}</td>
+              <td class="padding text-right" >
+                <div ngbDropdown container="body" >
+                  <button  class="btn btn-info  buttonDrop" ngbDropdownToggle type="button"><i class="feather icon-plus-circle"></i> Ações</button>
+                  <div ngbDropdownMenu  >
+                    <button class="dropdown-item button"  (click)="editar(paciente.idPaciente)"><i class="feather icon-edit"></i> Editar</button>
+                    <button class="dropdown-item button"  (click)="descricao(paciente.idPaciente)"><i class="feather icon-eye"></i> Visualizar</button>
+                    <div class="dropdown-divider"></div>
+                    <button class="dropdown-item button" (click)="gerarChecklist(paciente.idPaciente, paciente.nome)"><i class="feather icon-check-square"></i> Checklist</button>
+                    <button class="dropdown-item button" href="javascript:"><i class="feather icon-clipboard"></i> Histórico checklist</button>
+                    <div class="dropdown-divider"></div>
+                    <button class="dropdown-item button" href="javascript:"><i class="feather icon-external-link"></i> Transferência</button>
+                    <button class="dropdown-item button" href="javascript:"><i class="feather icon-file-text"></i> Histórico Transferencia</button>
+                  </div>
+                </div>
+              </td>
+            </tbody>
+          </table>
+          <pagination-controls *ngIf="statusSpinner===false" maxSize="5" responsive="true" directionLinks="true" autoHide="true" class="d-flex justify-content-center" (pageChange)="paginaAtual = $event" previousLabel="Anterior" nextLabel="Próximo"></pagination-controls>
+          <ng-template #noResults>
+            <p *ngIf="statusSpinner === false">Nenhum resultado encontrado.</p>
+          </ng-template>
+        </div>
+        <div class="spinner" *ngIf="statusSpinner === true">
+          <div class="spinner-border text-primary size" role="status"></div>
+        </div>
+      </app-card>
+    </div>
+  </div>
