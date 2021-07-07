@@ -1,5 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Paciente } from '../model/Paciente';
+import { Component, OnInit } from '@angular/core';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { PacienteService } from '../service/paciente.service';
 import { CadastroPacienteComponent } from '../cadastro-paciente/cadastro-paciente.component';
@@ -59,12 +58,9 @@ export class ListaPacientesComponent implements OnInit {
     );
   }
   gerarChecklist(id:number, nome:string){
-
       const modalRef = this.modalService.open(ChecklistPacienteComponent, this.MODALOPTIONS);
       modalRef.componentInstance.idPaciente = id;
-      modalRef.componentInstance.nomePaciente = nome; 
-
-
+      modalRef.componentInstance.nomePaciente = nome;
   }
   descricao(id: number) {
     this.pacientesService.getById(id).subscribe((paciente) => {

@@ -40,7 +40,7 @@ export class CadastroPacienteComponent implements OnInit {
       this.today = new Date(this.formulario.value.dataNascimento).toISOString().split('T')[0];
       console.log(this.paciente)
       this.updateForm(this.paciente);
-    }else{
+    } else {
       this.today = new Date().toISOString().split('T')[0];
       console.log(this.today);
     }
@@ -64,16 +64,16 @@ export class CadastroPacienteComponent implements OnInit {
   }
   updateForm(paciente: Paciente) {
     this.formulario.patchValue({
-      idPaciente: paciente.matriculaUsuario,
+      idPaciente: paciente.idPaciente,
       prontuario: paciente.prontuario,
       nome: paciente.nome,
       nomeMae: paciente.nomeMae,
       cpf: paciente.cpf,
       genero: paciente.genero,
       rg: paciente.rg,
-      dataNascimento: this.today,
+      dataNascimento: paciente.dataNascimento,
       precaucao: paciente.precaucao,
-      departamento: paciente.precaucao
+      departamento: paciente.departamento
     })
   }
 
@@ -124,11 +124,12 @@ export class CadastroPacienteComponent implements OnInit {
     }
   }
   savePacientes() {
+
     if (this.formulario.valid) {
-      if (this.formulario.get('prontuario').value != null) {
-        this.pacienteUpdate = this.formulario.value as Paciente;
-        console.log(this.pacienteUpdate)
-        this.pacienteUpdate.idPaciente = this.paciente.idPaciente
+      this.pacienteUpdate = this.formulario.value as Paciente;
+      console.log(this.pacienteUpdate)
+      if (this.formulario.get('prontuario').value != null && this.formulario.get('idPaciente').value != null) {
+
         if (this.paciente.genero[0] == 1) {
           this.pacienteUpdate.genero = 1;
         } else if (this.paciente.genero[0] == 2) {
