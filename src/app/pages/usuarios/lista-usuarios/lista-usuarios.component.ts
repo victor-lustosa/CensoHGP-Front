@@ -84,7 +84,10 @@ export class ListaUsuariosComponent implements OnInit {
   loadListaUsuarios() {
     this.lista =  [];
     this.statusSpinner = true;
-    if (this.tipoUsuario == 2 && this.ativo == 3) {
+    console.log(this.tipoUsuario);
+    console.log(this.ativo);
+    if (this.tipoUsuario == 3 && this.ativo == 3) {
+      console.log("Chamou enfermeiros inativos");
       setTimeout(() => {
         this.usuariosService.getAllEnfermeirosInativos().subscribe(
           data => {
@@ -94,7 +97,8 @@ export class ListaUsuariosComponent implements OnInit {
         );
       }, 400);
     }
-    else if (this.tipoUsuario == 3 && this.ativo == 3) {
+    else if (this.tipoUsuario == 2 && this.ativo == 3) {
+      console.log("Chamou administradores inativos");
       setTimeout(() => {
         this.usuariosService.getAllAdministradoresInativos().subscribe(
           data => {
@@ -104,7 +108,8 @@ export class ListaUsuariosComponent implements OnInit {
         );
       }, 400);
     }
-    else if (this.tipoUsuario == 3 && this.ativo == 2) {
+    else if (this.tipoUsuario == 2 && this.ativo == 2) {
+      console.log("Chamou administradores ativos");
       setTimeout(() => {
         this.usuariosService.getAllAdministradoresAtivos().subscribe(
           data => {
@@ -114,7 +119,8 @@ export class ListaUsuariosComponent implements OnInit {
         );
       }, 400);
     }
-    else if (this.tipoUsuario == 2 && this.ativo == 2 ) {
+    else if (this.tipoUsuario == 3 && this.ativo == 2 ) {
+      console.log("Chamou enfermeiros ativos");
       setTimeout(() => {
         this.usuariosService.getAllEnfermeirosAtivos().subscribe(
           data => {
@@ -124,7 +130,7 @@ export class ListaUsuariosComponent implements OnInit {
         );
       }, 400);
     }
-    else if (this.tipoUsuario == 2) {
+    else if (this.tipoUsuario == 3) {
       setTimeout(() => {
         this.usuariosService.getAllEnfermeiros().subscribe(
           data => {
@@ -134,7 +140,7 @@ export class ListaUsuariosComponent implements OnInit {
         );
       }, 400);
     }
-    else if (this.tipoUsuario == 3) {
+    else if (this.tipoUsuario == 2) {
       setTimeout(() => {
         this.usuariosService.getAllAdministradores().subscribe(
           data => {
