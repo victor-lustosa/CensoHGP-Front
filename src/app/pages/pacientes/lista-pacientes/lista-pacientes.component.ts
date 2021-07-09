@@ -20,9 +20,12 @@ export class ListaPacientesComponent implements OnInit {
   paginaAtual: number = 1;
   contador: number = 10;
   mensagem: string;
+  departamento: number = 1;
+  listaDepartamento: any[];
   MODALOPTIONS: NgbModalOptions = { keyboard: true, size: 'lg', backdrop: 'static' };
   ngOnInit(): void {
     this.loadListaPacientes();
+    this.listaDepartamento = this.pacientesService.getDepartamentos();
     CadastroPacienteComponent.atualizando.subscribe(
       () => {
         this.loadListaPacientes();
@@ -38,6 +41,10 @@ export class ListaPacientesComponent implements OnInit {
             this.statusSpinner = false;
           });
     }, 400);
+  }
+  filtroDepartamento(value: any) {
+    this.departamento = value;
+    this.loadListaPacientes();
   }
   limpar() {
     this.searchText = '';

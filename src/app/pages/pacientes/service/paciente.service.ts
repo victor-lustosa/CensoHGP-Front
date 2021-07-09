@@ -11,15 +11,26 @@ import { catchError, retry } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
+
 export class PacienteService extends CRUD<Paciente> {
   constructor(http: HttpClient) {
     super(http, `${environment.API}apicensohgp/paciente`);
   }
+
+  getDepartamentos() {
+    return [
+      { valor: 1, nome: 'Todos' },
+      { valor: 2, nome: 'UTI' },
+      { valor: 3, nome: 'PEDIATRIA' },
+      { valor: 3, nome: 'EMADE' },
+      { valor: 3, nome: 'CENTRO' }
+    ];
+  }
+
   getAllPacientes(): Observable<PacienteDTO[]> {
     return this.http.get<PacienteDTO[]>(`${environment.API}apicensohgp/pacientes`)
       .pipe(retry(1), catchError(this.handleError));
   }
-
 
   createChecklist(checklist: Checklist): Observable<Checklist> {
     return this.http.post<Checklist>(`${environment.API}apicensohgp/checklist`, checklist)

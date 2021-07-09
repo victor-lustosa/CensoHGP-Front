@@ -8,7 +8,15 @@
             <input type="text"  class="form-control" name="pesquisa" [(ngModel)]="searchText" (ngModelChange)="verifica()" placeholder="Pesquisar">
           </div>
           <button  style="float:left" type="button" class="btn btn-primary"  (click)="cadastrar()" ><i class="feather icon-plus-square"></i> Cadastrar</button>
+          <div class="row" >
+            <div class="form-group  col-4 d-flex justify-content-between">
+              <label for="departamento" class="form-check-label mr-2">Tipo:</label>
+              <select (ngModelChange)="filtroDepartamento($event)" class="custom-select" id="departamento"  [(ngModel)]="departamento">
+                <option *ngFor="let departamento of listaDepartamento" [value]="departamento.valor">{{ departamento.nome  }}</option>
+              </select>
+            </div>
         </div>
+      </div>
       </div>
       <br>
       <div class="table-responsive"  >

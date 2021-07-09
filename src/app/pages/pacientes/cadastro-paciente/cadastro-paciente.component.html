@@ -1,6 +1,6 @@
-<div class="modal-content"  >
+<div class="modal-content">
   <div class="modal-header">
-    <h5  class="modal-title">Cadastro de Pacientes </h5>
+    <h5 class="modal-title">Cadastro de Pacientes </h5>
     <button type="reset" class="close basic-close" data-dismiss="modal" aria-label="Close" (click)="activeModal.close()"><span aria-hidden="true">&times;</span></button>
   </div>
   <div class="modal-body">
@@ -10,62 +10,65 @@
     <div class="col-md-13">
       <app-alert type="danger" *ngIf="mensagemErro!==''">{{mensagemErro}}</app-alert>
     </div>
-    <form  [formGroup]="formulario"  >
-      <label for="prontuario">Número do Prontuário:</label>
-      <input  id="prontuario" class="form-control" aria-describedby="prontuarioHelp" maxLength="50"
-      formControlName="prontuario" placeholder="Digite o número do prontuário" [ngClass]="aplicaCssErro('prontuario')">
-      <div *ngIf="verificaValidTouched('prontuario')">
-        <span class="font-red">Número do prontuario é obrigatório</span>
-      </div>
-        <br>
+    <form [formGroup]="formulario">
       <label for="nome">Nome:</label>
-      <input  id="nome"  class="form-control" aria-describedby="nomeHelp"
-      formControlName="nome"  placeholder="Digite o nome do paciente">
-      <br>
-      <label for="cpf">CPF:</label>
-      <input  id="cpf" class="form-control" aria-describedby="cpfHelp"
-      placeholder="Digite o CPF" formControlName="cpf">
-      <br>
-      <label for="rg">RG:</label>
-      <input  id="rg" class="form-control" aria-describedby="rgHelp"
-      placeholder="Digite o RG" formControlName="rg">
+      <input id="nome" class="form-control" aria-describedby="nomeHelp" formControlName="nome" placeholder="Digite o nome do paciente">
       <br>
       <label for="nomeMae">Nome da Mãe:</label>
-      <input  id="nomeMae"  class="form-control" aria-describedby="nomeMaeHelp"
-      placeholder="Digite o nome da Mãe" formControlName="nomeMae">
+      <input id="nomeMae" class="form-control" aria-describedby="nomeMaeHelp" placeholder="Digite o nome da Mãe" formControlName="nomeMae">
       <br>
-      <label>Genero:</label>
-      <select class="form-control col-sm-7"  id="genero" formControlName="genero" >
-        <option *ngFor="let genero of listaSexos" [value]="genero.valor">{{genero.nome}}</option>
-      </select>
+      <div class="row col-md-6" style="display: inline-block;">
+        <label for="prontuario">Número do Prontuário:</label>
+        <input id="prontuario" class="form-control" aria-describedby="prontuarioHelp" maxLength="50" formControlName="prontuario" placeholder="Digite o número do prontuário" [ngClass]="aplicaCssErro('prontuario')">
+        <div *ngIf="verificaValidTouched('prontuario')">
+          <span class="font-red">Número do prontuario é obrigatório</span>
+        </div>
+        <br>
+        <label for="cpf">CPF:</label>
+        <input id="cpf" class="form-control" aria-describedby="cpfHelp" placeholder="Digite o CPF" formControlName="cpf">
+        <br>
+      </div>
+      <div class="row col-md-6" style="display: inline-block;">
+
+        <label>Departamento:</label>
+        <select class="form-control" id="departamento" formControlName="departamento">
+          <option *ngFor="let departamento of listaDepartamento" [value]="departamento.idDepartamento">{{departamento.nome}}</option>
+        </select>
+        <br>
+        <label for="rg">RG:</label>
+        <input id="rg" class="form-control" aria-describedby="rgHelp" placeholder="Digite o RG" formControlName="rg">
+        <br>
+      </div>
       <br>
-      <label>Departamento:</label>
-      <select class="form-control"  id="departamento" formControlName="departamento">
-        <option *ngFor="let departamento of listaDepartamento" [value]="departamento.idDepartamento">{{departamento.nome}}</option>
-      </select>
+      <div class="row col-md-6" style="display: inline-block;">
+        <label for="dataNascimento">Data de nascimento:</label>
+        <input type="date" required="true" class="form-control" formControlName="dataNascimento" [(ngModel)]="today" id="dataNascimento">
+        <br>
+      </div>
+      <div class="row col-md-6" style="display: inline-block; float:left;">
+        <label for="genero">Genero:</label>
+        <select class="form-control" id="genero" formControlName="genero">
+          <option *ngFor="let genero of listaSexos" [value]="genero.valor">{{genero.nome}}</option>
+        </select>
+        <br>
+      </div>
+
+
       <br>
       <label for="precaucao">Precauções:</label>
       <div id="precaucao" style="border-radius: 5px; border: 1px solid #ccc; padding: 10px 0 " class="row  ml-0 mr-0">
-        <div class="checkbox" class="col-sm-6" formArrayName="precaucao"  *ngFor="let precaucao of listaPrecaucoes; let i=index" >
-        <label class="checkbox-inline">
-          <input type="checkbox" [value]="precaucao.idPrecaucao" (change)="onCheckChange($event)"/>  {{precaucao.nome}}  </label>  </div>
-      </div>
-      <br>
-      <label for="nomeMae">Data de nascimento:</label>
-      <br>
-      <div class="row" >
-        <div class="form-group col-md-6">
-          <input type="date" required="true" class="form-control" formControlName="dataNascimento"  [(ngModel)]="today" id="dataNascimento" >
+        <div class="checkbox" class="col-sm-6" formArrayName="precaucao" *ngFor="let precaucao of listaPrecaucoes; let i=index">
+          <label class="checkbox-inline">
+            <input type="checkbox" [value]="precaucao.idPrecaucao" (change)="onCheckChange($event)" /> {{precaucao.nome}} </label>
         </div>
       </div>
-
+      <br>
     </form>
   </div>
   <div class="modal-footer">
     <div style="margin-left: 200px;">
-      <button type="submit" class="btn btn-primary" style="margin-left:-16%; font-size: 16px;"(click)="valid()"><i
-        class="feather icon-save"></i> Salvar</button>
-      </div>
+      <button type="submit" class="btn btn-primary" style="margin-left:-16%; font-size: 16px;" (click)="valid()"><i class="feather icon-save"></i> Salvar</button>
     </div>
-
   </div>
+
+</div>

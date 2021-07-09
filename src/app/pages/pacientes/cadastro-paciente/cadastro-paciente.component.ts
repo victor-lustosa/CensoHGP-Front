@@ -24,6 +24,7 @@ export class CadastroPacienteComponent implements OnInit {
   listaDepartamento: Departamento[] = [];
   sucesso: boolean = false;
   at: boolean = true;
+
   @Input() public paciente: Paciente;
   public pacienteUpdate: Paciente;
   static atualizando = new EventEmitter<boolean>();
@@ -37,8 +38,8 @@ export class CadastroPacienteComponent implements OnInit {
     this.novoFormulario();
 
     if (this.paciente != null) {
-      this.today = new Date(this.formulario.value.dataNascimento).toISOString().split('T')[0];
-      console.log(this.paciente)
+      this.today = new Date(this.paciente.dataNascimento).toISOString().split('T')[0];
+        console.log(this.today);
       this.updateForm(this.paciente);
     } else {
       this.today = new Date().toISOString().split('T')[0];
@@ -71,10 +72,10 @@ export class CadastroPacienteComponent implements OnInit {
       cpf: paciente.cpf,
       genero: paciente.genero,
       rg: paciente.rg,
-      dataNascimento: paciente.dataNascimento,
+      dataNascimento: this.today,
       precaucao: paciente.precaucao,
       departamento: paciente.departamento
-    })
+    });
   }
 
   onCheckChange(event) {
