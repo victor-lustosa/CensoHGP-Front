@@ -13,11 +13,6 @@ export class CRUD<T> implements CrudInterface<T>{
     .pipe(retry(1), catchError(this.handleError));
   }
 
-  getByNome(string: any): Observable<T[]> {
-    return this.http.get<T[]>(`${this.API_URL}/nome/${string}`)
-    .pipe(retry(1), catchError(this.handleError));
-  }
-
   getById(id: number): Observable<T> {
     return this.http.get<T>(`${this.API_URL}/${id}`)
     .pipe(retry(1), catchError(this.handleError));
