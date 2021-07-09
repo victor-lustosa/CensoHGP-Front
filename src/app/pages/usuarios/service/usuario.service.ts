@@ -17,8 +17,9 @@ export class UsuarioService extends CRUD<Usuario> {
 
   getTipoUsuarios(){
     return [
-      { valor: 1, nome: 'Administrador' },
-      { valor: 2, nome: 'Enfermeiro' }
+      { valor: 1, nome: 'Todos' },
+      { valor: 2, nome: 'Administrador' },
+      { valor: 3, nome: 'Enfermeiro' }
     ];
   }
   getStatusUsuarios(){
