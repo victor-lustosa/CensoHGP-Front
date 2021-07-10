@@ -15,13 +15,12 @@ import 'rxjs/add/operator/catch';
 export class LoginComponent implements OnInit {
   public mensagemErro: string = '';
   perfil: string;
-  public botaoLogin: string = '';
+  public botaoLogin: string = 'entrar';
   public botaoDisabled: boolean = false;
   public routers: typeof routes = routes;
   constructor(private authService: AuthService, private router: Router) { }
   public formulario: FormGroup;
   public ngOnInit(): void {
-    this.botaoLogin = 'entrar';
     this.formulario = new FormGroup({
       matricula: new FormControl(null, [Validators.required]),
       senha: new FormControl(null, [Validators.required])
@@ -39,6 +38,8 @@ export class LoginComponent implements OnInit {
         },
         () => {
           this.mensagemErro = 'Usuário e/ou senha incorreto(s).';
+          this.botaoDisabled = false;
+          this.botaoLogin = 'entrar';
         });
     }
   }
