@@ -17,7 +17,6 @@ export class CadastroUsuarioComponent implements OnInit {
   @Input() tituloModal: string;
   static atualizando = new EventEmitter<boolean>();
   at: boolean = true;
-  senhaNovamente: string = null;
   validaSenha: boolean = false;
   mensagemErro: string = '';
 
@@ -31,7 +30,7 @@ export class CadastroUsuarioComponent implements OnInit {
     if (this.usuario != null) {
       this.updateForm(this.usuario);
     }
-    this.tipoUsuarios = this.usuariosService.getTipoUsuarios();
+    this.tipoUsuarios = this.usuariosService.getTipoUsuariosForm();
   }
   verificaValidTouched(campo: any) {
     return !this.formulario.get(campo).valid && this.formulario.get(campo).touched;
@@ -44,6 +43,7 @@ export class CadastroUsuarioComponent implements OnInit {
       matricula: [null, [Validators.required]],
       ativo: [true],
       senha: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
+      senhaNovamente: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
       perfil: [1, [Validators.required]]
     });
   }
@@ -76,13 +76,12 @@ export class CadastroUsuarioComponent implements OnInit {
     if (this.formulario.valid) {
       console.log(this.formulario.value);
       if (this.formulario.get('idUsuario').value != null) {
-        if (this.senhaNovamente === this.formulario.get('senha').value) {
+        if (this.formulario.get('senhaNovamente').value === this.formulario.get('senha').value) {
           this.usuariosService.update(this.formulario.value)
             .subscribe(
               () => {
                   this.sucesso = true,
                   this.formulario.reset(),
-                  this.senhaNovamente = null;
                 CadastroUsuarioComponent.atualizando.emit(this.at),
                   setTimeout(() => {
                     this.activeModal.close();
@@ -91,17 +90,16 @@ export class CadastroUsuarioComponent implements OnInit {
                 this.mensagemErro = error;
               });
         } else {
-          this.validaSenha = true;
+          this.mensagemErro = "As senhas precisam ser iguais!";
         }
       } else {
-        if (this.senhaNovamente === this.formulario.get('senha').value) {
+        if (this.formulario.get('senhaNovamente').value === this.formulario.get('senha').value) {
           console.log('formulario: ', this.formulario);
           this.usuariosService.create(this.formulario.value)
             .subscribe(
               () => {
                   this.sucesso = true,
                   this.formulario.reset(),
-                  this.senhaNovamente = null;
                 CadastroUsuarioComponent.atualizando.emit(this.at),
                   setTimeout(() => {
                     this.activeModal.close();
@@ -110,7 +108,7 @@ export class CadastroUsuarioComponent implements OnInit {
                 this.mensagemErro = error;
               });
         } else {
-          this.validaSenha = true;
+              this.mensagemErro = "As senhas precisam ser iguais!";
         }
       }
     }

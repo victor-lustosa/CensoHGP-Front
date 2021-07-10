@@ -15,10 +15,13 @@ import 'rxjs/add/operator/catch';
 export class LoginComponent implements OnInit {
   public mensagemErro: string = '';
   perfil: string;
+  public botaoLogin: string = '';
+  public botaoDisabled: boolean = false;
   public routers: typeof routes = routes;
   constructor(private authService: AuthService, private router: Router) { }
   public formulario: FormGroup;
   public ngOnInit(): void {
+    this.botaoLogin = 'entrar';
     this.formulario = new FormGroup({
       matricula: new FormControl(null, [Validators.required]),
       senha: new FormControl(null, [Validators.required])
@@ -27,6 +30,8 @@ export class LoginComponent implements OnInit {
 
   sendLoginForm() {
     if (this.formulario.valid) {
+      this.botaoLogin = 'entrando';
+      this.botaoDisabled = true;
       this.authService.tentarLogar(this.formulario.value).subscribe(
         (response: any) => {
           this.authService.successfulLogin(response.headers.get('Authorization'));

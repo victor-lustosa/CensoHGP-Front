@@ -1,6 +1,6 @@
-<div class="modal-content" >
+<div class="modal-content">
   <div class="modal-header">
-    <h5  class="modal-title">{{tituloModal}}</h5>
+    <h5 class="modal-title">{{tituloModal}}</h5>
     <button type="reset" class="close basic-close" data-dismiss="modal" aria-label="Close" (click)="activeModal.close()"><span aria-hidden="true">&times;</span></button>
   </div>
   <div class="modal-body">
@@ -11,53 +11,58 @@
       <app-alert type="danger" *ngIf="mensagemErro!==''">{{mensagemErro}}</app-alert>
     </div>
 
-    <form  [formGroup]="formulario">
+    <form [formGroup]="formulario">
       <label for="nome">Nome:</label>
-      <input  id="nome" formControlName="nome" class="form-control" aria-describedby="nomeHelp" maxLength="50"
-      placeholder="Digite o nome do usuário" [ngClass]="aplicaCssErro('nome')">
+      <input id="nome" formControlName="nome" class="form-control" aria-describedby="nomeHelp" maxLength="50" placeholder="Digite o nome do usuário" [ngClass]="aplicaCssErro('nome')">
       <div *ngIf="verificaValidTouched('nome')">
         <span class="font-red">Nome é obrigatório</span>
       </div>
       <br>
-      <label for="matricula">Matrícula:</label>
-      <input class="form-control" formControlName="matricula" id="matricula" aria-describedby="matriculaHelp"
-      placeholder="Digite a matrícula" [ngClass]="aplicaCssErro('matricula')">
-      <div *ngIf="verificaValidTouched('matricula')">
-        <span class="font-red">Matrícula é obrigatória</span>
-      </div>
-      <br>
+
       <label for="email">E-mail:</label>
-      <input type="email" class="form-control" formControlName="email" id="email"
-      placeholder="Digite o seu e-mail" [ngClass]="aplicaCssErro('email')">
+      <input type="email" class="form-control" formControlName="email" id="email" placeholder="Digite o seu e-mail" [ngClass]="aplicaCssErro('email')">
       <div *ngIf="verificaValidTouched('email')">
         <span class="font-red">E-mail é obrigatório</span>
       </div>
       <br>
-      <label for="perfil">Tipo de Usuário:</label>
-      <select type="perfil" class="form-control" id="perfil" formControlName="perfil" [ngClass]="aplicaCssErro('perfil')">
-        <option *ngFor="let perfil of tipoUsuarios" [value]="perfil.valor">{{ perfil.nome }}</option>
-      </select>
-      <div *ngIf="verificaValidTouched('perfil')">
-        <span class="font-red">Selecione um tipo de usuário</span>
+      <div class="row col-md-6" style="display: inline-block;">
+        <label for="matricula">Matrícula:</label>
+        <input class="form-control" formControlName="matricula" id="matricula" aria-describedby="matriculaHelp" placeholder="Digite a matrícula" [ngClass]="aplicaCssErro('matricula')">
+        <div *ngIf="verificaValidTouched('matricula')">
+          <span class="font-red">Matrícula é obrigatória</span>
+        </div>
+        <br>
       </div>
-      <br>
-      <label for="senha">Senha:</label>
-      <input  type="password" class="form-control" id="senha" formControlName="senha" placeholder="Digite sua senha" [ngClass]="aplicaCssErro('senha')">
-      <div *ngIf="verificaValidTouched('senha')">
-        <span class="font-red">Senha é obrigatória</span>
+      <div class="row col-md-6" style="display: inline-block;float:right">
+        <label for="perfil">Tipo de Usuário:</label>
+        <select type="perfil" class="form-control" id="perfil" formControlName="perfil" [ngClass]="aplicaCssErro('perfil')">
+          <option *ngFor="let perfil of tipoUsuarios" [value]="perfil.valor">{{ perfil.nome }}</option>
+        </select>
+        <div *ngIf="verificaValidTouched('perfil')">
+          <span class="font-red">Selecione um tipo de usuário</span>
+        </div>
+        <br>
+      </div>
+      <div class="row col-md-6" style="display: inline-block;">
+        <label for="senha">Senha:</label>
+        <input type="password" class="form-control" id="senha" formControlName="senha" placeholder="Digite sua senha" [ngClass]="aplicaCssErro('senha')">
+        <div *ngIf="verificaValidTouched('senha')">
+          <span class="font-red">Senha é obrigatória</span>
+        </div>
+      </div>
+      <div class="row col-md-6" style="display: inline-block;float:right">
+        <label for="senha">Senha novamente:</label>
+        <input type="password" class="form-control" id="senhaNovamente" formControlName="senhaNovamente" placeholder="Digite sua senha novamente" [ngClass]="aplicaCssErro('senhaNovamente')">
+        <div *ngIf="verificaValidTouched('senhaNovamente')">
+          <span class="font-red">Senha novamente é obrigatória</span>
+        </div>
       </div>
     </form>
-    <br>
-    <label for="senhaNovamente">Digite novamente a senha:</label>
-    <input  type="password" class="form-control" id="senhaNovamente" [(ngModel)]="senhaNovamente"  placeholder="Digite novamente sua senha"  >
-    <div *ngIf="validaSenha==true">
-      <span class="font-red">As senhas precisam ser iguais</span>
-    </div>
+
   </div>
   <div class="modal-footer">
     <div style="margin-left: 200px;">
-      <button type="submit" class="btn btn-primary" style="margin-left:-16%; font-size: 16px;"(click)="valid()"><i
-        class="feather icon-save"></i> Salvar</button>
-      </div>
+      <button type="submit" class="btn btn-primary" style="margin-left:-16%; font-size: 16px;" (click)="valid()"><i class="feather icon-save"></i> Salvar</button>
     </div>
   </div>
+</div>

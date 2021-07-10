@@ -6,4 +6,5 @@ export interface Usuario {
   senha: string;
   ativo: boolean;
   perfil: number;
+  senhaNovamente: string;
 }

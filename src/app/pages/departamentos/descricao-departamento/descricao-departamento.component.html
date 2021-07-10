@@ -19,7 +19,9 @@
     <br>
     <div>
       <span> <b>Descrição: </b>
-      <span style="word-break: break-word;"> {{departamento.descricao}}</span></span>
+      <span style="word-break: break-word;" *ngIf="departamento.descricao!= ''"> {{departamento.descricao}}</span>
+      <span style="word-break: break-word;" *ngIf="departamento.descricao == ''"> Não possui descrição </span>
+    </span>
     <!-- <textarea disabled="" class="form-control" id="descricao" [value] =""rows="5"></textarea> -->
   </div>
   </div>

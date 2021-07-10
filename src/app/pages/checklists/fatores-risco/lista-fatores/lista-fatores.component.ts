@@ -90,6 +90,7 @@ mudarStatus() {
     this.statusSpinner = true;
     if (this.ativo == 2) {
       setTimeout(() => {
+          this.lista = [];
         this.fatoresService.getAllAtivos().subscribe(
           data => {
             this.lista = data;
@@ -100,6 +101,7 @@ mudarStatus() {
     }
     else if (this.ativo == 3) {
       setTimeout(() => {
+        this.lista = [];
         this.fatoresService.getAllInativos().subscribe(
           data => {
             this.lista = data;
@@ -110,6 +112,7 @@ mudarStatus() {
     }
     else {
       setTimeout(() => {
+          this.lista = [];
         this.fatoresService.getAll().subscribe(
           data => {
             this.lista = data;

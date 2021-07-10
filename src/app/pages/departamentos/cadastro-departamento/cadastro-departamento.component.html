@@ -1,4 +1,4 @@
-<div class="modal-content"  >
+<div class="modal-content">
   <div class="modal-header">
     <h5 class="modal-title">{{ tituloModal }}</h5>
     <button type="button" class="close basic-close" data-dismiss="modal" aria-label="Close" (click)="activeModal.close()"><span aria-hidden="true">&times;</span></button>
@@ -10,39 +10,39 @@
     <div class="col-md-13">
       <app-alert type="danger" *ngIf="mensagemErro!==''">{{mensagemErro}}</app-alert>
     </div>
-    <form  [formGroup]="formulario" >
+    <form [formGroup]="formulario">
       <label for="nome">Nome:</label>
-      <input  id="nome" formControlName="nome" class="form-control" aria-describedby="nomeHelp" maxLength="50"
-      placeholder="Digite o nome do procedimento" [ngClass]="aplicaCssErro('nome')">
+      <input id="nome" formControlName="nome" class="form-control" aria-describedby="nomeHelp" maxLength="50" placeholder="Digite o nome do procedimento" [ngClass]="aplicaCssErro('nome')">
       <div *ngIf="verificaValidTouched('nome')">
         <span class="font-red">Nome é obrigatório</span>
       </div>
       <br>
-      <label for="numero_leitos">Número de leitos:</label>
-      <input type="number" id="numero_leitos" formControlName="numero_leitos" class="form-control" aria-describedby="numeroLeitosHelp"
-      placeholder="Informe o numero de leitos" [ngClass]="aplicaCssErro('numero_leitos')">
-      <div *ngIf="verificaValidTouched('numero_leitos') ">
-        <span class="font-red">Número de leitos é obrigatório</span>
+      <div class="row col-md-6" style="display: inline-block;">
+        <label for="numero_leitos">Número de leitos:</label>
+        <input type="number" id="numero_leitos" formControlName="numero_leitos" class="form-control" aria-describedby="numeroLeitosHelp" placeholder="Informe o numero de leitos" [ngClass]="aplicaCssErro('numero_leitos')">
+        <div *ngIf="verificaValidTouched('numero_leitos') ">
+          <span class="font-red">Número de leitos é obrigatório</span>
+        </div>
+        <br>
       </div>
-      <br>
-      <label>Tipo de Departamento:</label>
-      <select class="form-control"  id="interno" formControlName="interno" required="true" [ngClass]="aplicaCssErro('interno')">
-        <option *ngFor="let tipoDepartamento of listaTipoDepartamento" [value]="tipoDepartamento.valor">{{tipoDepartamento.nome}}</option>
-      </select>
-      <div *ngIf="verificaValidTouched('interno')">
-        <span class="font-red">Tipo de departamento é obrigatório</span>
-        <span class="font-red">Selecione um tipo de departamento</span>
+      <div class="row col-md-6" style="display: inline-block;float:right">
+        <label>Tipo de Departamento:</label>
+        <select class="form-control" id="interno" formControlName="interno" required="true" [ngClass]="aplicaCssErro('interno')">
+          <option *ngFor="let tipoDepartamento of listaTipoDepartamento" [value]="tipoDepartamento.valor">{{tipoDepartamento.nome}}</option>
+        </select>
+        <div *ngIf="verificaValidTouched('interno')">
+          <span class="font-red">Tipo de departamento é obrigatório</span>
+          <span class="font-red">Selecione um tipo de departamento</span>
+        </div>
+        <br>
       </div>
-      <br>
       <label for="descricao">Descrição:</label>
       <textarea maxLength="255" placeholder="Digite uma descrição" class="form-control" id="descricao" formControlName="descricao" rows="5"></textarea>
     </form>
   </div>
   <div class="modal-footer">
     <div style="margin-left: 200px;">
-      <button type="submit" class="btn btn-primary" style="margin-left:-16%; font-size: 16px;"
-      (click)="valid()"><i
-        class="feather icon-save"></i> Salvar</button>
-      </div>
+      <button type="submit" class="btn btn-primary" style="margin-left:-16%; font-size: 16px;" (click)="valid()"><i class="feather icon-save"></i> Salvar</button>
     </div>
   </div>
+</div>

@@ -23,7 +23,10 @@
                 </div>
               </div>
 
-              <button type="submit" class="btn btn-block btn-primary mb-4 button field-size" (click)="sendLoginForm()">Entrar</button>
+              <button type="submit" class="btn btn-block btn-primary mb-4 button field-size" (click)="sendLoginForm()" [disabled]="this.botaoDisabled == true">
+                 <span class="spinner-border spinner-border-sm" role="status" *ngIf="this.botaoDisabled == true"></span>
+                 {{botaoLogin}}
+               </button>
               <p class="esq mb-2 text-muted">Esqueceu sua senha? <a  class="f-w-400"></a></p>
               <div class="col-md-13">
                 <app-alert type="danger" *ngIf="mensagemErro!==''">{{mensagemErro}}</app-alert>

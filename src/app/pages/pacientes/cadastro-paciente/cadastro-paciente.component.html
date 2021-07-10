@@ -17,13 +17,15 @@
       <label for="nomeMae">Nome da Mãe:</label>
       <input id="nomeMae" class="form-control" aria-describedby="nomeMaeHelp" placeholder="Digite o nome da Mãe" formControlName="nomeMae">
       <br>
-      <div class="row col-md-6" style="display: inline-block;">
+      <div class="row col-md-6" style="display: inline-block; ">
         <label for="prontuario">Número do Prontuário:</label>
         <input id="prontuario" class="form-control" aria-describedby="prontuarioHelp" maxLength="50" formControlName="prontuario" placeholder="Digite o número do prontuário" [ngClass]="aplicaCssErro('prontuario')">
         <div *ngIf="verificaValidTouched('prontuario')">
           <span class="font-red">Número do prontuario é obrigatório</span>
         </div>
         <br>
+              </div>
+          <div class="row col-md-6" style="display: inline-block;float:right">
         <label for="cpf">CPF:</label>
         <input id="cpf" class="form-control" aria-describedby="cpfHelp" placeholder="Digite o CPF" formControlName="cpf">
         <br>
@@ -31,10 +33,13 @@
       <div class="row col-md-6" style="display: inline-block;">
 
         <label>Departamento:</label>
-        <select class="form-control" id="departamento" formControlName="departamento">
+        <select  class="form-control" id="departamento" formControlName="departamento">
           <option *ngFor="let departamento of listaDepartamento" [value]="departamento.idDepartamento">{{departamento.nome}}</option>
         </select>
-        <br>
+          <br>
+      </div>
+
+          <div class="row col-md-6" style="display: inline-block;float:right">
         <label for="rg">RG:</label>
         <input id="rg" class="form-control" aria-describedby="rgHelp" placeholder="Digite o RG" formControlName="rg">
         <br>
@@ -45,7 +50,7 @@
         <input type="date" required="true" class="form-control" formControlName="dataNascimento" [(ngModel)]="today" id="dataNascimento">
         <br>
       </div>
-      <div class="row col-md-6" style="display: inline-block; float:left;">
+      <div class="row col-md-6" style="display: inline-block; float:right;">
         <label for="genero">Genero:</label>
         <select class="form-control" id="genero" formControlName="genero">
           <option *ngFor="let genero of listaSexos" [value]="genero.valor">{{genero.nome}}</option>

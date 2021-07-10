@@ -46,7 +46,7 @@
               </td>
             </tbody>
           </table>
-          <pagination-controls *ngIf="statusSpinner===false" maxSize="5" responsive="true" directionLinks="true" autoHide="true" class="d-flex justify-content-center" (pageChange)="paginaAtual = $event" previousLabel="Anterior" nextLabel="Próximo"></pagination-controls>
+          <pagination-controls *ngIf="statusSpinner===false && lista.length > 0" maxSize="5" responsive="true" directionLinks="true" autoHide="true" class="d-flex justify-content-center" (pageChange)="paginaAtual = $event" previousLabel="Anterior" nextLabel="Próximo"></pagination-controls>
           <ng-template #noResults>
             <p *ngIf="statusSpinner === false">Nenhum resultado encontrado.</p>
           </ng-template>

@@ -14,7 +14,13 @@ export class UsuarioService extends CRUD<Usuario> {
   constructor(http: HttpClient){
     super(http, `${environment.API}apicensohgp/usuario`);
   }
+  getTipoUsuariosForm(){
+    return [
+      { valor: 1, nome: 'Enfermeiro' },
+      { valor: 2, nome: 'Administrador' }
 
+    ];
+  }
   getTipoUsuarios(){
     return [
       { valor: 1, nome: 'Todos' },

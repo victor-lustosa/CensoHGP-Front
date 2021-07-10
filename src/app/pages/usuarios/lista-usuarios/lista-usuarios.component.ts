@@ -84,8 +84,6 @@ export class ListaUsuariosComponent implements OnInit {
   loadListaUsuarios() {
     this.lista =  [];
     this.statusSpinner = true;
-    console.log(this.tipoUsuario);
-    console.log(this.ativo);
     if (this.tipoUsuario == 3 && this.ativo == 3) {
       console.log("Chamou enfermeiros inativos");
       setTimeout(() => {

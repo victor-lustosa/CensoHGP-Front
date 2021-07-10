@@ -38,7 +38,7 @@
                 <div ngbDropdown  container="body" >
                   <button placement="left" class="btn btn-info buttonDrop" ngbDropdownToggle type="button" id="opcoes"><i class="feather icon-plus-circle"></i> ações</button>
                   <div ngbDropdownMenu  >
-                    <button *ngIf="fatores.ativo=== true" class="dropdown-item button" (click)="editar(fatores.idFatorRisco)"><i class="feather icon-edit"></i> Editar</button>
+                    <button *ngIf="fatores.ativo === true" class="dropdown-item button" (click)="editar(fatores.idFatorRisco)"><i class="feather icon-edit"></i> Editar</button>
                     <button class="dropdown-item button"  (click)="pegaId(fatores.idFatorRisco);confirmaModal.show()"><i class="feather icon-{{fatores.ativo ? 'minus-circle' : 'power'}}"></i> {{fatores.ativo ? 'Desativar' : 'Ativar'}}</button>
                     <button class="dropdown-item button"  (click)="descricao(fatores.idFatorRisco)"><i class="feather icon-eye"></i> Visualizar</button>
                   </div>
@@ -46,7 +46,7 @@
               </td>
             </tbody>
           </table>
-          <pagination-controls *ngIf="statusSpinner===false" maxSize="5" responsive="true" directionLinks="true" autoHide="true" class="d-flex justify-content-center" (pageChange)="paginaAtual = $event" previousLabel="Anterior" nextLabel="Próximo"></pagination-controls>
+          <pagination-controls *ngIf="statusSpinner===false && lista.length > 0" maxSize="5" responsive="true" directionLinks="true" autoHide="true" class="d-flex justify-content-center" (pageChange)="paginaAtual = $event" previousLabel="Anterior" nextLabel="Próximo"></pagination-controls>
           <ng-template #noResults >
             <p *ngIf="statusSpinner === false">Nenhum resultado encontrado.</p>
           </ng-template>
