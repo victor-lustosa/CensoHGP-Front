@@ -14,16 +14,12 @@ import 'rxjs/add/operator/catch';
 })
 export class LoginComponent implements OnInit {
   public mensagemErro: string = '';
-  // public messageValidation: string = '';
   perfil: string;
   public botaoLogin: string = 'Entrar';
   public botaoDisabled: boolean = false;
+  public erroSenha: boolean = false;
+  public erroMatricula: boolean = false;
   public routers: typeof routes = routes;
-  public validMatricula: boolean = false;
-  public validSenha: boolean = false;
-  public validAmbos: boolean = false;
-    public erroFormMatricula: boolean = false;
-    public erroFormSenha: boolean = false;
   constructor(private authService: AuthService, private router: Router) { }
   public formulario: FormGroup;
   public ngOnInit(): void {
@@ -32,81 +28,66 @@ export class LoginComponent implements OnInit {
       senha: new FormControl(null, [Validators.required])
     });
   }
-  public verificaValidTouched(campo: any) {
-    if (!this.formulario.get('senha').valid && this.formulario.get('senha').touched &&
-      campo == 'senha' && this.validMatricula == false) {
-      this.validSenha = true;
-      this.validMatricula = false;
-      this.validAmbos = false;
-      this.mensagemErro = 'Senha é obrigatória'
-      return true;
-    } else
-    if (!this.formulario.get('matricula').valid && this.formulario.get('matricula').touched &&
-      campo == 'matricula' && this.validSenha == false) {
-      this.validMatricula = true;
-      this.validSenha = false;
-      this.validAmbos = false;
-      this.mensagemErro = 'Matrícula é obrigatória'
-      return true;
-    }else
-    if (!this.formulario.get('senha').valid && this.formulario.get('senha').touched &&
-      !this.formulario.get('matricula').valid && this.formulario.get('matricula').touched
-    ) {
-      this.validAmbos = true;
-      this.validSenha = false;
-      this.validMatricula = false;
-      this.mensagemErro = 'Matrícula e senha é obrigatórios'
-      return true;
-    }else
-    if (this.formulario.get('senha').valid  &&
-      this.formulario.get('matricula').valid && this.validAmbos == true) {
 
-      this.validSenha = false;
-      this.validMatricula = false;
-      this.mensagemErro = ''
-    }
-
-  }
   public aplicaCssErro(campo?: any) {
-      if(campo =='senha' && this.erroFormSenha == true && this.erroFormMatricula == false){
+    //erros antes de enviar o form
+  if (!this.formulario.get('senha').valid && this.formulario.get('senha').touched &&
+   !this.formulario.get('matricula').valid && !this.formulario.get('matricula').touched  &&
+     campo == 'senha') {
+    this.mensagemErro = 'Senha é obrigatória'
+    return 'border-red';
+  }
+    if (!this.formulario.get('senha').valid && !this.formulario.get('senha').touched &&
+     !this.formulario.get('matricula').valid && this.formulario.get('matricula').touched &&
+      campo == 'matricula') {
+
+      this.mensagemErro = 'Matrícula é obrigatória'
+      return 'border-red';
+    }
+      if (!this.formulario.get('senha').valid && this.formulario.get('senha').touched &&
+        !this.formulario.get('matricula').valid && this.formulario.get('matricula').touched
+      ) {
+        this.mensagemErro = 'Matrícula e senha é obrigatórios'
         return 'border-red';
-      }else if(campo =='matricula' && this.erroFormMatricula == true && this.erroFormSenha == false){
-        return 'border-red';
-      }else if(this.erroFormMatricula == true && this.erroFormSenha == true){
-        return 'border-red';
-      }else {
-        return {
-        'border-red': this.verificaValidTouched(campo)
-      };
+      }
+
+    //erros apos enviar o form
+    if (campo == 'senha' && this.formulario.get('matricula').valid && this.formulario.get('matricula').touched
+      && !this.formulario.get('senha').valid && this.formulario.get('senha').touched && this.erroSenha == true) {
+      this.mensagemErro = 'Senha é obrigatória'
+      return 'border-red';
+    } else if (campo == 'matricula' && !this.formulario.get('matricula').valid && this.formulario.get('matricula').touched
+      && this.formulario.get('senha').valid && this.formulario.get('senha').touched && this.erroMatricula == true) {
+      this.mensagemErro = 'Matrícula é obrigatória'
+      return 'border-red';
+    } else if (!this.formulario.get('senha').valid && !this.formulario.get('matricula').valid
+      && this.erroSenha == true && this.erroMatricula == true) {
+      this.mensagemErro = 'Matrícula e senha são obrigatórios'
+      return 'border-red';
     }
 
   }
 
   valid() {
     if (this.formulario.valid) {
-      this.validAmbos = false;
-      this.validSenha = false;
-      this.validMatricula = false;
       this.mensagemErro = '';
+      this.erroSenha = false;
+      this.erroMatricula = false;
       this.sendLoginForm();
     }
     else {
-      this.erroFormSenha = true;
-      this.erroFormMatricula = true;
-      if (this.formulario.get('senha').touched &&
-         !this.formulario.get('matricula').touched) {
 
-        this.mensagemErro = 'Matrícula é obrigatória'
+      if (this.formulario.get('senha').touched && !this.formulario.get('matricula').touched) {
+        this.erroMatricula = true;
         this.aplicaCssErro('matricula');
-      } else if (!this.formulario.get('senha').touched &&
-        this.formulario.get('matricula').touched) {
-        this.mensagemErro = 'Senha é obrigatória'
+      } else if (!this.formulario.get('senha').touched && this.formulario.get('matricula').touched) {
+        this.erroSenha = true;
         this.aplicaCssErro('senha')
       } else {
+        this.erroSenha = true;
+        this.erroMatricula = true;
         this.aplicaCssErro('matricula');
-          this.aplicaCssErro('senha')
-        this.mensagemErro = 'Matrícula e senha são obrigatórios'
-        this.aplicaCssErro()
+        this.aplicaCssErro('senha')
       }
     }
   }
