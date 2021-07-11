@@ -23,8 +23,8 @@
                   </div>
                   <input type="password" class="form-control field-size" formControlName="senha" placeholder="Digite sua senha" [ngClass]="aplicaCssErro('senha')" >
                 </div>
-
-                    <span class="font-red"  *ngIf="mensagemErro!==''">{{mensagemErro}}</span>
+                    <span class="font-red"  *ngIf="mensagemErroLogin!==''">{{mensagemErroLogin}}</span>
+                    <span class="font-red"  *ngIf="mensagemErro!=='' && mensagemErroLogin ===''">{{mensagemErro}}</span>
               </div>
               <button type="submit" class="btn btn-block btn-primary mb-4 button field-size-botton" (click)="valid()" [disabled]="this.botaoDisabled == true">
                  <span class="spinner-border spinner-border-sm" role="status" *ngIf="this.botaoDisabled == true"></span>

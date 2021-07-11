@@ -14,11 +14,10 @@ import 'rxjs/add/operator/catch';
 })
 export class LoginComponent implements OnInit {
   public mensagemErro: string = '';
+  public mensagemErroLogin: string = '';
   perfil: string;
   public botaoLogin: string = 'Entrar';
   public botaoDisabled: boolean = false;
-  public erroSenha: boolean = false;
-  public erroMatricula: boolean = false;
   public routers: typeof routes = routes;
   constructor(private authService: AuthService, private router: Router) { }
   public formulario: FormGroup;
@@ -30,64 +29,55 @@ export class LoginComponent implements OnInit {
   }
 
   public aplicaCssErro(campo?: any) {
-    //erros antes de enviar o form
-  if (!this.formulario.get('senha').valid && this.formulario.get('senha').touched &&
-   !this.formulario.get('matricula').valid && !this.formulario.get('matricula').touched  &&
-     campo == 'senha') {
-    this.mensagemErro = 'Senha é obrigatória'
-    return 'border-red';
-  }
+    if (!this.formulario.get('senha').valid && this.formulario.get('senha').touched &&
+      !this.formulario.get('matricula').valid && !this.formulario.get('matricula').touched &&
+      campo == 'senha') {
+      this.mensagemErro = 'Senha é obrigatória';
+      return 'border-red';
+    } else if (this.formulario.get('senha').valid && this.formulario.get('senha').touched &&
+      !this.formulario.get('matricula').valid && this.formulario.get('matricula').touched &&
+      campo == 'senha') {
+      this.mensagemErro = 'Matrícula é obrigatória';
+      return 'border-red';
+    }
     if (!this.formulario.get('senha').valid && !this.formulario.get('senha').touched &&
-     !this.formulario.get('matricula').valid && this.formulario.get('matricula').touched &&
+      !this.formulario.get('matricula').valid && this.formulario.get('matricula').touched &&
       campo == 'matricula') {
-
-      this.mensagemErro = 'Matrícula é obrigatória'
+      this.mensagemErro = 'Matrícula é obrigatória';
+      return 'border-red';
+    } else if (!this.formulario.get('senha').valid && this.formulario.get('senha').touched &&
+      this.formulario.get('matricula').valid && this.formulario.get('matricula').touched &&
+      campo == 'senha') {
+      this.mensagemErro = 'Senha é obrigatória';
       return 'border-red';
     }
-      if (!this.formulario.get('senha').valid && this.formulario.get('senha').touched &&
-        !this.formulario.get('matricula').valid && this.formulario.get('matricula').touched
-      ) {
-        this.mensagemErro = 'Matrícula e senha é obrigatórios'
-        return 'border-red';
-      }
-
-    //erros apos enviar o form
-    if (campo == 'senha' && this.formulario.get('matricula').valid && this.formulario.get('matricula').touched
-      && !this.formulario.get('senha').valid && this.formulario.get('senha').touched && this.erroSenha == true) {
-      this.mensagemErro = 'Senha é obrigatória'
-      return 'border-red';
-    } else if (campo == 'matricula' && !this.formulario.get('matricula').valid && this.formulario.get('matricula').touched
-      && this.formulario.get('senha').valid && this.formulario.get('senha').touched && this.erroMatricula == true) {
-      this.mensagemErro = 'Matrícula é obrigatória'
-      return 'border-red';
-    } else if (!this.formulario.get('senha').valid && !this.formulario.get('matricula').valid
-      && this.erroSenha == true && this.erroMatricula == true) {
-      this.mensagemErro = 'Matrícula e senha são obrigatórios'
+    if (this.formulario.get('senha').valid && this.formulario.get('senha').touched &&
+      this.formulario.get('matricula').valid && this.formulario.get('matricula').touched &&
+      campo == 'senha') {
+      this.mensagemErro = '';
+      return '';
+    }
+    if (!this.formulario.get('senha').valid && this.formulario.get('senha').touched &&
+      !this.formulario.get('matricula').valid && this.formulario.get('matricula').touched
+    ) {
+      this.mensagemErro = 'Matrícula e senha são obrigatórios';
       return 'border-red';
     }
-
   }
 
   valid() {
     if (this.formulario.valid) {
       this.mensagemErro = '';
-      this.erroSenha = false;
-      this.erroMatricula = false;
       this.sendLoginForm();
     }
     else {
-
       if (this.formulario.get('senha').touched && !this.formulario.get('matricula').touched) {
-        this.erroMatricula = true;
         this.aplicaCssErro('matricula');
       } else if (!this.formulario.get('senha').touched && this.formulario.get('matricula').touched) {
-        this.erroSenha = true;
-        this.aplicaCssErro('senha')
+        this.aplicaCssErro('senha');
       } else {
-        this.erroSenha = true;
-        this.erroMatricula = true;
         this.aplicaCssErro('matricula');
-        this.aplicaCssErro('senha')
+        this.aplicaCssErro('senha');
       }
     }
   }
@@ -101,10 +91,10 @@ export class LoginComponent implements OnInit {
           this.router.navigate([this.routers.DASHBOARD]).then();
         },
         () => {
-          this.mensagemErro = 'Usuário e/ou senha incorreto(s).';
+            setTimeout(() => {  this.mensagemErroLogin = ''},1400 );
+          this.mensagemErroLogin = 'Usuário e/ou senha incorreto(s).'
           this.botaoDisabled = false;
           this.botaoLogin = 'Entrar';
-
         });
     }
   }
