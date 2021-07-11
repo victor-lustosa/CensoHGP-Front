@@ -7,31 +7,32 @@
             <div class="card-body" >
               <img src="assets/images/logosi.png" class="img-fluid mb-5 mt-n1 ">
               <div class="mt-n2">
-                <div class="input-group mb-4 field-size">
+                <div class="input-group field-size">
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="feather icon-user"></i></span>
                   </div>
-                  <input type="matricula" class="form-control field-size" formControlName="matricula" placeholder="digite sua matrícula" >
+                  <input type="matricula" class="form-control field-size" formControlName="matricula" placeholder="Digite sua matrícula" [ngClass]="aplicaCssErro('matricula')">
                 </div>
+
               </div>
+              <br>
               <div class="mt-n3">
-                <div class="input-group mb-4 field-size">
+                <div class="input-group field-size">
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="feather icon-lock"></i></span>
                   </div>
-                  <input type="password" class="form-control field-size" formControlName="senha" placeholder="digite sua senha" >
+                  <input type="password" class="form-control field-size" formControlName="senha" placeholder="Digite sua senha" [ngClass]="aplicaCssErro('senha')" >
                 </div>
-              </div>
 
-              <button type="submit" class="btn btn-block btn-primary mb-4 button field-size" (click)="sendLoginForm()" [disabled]="this.botaoDisabled == true">
+                    <span class="font-red"  *ngIf="mensagemErro!==''">{{mensagemErro}}</span>
+              </div>
+              <button type="submit" class="btn btn-block btn-primary mb-4 button field-size-botton" (click)="valid()" [disabled]="this.botaoDisabled == true">
                  <span class="spinner-border spinner-border-sm" role="status" *ngIf="this.botaoDisabled == true"></span>
                  {{botaoLogin}}
                </button>
               <p class="esq mb-2 text-muted">Esqueceu sua senha? <a  class="f-w-400"></a></p>
-              <div class="col-md-13">
-                <app-alert type="danger" *ngIf="mensagemErro!==''">{{mensagemErro}}</app-alert>
-              </div>
-            </div>
+
+                </div>
 
           </form>
 

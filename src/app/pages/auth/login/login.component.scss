@@ -11,13 +11,25 @@
      top: 85px;
 }
 .field-size{
-  height:50px;
+  height:45px;
+}
+.field-size-botton{
+  height:37px;
+  width: 210px;
+
 }
 .button{
   position: relative;
-     top: 160px;
+  margin: 0 auto;
+     top: 190px;
 }
 .esq{
   position: relative;
-     top: 168px;
+     top: 176px;
+}
+.font-red {
+  color: #F05151;
+}
+.border-red {
+  border: 1px solid #F05151;
 }
