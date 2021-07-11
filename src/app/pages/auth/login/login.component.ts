@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
       return 'border-red';
     } else if (this.formulario.get('senha').valid && this.formulario.get('senha').touched &&
       !this.formulario.get('matricula').valid && this.formulario.get('matricula').touched &&
-      campo == 'senha') {
+      campo == 'matricula') {
       this.mensagemErro = 'Matrícula é obrigatória';
       return 'border-red';
     }
@@ -52,8 +52,7 @@ export class LoginComponent implements OnInit {
       return 'border-red';
     }
     if (this.formulario.get('senha').valid && this.formulario.get('senha').touched &&
-      this.formulario.get('matricula').valid && this.formulario.get('matricula').touched &&
-      campo == 'senha') {
+      this.formulario.get('matricula').valid && this.formulario.get('matricula').touched ) {
       this.mensagemErro = '';
       return '';
     }
