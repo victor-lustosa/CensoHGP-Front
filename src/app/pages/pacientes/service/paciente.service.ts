@@ -8,6 +8,7 @@ import { CRUD } from 'src/app/theme/shared/CRUD';
 import { Observable } from 'rxjs';
 import { PacienteDTO } from '../model/Paciente.dto';
 import { catchError, retry } from 'rxjs/operators';
+import { Departamento } from '../../departamentos/model/departamento';
 @Injectable({
   providedIn: 'root'
 })
@@ -27,6 +28,10 @@ export class PacienteService extends CRUD<Paciente> {
     ];
   }
 
+  getAllAtivos(): Observable<Departamento[]>  {
+    return this.http.get<Departamento[]>(`${environment.API}apicensohgp/departamentos/ativos`)
+    .pipe(retry(1), catchError(this.handleError));
+  }
   getAllPacientes(): Observable<PacienteDTO[]> {
     return this.http.get<PacienteDTO[]>(`${environment.API}apicensohgp/pacientes`)
       .pipe(retry(1), catchError(this.handleError));

@@ -20,12 +20,16 @@ export class ListaPacientesComponent implements OnInit {
   paginaAtual: number = 1;
   contador: number = 10;
   mensagem: string;
-  departamento: number = 1;
+  departamento: string = '';
   listaDepartamento: any[];
   MODALOPTIONS: NgbModalOptions = { keyboard: true, size: 'lg', backdrop: 'static' };
   ngOnInit(): void {
     this.loadListaPacientes();
-    this.listaDepartamento = this.pacientesService.getDepartamentos();
+   this.pacientesService.getAllAtivos().subscribe(
+    data => {
+      this.listaDepartamento = data
+    }
+   );
     CadastroPacienteComponent.atualizando.subscribe(
       () => {
         this.loadListaPacientes();
