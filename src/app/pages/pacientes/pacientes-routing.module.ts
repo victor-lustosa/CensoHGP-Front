@@ -9,8 +9,11 @@ const routes: Routes = [
       {
         path: 'gerenciar-pacientes',
         loadChildren: () => import('./lista-pacientes/lista-pacientes.module').then(module => module.ListaPacientesModule)
-      }
-    ]
+      },
+      {
+        path: 'historico-checklist/:id',
+        loadChildren: () => import('./historico-checklist/historico-checklist.module').then(module => module.HistoricoChecklistModule)
+      }    ]
   }
 ];
 

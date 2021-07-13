@@ -21,7 +21,7 @@ export class HistoricoChecklistComponent implements OnInit {
   mensagem: string;
   ativo: number = 1;
   listaAtivo: any[];
-
+auxiliar: number;
 
 
   MODALOPTIONS: NgbModalOptions = { keyboard: true, size: 'lg', backdrop: 'static' };
@@ -30,7 +30,17 @@ export class HistoricoChecklistComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     public modalService: NgbModal) { }
   ngOnInit(): void {
+
     this.loadListaChecklists();
+    this.activatedRoute.params.pipe(
+      map((params: any) =>  params['id']),
+      switchMap(id =>  this.auxiliar= id)
+    ).subscribe((data) => {
+      console.log("chegou aquui" + this.auxiliar);
+        this.statusSpinner = false;
+
+    }
+    );
 
   }
   verifica() {
@@ -56,12 +66,13 @@ export class HistoricoChecklistComponent implements OnInit {
     this.router.navigate(['/pacientes/gerenciar-pacientes']);
   }
   loadListaChecklists() {
+
     this.lista = [];
     this.statusSpinner = true;
     setTimeout(() => {
       this.activatedRoute.params.pipe(
-        map((params: any) => params['idPaciente']),
-        switchMap(idPaciente => this.pacienteService.getAllChecklistPaciente(idPaciente))
+        map((params: any) =>  params['id']),
+        switchMap(id =>  this.pacienteService.getAllChecklistPaciente(id))
       ).subscribe((data) => {
         this.lista = data,
           this.statusSpinner = false;
@@ -71,7 +82,10 @@ export class HistoricoChecklistComponent implements OnInit {
     }, 400);
   }
 
- cadastrar(){
+  descricao(id: number){
 
  }
+ cadastrar(){
+
+}
 }

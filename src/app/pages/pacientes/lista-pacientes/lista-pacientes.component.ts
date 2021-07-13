@@ -4,6 +4,7 @@ import { PacienteService } from '../service/paciente.service';
 import { CadastroPacienteComponent } from '../cadastro-paciente/cadastro-paciente.component';
 import { PacienteDTO } from '../model/Paciente.dto';
 import { ChecklistPacienteComponent } from '../checklist-paciente/checklist-paciente.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-lista-pacientes',
@@ -13,7 +14,7 @@ import { ChecklistPacienteComponent } from '../checklist-paciente/checklist-paci
 export class ListaPacientesComponent implements OnInit {
 
   searchText: string;
-  constructor(private pacientesService: PacienteService,
+  constructor(private pacientesService: PacienteService,private router: Router,
     public modalService: NgbModal) { }
   lista: PacienteDTO[] = [];
   statusSpinner: boolean = false;
@@ -69,6 +70,12 @@ export class ListaPacientesComponent implements OnInit {
       modalRef.componentInstance.idPaciente = id;
       modalRef.componentInstance.nomePaciente = nome;
   }
+
+  historicoChecklist(id:number){
+    this.router.navigate(['/pacientes/historico-checklist/'+ id]);
+    console.log(id);
+}
+
   descricao(id: number) {
     this.pacientesService.getById(id).subscribe((paciente) => {
       const modalRef = this.modalService.open(CadastroPacienteComponent, this.MODALOPTIONS);

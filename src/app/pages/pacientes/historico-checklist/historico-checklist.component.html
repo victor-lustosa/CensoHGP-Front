@@ -15,33 +15,27 @@
         <table class="table table-hover" *ngIf="(lista | filter: searchText).length > 0; else noResults">
           <thead>
             <tr align="center">
-              <th scope="col">Quem fez</th>
-              <th scope="col">Onde fez</th>
-              <th scope="col">Nome da Mãe</th>
-              <th scope="col">CPF</th>
-              <th scope="col">Departamento</th>
+              <th scope="col">Prontuario</th>
+              <th scope="col">Nome do paciente</th>
+              <th scope="col">Usuário</th>
+              <th scope="col">Data</th>
               <th scope="col"></th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let checklist of lista| filter: searchText | paginate: { itemsPerPage: contador, currentPage: paginaAtual }" align="center">
-              <td class="td padding">{{paciente.prontuario}}</td>
-              <td class="td padding">{{paciente.nome}}</td>
-              <td class="td padding">{{paciente.nomeMae}}</td>
-              <td class="padding">{{paciente.cpf}}</td>
-              <td class="padding">{{paciente.departamento.nome}}</td>
+               <td class="td padding">{{checklist.paciente.prontuario}}</td>
+              <td class="td padding">{{checklist.paciente.nome}}</td>
+              <td class="td padding">{{checklist.usuario.nome}}</td>
+              <td class="td padding">{{checklist.dataCadastroFormatada}}</td>
+
               <td class="padding text-right" >
                 <div ngbDropdown container="body" >
                   <button  class="btn btn-info  buttonDrop" ngbDropdownToggle type="button"><i class="feather icon-plus-circle"></i> Ações</button>
                   <div ngbDropdownMenu  >
-                    <button class="dropdown-item button"  (click)="editar(paciente.idPaciente)"><i class="feather icon-edit"></i> Editar</button>
-                    <button class="dropdown-item button"  (click)="descricao(paciente.idPaciente)"><i class="feather icon-eye"></i> Visualizar</button>
-                    <div class="dropdown-divider"></div>
-                    <button class="dropdown-item button" (click)="gerarChecklist(paciente.idPaciente, paciente.nome)"><i class="feather icon-check-square"></i> Checklist</button>
-                    <button class="dropdown-item button" href="javascript:"><i class="feather icon-clipboard"></i> Histórico checklist</button>
-                    <div class="dropdown-divider"></div>
-                    <button class="dropdown-item button" href="javascript:"><i class="feather icon-external-link"></i> Transferência</button>
-                    <button class="dropdown-item button" href="javascript:"><i class="feather icon-file-text"></i> Histórico Transferencia</button>
+
+                    <button class="dropdown-item button"  (click)="descricao(checklist.idChecklist)"><i class="feather icon-eye"></i> Visualizar</button>
+
                   </div>
                 </div>
               </td>

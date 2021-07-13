@@ -151,8 +151,8 @@ export class ChecklistPacienteComponent implements OnInit {
   saveChecklists() {
     if (this.formulario.valid) {
       this.checklist = this.formulario.value as Checklist;
-      this.checklist.matriculaUsuario = this.jwtHelper.decodeToken(this.storage.getLocalUser().token).sub.substring(13);
-      this.checklist.idPaciente = this.idPaciente;
+      this.checklist.usuario.matricula = this.jwtHelper.decodeToken(this.storage.getLocalUser().token).sub.substring(13);
+      this.checklist.paciente.idPaciente = this.idPaciente;
       if (this.checklist != null) {
         console.log('Checklist ', this.checklist);
         this.pacientesService.createChecklist(this.checklist)
