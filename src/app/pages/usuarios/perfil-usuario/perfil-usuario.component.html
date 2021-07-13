@@ -1,1 +1,33 @@
-<p>perfil-usuario works!</p>
+<div class="row">
+  <div class="col-md-12">
+    <app-card cardTitle="Perfil" blockClass="table-border-style">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="row col-md-6" style="display: inline-block;">
+            <label for="nome">Nome:</label>
+            <input id="nome"  aria-describedby="nomeHelp" maxLength="50" placeholder="Digite o nome do usuário">
+            <br>
+          </div>
+          <div class="row col-md-6" style="display: inline-block;float:right">
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" placeholder="Digite o seu e-mail">
+          </div>
+          <br>
+          <div class="row col-md-6" style="display: inline-block;">
+            <label for="matricula">Matrícula:</label>
+            <input  id="matricula" aria-describedby="matriculaHelp" placeholder="Digite a matrícula">
+
+            <br>
+          </div>
+          <div class="row col-md-6" style="display: inline-block;float:right">
+            <label for="perfil">Tipo de Usuário:</label>
+            <select type="perfil" id="perfil" >
+
+            </select>
+            <br>
+          </div>
+        </div>
+      </div>
+    </app-card>
+  </div>
+</div>

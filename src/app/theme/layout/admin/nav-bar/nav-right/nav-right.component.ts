@@ -61,8 +61,7 @@ export class NavRightComponent implements OnInit, DoCheck {
       this.usuarioService.getUsuarioByMatricula(this.matricula)
         .subscribe(response => {
           this.usuario = response as Usuario;
-        }, error => {
-        }
+        }, () => {}
         );
     }
   }
@@ -74,7 +73,10 @@ export class NavRightComponent implements OnInit, DoCheck {
     this.authService.logout();
     this.router.navigate([this.routers.LOGIN]).then();
   }
-
+  perfil(id:number){
+    console.log('/usuarios/perfil/'+ id)
+    this.router.navigate(['/usuarios/perfil/'+ id]);
+  }
   ngDoCheck() {
     if (document.querySelector('body').classList.contains('elite-rtl')) {
       this.gradientConfig['rtl-layout'] = true;

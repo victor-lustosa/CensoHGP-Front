@@ -12,7 +12,7 @@ const routes: Routes = [
         loadChildren: () => import('./lista-usuarios/lista-usuarios.module').then(module => module.ListaUsuariosModule), canActivateChild: [AuthGuard]
       },
       {
-        path: 'perfil',
+        path: 'perfil/:id',
         loadChildren: () => import('./perfil-usuario/perfil-usuario.module').then(module => module.PerfilUsuarioModule)
       }
     ]

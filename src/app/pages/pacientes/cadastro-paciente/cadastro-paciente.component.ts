@@ -24,7 +24,7 @@ export class CadastroPacienteComponent implements OnInit {
   listaDepartamento: Departamento[] = [];
   sucesso: boolean = false;
   at: boolean = true;
-
+  @Input() tituloModal: string;
   @Input() public paciente: Paciente;
   public pacienteUpdate: Paciente;
   static atualizando = new EventEmitter<boolean>();

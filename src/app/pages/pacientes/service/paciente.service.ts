@@ -18,16 +18,6 @@ export class PacienteService extends CRUD<Paciente> {
     super(http, `${environment.API}apicensohgp/paciente`);
   }
 
-  getDepartamentos() {
-    return [
-      { valor: 1, nome: 'Todos' },
-      { valor: 2, nome: 'UTI' },
-      { valor: 3, nome: 'PEDIATRIA' },
-      { valor: 3, nome: 'EMADE' },
-      { valor: 3, nome: 'CENTRO' }
-    ];
-  }
-
   getAllAtivos(): Observable<Departamento[]>  {
     return this.http.get<Departamento[]>(`${environment.API}apicensohgp/departamentos/ativos`)
     .pipe(retry(1), catchError(this.handleError));
