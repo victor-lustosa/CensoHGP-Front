@@ -6,12 +6,10 @@ import { Fator } from '../../checklists/fatores-risco/model/fator';
 import { Precaucao } from './../../precaucoes/model/precaucao';
 export interface Checklist {
   idChecklist: number;
-  precaucao: Precaucao[];
-  fatorRisco: Fator[];
-  procedimento: Procedimento[];
-  incidente: Incidente[];
-  usuario : Usuario;
+  idPaciente: number;
+  matriculaUsuario: string;
   observacao: string;
-  paciente : Paciente;
-  dataCadastroFormatada : string;
+  incidente: number[];
+  procedimento: number[];
+  fatorRisco: number[];
 }

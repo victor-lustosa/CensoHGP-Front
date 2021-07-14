@@ -1,3 +1,4 @@
+import { ChecklistDTO } from './../model/Checklist.dto';
 import { Checklist } from './../model/Checklist';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
@@ -37,8 +38,9 @@ export class PacienteService extends CRUD<Paciente> {
       .pipe(retry(1), catchError(this.handleError));
   }
 
-  getAllChecklistPaciente(idPaciente: number): Observable<Checklist[]> {
-    return this.http.get<Checklist[]>(`${environment.API}apicensohgp/checklists/paciente/${idPaciente}`)
+  getAllChecklistPaciente(idPaciente: number): Observable<ChecklistDTO[]> {
+    console.log("oi to no service" + idPaciente);
+    return this.http.get<ChecklistDTO[]>(`${environment.API}apicensohgp/checklists/paciente/${idPaciente}`)
       .pipe(retry(1), catchError(this.handleError));
   }
 

@@ -4,7 +4,7 @@ import { PacienteService } from '../service/paciente.service';
 import { CadastroPacienteComponent } from '../cadastro-paciente/cadastro-paciente.component';
 import { PacienteDTO } from '../model/Paciente.dto';
 import { ChecklistPacienteComponent } from '../checklist-paciente/checklist-paciente.component';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-lista-pacientes',
@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 export class ListaPacientesComponent implements OnInit {
 
   searchText: string;
-  constructor(private pacientesService: PacienteService,private router: Router,
+  constructor(private pacientesService: PacienteService,private router: Router,  private route: ActivatedRoute,
     public modalService: NgbModal) { }
   lista: PacienteDTO[] = [];
   statusSpinner: boolean = false;
@@ -72,7 +72,8 @@ export class ListaPacientesComponent implements OnInit {
   }
 
   historicoChecklist(id:number){
-    this.router.navigate(['/pacientes/historico-checklist/'+ id]);
+    this.router.navigate(['/pacientes/historico-checklist', id], { relativeTo: this.route });
+
     console.log(id);
 }
 

@@ -1,8 +1,8 @@
+import { ChecklistDTO } from './../model/Checklist.dto';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { map, switchMap } from 'rxjs/operators';
-import { Checklist } from '../model/Checklist';
 import { PacienteService } from '../service';
 
 @Component({
@@ -14,7 +14,7 @@ export class HistoricoChecklistComponent implements OnInit {
   searchText: string;
   paginaAtual: number = 1;
   contador: number = 10;
-  lista: Checklist[] = [];
+  checklists: ChecklistDTO[] = [];
   sucesso: boolean = false;
   statusSpinner: boolean = false;
   varConfirm: string;
@@ -31,16 +31,9 @@ auxiliar: number;
     public modalService: NgbModal) { }
   ngOnInit(): void {
 
-    this.loadListaChecklists();
-    this.activatedRoute.params.pipe(
-      map((params: any) =>  params['id']),
-      switchMap(id =>  this.auxiliar= id)
-    ).subscribe((data) => {
-      console.log("chegou aquui" + this.auxiliar);
-        this.statusSpinner = false;
+   this.checklists = this.activatedRoute.snapshot.data['checklists'];
+   console.log("e ai, " , this.checklists);
 
-    }
-    );
 
   }
   verifica() {
@@ -67,14 +60,11 @@ auxiliar: number;
   }
   loadListaChecklists() {
 
-    this.lista = [];
+    this.checklists = [];
     this.statusSpinner = true;
     setTimeout(() => {
-      this.activatedRoute.params.pipe(
-        map((params: any) =>  params['id']),
-        switchMap(id =>  this.pacienteService.getAllChecklistPaciente(id))
-      ).subscribe((data) => {
-        this.lista = data,
+      this.activatedRoute.snapshot.data['checklist'].pipe().subscribe((data) => {
+        this.checklists = data,
           this.statusSpinner = false;
 
       }
