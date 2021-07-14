@@ -2,30 +2,30 @@
   <!-- order-card start -->
   <div class="col-md-6 col-xl-3">
     <app-card [hidHeader]="true" cardClass="bg-c-blue order-card">
-      <h6 class="text-white">Orders Received</h6>
-      <h2 class="text-right text-white"><i class="feather icon-shopping-cart float-left"></i><span>486</span></h2>
-      <p class="m-b-0">Completed Orders<span class="float-right">351</span></p>
+      <h6 class="text-white">Em atendimento </h6>
+      <h2 class="text-right text-white"><i class="feather icon-activity float-left"></i><span>486</span></h2>
+      <p class="m-b-0">Entradas hoje<span class="float-right">30</span></p>
     </app-card>
   </div>
   <div class="col-md-6 col-xl-3">
     <app-card [hidHeader]="true" cardClass="bg-c-green order-card">
-      <h6 class="text-white">Total Sales</h6>
-      <h2 class="text-right text-white"><i class="feather icon-tag float-left"></i><span>1641</span></h2>
-      <p class="m-b-0">This Month<span class="float-right">213</span></p>
+      <h6 class="text-white">Altas do dia</h6>
+      <h2 class="text-right text-white"><i class="feather icon-check float-left"></i><span>20</span></h2>
+      <p class="m-b-0">Neste mês<span class="float-right">65</span></p>
     </app-card>
   </div>
   <div class="col-md-6 col-xl-3">
     <app-card [hidHeader]="true" cardClass="bg-c-yellow order-card">
-      <h6 class="text-white">Revenue</h6>
-      <h2 class="text-right text-white"><i class="feather icon-repeat float-left"></i><span>$42,562</span></h2>
-      <p class="m-b-0">This Month<span class="float-right">$5,032</span></p>
+      <h6 class="text-white">Departamento mais cheio</h6>
+      <h2 class="text-right text-white"><i class="feather icon-info float-left"></i><span>EMADE</span></h2>
+      <p class="m-b-0">Entradas hoje<span class="float-right">4</span></p>
     </app-card>
   </div>
   <div class="col-md-6 col-xl-3">
     <app-card [hidHeader]="true" cardClass="bg-c-red order-card">
-      <h6 class="text-white">Total Profit</h6>
-      <h2 class="text-right text-white"><i class="feather icon-award float-left"></i><span>$9,562</span></h2>
-      <p class="m-b-0">This Month<span class="float-right">$542</span></p>
+      <h6 class="text-white">Incidentes hoje</h6>
+      <h2 class="text-right text-white"><i class="feather icon-alert-octagon float-left"></i><span>6</span></h2>
+      <p class="m-b-0">Neste mês<span class="float-right">352</span></p>
     </app-card>
   </div>
 
@@ -35,22 +35,21 @@
         <app-card [hidHeader]="true">
           <div class="row">
             <div class="col-auto">
-              <span>Customers</span>
+              <span>Sexo</span>
             </div>
             <div class="col text-right">
-              <h2 class="mb-0">826</h2>
-              <span class="text-c-green">8.2%<i class="feather icon-trending-up ml-1"></i></span>
+              <h2 class="mb-0">Pacientes</h2>
             </div>
           </div>
           <app-apex-chart chartID="analytics-customer1-chart" [chartConfig]="this.chartDB.customerAnalytics1"></app-apex-chart>
           <div class="row mt-3">
             <div class="col">
               <h3 class="m-0"><i class="fas fa-circle f-10 m-r-5 text-success"></i>674</h3>
-              <span class="ml-3">New</span>
+              <span class="ml-3">Masc</span>
             </div>
             <div class="col">
               <h3 class="m-0"><i class="fas fa-circle text-primary f-10 m-r-5"></i>182</h3>
-              <span class="ml-3">Return</span>
+              <span class="ml-3">Fem</span>
             </div>
           </div>
         </app-card>
@@ -59,22 +58,21 @@
         <app-card [hidHeader]="true" cardClass="bg-primary text-white">
           <div class="row">
             <div class="col-auto">
-              <span>Customers</span>
+              <span>Idade</span>
             </div>
             <div class="col text-right">
-              <h2 class="mb-0 text-white">826</h2>
-              <span class="text-white">8.2%<i class="feather icon-trending-up ml-1"></i></span>
+              <h2 class="mb-0 text-white">Pacientes</h2>
             </div>
           </div>
           <app-apex-chart chartID="analytics-customer2-chart" [chartConfig]="this.chartDB.customerAnalytics2"></app-apex-chart>
           <div class="row mt-3">
             <div class="col">
               <h3 class="m-0 text-white"><i class="fas fa-circle f-10 m-r-5 text-white"></i>674</h3>
-              <span class="ml-3">New</span>
+              <span class="ml-3">0-20</span>
             </div>
             <div class="col">
               <h3 class="m-0 text-white"><i class="fas fa-circle text-white f-10 m-r-5"></i>182</h3>
-              <span class="ml-3">Return</span>
+              <span class="ml-3">20-70</span>
             </div>
           </div>
         </app-card>

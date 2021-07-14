@@ -77,6 +77,12 @@ export class ListaPacientesComponent implements OnInit {
     console.log(id);
 }
 
+gerarTransferencia(id:number, nome:string){
+  console.log("Chamou gerar transferencia")
+  this.router.navigate(['/pacientes/transferencia-paciente/'+ id]);
+  console.log(id);
+}
+
   descricao(id: number) {
     this.pacientesService.getById(id).subscribe((paciente) => {
       const modalRef = this.modalService.open(CadastroPacienteComponent, this.MODALOPTIONS);
