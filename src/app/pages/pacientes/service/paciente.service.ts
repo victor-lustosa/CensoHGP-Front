@@ -38,9 +38,9 @@ export class PacienteService extends CRUD<Paciente> {
       .pipe(retry(1), catchError(this.handleError));
   }
 
-  getAllChecklistPaciente(idPaciente: number): Observable<ChecklistDTO[]> {
+  getAllChecklistPaciente(idPaciente: number): Observable<any> {
     console.log("oi to no service" + idPaciente);
-    return this.http.get<ChecklistDTO[]>(`${environment.API}apicensohgp/checklists/paciente/${idPaciente}`)
+    return this.http.get<any>(`${environment.API}apicensohgp/checklists/paciente/${idPaciente}`)
       .pipe(retry(1), catchError(this.handleError));
   }
 

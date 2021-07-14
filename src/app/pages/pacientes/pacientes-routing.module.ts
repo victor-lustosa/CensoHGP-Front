@@ -1,6 +1,7 @@
 import { ChecklistResolver } from './guards/checklist.resolver';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { PacienteService } from './service';
 
 
 const routes: Routes = [

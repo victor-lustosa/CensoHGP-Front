@@ -14,28 +14,32 @@ export class HistoricoChecklistComponent implements OnInit {
   searchText: string;
   paginaAtual: number = 1;
   contador: number = 10;
-  checklists: ChecklistDTO[] = [];
+  checklists: any[] = [];
   sucesso: boolean = false;
   statusSpinner: boolean = false;
   varConfirm: string;
   mensagem: string;
   ativo: number = 1;
   listaAtivo: any[];
-auxiliar: number;
+  id: number;
+  auxiliar: number;
 
 
   MODALOPTIONS: NgbModalOptions = { keyboard: true, size: 'lg', backdrop: 'static' };
-  constructor(private pacienteService: PacienteService,
-    private router: Router,
+  constructor( private router: Router,
     private activatedRoute: ActivatedRoute,
-    public modalService: NgbModal) { }
-  ngOnInit(): void {
-
-   this.checklists = this.activatedRoute.snapshot.data['checklists'];
-   console.log("e ai, " , this.checklists);
-
+    public modalService: NgbModal) {
 
   }
+  ngOnInit(): void {
+  this.activatedRoute.data.subscribe((data: any) => {
+    console.log(data.checklists)
+      this.checklists = data.checklists;
+    });
+  // this.checklists =  this.activatedRoute.snapshot.data['checklists'];
+    console.log("e ai, ", this.checklists);
+  }
+
   verifica() {
     this.paginaAtual = 1;
   }
@@ -44,7 +48,7 @@ auxiliar: number;
   }
   filtroStatus(value: any) {
     this.ativo = value;
-    this.loadListaChecklists();
+    // this.loadListaChecklists();
   }
 
   // descricao(id: number) {
@@ -58,24 +62,12 @@ auxiliar: number;
   voltar() {
     this.router.navigate(['/pacientes/gerenciar-pacientes']);
   }
-  loadListaChecklists() {
 
-    this.checklists = [];
-    this.statusSpinner = true;
-    setTimeout(() => {
-      this.activatedRoute.snapshot.data['checklist'].pipe().subscribe((data) => {
-        this.checklists = data,
-          this.statusSpinner = false;
 
-      }
-      );
-    }, 400);
+  descricao(id: number) {
+
   }
+  cadastrar() {
 
-  descricao(id: number){
-
- }
- cadastrar(){
-
-}
+  }
 }
