@@ -35,13 +35,12 @@
                   <div ngbDropdownMenu  >
 
                     <button class="dropdown-item button"  (click)="descricao(checklist.idChecklist)"><i class="feather icon-eye"></i> Visualizar</button>
-
                   </div>
                 </div>
               </td>
             </tbody>
           </table>
-          <pagination-controls *ngIf="statusSpinner===false" maxSize="5" responsive="true" directionLinks="true" autoHide="true" class="d-flex justify-content-center" (pageChange)="paginaAtual = $event" previousLabel="Anterior" nextLabel="Próximo"></pagination-controls>
+          <pagination-controls *ngIf="statusSpinner===false && checklists.length > 0" maxSize="5" responsive="true" directionLinks="true" autoHide="true" class="d-flex justify-content-center" (pageChange)="paginaAtual = $event" previousLabel="Anterior" nextLabel="Próximo"></pagination-controls>
           <ng-template #noResults>
             <p *ngIf="statusSpinner === false">Nenhum resultado encontrado.</p>
           </ng-template>

@@ -32,10 +32,13 @@ export class HistoricoChecklistComponent implements OnInit {
 
   }
   ngOnInit(): void {
+      this.statusSpinner = true;
+      setTimeout(() => {
   this.activatedRoute.data.subscribe((data: any) => {
     console.log(data.checklists)
       this.checklists = data.checklists;
-    });
+        this.statusSpinner = false;
+    });}, 400);
   // this.checklists =  this.activatedRoute.snapshot.data['checklists'];
     console.log("e ai, ", this.checklists);
   }

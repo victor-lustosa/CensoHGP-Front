@@ -11,7 +11,7 @@ import { PacienteService } from './service/paciente.service';
   declarations: [],
   imports: [
     CommonModule,
-    PacientesRoutingModule
+    PacientesRoutingModule,
   ],providers: [ChecklistResolver,PacienteService]
 })
 export class PacientesModule { }
