@@ -10,10 +10,11 @@ import { CadastroPacienteComponent } from '../cadastro-paciente/cadastro-pacient
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PacientesFilterPipe } from './pacientes-filter.pipe';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { DescricaoPacienteComponent } from '../descricao-paciente/descricao-paciente.component';
 
 
 @NgModule({
-  declarations: [ChecklistPacienteComponent, ListaPacientesComponent, CadastroPacienteComponent, PacientesFilterPipe],
+  declarations: [ChecklistPacienteComponent, DescricaoPacienteComponent,ListaPacientesComponent, CadastroPacienteComponent, PacientesFilterPipe],
   imports: [
     CommonModule,
     ListaPacientesRoutingModule,

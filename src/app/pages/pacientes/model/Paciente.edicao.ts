@@ -1,16 +1,16 @@
 import { Departamento } from '../../departamentos/model/departamento';
 
-export interface Paciente {
+export interface PacienteEdicao {
   idPaciente: number;
   prontuario: string;
   nome: string;
   nomeMae: string;
   cpf: string;
   rg: string;
-  genero: string;
+  genero: number;
   dataNascimento: Date;
   precaucao: number[];
-  departamento: Departamento;
+  departamento: number;
   checklist: number;
   transferencia: number;
   matriculaUsuario: string;

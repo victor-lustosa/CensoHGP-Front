@@ -8,6 +8,9 @@ import { DepartamentoService } from '../../departamentos/service';
 import { Precaucao } from '../../precaucoes/model/precaucao';
 import { PrecaucaoService } from '../../precaucoes/service/precaucao.service';
 import { Paciente } from '../model/Paciente';
+import { PacienteDTO } from '../model/Paciente.dto';
+import { PacienteEdicao } from '../model/Paciente.edicao';
+
 import { PacienteService } from '../service/paciente.service';
 
 @Component({
@@ -23,10 +26,12 @@ export class CadastroPacienteComponent implements OnInit {
   listaSexos: any[] = [];
   listaDepartamento: Departamento[] = [];
   sucesso: boolean = false;
+  @Input() editar:boolean;
   at: boolean = true;
-
+  departamento: string = '';
+  genero:string = '';
   @Input() public paciente: Paciente;
-  public pacienteUpdate: Paciente;
+  public pacienteUpdate: PacienteEdicao;
   static atualizando = new EventEmitter<boolean>();
   jwtHelper: JwtHelperService = new JwtHelperService();
   mensagemErro: string = '';
@@ -36,10 +41,11 @@ export class CadastroPacienteComponent implements OnInit {
 
   ngOnInit(): void {
     this.novoFormulario();
-
+    this.editar=false;
     if (this.paciente != null) {
+      this.genero = this.paciente.genero
+      this.editar=true;
       this.today = new Date(this.paciente.dataNascimento).toISOString().split('T')[0];
-        console.log(this.today);
       this.updateForm(this.paciente);
     } else {
       this.today = new Date().toISOString().split('T')[0];
@@ -74,7 +80,7 @@ export class CadastroPacienteComponent implements OnInit {
       rg: paciente.rg,
       dataNascimento: this.today,
       precaucao: paciente.precaucao,
-      departamento: paciente.departamento
+      departamento:paciente.departamento.idDepartamento
     });
   }
 
@@ -95,13 +101,13 @@ export class CadastroPacienteComponent implements OnInit {
     }
   }
   loadListaPrecaucoes() {
-    this.precaucaoService.getAll().subscribe(
+    this.precaucaoService.getAllAtivos().subscribe(
       data => {
         this.listaPrecaucoes = data;
       });
   }
   loadListaDepartamento() {
-    this.departamentoService.getAll()
+    this.departamentoService.getAllAtivos()
       .subscribe(
         data => {
           this.listaDepartamento = data;
@@ -127,15 +133,7 @@ export class CadastroPacienteComponent implements OnInit {
   savePacientes() {
 
     if (this.formulario.valid) {
-      this.pacienteUpdate = this.formulario.value as Paciente;
-      console.log(this.pacienteUpdate)
       if (this.formulario.get('prontuario').value != null && this.formulario.get('idPaciente').value != null) {
-
-        if (this.paciente.genero[0] == 1) {
-          this.pacienteUpdate.genero = 1;
-        } else if (this.paciente.genero[0] == 2) {
-          this.pacienteUpdate.genero = 2;
-        }
         this.pacientesService.updatePaciente(this.formulario.value,
           this.jwtHelper.decodeToken(this.storage.getLocalUser().token).sub.substring(13))
           .subscribe(

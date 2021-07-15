@@ -1,0 +1,51 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <h5 class="modal-title">{{tituloModal}}</h5>
+    <button type="button" class="close basic-close" data-dismiss="modal" aria-label="Close" (click)="activeModal.close()"><span aria-hidden="true">&times;</span></button>
+  </div>
+  <div class="modal-body">
+    <div>
+      <span> <b>Prontuário: </b> {{paciente.prontuario}}</span>
+    </div>
+    <br>
+    <div>
+      <span> <b>Nome: </b> {{paciente.nome}}</span>
+    </div>
+    <br>
+    <div>
+      <span> <b>Nome da mãe: </b> {{paciente.nomeMae}}</span>
+    </div>
+    <br>
+    <div>
+      <span> <b>CPF: </b> {{paciente.cpf}}</span>
+    </div>
+    <br>
+    <div>
+      <span> <b>RG: </b> {{paciente.rg}}</span>
+    </div>
+    <br>
+    <div>
+      <span> <b>Sexo: </b> {{paciente.genero}}</span>
+    </div>
+    <br>
+    <div>
+      <span> <b>Data de Nascimento: </b> {{this.today}}</span>
+    </div>
+    <br>
+    <div>
+      <span> <b>Encontra-se no departamento: </b><label> {{paciente.departamento.nome}}</label></span>
+    </div>
+    <br>
+    <div>
+      <b>Precauções: </b>
+      <span style="word-break: break-word;" *ngFor="let precaucao of paciente.precaucao">  {{precaucao.nome }} </span>
+    </div>
+    <br>
+    <div>
+      <span> <b>Usuário que o cadastrou: </b><label> {{paciente.usuario.nome}}</label></span>
+    </div>
+    <br>
+  </div>
+  <div class="modal-footer">
+  </div>
+</div>

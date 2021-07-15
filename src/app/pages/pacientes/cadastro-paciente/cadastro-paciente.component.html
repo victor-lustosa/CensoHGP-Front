@@ -24,41 +24,44 @@
           <span class="font-red">Número do prontuario é obrigatório</span>
         </div>
         <br>
-              </div>
-          <div class="row col-md-6" style="display: inline-block;float:right">
+      </div>
+      <div class="row col-md-6" style="display: inline-block;float:right">
         <label for="cpf">CPF:</label>
         <input id="cpf" class="form-control" aria-describedby="cpfHelp" placeholder="Digite o CPF" formControlName="cpf">
         <br>
       </div>
-      <div class="row col-md-6" style="display: inline-block;">
+  <br>
 
-        <label>Departamento:</label>
-        <select  class="form-control" id="departamento" formControlName="departamento">
-          <option *ngFor="let departamento of listaDepartamento" [value]="departamento.idDepartamento">{{departamento.nome}}</option>
-        </select>
-          <br>
-      </div>
-
-          <div class="row col-md-6" style="display: inline-block;float:right">
+      <div class="row col-md-6" style="display: inline-block;float:right">
         <label for="rg">RG:</label>
         <input id="rg" class="form-control" aria-describedby="rgHelp" placeholder="Digite o RG" formControlName="rg">
         <br>
       </div>
-      <br>
+
       <div class="row col-md-6" style="display: inline-block;">
         <label for="dataNascimento">Data de nascimento:</label>
         <input type="date" required="true" class="form-control" formControlName="dataNascimento" [(ngModel)]="today" id="dataNascimento">
         <br>
       </div>
-      <div class="row col-md-6" style="display: inline-block; float:right;">
+        <br>
+      <div class="row col-md-6" style="display: inline-block; ">
         <label for="genero">Genero:</label>
-        <select class="form-control" id="genero" formControlName="genero">
-          <option *ngFor="let genero of listaSexos" [value]="genero.valor">{{genero.nome}}</option>
+        <select class="form-control" id="genero" formControlName="genero" [(ngModel)]="genero">
+          <option value = "" >Selecione...</option>
+          <option *ngFor="let genero of listaSexos" [value]="genero.nome">{{genero.nome}}</option>
         </select>
         <br>
       </div>
 
+      <div class="row col-md-6" style="display: inline-block;float:right;" *ngIf="editar===false">
 
+        <label>Departamento:</label>
+        <select class="form-control" id="departamento" formControlName="departamento" [(ngModel)]="departamento">
+          <option value="">Selecione...</option>
+          <option *ngFor="let departamento of listaDepartamento" [value]="departamento.idDepartamento">{{departamento.nome}}</option>
+        </select>
+        <br>
+      </div>
       <br>
       <label for="precaucao">Precauções:</label>
       <div id="precaucao" style="border-radius: 5px; border: 1px solid #ccc; padding: 10px 0 " class="row  ml-0 mr-0">

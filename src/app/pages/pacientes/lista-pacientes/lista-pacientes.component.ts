@@ -5,6 +5,8 @@ import { CadastroPacienteComponent } from '../cadastro-paciente/cadastro-pacient
 import { PacienteDTO } from '../model/Paciente.dto';
 import { ChecklistPacienteComponent } from '../checklist-paciente/checklist-paciente.component';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Paciente } from '../model/Paciente';
+import { DescricaoPacienteComponent } from '../descricao-paciente/descricao-paciente.component';
 
 @Component({
   selector: 'app-lista-pacientes',
@@ -83,12 +85,11 @@ gerarTransferencia(id:number, nome:string){
   console.log(id);
 }
 
-  descricao(id: number) {
-    this.pacientesService.getById(id).subscribe((paciente) => {
-      const modalRef = this.modalService.open(CadastroPacienteComponent, this.MODALOPTIONS);
+  descricao(paciente:PacienteDTO) {
+    console.log(paciente)
+      const modalRef = this.modalService.open(DescricaoPacienteComponent, this.MODALOPTIONS);
       modalRef.componentInstance.tituloModal = 'Descrição do Paciente';
       modalRef.componentInstance.paciente = paciente;
-    }
-    );
+
   }
 }

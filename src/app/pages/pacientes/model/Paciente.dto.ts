@@ -1,5 +1,5 @@
 import { Departamento } from '../../departamentos/model/departamento';
-
+import { Usuario } from '../../usuarios/model/usuario';
 export interface PacienteDTO {
   idPaciente: number;
   prontuario: string;
@@ -12,5 +12,7 @@ export interface PacienteDTO {
   precaucao: number;
   departamento: Departamento;
   checklist: number;
+    genero: number;
   transferencia: number;
+  usuario:Usuario;
 }

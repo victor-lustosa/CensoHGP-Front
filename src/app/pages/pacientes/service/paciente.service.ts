@@ -9,6 +9,7 @@ import { CRUD } from 'src/app/theme/shared/CRUD';
 import { Observable } from 'rxjs';
 import { PacienteDTO } from '../model/Paciente.dto';
 import { catchError, retry } from 'rxjs/operators';
+import { PacienteEdicao } from '../model/Paciente.edicao';
 @Injectable({
   providedIn: 'root'
 })
@@ -62,8 +63,8 @@ export class PacienteService extends CRUD<Paciente> {
 
   getSexos() {
     return [
-      { valor: 2, nome: 'Masculino' },
-      { valor: 1, nome: 'Feminino' }
+      { nome: 'Masculino' },
+      {  nome: 'Feminino' }
     ];
   }
 }
