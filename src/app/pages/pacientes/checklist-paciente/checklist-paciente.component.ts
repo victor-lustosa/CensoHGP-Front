@@ -154,7 +154,6 @@ export class ChecklistPacienteComponent implements OnInit {
       this.checklist.matriculaUsuario = this.jwtHelper.decodeToken(this.storage.getLocalUser().token).sub.substring(13);
       this.checklist.idPaciente = this.idPaciente;
       if (this.checklist != null) {
-        console.log('Checklist ', this.checklist);
         this.pacientesService.createChecklist(this.checklist)
           .subscribe(
             () => {

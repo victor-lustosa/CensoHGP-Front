@@ -12,7 +12,8 @@
             <div class="form-group  col-6 d-flex justify-content-between">
               <label for="departamento" class="form-check-label mr-2">Departamento:</label>
               <select (ngModelChange)="filtroDepartamento($event)" class="custom-select" id="departamento"  [(ngModel)]="departamento">
-                <option *ngFor="let departamento of listaDepartamento" [value]="departamento.valor">{{ departamento.nome  }}</option>
+                <option value=''>Todos</option>
+                <option *ngFor="let departamento of listaDepartamento" [value]="departamento.nome">{{ departamento.nome  }}</option>
               </select>
             </div>
         </div>

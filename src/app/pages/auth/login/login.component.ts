@@ -85,12 +85,10 @@ export class LoginComponent implements OnInit {
     else {
       if (this.formulario.get('senha').valid &&this.formulario.get('senha').touched &&
         !this.formulario.get('matricula').valid && !this.formulario.get('matricula').touched ) {
-        console.log('osss'),
             this.validErro = true;
         this.aplicaCssErro('matricula');
       }  if (!this.formulario.get('senha').valid && !this.formulario.get('senha').touched &&
         this.formulario.get('matricula').valid && this.formulario.get('matricula').touched) {
-        console.log('oiiii'),
             this.validErro = true;
         this.aplicaCssErro('senha')
       } if(!this.formulario.get('senha').valid && !this.formulario.get('senha').touched &&

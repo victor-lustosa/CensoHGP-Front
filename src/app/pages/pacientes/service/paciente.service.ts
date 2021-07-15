@@ -9,7 +9,6 @@ import { CRUD } from 'src/app/theme/shared/CRUD';
 import { Observable } from 'rxjs';
 import { PacienteDTO } from '../model/Paciente.dto';
 import { catchError, retry } from 'rxjs/operators';
-import { PacienteEdicao } from '../model/Paciente.edicao';
 @Injectable({
   providedIn: 'root'
 })
@@ -19,32 +18,24 @@ export class PacienteService extends CRUD<Paciente> {
     super(http, `${environment.API}apicensohgp/paciente`);
   }
 
-  getDepartamentos() {
-    return [
-      { valor: 1, nome: 'Todos' },
-      { valor: 2, nome: 'UTI' },
-      { valor: 3, nome: 'PEDIATRIA' },
-      { valor: 3, nome: 'EMADE' },
-      { valor: 3, nome: 'CENTRO' }
-    ];
-  }
-
   getAllPacientes(): Observable<PacienteDTO[]> {
     return this.http.get<PacienteDTO[]>(`${environment.API}apicensohgp/pacientes`)
       .pipe(retry(1), catchError(this.handleError));
   }
-
+  getPacientesDepartamento(departamento:string): Observable<PacienteDTO[]>  {
+    console.log(`${environment.API}apicensohgp/pacientes/departamento/${departamento}`)
+    return this.http.get<PacienteDTO[]>(`${environment.API}apicensohgp/pacientes/departamento/${departamento}`)
+    .pipe(retry(1), catchError(this.handleError));
+  }
   createChecklist(checklist: Checklist): Observable<Checklist> {
     return this.http.post<Checklist>(`${environment.API}apicensohgp/checklist`, checklist)
       .pipe(retry(1), catchError(this.handleError));
   }
 
   getAllChecklistPaciente(idPaciente: number): Observable<any> {
-    console.log("oi to no service" + idPaciente);
-    return this.http.get<any>(`${environment.API}apicensohgp/checklists/paciente/${idPaciente}`)
+        return this.http.get<any>(`${environment.API}apicensohgp/checklists/paciente/${idPaciente}`)
       .pipe(retry(1), catchError(this.handleError));
   }
-
 
   createPaciente(paciente: Paciente, matriculaUsuario: string): Observable<Paciente> {
     const httpParams = new HttpParams()

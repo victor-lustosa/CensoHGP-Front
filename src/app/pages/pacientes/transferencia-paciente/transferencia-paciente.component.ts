@@ -10,7 +10,6 @@ export class TransferenciaPacienteComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log("Chegou no transferencia de paciente")
   }
 
 }

@@ -8,8 +8,6 @@ import { DepartamentoService } from '../../departamentos/service';
 import { Precaucao } from '../../precaucoes/model/precaucao';
 import { PrecaucaoService } from '../../precaucoes/service/precaucao.service';
 import { Paciente } from '../model/Paciente';
-import { PacienteDTO } from '../model/Paciente.dto';
-import { PacienteEdicao } from '../model/Paciente.edicao';
 
 import { PacienteService } from '../service/paciente.service';
 
@@ -31,7 +29,6 @@ export class CadastroPacienteComponent implements OnInit {
   departamento: string = '';
   genero:string = '';
   @Input() public paciente: Paciente;
-  public pacienteUpdate: PacienteEdicao;
   static atualizando = new EventEmitter<boolean>();
   jwtHelper: JwtHelperService = new JwtHelperService();
   mensagemErro: string = '';
@@ -49,7 +46,6 @@ export class CadastroPacienteComponent implements OnInit {
       this.updateForm(this.paciente);
     } else {
       this.today = new Date().toISOString().split('T')[0];
-      console.log(this.today);
     }
     this.loadListaPrecaucoes();
     this.loadListaDepartamento();

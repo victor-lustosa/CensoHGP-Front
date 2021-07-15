@@ -74,7 +74,6 @@ export class CadastroUsuarioComponent implements OnInit {
   }
   saveUsuarios() {
     if (this.formulario.valid) {
-      console.log(this.formulario.value);
       if (this.formulario.get('idUsuario').value != null) {
         if (this.formulario.get('senhaNovamente').value === this.formulario.get('senha').value) {
           this.usuariosService.update(this.formulario.value)
@@ -94,7 +93,6 @@ export class CadastroUsuarioComponent implements OnInit {
         }
       } else {
         if (this.formulario.get('senhaNovamente').value === this.formulario.get('senha').value) {
-          console.log('formulario: ', this.formulario);
           this.usuariosService.create(this.formulario.value)
             .subscribe(
               () => {

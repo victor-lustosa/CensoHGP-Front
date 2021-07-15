@@ -5,8 +5,9 @@ import { CadastroPacienteComponent } from '../cadastro-paciente/cadastro-pacient
 import { PacienteDTO } from '../model/Paciente.dto';
 import { ChecklistPacienteComponent } from '../checklist-paciente/checklist-paciente.component';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Paciente } from '../model/Paciente';
 import { DescricaoPacienteComponent } from '../descricao-paciente/descricao-paciente.component';
+import { DepartamentoService } from '../../departamentos/service';
+import { Departamento } from '../../departamentos/model/departamento';
 
 @Component({
   selector: 'app-lista-pacientes',
@@ -17,25 +18,45 @@ export class ListaPacientesComponent implements OnInit {
 
   searchText: string;
   constructor(private pacientesService: PacienteService,private router: Router,  private route: ActivatedRoute,
-    public modalService: NgbModal) { }
+    public modalService: NgbModal, public departamentoService:DepartamentoService) { }
   lista: PacienteDTO[] = [];
   statusSpinner: boolean = false;
   paginaAtual: number = 1;
   contador: number = 10;
   mensagem: string;
-  departamento: number = 1;
-  listaDepartamento: any[];
+  departamento: string = '';
+  listaDepartamento: Departamento[];
   MODALOPTIONS: NgbModalOptions = { keyboard: true, size: 'lg', backdrop: 'static' };
   ngOnInit(): void {
     this.loadListaPacientes();
-    this.listaDepartamento = this.pacientesService.getDepartamentos();
+    this.loadListaDepartamentos();
+
     CadastroPacienteComponent.atualizando.subscribe(
       () => {
         this.loadListaPacientes();
       });
   }
+  loadListaDepartamentos(){
+     this.departamentoService.getAllAtivos().subscribe(
+       data => {
+         this.listaDepartamento = data
+       }
+     );
+  }
   loadListaPacientes() {
     this.statusSpinner = true;
+    this.lista = [];
+    this.paginaAtual = 1;
+    if(this.departamento != ''){
+      setTimeout(() => {
+      this.pacientesService.getPacientesDepartamento(this.departamento)
+        .subscribe(
+          data => {
+            this.lista = data;
+            this.statusSpinner = false;
+          });
+    }, 400);
+  }  else{
     setTimeout(() => {
       this.pacientesService.getAllPacientes()
         .subscribe(
@@ -44,7 +65,7 @@ export class ListaPacientesComponent implements OnInit {
             this.statusSpinner = false;
           });
     }, 400);
-  }
+  }}
   filtroDepartamento(value: any) {
     this.departamento = value;
     this.loadListaPacientes();
@@ -75,19 +96,14 @@ export class ListaPacientesComponent implements OnInit {
 
   historicoChecklist(id:number){
     this.router.navigate(['/pacientes/historico-checklist', id], { relativeTo: this.route });
-
-    console.log(id);
 }
 
 gerarTransferencia(id:number, nome:string){
-  console.log("Chamou gerar transferencia")
   this.router.navigate(['/pacientes/transferencia-paciente/'+ id]);
-  console.log(id);
 }
 
   descricao(paciente:PacienteDTO) {
-    console.log(paciente)
-      const modalRef = this.modalService.open(DescricaoPacienteComponent, this.MODALOPTIONS);
+        const modalRef = this.modalService.open(DescricaoPacienteComponent, this.MODALOPTIONS);
       modalRef.componentInstance.tituloModal = 'Descrição do Paciente';
       modalRef.componentInstance.paciente = paciente;
 

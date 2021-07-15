@@ -87,6 +87,7 @@ mudarStatus() {
   }
   loadListaFatores() {
     this.lista =  [];
+    this.paginaAtual = 1;
     this.statusSpinner = true;
     if (this.ativo == 2) {
       setTimeout(() => {

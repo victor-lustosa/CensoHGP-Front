@@ -31,7 +31,6 @@ export class AuthService {
   isEnferAuthenticated(): boolean {
     let perfil = this.jwtHelper.decodeToken(this.storage.getLocalUser().token).sub.substring(0,12)
     if (perfil=='[ROLE_ENFER]') {
-      console.log('opaaa, entrei no is enfer '+ perfil)
       return true;
     }
     return false;
