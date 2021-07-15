@@ -1,4 +1,7 @@
+import { ChecklistDTO } from './../model/Checklist.dto';
 import { Component, OnInit } from '@angular/core';
+import { Input } from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-descricao-historico-checklist',
@@ -7,7 +10,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DescricaoHistoricoChecklistComponent implements OnInit {
 
-  constructor() { }
+
+  @Input() tituloModal: string;
+  @Input() checklist: ChecklistDTO;
+  constructor(public activeModal: NgbActiveModal) { }
 
   ngOnInit(): void {
   }

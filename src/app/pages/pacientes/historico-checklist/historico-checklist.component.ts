@@ -1,3 +1,4 @@
+import { DescricaoHistoricoChecklistComponent } from './../descricao-historico-checklist/descricao-historico-checklist.component';
 import { ChecklistDTO } from './../model/Checklist.dto';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -68,7 +69,9 @@ export class HistoricoChecklistComponent implements OnInit {
 
 
   descricao(checklist: ChecklistDTO) {
-
+    const modalRef = this.modalService.open(DescricaoHistoricoChecklistComponent, this.MODALOPTIONS);
+    modalRef.componentInstance.tituloModal = 'Descrição do checklist';
+    modalRef.componentInstance.checklist = checklist;
   }
 
   cadastrar() {
