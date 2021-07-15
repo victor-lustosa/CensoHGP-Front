@@ -67,9 +67,10 @@ export class HistoricoChecklistComponent implements OnInit {
   }
 
 
-  descricao(id: number) {
+  descricao(checklist: ChecklistDTO) {
 
   }
+
   cadastrar() {
 
   }

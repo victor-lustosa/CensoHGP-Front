@@ -1,3 +1,4 @@
+import { DescricaoHistoricoChecklistComponent } from './../descricao-historico-checklist/descricao-historico-checklist.component';
 import { HistoricoChecklistComponent } from './historico-checklist.component';
 import { HistoricoChecklistFilterPipe } from './historico-checklist-filter.pipe';
 import { NgModule } from '@angular/core';
@@ -13,7 +14,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
-  declarations: [HistoricoChecklistComponent,HistoricoChecklistFilterPipe],
+  declarations: [HistoricoChecklistComponent,HistoricoChecklistFilterPipe, DescricaoHistoricoChecklistComponent],
   imports: [
     CommonModule,
     HistoricoChecklistRoutingModule,
