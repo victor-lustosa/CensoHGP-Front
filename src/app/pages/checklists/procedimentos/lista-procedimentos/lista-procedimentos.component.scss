@@ -20,3 +20,42 @@
   width: 2.5rem;
   height: 2.5rem;
 }
+.drop{
+margin-left:25px;
+font-size:15px ;
+}
+.font-size{
+  font-size:13px;
+}
+.desktop {
+  float:right;
+  /* ou inline, inline-block */
+}
+.sm-espaco{
+  margin-left: 0;
+}
+.mobile {
+  display: none;
+}
+.pes{
+  float:right;
+}
+.sm-limpar{
+  margin-left: 0;
+}
+@media(max-width: 770px) {
+  .drop{
+      visibility: hidden;
+      margin-left:-85px;
+  }.pes{
+    float:none;
+    display: inline-block;
+  }
+    .desktop{
+      visibility: hidden;
+
+    }
+    .mobile {
+        display: none; /* ou inline, inline-block */
+    }
+}

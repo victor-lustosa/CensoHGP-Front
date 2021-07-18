@@ -8,6 +8,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { DescricaoPacienteComponent } from '../descricao-paciente/descricao-paciente.component';
 import { DepartamentoService } from '../../departamentos/service';
 import { Departamento } from '../../departamentos/model/departamento';
+import { Paciente } from '../model/Paciente';
 
 @Component({
   selector: 'app-lista-pacientes',
@@ -19,7 +20,7 @@ export class ListaPacientesComponent implements OnInit {
   searchText: string;
   constructor(private pacientesService: PacienteService,private router: Router,  private route: ActivatedRoute,
     public modalService: NgbModal, public departamentoService:DepartamentoService) { }
-  lista: PacienteDTO[] = [];
+  lista: Paciente[] = [];
   statusSpinner: boolean = false;
   paginaAtual: number = 1;
   contador: number = 10;
@@ -102,7 +103,7 @@ gerarTransferencia(id:number, nome:string){
   this.router.navigate(['/pacientes/transferencia-paciente/'+ id]);
 }
 
-  descricao(paciente:PacienteDTO) {
+  descricao(paciente:Paciente) {
         const modalRef = this.modalService.open(DescricaoPacienteComponent, this.MODALOPTIONS);
       modalRef.componentInstance.tituloModal = 'Descrição do Paciente';
       modalRef.componentInstance.paciente = paciente;

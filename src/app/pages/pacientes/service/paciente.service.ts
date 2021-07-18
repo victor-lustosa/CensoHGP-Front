@@ -7,7 +7,6 @@ import { environment } from 'src/environments/environment';
 import { Paciente } from '../model/Paciente';
 import { CRUD } from 'src/app/theme/shared/CRUD';
 import { Observable } from 'rxjs';
-import { PacienteDTO } from '../model/Paciente.dto';
 import { catchError, retry } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
@@ -18,13 +17,13 @@ export class PacienteService extends CRUD<Paciente> {
     super(http, `${environment.API}apicensohgp/paciente`);
   }
 
-  getAllPacientes(): Observable<PacienteDTO[]> {
-    return this.http.get<PacienteDTO[]>(`${environment.API}apicensohgp/pacientes`)
+  getAllPacientes(): Observable<Paciente[]> {
+    return this.http.get<Paciente[]>(`${environment.API}apicensohgp/pacientes`)
       .pipe(retry(1), catchError(this.handleError));
   }
-  getPacientesDepartamento(departamento:string): Observable<PacienteDTO[]>  {
+  getPacientesDepartamento(departamento:string): Observable<Paciente[]>  {
     console.log(`${environment.API}apicensohgp/pacientes/departamento/${departamento}`)
-    return this.http.get<PacienteDTO[]>(`${environment.API}apicensohgp/pacientes/departamento/${departamento}`)
+    return this.http.get<Paciente[]>(`${environment.API}apicensohgp/pacientes/departamento/${departamento}`)
     .pipe(retry(1), catchError(this.handleError));
   }
   createChecklist(checklist: Checklist): Observable<Checklist> {

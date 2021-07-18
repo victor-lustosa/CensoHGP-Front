@@ -17,7 +17,7 @@
       <label for="nomeMae">Nome da Mãe:</label>
       <input id="nomeMae" class="form-control" aria-describedby="nomeMaeHelp" placeholder="Digite o nome da Mãe" formControlName="nomeMae">
       <br>
-      <div class="row col-md-6" style="display: inline-block; ">
+      <div class="row col-6 col-md-6" style="display: inline-block; ">
         <label for="prontuario">Número do Prontuário:</label>
         <input id="prontuario" class="form-control" aria-describedby="prontuarioHelp" maxLength="50" formControlName="prontuario" placeholder="Digite o número do prontuário" [ngClass]="aplicaCssErro('prontuario')">
         <div *ngIf="verificaValidTouched('prontuario')">
@@ -25,36 +25,42 @@
         </div>
         <br>
       </div>
-      <div class="row col-md-6" style="display: inline-block;float:right">
+      <div class="row col-6 col-md-6" style="display: inline-block;float:right">
         <label for="cpf">CPF:</label>
         <input id="cpf" class="form-control" aria-describedby="cpfHelp" placeholder="Digite o CPF" formControlName="cpf">
         <br>
       </div>
-  <br>
-
-      <div class="row col-md-6" style="display: inline-block;float:right">
+      <br>
+      <div class="row col-6 col-md-6" style="display: inline-block;float:right">
         <label for="rg">RG:</label>
         <input id="rg" class="form-control" aria-describedby="rgHelp" placeholder="Digite o RG" formControlName="rg">
         <br>
       </div>
-
-      <div class="row col-md-6" style="display: inline-block;">
-        <label for="dataNascimento">Data de nascimento:</label>
-        <input type="date" required="true" class="form-control" formControlName="dataNascimento" [(ngModel)]="today" id="dataNascimento">
-        <br>
-      </div>
-        <br>
-      <div class="row col-md-6" style="display: inline-block; ">
+      <div class="row col-6 col-md-6" style="display: inline-block;">
         <label for="genero">Genero:</label>
         <select class="form-control" id="genero" formControlName="genero" [(ngModel)]="genero">
-          <option value = "" >Selecione...</option>
+          <option value="">Selecione...</option>
           <option *ngFor="let genero of listaSexos" [value]="genero.nome">{{genero.nome}}</option>
         </select>
         <br>
       </div>
-
-      <div class="row col-md-6" style="display: inline-block;float:right;" *ngIf="editar===false">
-
+      <div class="row col-6 col-md-6" style="display: inline-block; margin-bottom:17px">
+        <label for="dataNascimento">Data de nascimento:</label>
+        <br>
+        <div class="form-check col-3 col-md-3" style="display: inline-block;margin-right:35px">
+          <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
+          <label class="form-check-label" for="gridRadios1">Não</label>
+        </div>
+        <div class="form-check col-2 col-md-2" style="display: inline-block;">
+          <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+          <label class="form-check-label" for="gridRadios2">Sim</label>
+        </div>
+        <br>
+          <div class="col-15 col-md-9" style="margin-top:10px;margin-left:-15px">
+        <input  type="date" required="true" class="form-control" formControlName="dataNascimento" [(ngModel)]="today" id="dataNascimento">
+          </div>
+      </div>
+      <div class="row col-6 col-md-6" style="display: inline-block;float:right;" *ngIf="editar===false">
         <label>Departamento:</label>
         <select class="form-control" id="departamento" formControlName="departamento" [(ngModel)]="departamento">
           <option value="">Selecione...</option>
@@ -62,13 +68,16 @@
         </select>
         <br>
       </div>
-      <br>
+
+
+
       <label for="precaucao">Precauções:</label>
       <div id="precaucao" style="border-radius: 5px; border: 1px solid #ccc; padding: 10px 0 " class="row  ml-0 mr-0">
         <div class="checkbox" class="col-sm-6" formArrayName="precaucao" *ngFor="let precaucao of listaPrecaucoes; let i=index">
           <label class="checkbox-inline">
             <input type="checkbox" [value]="precaucao.idPrecaucao" (change)="onCheckChange($event)" /> {{precaucao.nome}} </label>
         </div>
+        <br>
       </div>
       <br>
     </form>

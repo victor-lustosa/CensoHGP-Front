@@ -1,4 +1,5 @@
 import { Departamento } from '../../departamentos/model/departamento';
+import { Usuario } from '../../usuarios/model/usuario';
 
 export interface Paciente {
   idPaciente: number;
@@ -14,4 +15,6 @@ export interface Paciente {
   checklist: number;
   transferencia: number;
   matriculaUsuario: string;
+  sexo: number;
+  usuario:Usuario;
 }

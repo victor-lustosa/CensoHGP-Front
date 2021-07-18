@@ -8,18 +8,17 @@ import { DepartamentoService } from '../../departamentos/service';
 import { Precaucao } from '../../precaucoes/model/precaucao';
 import { PrecaucaoService } from '../../precaucoes/service/precaucao.service';
 import { Paciente } from '../model/Paciente';
-
 import { PacienteService } from '../service/paciente.service';
 
 @Component({
   selector: 'app-cadastro-paciente',
   templateUrl: './cadastro-paciente.component.html',
-  styleUrls: ['./cadastro-paciente.component.scss'],
+  styleUrls: ['./cadastro-paciente.component.scss']
 })
 export class CadastroPacienteComponent implements OnInit {
-  today: string;
-  dataAtual: Date;
   public formulario: FormGroup;
+  today: string;
+  // dataAtual: string;
   listaPrecaucoes: Precaucao[] = [];
   listaSexos: any[] = [];
   listaDepartamento: Departamento[] = [];
@@ -38,14 +37,19 @@ export class CadastroPacienteComponent implements OnInit {
 
   ngOnInit(): void {
     this.novoFormulario();
-    this.editar=false;
+    this.editar = false;
+
+    // console.log(this.dataAtual,'oii essa é a adata');
     if (this.paciente != null) {
-      this.genero = this.paciente.genero
-      this.editar=true;
-      this.today = new Date(this.paciente.dataNascimento).toISOString().split('T')[0];
+      this.editar = true;
+      // this.today = new Date().toISOString().split('T')[0];
+
       this.updateForm(this.paciente);
+      this.genero = this.formulario.get('genero').value;
+      console.log(this.formulario.value)
+
     } else {
-      this.today = new Date().toISOString().split('T')[0];
+
     }
     this.loadListaPrecaucoes();
     this.loadListaDepartamento();
@@ -60,7 +64,7 @@ export class CadastroPacienteComponent implements OnInit {
       cpf: [null],
       genero: [null],
       rg: [null],
-      dataNascimento: this.today,
+      dataNascimento: [null],
       precaucao: new FormArray([]),
       departamento: [null]
     });
@@ -72,15 +76,15 @@ export class CadastroPacienteComponent implements OnInit {
       nome: paciente.nome,
       nomeMae: paciente.nomeMae,
       cpf: paciente.cpf,
-      genero: paciente.genero,
       rg: paciente.rg,
-      dataNascimento: this.today,
+      dataNascimento: paciente.dataNascimento,
       precaucao: paciente.precaucao,
-      departamento:paciente.departamento.idDepartamento
+      departamento:paciente.departamento.idDepartamento,
+      genero: paciente.genero[0]
     });
   }
 
-  onCheckChange(event) {
+  onCheckChange(event: { target: { checked: any; value: any; }; }) {
     const formArray: FormArray = this.formulario.get('precaucao') as FormArray;
     if (event.target.checked) {
       formArray.push(new FormControl(event.target.value));

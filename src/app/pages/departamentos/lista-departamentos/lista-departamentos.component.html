@@ -2,27 +2,25 @@
   <div class="col-md-12">
     <app-card cardTitle="Consulta de Departamentos" blockClass="table-border-style">
       <div class="row">
-        <div class="col-md-12">
-          <button style="float:right" type="reset" class="btn btn-warning" (click)="limpar()"><i class="feather icon-delete"></i> Limpar</button>
-          <div class="input-group col-md-3" style="float:right">
-            <input type="text"  class="form-control" name="pesquisa" [(ngModel)]="searchText" (ngModelChange)="verifica()" placeholder="Pesquisar">
+        <div class="col-12 col-12 col-sm-12 col-md-12 ">
+          <button type="button" class="btn btn-primary font-size" (click)="cadastrar()"><i class="feather icon-plus-square"></i> Cadastrar</button>
+          <label class="drop font-size" for="tipodepartamento">Tipo:</label>
+          <div class="col-8 col-sm-3 col-md-2 col-lg-2" style="display:inline-block;margin-left:-10px;">
+            <select (ngModelChange)="filtroTipoDepartamento($event)" class="custom-select font-size" id="tipodepartamento" [(ngModel)]="tipoDepartamento">
+              <option *ngFor="let tipoDepartamento of listaTipoDepartamento" [value]="tipoDepartamento.valor">{{ tipoDepartamento.nome  }}</option>
+            </select>
           </div>
-          <button  style="float:left;" type="button" class="btn btn-primary"  (click)="cadastrar()" ><i class="feather icon-plus-square"></i> Cadastrar</button>
+          <label class="font-size" for="ativo">Status:</label>
+          <div class="col-8 col-sm-3 col-md-2 col-lg-2" style="display:inline-block;margin-left:-10px;">
+            <select (ngModelChange)="filtroStatus($event)" class="custom-select font-size" id="ativo" [(ngModel)]="ativo">
+              <option *ngFor="let ativo of listaAtivo" [value]="ativo.valor">{{ ativo.nome  }}</option>
+            </select>
+          </div>
+          <button style="float:right" type="reset" class="btn btn-warning desktop font-size" (click)="limpar()"><i class="feather icon-delete"></i> Limpar</button>
+          <div class="input-group col-md-3 pes">
+            <input type="text" class="form-control font-size" name="pesquisa" [(ngModel)]="searchText" (ngModelChange)="verifica()" placeholder="Pesquisar">
+          </div>
 
-          <div class="row" >
-            <div class="form-group   col-3 d-flex justify-content-between" style="margin-left:50px;" >
-              <label for="ativo" class="form-check-label mr-2">Status:</label>
-              <select (ngModelChange)="filtroStatus($event)" class="custom-select" id="ativo" [(ngModel)]="ativo">
-                <option *ngFor="let ativo of listaAtivo" [value]="ativo.valor">{{ ativo.nome  }}</option>
-              </select>
-            </div>
-            <div class="form-group  col-3 d-flex justify-content-between">
-              <label for="tipodepartamento" class="form-check-label mr-2">Tipo:</label>
-              <select (ngModelChange)="filtroTipoDepartamento($event)" class="custom-select" id="tipodepartamento"  [(ngModel)]="tipoDepartamento">
-                <option *ngFor="let tipoDepartamento of listaTipoDepartamento" [value]="tipoDepartamento.valor">{{ tipoDepartamento.nome  }}</option>
-              </select>
-            </div>
-          </div>
         </div>
       </div>
       <br>
@@ -30,59 +28,61 @@
         <table class="table table-hover" *ngIf="(lista | filter: searchText).length > 0; else noResults">
           <thead>
             <tr align="center">
-              <th scope="col">Nome</th>
-              <th scope="col">Nº de leitos</th>
-              <th scope="col">Descrição</th>
-              <th scope="col">Tipo de departamento</th>
-              <th scope="col">Status</th>
+              <th style="font-size:12px" scope="col">Nome</th>
+              <th style="font-size:12px" scope="col">Nº de leitos</th>
+              <th style="font-size:12px" scope="col">Descrição</th>
+              <th style="font-size:12px" scope="col">Tipo de departamento</th>
+              <th style="font-size:12px" scope="col">Status</th>
               <th scope="col"></th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let departamento of lista | filter: searchText | paginate: { itemsPerPage: contador, currentPage: paginaAtual }" align="center">
               <td class="padding">{{departamento.nome}}</td>
-              <td class="padding" >{{departamento.numero_leitos}}</td>
-              <td class="td padding" >{{departamento.descricao}}</td>
+              <td class="padding">{{departamento.numero_leitos}}</td>
+              <td class="td padding">{{departamento.descricao}}</td>
               <td class="padding">{{departamento.interno ? 'Interno': 'Externo' }}</td>
               <td class="padding"><label class="badge badge-{{departamento.ativo ? 'success' : 'danger'}}">{{departamento.ativo ? 'Ativo':'Inativo'}}</label></td>
-              <td class="padding text-right" >
-                <div ngbDropdown  container="body" >
-                  <button placement="left" class="btn btn-info buttonDrop" ngbDropdownToggle type="button" id="opcoes"><i class="feather icon-plus-circle"></i> ações</button>
-                  <div ngbDropdownMenu  >
-                    <button  *ngIf="departamento.ativo=== true" class="dropdown-item button" (click)="editar(departamento.idDepartamento)"><i class="feather icon-edit"></i> Editar</button>
-                    <button class="dropdown-item button"  (click)="pegaId(departamento.idDepartamento);confirmaModal.show()"><i class="feather icon-{{departamento.ativo ? 'minus-circle' : 'power'}}"></i> {{departamento.ativo ? 'Desativar' : 'Ativar'}}</button>
-                    <button class="dropdown-item button"  (click)="descricao(departamento.idDepartamento)"><i class="feather icon-eye"></i> Visualizar</button>
+              <td class="padding text-right">
+                <div ngbDropdown container="body">
+                  <button placement="left" class="btn btn-info buttonDrop font-size" ngbDropdownToggle type="button" id="opcoes"><i class="feather icon-plus-circle"></i> ações</button>
+                  <div ngbDropdownMenu>
+                    <button *ngIf="departamento.ativo=== true" class="dropdown-item button font-size" (click)="editar(departamento.idDepartamento)"><i class="feather icon-edit"></i> Editar</button>
+                    <button class="dropdown-item button font-size" (click)="pegaId(departamento.idDepartamento);confirmaModal.show()"><i class="feather icon-{{departamento.ativo ? 'minus-circle' : 'power'}}"></i>
+                      {{departamento.ativo ? 'Desativar' : 'Ativar'}}</button>
+                    <button class="dropdown-item button font-size" (click)="descricao(departamento.idDepartamento)"><i class="feather icon-eye"></i> Visualizar</button>
                   </div>
                 </div>
               </td>
-            </tbody>
-          </table>
-          <pagination-controls *ngIf="statusSpinner===false && lista.length > 0" maxSize="5" responsive="true" directionLinks="true" autoHide="true" class="d-flex justify-content-center" (pageChange)="paginaAtual = $event" previousLabel="Anterior" nextLabel="Próximo"></pagination-controls>
-          <ng-template #noResults>
-            <p *ngIf="statusSpinner === false">Nenhum resultado encontrado.</p>
-          </ng-template>
+          </tbody>
+        </table>
+        <pagination-controls *ngIf="statusSpinner===false && lista.length > 0" maxSize="5" responsive="true" directionLinks="true" autoHide="true" class="d-flex justify-content-center" (pageChange)="paginaAtual = $event" previousLabel="Anterior"
+          nextLabel="Próximo"></pagination-controls>
+        <ng-template #noResults>
+          <p *ngIf="statusSpinner === false">Nenhum resultado encontrado.</p>
+        </ng-template>
+      </div>
+      <div class="spinner" *ngIf="statusSpinner===true">
+        <div class="spinner-border text-primary size" role="status">
         </div>
-        <div class="spinner" *ngIf="statusSpinner===true">
-          <div  class="spinner-border text-primary size" role="status">
-          </div>
+      </div>
+    </app-card>
+  </div>
+  <div>
+    <app-ui-modal #confirmaModal [containerClick]="false">
+      <div class="app-modal-header">
+        <h5 class="modal-title">Confirmação</h5>
+        <button type="reset" class="close basic-close" data-dismiss="modal" aria-label="Close" (click)="confirmaModal.hide()"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="app-modal-body">
+        <p> Tem certeza que deseja {{ varConfirm }} esse item?</p>
+      </div>
+      <div class="app-modal-footer">
+        <div style="float: left; margin-left: 10px;">
+          <button type="reset" class="btn btn-outline-warning" data-dismiss="modal" (click)="confirmaModal.hide()">Não</button>
         </div>
-      </app-card>
-    </div>
-    <div>
-      <app-ui-modal #confirmaModal [containerClick]="false" >
-        <div  class="app-modal-header">
-          <h5  class="modal-title">Confirmação</h5>
-          <button type="reset" class="close basic-close" data-dismiss="modal" aria-label="Close" (click)="confirmaModal.hide()"><span aria-hidden="true">&times;</span></button>
+        <div style="margin-left: 100px;">
+          <button type="submit" class="btn btn-primary" (click)="mudarStatus();confirmaModal.hide()">Sim</button>
         </div>
-        <div class="app-modal-body">
-          <p > Tem certeza que deseja {{ varConfirm }} esse item?</p>
-        </div>
-        <div class="app-modal-footer">
-          <div style="float: left; margin-left: 10px;">
-            <button type="reset" class="btn btn-outline-warning"  data-dismiss="modal" (click)="confirmaModal.hide()">Não</button>
-          </div>
-          <div style="margin-left: 100px;">
-            <button type="submit" class="btn btn-primary" (click)="mudarStatus();confirmaModal.hide()" >Sim</button>
-          </div>
-        </div>
-      </app-ui-modal>
+      </div>
+    </app-ui-modal>

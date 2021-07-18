@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Paciente } from '../model/Paciente';
-import { PacienteDTO } from '../model/Paciente.dto';
+
 
 @Component({
   selector: 'app-descricao-paciente',
@@ -10,7 +10,7 @@ import { PacienteDTO } from '../model/Paciente.dto';
 })
 export class DescricaoPacienteComponent implements OnInit {
   @Input() tituloModal: string;
-  @Input() paciente: PacienteDTO;
+  @Input() paciente: Paciente;
   today:String;
 constructor(public activeModal: NgbActiveModal) { }
 
