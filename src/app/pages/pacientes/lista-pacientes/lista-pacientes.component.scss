@@ -4,6 +4,9 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.font-size{
+  font-size:13px;
+}
 .padding{
   padding: 12px;
 }
@@ -19,4 +22,40 @@
 .size{
   width: 2.5rem;
   height: 2.5rem;
+}
+.dep{
+margin-left:25px;
+
+}
+.desktop {
+  float:right;
+  /* ou inline, inline-block */
+}
+.sm-espaco{
+  margin-left: 0;
+}
+.mobile {
+  display: none;
+}
+.pes{
+  float:right;
+}
+.sm-limpar{
+  margin-left: 0;
+}
+@media(max-width: 770px) {
+  .dep{
+      visibility: hidden;
+      margin-left:-85px;
+  }.pes{
+    float:none;
+    display: inline-block;
+  }
+    .desktop{
+      visibility: hidden;
+
+    }
+    .mobile {
+        display: none; /* ou inline, inline-block */
+    }
 }

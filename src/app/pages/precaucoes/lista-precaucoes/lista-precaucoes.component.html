@@ -1,31 +1,30 @@
 <div class="row">
   <div class="col-md-12">
     <app-card cardTitle="Consulta de Precauções" blockClass="table-border-style">
-        <div class="row">
-          <div class="col-sm-12">
-            <button style="float:right" type="reset" class="btn btn-warning" (click)="limpar()"><i class="feather icon-delete"></i> Limpar</button>
-            <div class="input-group col-md-3" style="float:right">
-              <input type="text"  class="form-control" name="pesquisa" [(ngModel)]="searchText" (ngModelChange)="verifica()" placeholder="Pesquisar">
+      <div class="row">
+        <div class="col-sm-12">
+          <button  type="button" class="btn btn-primary font-size" (click)="cadastrar()"><i class="feather icon-plus-square"></i> Cadastrar</button>
+          <label for="ativo" class="drop font-size">Status:</label>
+          <div class="col-8 col-sm-3 col-md-2 col-lg-2" style="display:inline-block;margin-left:-10px;">
+            <select (ngModelChange)="filtroStatus($event)" class="custom-select font-size" id="ativo" [(ngModel)]="ativo">
+              <option *ngFor="let ativo of listaAtivo" [value]="ativo.valor">{{ativo.nome}}</option>
+            </select>
           </div>
-          <button  style="float:left" type="button" class="btn btn-primary"  (click)="cadastrar()" ><i class="feather icon-plus-square"></i> Cadastrar</button>
-          <div class="row" >
-            <div class="form-group col-5 d-flex justify-content-between" style="margin-left:50px;" >
-              <label for="ativo" class="form-check  -label mr-2">Status:</label>
-              <select (ngModelChange)="filtroStatus($event)" class="custom-select" id="ativo" [(ngModel)]="ativo">
-                <option *ngFor="let ativo of listaAtivo" [value]="ativo.valor">{{ativo.nome}}</option>
-              </select>
-            </div>
+          <button style="float:right" type="reset" class="btn btn-warning font-size" (click)="limpar()"><i class="feather icon-delete"></i> Limpar</button>
+            <div class="input-group col-md-3 pes">
+            <input type="text" class="form-control font-size" name="pesquisa" [(ngModel)]="searchText" (ngModelChange)="verifica()" placeholder="Pesquisar">
           </div>
+
         </div>
       </div>
       <br>
-      <div class="table-responsive" >
-        <table class="table table-hover"  *ngIf="(lista | filter: searchText).length > 0; else noResults">
+      <div class="table-responsive">
+        <table class="table table-hover" *ngIf="(lista | filter: searchText).length > 0; else noResults">
           <thead>
             <tr align="center">
-              <th scope="col">Nome</th>
-              <th scope="col">Descrição</th>
-              <th scope="col">Status</th>
+              <th style="font-size:12px" scope="col">Nome</th>
+              <th style="font-size:12px" scope="col">Descrição</th>
+              <th style="font-size:12px" scope="col">Status</th>
               <th scope="col"></th>
             </tr>
           </thead>
@@ -35,43 +34,44 @@
               <td class="td padding">{{precaucoes.descricao}}</td>
               <td class="padding"><label class="badge badge-{{precaucoes.ativo ? 'success' : 'danger'}}">{{precaucoes.ativo ? 'Ativo' : 'Inativo'}}</label></td>
               <td class="padding text-right">
-                  <div ngbDropdown  container="body" >
-                    <button placement="left" class="btn btn-info buttonDrop" ngbDropdownToggle type="button" id="opcoes"><i class="feather icon-plus-circle"></i> ações</button>
-                    <div ngbDropdownMenu  >
-                      <button *ngIf="precaucoes.ativo=== true" class="dropdown-item button" (click)="editar(precaucoes.idPrecaucao)"><i class="feather icon-edit"></i> Editar</button>
-                      <button class="dropdown-item button"  (click)="pegaId(precaucoes.idPrecaucao);confirmaModal.show()"><i class="feather icon-{{precaucoes.ativo ? 'minus-circle' : 'power'}}"></i> {{precaucoes.ativo ? 'Desativar' : 'Ativar'}}</button>
-                      <button class="dropdown-item button"  (click)="descricao(precaucoes.idPrecaucao)"><i class="feather icon-eye"></i> Visualizar</button>
-                    </div>
+                <div ngbDropdown container="body">
+                  <button placement="left" class="btn btn-info buttonDrop font-size" ngbDropdownToggle type="button" id="opcoes"><i class="feather icon-plus-circle"></i> ações</button>
+                  <div ngbDropdownMenu>
+                    <button *ngIf="precaucoes.ativo=== true" class="dropdown-item button font-size" (click)="editar(precaucoes.idPrecaucao)"><i class="feather icon-edit"></i> Editar</button>
+                    <button class="dropdown-item button font-size" (click)="pegaId(precaucoes.idPrecaucao);confirmaModal.show()"><i class="feather icon-{{precaucoes.ativo ? 'minus-circle' : 'power'}}"></i> {{precaucoes.ativo ? 'Desativar' : 'Ativar'}}</button>
+                    <button class="dropdown-item button font-size" (click)="descricao(precaucoes.idPrecaucao)"><i class="feather icon-eye"></i> Visualizar</button>
                   </div>
-                </td>
-            </tbody>
-          </table>
-          <pagination-controls *ngIf="statusSpinner===false && lista.length > 0" maxSize="5" responsive="true" directionLinks="true" autoHide="true" class="d-flex justify-content-center" (pageChange)="paginaAtual = $event" previousLabel="Anterior" nextLabel="Próximo"></pagination-controls>
-          <ng-template #noResults>
+                </div>
+              </td>
+          </tbody>
+        </table>
+        <pagination-controls *ngIf="statusSpinner===false && lista.length > 0" maxSize="5" responsive="true" directionLinks="true" autoHide="true" class="d-flex justify-content-center" (pageChange)="paginaAtual = $event" previousLabel="Anterior"
+          nextLabel="Próximo"></pagination-controls>
+        <ng-template #noResults>
           <p *ngIf="statusSpinner === false">Nenhum resultado encontrado.</p>
-          </ng-template>
-        </div>
-        <div class="spinner" *ngIf="statusSpinner===true">
-          <div  class="spinner-border text-primary size" role="status">
+        </ng-template>
+      </div>
+      <div class="spinner" *ngIf="statusSpinner===true">
+        <div class="spinner-border text-primary size" role="status">
         </div>
       </div>
-      </app-card>
+    </app-card>
+  </div>
+</div>
+<app-ui-modal #confirmaModal [containerClick]="false">
+  <div class="app-modal-header">
+    <h5 class="modal-title">Confirmação</h5>
+    <button type="reset" class="close basic-close" data-dismiss="modal" aria-label="Close" (click)="confirmaModal.hide()"><span aria-hidden="true">&times;</span></button>
+  </div>
+  <div class="app-modal-body">
+    <p> Tem certeza que deseja {{ varConfirm }} esse item?</p>
+  </div>
+  <div class="app-modal-footer">
+    <div style="float: left; margin-left: 10px; ">
+      <button type="reset" class="btn btn-outline-warning" data-dismiss="modal" (click)="confirmaModal.hide()">Não</button>
+    </div>
+    <div style="margin-left: 100px;">
+      <button type="reset" class="btn btn-primary" (click)="mudarStatus();confirmaModal.hide()">Sim</button>
     </div>
   </div>
-  <app-ui-modal #confirmaModal [containerClick]="false" >
-    <div  class="app-modal-header">
-      <h5  class="modal-title">Confirmação</h5>
-      <button type="reset" class="close basic-close" data-dismiss="modal" aria-label="Close" (click)="confirmaModal.hide()"><span aria-hidden="true">&times;</span></button>
-    </div>
-    <div class="app-modal-body">
-      <p > Tem certeza que deseja {{ varConfirm }} esse item?</p>
-    </div>
-    <div class="app-modal-footer">
-      <div style="float: left; margin-left: 10px; ">
-        <button type="reset" class="btn btn-outline-warning"  data-dismiss="modal" (click)="confirmaModal.hide()">Não</button>
-      </div>
-      <div style="margin-left: 100px;">
-        <button type="reset" class="btn btn-primary" (click)="mudarStatus();confirmaModal.hide()" >Sim</button>
-      </div>
-    </div>
-  </app-ui-modal>
+</app-ui-modal>

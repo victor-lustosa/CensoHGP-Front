@@ -13,20 +13,21 @@ import { PacienteService } from '../service/paciente.service';
 @Component({
   selector: 'app-cadastro-paciente',
   templateUrl: './cadastro-paciente.component.html',
-  styleUrls: ['./cadastro-paciente.component.scss'],
+  styleUrls: ['./cadastro-paciente.component.scss']
 })
 export class CadastroPacienteComponent implements OnInit {
-  today: string;
-  dataAtual: Date;
   public formulario: FormGroup;
+  today: string;
+  // dataAtual: string;
   listaPrecaucoes: Precaucao[] = [];
   listaSexos: any[] = [];
   listaDepartamento: Departamento[] = [];
   sucesso: boolean = false;
+  @Input() editar:boolean;
   at: boolean = true;
-
+  departamento: string = '';
+  genero:string = '';
   @Input() public paciente: Paciente;
-  public pacienteUpdate: Paciente;
   static atualizando = new EventEmitter<boolean>();
   jwtHelper: JwtHelperService = new JwtHelperService();
   mensagemErro: string = '';
@@ -36,14 +37,19 @@ export class CadastroPacienteComponent implements OnInit {
 
   ngOnInit(): void {
     this.novoFormulario();
+    this.editar = false;
 
+    // console.log(this.dataAtual,'oii essa é a adata');
     if (this.paciente != null) {
-      this.today = new Date(this.paciente.dataNascimento).toISOString().split('T')[0];
-        console.log(this.today);
+      this.editar = true;
+      // this.today = new Date().toISOString().split('T')[0];
+
       this.updateForm(this.paciente);
+      this.genero = this.formulario.get('genero').value;
+      console.log(this.formulario.value)
+
     } else {
-      this.today = new Date().toISOString().split('T')[0];
-      console.log(this.today);
+
     }
     this.loadListaPrecaucoes();
     this.loadListaDepartamento();
@@ -58,7 +64,7 @@ export class CadastroPacienteComponent implements OnInit {
       cpf: [null],
       genero: [null],
       rg: [null],
-      dataNascimento: this.today,
+      dataNascimento: [null],
       precaucao: new FormArray([]),
       departamento: [null]
     });
@@ -70,15 +76,15 @@ export class CadastroPacienteComponent implements OnInit {
       nome: paciente.nome,
       nomeMae: paciente.nomeMae,
       cpf: paciente.cpf,
-      genero: paciente.genero,
       rg: paciente.rg,
-      dataNascimento: this.today,
+      dataNascimento: paciente.dataNascimento,
       precaucao: paciente.precaucao,
-      departamento: paciente.departamento
+      departamento:paciente.departamento.idDepartamento,
+      genero: paciente.genero[0]
     });
   }
 
-  onCheckChange(event) {
+  onCheckChange(event: { target: { checked: any; value: any; }; }) {
     const formArray: FormArray = this.formulario.get('precaucao') as FormArray;
     if (event.target.checked) {
       formArray.push(new FormControl(event.target.value));
@@ -95,13 +101,13 @@ export class CadastroPacienteComponent implements OnInit {
     }
   }
   loadListaPrecaucoes() {
-    this.precaucaoService.getAll().subscribe(
+    this.precaucaoService.getAllAtivos().subscribe(
       data => {
         this.listaPrecaucoes = data;
       });
   }
   loadListaDepartamento() {
-    this.departamentoService.getAll()
+    this.departamentoService.getAllAtivos()
       .subscribe(
         data => {
           this.listaDepartamento = data;
@@ -127,15 +133,7 @@ export class CadastroPacienteComponent implements OnInit {
   savePacientes() {
 
     if (this.formulario.valid) {
-      this.pacienteUpdate = this.formulario.value as Paciente;
-      console.log(this.pacienteUpdate)
       if (this.formulario.get('prontuario').value != null && this.formulario.get('idPaciente').value != null) {
-
-        if (this.paciente.genero[0] == 1) {
-          this.pacienteUpdate.genero = 1;
-        } else if (this.paciente.genero[0] == 2) {
-          this.pacienteUpdate.genero = 2;
-        }
         this.pacientesService.updatePaciente(this.formulario.value,
           this.jwtHelper.decodeToken(this.storage.getLocalUser().token).sub.substring(13))
           .subscribe(

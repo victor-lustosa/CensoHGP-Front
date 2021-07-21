@@ -2,38 +2,38 @@
   <div class="col-md-12">
     <app-card cardTitle="Consulta de Usuários" blockClass="table-border-style">
         <div class="row">
-          <div class="col-sm-12">
-            <button style="float:right" type="reset" class="btn btn-warning" (click)="limpar()"><i class="feather icon-delete"></i> Limpar</button>
-            <div class="input-group col-md-3" style="float:right">
-                <input type="text"  class="form-control" name="pesquisa" [(ngModel)]="searchText" (ngModelChange)="verifica()" placeholder="Pesquisar">
-            </div>
-            <button  style="float:left" type="button" class="btn btn-primary"  (click)="cadastrar()" ><i class="feather icon-plus-square"></i> Cadastrar</button>
-            <div class="row" >
-              <div class="form-group  col-4 d-flex justify-content-between">
-                <label for="tipodeusuario" class="form-check-label mr-2">Tipo:</label>
-                <select (ngModelChange)="filtroTipoUsuario($event)" class="custom-select" id="tipodeusuario"  [(ngModel)]="tipoUsuario">
+          <div class="col-12 col-12 col-sm-12 col-md-12 ">
+            <button  type="button" class="btn btn-primary font-size"  (click)="cadastrar()" ><i class="feather icon-plus-square"></i> Cadastrar</button>
+
+            <label for="tipodeusuario" class="drop font-size">Tipo:</label>
+              <div  class="col-8 col-sm-3 col-md-2 col-lg-2" style="display:inline-block;margin-left:-10px;">
+                <select (ngModelChange)="filtroTipoUsuario($event)" class="custom-select font-size" id="tipodeusuario"  [(ngModel)]="tipoUsuario">
                   <option *ngFor="let tipoUsuario of listaTipoUsuario" [value]="tipoUsuario.valor">{{ tipoUsuario.nome  }}</option>
                 </select>
               </div>
-              <div class="form-group   col-4 d-flex justify-content-between" style="margin-left:50px;" >
-                <label for="ativo" class="form-check-label mr-2">Status:</label>
-                <select (ngModelChange)="filtroStatus($event)" class="custom-select" id="ativo" [(ngModel)]="ativo">
+                <label for="ativo" class="font-size">Status:</label>
+              <div class="col-8 col-sm-3 col-md-2 col-lg-2" style="display:inline-block;margin-left:-10px;">
+                <select (ngModelChange)="filtroStatus($event)" class="custom-select font-size" id="ativo" [(ngModel)]="ativo">
                   <option *ngFor="let ativo of listaAtivo" [value]="ativo.valor">{{ ativo.nome  }}</option>
                 </select>
               </div>
+              <button style="float:right" type="reset" class="btn btn-warning font-size" (click)="limpar()"><i class="feather icon-delete"></i> Limpar</button>
+
+              <div class="input-group col-md-3" style="float:right">
+                  <input type="text"  class="form-control font-size"  name="pesquisa" [(ngModel)]="searchText" (ngModelChange)="verifica()" placeholder="Pesquisar">
+              </div>
             </div>
-          </div>
         </div>
       <br>
       <div class="table-responsive">
         <table class="table table-hover" *ngIf="(lista | filter: searchText).length > 0; else noResults">
           <thead>
             <tr align="center">
-              <th>Nome</th>
-              <th>Matrícula</th>
-              <th>Email</th>
-              <th>Tipo</th>
-              <th>Status</th>
+              <th style="font-size:12px">Nome</th>
+              <th style="font-size:12px">Matrícula</th>
+              <th style="font-size:12px">Email</th>
+              <th style="font-size:12px">Tipo</th>
+              <th style="font-size:12px">Status</th>
               <th></th>
             </tr>
           </thead>
@@ -46,10 +46,10 @@
               <td class="padding"><label class="badge badge-{{user.ativo ? 'success' : 'danger'}}">{{user.ativo ? 'Ativo' : 'Inativo'}}</label></td>
               <td class="padding text-right" >
                 <div ngbDropdown  container="body" >
-                  <button placement="left"  class="btn btn-info buttonDrop" ngbDropdownToggle type="button" id="opcoes"><i class="feather icon-plus-circle"></i> ações</button>
+                  <button placement="left"  class="btn btn-info buttonDrop font-size" ngbDropdownToggle type="button" id="opcoes"><i class="feather icon-plus-circle"></i> ações</button>
                   <div ngbDropdownMenu  >
-                    <button *ngIf="user.ativo=== true"  class="dropdown-item button" (click)="editar(user.idUsuario)"><i class="feather icon-edit"></i> Editar</button>
-                    <button class="dropdown-item button"  (click)="pegaId(user.idUsuario);confirmaModal.show()"><i class="feather icon-{{user.ativo ? 'minus-circle' : 'power'}}"></i> {{user.ativo ? 'Desativar' : 'Ativar'}}</button>
+                    <button *ngIf="user.ativo=== true"  class="dropdown-item button font-size" (click)="editar(user.idUsuario)"><i class="feather icon-edit"></i> Editar</button>
+                    <button class="dropdown-item button font-size"  (click)="pegaId(user.idUsuario);confirmaModal.show()"><i class="feather icon-{{user.ativo ? 'minus-circle' : 'power'}}"></i> {{user.ativo ? 'Desativar' : 'Ativar'}}</button>
                   </div>
                 </div>
               </td>

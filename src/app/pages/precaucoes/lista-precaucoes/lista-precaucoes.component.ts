@@ -60,6 +60,7 @@ export class ListaPrecaucoesComponent implements OnInit {
       });
     }
     loadListaPrecaucoes() {
+      this.paginaAtual = 1;
       this.lista =  [];
       this.statusSpinner = true;
       if (this.ativo == 2) {

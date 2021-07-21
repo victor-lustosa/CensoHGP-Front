@@ -1,3 +1,6 @@
+import { Departamento } from '../../departamentos/model/departamento';
+import { Usuario } from '../../usuarios/model/usuario';
+
 export interface Paciente {
   idPaciente: number;
   prontuario: string;
@@ -5,11 +8,13 @@ export interface Paciente {
   nomeMae: string;
   cpf: string;
   rg: string;
-  genero: number;
+  genero: string;
   dataNascimento: Date;
   precaucao: number[];
-  departamento: number;
+  departamento: Departamento;
   checklist: number;
   transferencia: number;
   matriculaUsuario: string;
+  sexo: number;
+  usuario:Usuario;
 }

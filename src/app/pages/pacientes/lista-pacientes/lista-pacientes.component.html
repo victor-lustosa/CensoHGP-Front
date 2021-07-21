@@ -2,32 +2,31 @@
   <div class="col-md-12">
     <app-card cardTitle="Consulta de Pacientes" blockClass="table-border-style">
       <div class="row">
-        <div class="col-sm-12">
-          <button style="float:right" type="reset" class="btn btn-warning" (click)="limpar()"><i class="feather icon-delete"></i> Limpar</button>
-          <div class="input-group col-md-3" style="float:right">
-            <input type="text"  class="form-control" name="pesquisa" [(ngModel)]="searchText" (ngModelChange)="verifica()" placeholder="Pesquisar">
+        <div class="col-12 col-12 col-sm-12 col-md-12 ">
+          <button type="button"  class="btn btn-primary font-size" (click)="cadastrar()"><i class="feather icon-plus-square"></i> Cadastrar</button>
+            <label class="dep font-size" for="departamento">Departamento:</label>
+          <div class="col-8 col-sm-3 col-md-2 col-lg-2" style="display:inline-block;margin-left:-5px;">
+            <select (ngModelChange)="filtroDepartamento($event)" class="custom-select font-size" id="departamento" [(ngModel)]="departamento">
+              <option value=''>Todos</option>
+              <option *ngFor="let departamento of listaDepartamento" [value]="departamento.nome">{{ departamento.nome  }}</option>
+            </select>
           </div>
-          <button  style="float:left" type="button" class="btn btn-primary"  (click)="cadastrar()" ><i class="feather icon-plus-square"></i> Cadastrar</button>
-          <div class="row" >
-            <div class="form-group  col-6 d-flex justify-content-between">
-              <label for="departamento" class="form-check-label mr-2">Departamento:</label>
-              <select (ngModelChange)="filtroDepartamento($event)" class="custom-select" id="departamento"  [(ngModel)]="departamento">
-                <option *ngFor="let departamento of listaDepartamento" [value]="departamento.valor">{{ departamento.nome  }}</option>
-              </select>
-            </div>
+          <button style="display:inline-block;" type="reset" class="btn btn-warning desktop font-size" (click)="limpar()"><i class="feather icon-delete"></i> Limpar</button>
+          <div class="col-7 col-sm-4 col-md-3 pes" style=" " >
+            <input type="text" class="form-control font-size"  name="pesquisa" [(ngModel)]="searchText" (ngModelChange)="verifica()" placeholder="Pesquisar">
+          </div>
         </div>
       </div>
-      </div>
       <br>
-      <div class="table-responsive"  >
+      <div class="table-responsive ">
         <table class="table table-hover" *ngIf="(lista | filter: searchText).length > 0; else noResults">
           <thead>
             <tr align="center">
-              <th scope="col">Prontuário</th>
-              <th scope="col">Nome</th>
-              <th scope="col">CPF</th>
-              <th scope="col">Departamento</th>
-              <th scope="col"></th>
+              <th style="font-size:12px" scope="col">Prontuário</th>
+              <th style="font-size:12px" scope="col">Nome</th>
+              <th style="font-size:12px" scope="col">CPF</th>
+              <th style="font-size:12px" scope="col">Departamento</th>
+              <th style="font-size:12px" scope="col"></th>
             </tr>
           </thead>
           <tbody>
@@ -36,31 +35,32 @@
               <td class="td padding">{{paciente.nome}}</td>
               <td class="padding">{{paciente.cpf}}</td>
               <td class="padding">{{paciente.departamento.nome}}</td>
-              <td class="padding text-right" >
-                <div ngbDropdown container="body" >
-                  <button  class="btn btn-info  buttonDrop" ngbDropdownToggle type="button"><i class="feather icon-plus-circle"></i> Ações</button>
-                  <div ngbDropdownMenu  >
-                    <button class="dropdown-item button"  (click)="editar(paciente.idPaciente)"><i class="feather icon-edit"></i> Editar</button>
-                    <button class="dropdown-item button"  (click)="descricao(paciente.idPaciente)"><i class="feather icon-eye"></i> Visualizar</button>
+              <td class="padding text-right">
+                <div ngbDropdown container="body">
+                  <button class="font-size font-size btn btn-info  buttonDrop" ngbDropdownToggle type="button"><i class="feather icon-plus-circle"></i> Ações</button>
+                  <div ngbDropdownMenu>
+                    <button class="font-size dropdown-item button" (click)="editar(paciente.idPaciente)"><i class="feather icon-edit"></i> Editar</button>
+                    <button class="font-size dropdown-item button" (click)="descricao(paciente)"><i class="feather icon-eye"></i> Visualizar</button>
                     <div class="dropdown-divider"></div>
-                    <button class="dropdown-item button" (click)="gerarChecklist(paciente.idPaciente, paciente.nome)"><i class="feather icon-check-square"></i> Checklist</button>
-                    <button class="dropdown-item button"  (click)="historicoChecklist(paciente.idPaciente)"><i class="feather icon-clipboard"></i> Histórico checklist</button>
+                    <button class="font-size dropdown-item button" (click)="gerarChecklist(paciente.idPaciente, paciente.nome)"><i class="feather icon-check-square"></i> Checklist</button>
+                    <button class="font-size dropdown-item button" (click)="historicoChecklist(paciente.idPaciente)"><i class="feather icon-clipboard"></i> Histórico checklist</button>
                     <div class="dropdown-divider"></div>
-                    <button class="dropdown-item button" (click)="gerarTransferencia(paciente.idPaciente, paciente.nome)"><i class="feather icon-external-link"></i> Transferência</button>
-                    <button class="dropdown-item button" href="javascript:"><i class="feather icon-file-text"></i> Histórico Transferencia</button>
+                    <button class="font-size dropdown-item button" (click)="gerarTransferencia(paciente.idPaciente, paciente.nome)"><i class="feather icon-external-link"></i> Transferência</button>
+                    <button class="font-size dropdown-item button" href="javascript:"><i class="feather icon-file-text"></i> Histórico Transferencia</button>
                   </div>
                 </div>
               </td>
-            </tbody>
-          </table>
-          <pagination-controls *ngIf="statusSpinner===false && lista.length > 0" maxSize="5" responsive="true" directionLinks="true" autoHide="true" class="d-flex justify-content-center" (pageChange)="paginaAtual = $event" previousLabel="Anterior" nextLabel="Próximo"></pagination-controls>
-          <ng-template #noResults>
-            <p *ngIf="statusSpinner === false">Nenhum resultado encontrado.</p>
-          </ng-template>
-        </div>
-        <div class="spinner" *ngIf="statusSpinner === true">
-          <div class="spinner-border text-primary size" role="status"></div>
-        </div>
-      </app-card>
-    </div>
+          </tbody>
+        </table>
+        <pagination-controls *ngIf="statusSpinner===false && lista.length > 0" maxSize="5" responsive="true" directionLinks="true" autoHide="true" class="d-flex justify-content-center" (pageChange)="paginaAtual = $event" previousLabel="Anterior"
+          nextLabel="Próximo"></pagination-controls>
+        <ng-template #noResults>
+          <p *ngIf="statusSpinner === false">Nenhum resultado encontrado.</p>
+        </ng-template>
+      </div>
+      <div class="spinner" *ngIf="statusSpinner === true">
+        <div class="spinner-border text-primary size" role="status"></div>
+      </div>
+    </app-card>
   </div>
+</div>
