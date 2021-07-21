@@ -6,7 +6,6 @@ import { Fator } from '../../checklists/fatores-risco/model/fator';
 import { Precaucao } from '../../precaucoes/model/precaucao';
 export interface ChecklistDTO {
   idChecklist: number;
-  precaucao: Precaucao[];
   fatorRisco: Fator[];
   procedimento: Procedimento[];
   incidente: Incidente[];

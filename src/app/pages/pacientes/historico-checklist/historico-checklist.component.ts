@@ -63,7 +63,7 @@ export class HistoricoChecklistComponent implements OnInit {
   //   });
   // }
 
-  voltar() {
+  cadastrar() {
     this.router.navigate(['/pacientes/gerenciar-pacientes']);
   }
 
@@ -74,7 +74,5 @@ export class HistoricoChecklistComponent implements OnInit {
     modalRef.componentInstance.checklist = checklist;
   }
 
-  cadastrar() {
 
-  }
 }
