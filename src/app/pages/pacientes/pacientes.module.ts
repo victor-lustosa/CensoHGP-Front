@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { PacientesRoutingModule } from './pacientes-routing.module';
 import { ChecklistResolver } from './guards/checklist.resolver';
+import { TransferenciaResolver } from './guards/transferencia.resolver';
 import { PacienteService } from './service/paciente.service';
 
 @NgModule({
@@ -10,6 +11,6 @@ import { PacienteService } from './service/paciente.service';
   imports: [
     CommonModule,
     PacientesRoutingModule,
-  ],providers: [ChecklistResolver,PacienteService]
+  ],providers: [ChecklistResolver, TransferenciaResolver, PacienteService]
 })
 export class PacientesModule { }

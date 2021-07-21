@@ -1,0 +1,53 @@
+<div class="row">
+    <div class="col-md-12">
+      <app-card cardTitle="Transferências " blockClass="table-border-style">
+        <div class="row">
+          <div class="col-sm-12">
+            <button style="float:right" type="reset" class="btn btn-warning" (click)="limpar()"><i class="feather icon-delete"></i> Limpar</button>
+            <div class="input-group col-md-3" style="float:right">
+              <input type="text"  class="form-control" name="pesquisa" [(ngModel)]="searchText" (ngModelChange)="verifica()" placeholder="Pesquisar">
+            </div>
+            <button  style="float:left" type="button" class="btn btn-primary"  (click)="cadastrar()" ><i class="feather icon-plus-square"></i> Fazer transferência</button>
+          </div>
+        </div>
+        <br>
+        <div class="table-responsive"  >
+          <table class="table table-hover" *ngIf="(transferencias | filter: searchText).length > 0; else noResults">
+            <thead>
+              <tr align="center">
+                <th scope="col">Prontuario</th>
+                <th scope="col">Nome do paciente</th>
+                <th scope="col">Usuário</th>
+                <th scope="col">Data</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let transferencia of transferencias| filter: searchText | paginate: { itemsPerPage: contador, currentPage: paginaAtual }" align="center">
+                 <td class="td padding">{{transferencia.paciente.prontuario}}</td>
+                <td class="td padding">{{transferencia.paciente.nome}}</td>
+                <td class="td padding">{{transferencia.usuario.nome}}</td>
+                <td class="td padding">{{transferencia.dataTransferencia}}</td>
+  
+                <td class="padding text-right" >
+                  <div ngbDropdown container="body" >
+                    <button  class="btn btn-info  buttonDrop" ngbDropdownToggle type="button"><i class="feather icon-plus-circle"></i> Ações</button>
+                    <div ngbDropdownMenu  >
+  
+                      <button class="dropdown-item button"><i class="feather icon-eye"></i> Visualizar</button>
+                    </div>
+                  </div>
+                </td>
+              </tbody>
+            </table>
+            <pagination-controls *ngIf="statusSpinner===false && transferencias.length > 0" maxSize="5" responsive="true" directionLinks="true" autoHide="true" class="d-flex justify-content-center" (pageChange)="paginaAtual = $event" previousLabel="Anterior" nextLabel="Próximo"></pagination-controls>
+            <ng-template #noResults>
+              <p *ngIf="statusSpinner === false">Nenhum resultado encontrado.</p>
+            </ng-template>
+          </div>
+          <div class="spinner" *ngIf="statusSpinner === true">
+            <div class="spinner-border text-primary size" role="status"></div>
+          </div>
+        </app-card>
+      </div>
+</div>

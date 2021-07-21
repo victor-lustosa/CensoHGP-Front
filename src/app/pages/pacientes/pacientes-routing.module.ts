@@ -1,8 +1,7 @@
 import { ChecklistResolver } from './guards/checklist.resolver';
+import { TransferenciaResolver } from './guards/transferencia.resolver';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { PacienteService } from './service';
-
 
 const routes: Routes = [
   {
@@ -15,7 +14,12 @@ const routes: Routes = [
       {
         path: 'historico-checklist/:id',resolve: {checklists: ChecklistResolver},
         loadChildren: () => import('./historico-checklist/historico-checklist.module').then(module => module.HistoricoChecklistModule)
-      }    ]
+      },
+      {
+        path: 'historico-transferencia/:id',resolve: {transferencias: TransferenciaResolver},
+        loadChildren: () => import('./historico-transferencia/historico-transferencia.module').then(module => module.HistoricoTransferenciaModule)
+      }   
+    ]
   }
 ];
 
