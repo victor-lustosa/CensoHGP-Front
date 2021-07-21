@@ -4,6 +4,7 @@ import { PacienteService } from '../service/paciente.service';
 import { CadastroPacienteComponent } from '../cadastro-paciente/cadastro-paciente.component';
 import { PacienteDTO } from '../model/Paciente.dto';
 import { ChecklistPacienteComponent } from '../checklist-paciente/checklist-paciente.component';
+import { TransferenciaPacienteComponent } from '../transferencia-paciente/transferencia-paciente.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DescricaoPacienteComponent } from '../descricao-paciente/descricao-paciente.component';
 import { DepartamentoService } from '../../departamentos/service';
@@ -97,11 +98,16 @@ export class ListaPacientesComponent implements OnInit {
 
   historicoChecklist(id:number){
     this.router.navigate(['/pacientes/historico-checklist', id], { relativeTo: this.route });
-}
+  }
 
-gerarTransferencia(id:number, nome:string){
-  this.router.navigate(['/pacientes/transferencia-paciente/'+ id]);
-}
+  gerarTransferencia(id:number, nome:string){
+    const modalRef = this.modalService.open(TransferenciaPacienteComponent, this.MODALOPTIONS);
+    modalRef.componentInstance.idPaciente = id;
+    modalRef.componentInstance.nomePaciente = nome;
+  }
+  historicoTransferencia(id:number){
+    this.router.navigate(['/pacientes/historico-transferencia', id], { relativeTo: this.route });
+  }
 
   descricao(paciente:Paciente) {
         const modalRef = this.modalService.open(DescricaoPacienteComponent, this.MODALOPTIONS);

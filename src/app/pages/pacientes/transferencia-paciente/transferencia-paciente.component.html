@@ -1,30 +1,23 @@
-<div class="modal-content">
-    <div class="modal-header">
-      <h5  class="modal-title">Transferência Paciente -  </h5><h5  class="modal-title" style="color: 1a85ff;"> {{nomePaciente}}</h5>
-      <button type="reset" class="close basic-close" data-dismiss="modal" aria-label="Close" (click)="activeModal.close()"><span aria-hidden="true">&times;</span></button>
+<div class="modal-content"  >
+  <div class="modal-header">
+    <h5  class="modal-title">Transferencia Paciente -  </h5><h5  class="modal-title" style="color: 1a85ff;"> {{nomePaciente}}</h5>
+    <button type="reset" class="close basic-close" data-dismiss="modal" aria-label="Close" (click)="activeModal.close()"><span aria-hidden="true">&times;</span></button>
+  </div>
+
+  <div class="modal-body">
+      <h3> Em desenvolvimento...</h3>
+    
+  </div>
+
+  <div class="modal-footer">
+    <div style="margin-left: 200px;">
+      <button type="submit" 
+              class="btn btn-primary" 
+              style="margin-left:-16%; font-size: 16px;"
+              (click)="valid()"
+              disabled=true
+              ><i class="feather icon-save"></i> Salvar
+      </button>
     </div>
-    <div class="modal-body">
-      <div class="col-md-13">
-        <app-alert type="primary" *ngIf="sucesso == true">Salvo com sucesso!</app-alert>
-      </div>
-      <div class="col-md-13">
-        <app-alert type="danger" *ngIf="mensagemErro!==''">{{mensagemErro}}</app-alert>
-      </div>
-      <form  [formGroup]="formulario">
-        <label for="departamentoOrigem">Paciente está no departamento: Departamento origem aqui</label>
-        <label for="departamentoDestino">Transferir para: Departamento destino aqui</label>
-        <div class="col-8 col-sm-3 col-md-2 col-lg-2" style="display:inline-block;margin-left:-5px;">
-            <select (ngModelChange)="filtroDepartamento($event)" class="custom-select font-size" id="departamento" [(ngModel)]="departamento">
-              <option value=''>Selecione...</option>
-              <option *ngFor="let departamento of listaDepartamento" [value]="departamento.nome">{{ departamento.nome  }}</option>
-            </select>
-        </div>
-        </form>
-    </div>
-    <div class="modal-footer">
-      <div style="margin-left: 200px;">
-        <button type="submit" class="btn btn-primary" style="margin-left:-16%; font-size: 16px;"(click)="valid()"><i
-          class="feather icon-save"></i> Salvar</button>
-        </div>
-      </div>
-</div>  
+  </div>
+</div>
