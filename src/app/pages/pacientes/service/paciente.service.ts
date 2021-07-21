@@ -1,5 +1,6 @@
 import { ChecklistDTO } from './../model/Checklist.dto';
 import { Checklist } from './../model/Checklist';
+import { Transferencia } from '../model/Transferencia';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
@@ -31,11 +32,19 @@ export class PacienteService extends CRUD<Paciente> {
       .pipe(retry(1), catchError(this.handleError));
   }
 
+  createTransferencia(transferencia: Transferencia): Observable<Transferencia> {
+    return this.http.post<Transferencia>(`${environment.API}apicensohgp/transferencia`, transferencia)
+      .pipe(retry(1), catchError(this.handleError));
+  }
+
   getAllChecklistPaciente(idPaciente: number): Observable<any> {
         return this.http.get<any>(`${environment.API}apicensohgp/checklists/paciente/${idPaciente}`)
       .pipe(retry(1), catchError(this.handleError));
   }
-
+  getAllTransferenciaPaciente(idPaciente: number): Observable<any> {
+    return this.http.get<any>(`${environment.API}apicensohgp/transferencias/paciente/${idPaciente}`)
+  .pipe(retry(1), catchError(this.handleError));
+  }
   createPaciente(paciente: Paciente, matriculaUsuario: string): Observable<Paciente> {
     const httpParams = new HttpParams()
       .set("matriculaUsuario", matriculaUsuario);

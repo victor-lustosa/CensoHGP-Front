@@ -8,4 +8,5 @@ export interface Transferencia {
     departamentoOrigem: Departamento;
     departamentoDestino: Departamento;
     observacao: string;
+    dtaTransferencia: Date;
 }
