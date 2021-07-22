@@ -19,6 +19,7 @@ export class TransferenciaPacienteComponent implements OnInit {
   @Input() idPaciente: number;
   @Input() nomePaciente: string;
   @Input() prontuario: string;
+  @Input() departamentoOrigem: string;
   listaDepartamento: Departamento[] = [];
   departamentoDestino: string = '';
   jwtHelper: JwtHelperService = new JwtHelperService();

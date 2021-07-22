@@ -45,7 +45,7 @@
                     <button class="font-size dropdown-item button" (click)="gerarChecklist(paciente.idPaciente, paciente.nome)"><i class="feather icon-check-square"></i> Checklist</button>
                     <button class="font-size dropdown-item button" (click)="historicoChecklist(paciente.idPaciente)"><i class="feather icon-clipboard"></i> Histórico checklist</button>
                     <div class="dropdown-divider"></div>
-                    <button class="font-size dropdown-item button" (click)="gerarTransferencia(paciente.idPaciente, paciente.nome, paciente.prontuario)"><i class="feather icon-external-link"></i> Transferência</button>
+                    <button class="font-size dropdown-item button" (click)="gerarTransferencia(paciente.idPaciente, paciente.nome, paciente.prontuario, paciente.departamento.nome)"><i class="feather icon-external-link"></i> Transferência</button>
                     <button class="font-size dropdown-item button" (click)="historicoTransferencia(paciente.idPaciente)"><i class="feather icon-clipboard"></i> Histórico Transferência</button>
                   </div>
                 </div>
