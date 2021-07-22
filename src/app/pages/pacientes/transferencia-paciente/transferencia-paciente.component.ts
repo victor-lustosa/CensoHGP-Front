@@ -19,7 +19,7 @@ export class TransferenciaPacienteComponent implements OnInit {
   @Input() nomePaciente: string;
   @Input() prontuario: string;
   listaDepartamento: Departamento[] = [];
-  departamento: string = '';
+  departamentoDestino: string = '';
   jwtHelper: JwtHelperService = new JwtHelperService();
 
   static atualizando = new EventEmitter<boolean>();
@@ -40,7 +40,7 @@ export class TransferenciaPacienteComponent implements OnInit {
     this.loadListaDepartamento();
     this.formulario = this.formBuilder.group({
       idTransferencia: [null],
-      departamento: [null],
+      departamentoDestino: [null],
       observacao: [null]
     });
   }
@@ -74,9 +74,10 @@ export class TransferenciaPacienteComponent implements OnInit {
   saveTransferencias() {
     if (this.formulario.valid) {
       this.transferencia = this.formulario.value as Transferencia;
-      this.transferencia.matriculaUsuario = this.jwtHelper.decodeToken(this.storage.getLocalUser().token).sub.substring(13);
+      this.transferencia.matricula = this.jwtHelper.decodeToken(this.storage.getLocalUser().token).sub.substring(13);
       this.transferencia.idPaciente= this.idPaciente;
       if (this.transferencia != null) {
+        console.log(this.transferencia);
         this.pacientesService.createTransferencia(this.transferencia)
         .subscribe(
           () => {

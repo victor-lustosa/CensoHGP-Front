@@ -10,13 +10,19 @@
       <br>
       <div class="row col-6 col-md-6" style="display: inline-block;">
         <label>Departamento:</label>
-        <select class="form-control" id="departamento" formControlName="departamento" [(ngModel)]="departamento">
+        <select class="form-control" id="departamentoDestino" formControlName="departamentoDestino" [(ngModel)]="departamentoDestino">
           <option value="">Selecione...</option>
           <option *ngFor="let departamento of listaDepartamento" [value]="departamento.idDepartamento">{{departamento.nome}}</option>
         </select>
         <br>
       </div>
       <br>
+      <label for="observacao">Observação:</label>
+      <textarea
+        id="observacao"class="form-control" aria-describedby="obserHelp"
+        placeholder="Digite a Observação" formControlName="observacao"
+        rows="5"
+      ></textarea>
     </form>
   </div>
 
@@ -26,7 +32,6 @@
               class="btn btn-primary" 
               style="margin-left:-16%; font-size: 16px;"
               (click)="valid()"
-              disabled=true
               ><i class="feather icon-save"></i> Salvar
       </button>
     </div>
