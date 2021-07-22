@@ -2,9 +2,11 @@ import { Transferencia } from '../model/Transferencia';
 import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 import { PacienteService } from '../service/paciente.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormBuilder, FormArray} from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { StorageService } from '../../auth/service/storage.service';
+import { Departamento } from '../../departamentos/model/departamento';
+import { DepartamentoService } from '../../departamentos/service';
 
 @Component({
   selector: 'app-transferencia-paciente',
@@ -12,11 +14,12 @@ import { StorageService } from '../../auth/service/storage.service';
   styleUrls: ['./transferencia-paciente.component.scss']
 })
 export class TransferenciaPacienteComponent implements OnInit {
- 
   public formulario: FormGroup;
   @Input() idPaciente: number;
   @Input() nomePaciente: string;
-
+  @Input() prontuario: string;
+  listaDepartamento: Departamento[] = [];
+  departamento: string = '';
   jwtHelper: JwtHelperService = new JwtHelperService();
 
   static atualizando = new EventEmitter<boolean>();
@@ -29,17 +32,24 @@ export class TransferenciaPacienteComponent implements OnInit {
     private storage: StorageService, 
     public activeModal: NgbActiveModal, 
     private formBuilder: FormBuilder,
+    private departamentoService: DepartamentoService,
     private pacientesService: PacienteService
   ) { }
 
   ngOnInit(): void {
+    this.loadListaDepartamento();
     this.formulario = this.formBuilder.group({
       idTransferencia: [null],
-      incidente: new FormArray([]),
-      procedimento: new FormArray([]),
-      fatorRisco: new FormArray([]),
+      departamento: [null],
       observacao: [null]
     });
+  }
+  loadListaDepartamento() {
+    this.departamentoService.getAllAtivos()
+      .subscribe(
+        data => {
+          this.listaDepartamento = data;
+        });
   }
 
   public verificaValidTouched(campo: any) {

@@ -1,4 +1,5 @@
 import { ChecklistPacienteComponent } from './../checklist-paciente/checklist-paciente.component';
+import { TransferenciaPacienteComponent } from '../transferencia-paciente/transferencia-paciente.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -15,7 +16,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 
 @NgModule({
-  declarations: [ChecklistPacienteComponent, DescricaoPacienteComponent,ListaPacientesComponent, CadastroPacienteComponent, PacientesFilterPipe],
+  declarations: [ChecklistPacienteComponent, TransferenciaPacienteComponent, DescricaoPacienteComponent,ListaPacientesComponent, CadastroPacienteComponent, PacientesFilterPipe],
   imports: [
     CommonModule,
     ListaPacientesRoutingModule,
@@ -26,6 +27,6 @@ import { BrowserModule } from '@angular/platform-browser';
     NgbModule,
     NgxPaginationModule
   ],
-  bootstrap:[CadastroPacienteComponent, ChecklistPacienteComponent]
+  bootstrap:[CadastroPacienteComponent, TransferenciaPacienteComponent, ChecklistPacienteComponent]
 })
 export class ListaPacientesModule { }

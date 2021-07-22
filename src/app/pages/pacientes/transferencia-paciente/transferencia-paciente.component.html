@@ -5,8 +5,19 @@
   </div>
 
   <div class="modal-body">
-      <h3> Em desenvolvimento...</h3>
-    
+    <form [formGroup]="formulario">
+      <label for="nome">Prontuário: {{prontuario}}</label>
+      <br>
+      <div class="row col-6 col-md-6" style="display: inline-block;">
+        <label>Departamento:</label>
+        <select class="form-control" id="departamento" formControlName="departamento" [(ngModel)]="departamento">
+          <option value="">Selecione...</option>
+          <option *ngFor="let departamento of listaDepartamento" [value]="departamento.idDepartamento">{{departamento.nome}}</option>
+        </select>
+        <br>
+      </div>
+      <br>
+    </form>
   </div>
 
   <div class="modal-footer">
