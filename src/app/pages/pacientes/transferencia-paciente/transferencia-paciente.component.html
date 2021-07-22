@@ -5,6 +5,12 @@
   </div>
 
   <div class="modal-body">
+    <div class="col-md-13">
+      <app-alert type="primary" *ngIf="sucesso == true">salvo com sucesso</app-alert>
+    </div>
+    <div class="col-md-13">
+      <app-alert type="danger" *ngIf="mensagemErro!==''">{{mensagemErro}}</app-alert>
+    </div>
     <form [formGroup]="formulario">
       <label for="nome">Prontuário: {{prontuario}}</label>
       <br>

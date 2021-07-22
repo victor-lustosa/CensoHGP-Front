@@ -1,6 +1,7 @@
 import { Transferencia } from '../model/Transferencia';
 import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 import { PacienteService } from '../service/paciente.service';
+import { CadastroPacienteComponent } from '../cadastro-paciente/cadastro-paciente.component';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -83,7 +84,7 @@ export class TransferenciaPacienteComponent implements OnInit {
           () => {
             this.sucesso = true,
             this.formulario.reset(),
-            TransferenciaPacienteComponent.atualizando.emit(this.at),
+            CadastroPacienteComponent.atualizando.emit(this.at),
             setTimeout(() => {
               this.activeModal.close();
             }, 500);

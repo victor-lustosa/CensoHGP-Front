@@ -7,7 +7,6 @@
           <div class="input-group col-md-3" style="float:right">
             <input type="text"  class="form-control" name="pesquisa" [(ngModel)]="searchText" (ngModelChange)="verifica()" placeholder="Pesquisar">
           </div>
-          <button  style="float:left" type="button" class="btn btn-primary"  (click)="cadastrar()" ><i class="feather icon-plus-square"></i> Transferir paciente</button>
         </div>
       </div>
       <br>
@@ -31,14 +30,14 @@
               <td class="td padding">{{transferencia.usuario.nome}}</td>
               <td class="td padding">{{transferencia.departamentoOrigem}}</td>
               <td class="td padding">{{transferencia.departamentoDestino}}</td>
-              <td class="td padding">{{transferencia.dataTransferencia | date: 'dd/MM/yyyy' }}</td>
+              <td class="td padding">{{transferencia.dataTransferencia | date: 'dd/MM/yyyy HH:mm' }}</td>
 
               <td class="padding text-right" >
                 <div ngbDropdown container="body" >
                   <button  class="btn btn-info  buttonDrop" ngbDropdownToggle type="button"><i class="feather icon-plus-circle"></i> Ações</button>
                   <div ngbDropdownMenu  >
 
-                    <button class="dropdown-item button" ><i class="feather icon-eye"></i> Visualizar</button>
+                    <button class="dropdown-item button" (click)="descricao(transferencia)"><i class="feather icon-eye"></i> Visualizar</button>
                   </div>
                 </div>
               </td>

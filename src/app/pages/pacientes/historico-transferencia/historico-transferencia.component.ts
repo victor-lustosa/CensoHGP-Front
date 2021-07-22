@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
-
+import { Transferencia } from '../model/Transferencia';
+import { DescricaoHistoricoTransferenciaComponent } from '../descricao-historico-transferencia/descricao-historico-transferencia.component';
 @Component({
   selector: 'app-historico-transferencia',
   templateUrl: './historico-transferencia.component.html',
@@ -51,5 +52,11 @@ export class HistoricoTransferenciaComponent implements OnInit {
 
   cadastrar() {
     this.router.navigate(['/pacientes/gerenciar-pacientes']);
+  }
+
+  descricao(transferencia: Transferencia) {
+    const modalRef = this.modalService.open(DescricaoHistoricoTransferenciaComponent, this.MODALOPTIONS);
+    modalRef.componentInstance.tituloModal = 'Descrição de transferência';
+    modalRef.componentInstance.transferencia = transferencia;
   }
 }

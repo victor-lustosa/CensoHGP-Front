@@ -1,0 +1,59 @@
+<div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">{{ tituloModal }}</h5>
+      <button
+        type="button"
+        class="close basic-close"
+        data-dismiss="modal"
+        aria-label="Close"
+        (click)="activeModal.close()"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div>
+        <span> <b>Paciente: </b> {{ transferencia.paciente.nome }}</span>
+      </div>
+   <br/>
+      <div>
+        <span> <b>Prontuario: </b> {{ transferencia.paciente.prontuario }}</span>
+      </div>
+      <br />
+      <div>
+        <span
+          ><b>Quem fez - </b> <b>{{ transferencia.usuario.perfil }}: </b>
+          {{ transferencia.usuario.nome }}</span
+        >
+      </div>
+      <br />
+  <div>
+        <span><b>Data e hora - </b> {{ transferencia.dataCadastroFormatada }}</span>
+      </div>
+      <br />
+      <div>
+        <b>Departamento Origem: </b>
+        <span   style="word-break: break-word" >
+         <br> {{ transferencia.departamentoOrigem}}
+        </span>
+      </div>
+      <br/>
+      <div  >
+        <b>Departamento Destino: </b>
+        <span   style="word-break: break-word">
+        <br>  {{ transferencia.departamentoDestino }}
+        </span>
+      </div>
+      <br/>
+      <div>
+        <span>
+          <b>Observação: </b>
+          <span style="word-break: break-word">
+           <br> {{ transferencia.observacao }}</span
+          ></span>
+        <!-- <textarea disabled="" class="form-control" id="descricao" [value] =""rows="5"></textarea> -->
+      </div>
+    </div>
+    <div class="modal-footer"></div>
+  </div>
+  
