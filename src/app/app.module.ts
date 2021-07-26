@@ -31,8 +31,9 @@ import { UsuarioService } from './pages/usuarios/service/usuario.service';
 import { AuthGuard } from './pages/auth/guards';
 import { ChecklistResolver } from './pages/pacientes/guards/checklist.resolver';
 import { PacienteService } from './pages/pacientes/service/paciente.service';
+import { NgxMaskModule, IConfig } from 'ngx-mask';
 
-
+export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import { PacienteService } from './pages/pacientes/service/paciente.service';
     NavSearchComponent,
     NavRightComponent,
     ConfigurationComponent,
-    ToggleFullScreenDirective
+    ToggleFullScreenDirective,
+
   ],
   imports: [
     BrowserModule,
@@ -61,7 +63,9 @@ import { PacienteService } from './pages/pacientes/service/paciente.service';
     NgbTooltipModule,
     NgbButtonsModule,
     NgbTabsetModule,
-    HttpClientModule  ],
+    HttpClientModule,
+    NgxMaskModule.forRoot(),
+      ],
     providers: [
       UsuarioService,
       StorageService,

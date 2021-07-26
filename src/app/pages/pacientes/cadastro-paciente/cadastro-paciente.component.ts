@@ -2,6 +2,7 @@ import { Component, OnInit, EventEmitter, Input } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { cpuUsage } from 'process';
 import { StorageService } from '../../auth/service/storage.service';
 import { Departamento } from '../../departamentos/model/departamento';
 import { DepartamentoService } from '../../departamentos/service';
@@ -23,10 +24,10 @@ export class CadastroPacienteComponent implements OnInit {
   listaSexos: any[] = [];
   listaDepartamento: Departamento[] = [];
   sucesso: boolean = false;
-  @Input() editar:boolean;
+  @Input() editar: boolean;
   at: boolean = true;
   departamento: string = '';
-  genero:string = '';
+  genero: string = '';
   @Input() public paciente: Paciente;
   static atualizando = new EventEmitter<boolean>();
   jwtHelper: JwtHelperService = new JwtHelperService();
@@ -61,7 +62,7 @@ export class CadastroPacienteComponent implements OnInit {
       prontuario: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
       nome: [null],
       nomeMae: [null],
-      cpf: [null],
+      cpf: [null, this.cpfValidator],
       genero: [null],
       rg: [null],
       dataNascimento: [null],
@@ -69,6 +70,18 @@ export class CadastroPacienteComponent implements OnInit {
       departamento: [null]
     });
   }
+  cpfAux: string;
+  cpfValidator(control: FormControl) {
+    this.cpfAux = control.value;
+
+    if (  this.cpfAux !== '') {
+      const validaCPF = /(\d{3})(\d{3})(\d{3})(\d{2})/;
+      return validaCPF.test(this.cpfAux) ? null : { cepInvalido: 'CPF inválido' };
+    }
+    return null;
+  }
+
+
   updateForm(paciente: Paciente) {
     this.formulario.patchValue({
       idPaciente: paciente.idPaciente,
@@ -79,7 +92,7 @@ export class CadastroPacienteComponent implements OnInit {
       rg: paciente.rg,
       dataNascimento: paciente.dataNascimento,
       precaucao: paciente.precaucao,
-      departamento:paciente.departamento.idDepartamento,
+      departamento: paciente.departamento.idDepartamento,
       genero: paciente.genero[0]
     });
   }

@@ -12,11 +12,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PacientesFilterPipe } from './pacientes-filter.pipe';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { DescricaoPacienteComponent } from '../descricao-paciente/descricao-paciente.component';
-import { BrowserModule } from '@angular/platform-browser';
+import { NgxMaskModule } from 'ngx-mask';
 
 
 @NgModule({
-  declarations: [ChecklistPacienteComponent, TransferenciaPacienteComponent, DescricaoPacienteComponent,ListaPacientesComponent, CadastroPacienteComponent, PacientesFilterPipe],
+  declarations: [ChecklistPacienteComponent, TransferenciaPacienteComponent, DescricaoPacienteComponent,ListaPacientesComponent,
+     CadastroPacienteComponent, PacientesFilterPipe],
   imports: [
     CommonModule,
     ListaPacientesRoutingModule,
@@ -25,7 +26,8 @@ import { BrowserModule } from '@angular/platform-browser';
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    NgxMaskModule.forChild()
   ],
   bootstrap:[CadastroPacienteComponent, TransferenciaPacienteComponent, ChecklistPacienteComponent]
 })
