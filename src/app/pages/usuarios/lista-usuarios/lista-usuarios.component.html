@@ -7,13 +7,15 @@
 
             <label for="tipodeusuario" class="drop font-size">Tipo:</label>
               <div  class="col-8 col-sm-3 col-md-2 col-lg-2" style="display:inline-block;margin-left:-10px;">
-                <select (ngModelChange)="filtroTipoUsuario($event)" class="custom-select font-size" id="tipodeusuario"  [(ngModel)]="tipoUsuario">
-                  <option *ngFor="let tipoUsuario of listaTipoUsuario" [value]="tipoUsuario.valor">{{ tipoUsuario.nome  }}</option>
+                <select (ngModelChange)="filtroTipoUsuario($event)" class="custom-select font-size" id="perfil"  [(ngModel)]="perfil">
+                  <option value=''>Todos</option>
+                  <option *ngFor="let perfil of listaPerfis" [value]="perfil">{{perfil}}</option>
                 </select>
               </div>
                 <label for="ativo" class="font-size">Status:</label>
               <div class="col-8 col-sm-3 col-md-2 col-lg-2" style="display:inline-block;margin-left:-10px;">
                 <select (ngModelChange)="filtroStatus($event)" class="custom-select font-size" id="ativo" [(ngModel)]="ativo">
+                  <option value=''>Todos</option>
                   <option *ngFor="let ativo of listaAtivo" [value]="ativo.valor">{{ ativo.nome  }}</option>
                 </select>
               </div>
@@ -48,8 +50,8 @@
                 <div ngbDropdown  container="body" >
                   <button placement="left"  class="btn btn-info buttonDrop font-size" ngbDropdownToggle type="button" id="opcoes"><i class="feather icon-plus-circle"></i> ações</button>
                   <div ngbDropdownMenu  >
-                    <button *ngIf="user.ativo=== true"  class="dropdown-item button font-size" (click)="editar(user.idUsuario)"><i class="feather icon-edit"></i> Editar</button>
-                    <button class="dropdown-item button font-size"  (click)="pegaId(user.idUsuario);confirmaModal.show()"><i class="feather icon-{{user.ativo ? 'minus-circle' : 'power'}}"></i> {{user.ativo ? 'Desativar' : 'Ativar'}}</button>
+                    <button *ngIf="user.ativo=== true"  class="dropdown-item button font-size" (click)="editar(user)"><i class="feather icon-edit"></i> Editar</button>
+                    <button class="dropdown-item button font-size"  (click)="pegaUsuario(user);confirmaModal.show()"><i class="feather icon-{{user.ativo ? 'minus-circle' : 'power'}}"></i> {{user.ativo ? 'Desativar' : 'Ativar'}}</button>
                   </div>
                 </div>
               </td>

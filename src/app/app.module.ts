@@ -29,8 +29,6 @@ import { TokenInterceptorProvider } from './pages/auth/service/token.interceptor
 import { StorageService } from './pages/auth/service/storage.service';
 import { UsuarioService } from './pages/usuarios/service/usuario.service';
 import { AuthGuard } from './pages/auth/guards';
-import { ChecklistResolver } from './pages/pacientes/guards/checklist.resolver';
-import { PacienteService } from './pages/pacientes/service/paciente.service';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;

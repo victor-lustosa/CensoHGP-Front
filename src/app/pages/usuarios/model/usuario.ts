@@ -5,6 +5,6 @@ export interface Usuario {
   matricula: string;
   senha: string;
   ativo: boolean;
-  perfil: number;
+  perfil: string;
   senhaNovamente: string;
 }

@@ -12,14 +12,14 @@ import { UsuarioService } from '../service/usuario.service';
 export class CadastroUsuarioComponent implements OnInit {
   public formulario: FormGroup;
   @Input() public usuario: Usuario;
-  tipoUsuarios: any[];
+  listaPerfis: string[];
   sucesso: boolean = false;
   @Input() tituloModal: string;
   static atualizando = new EventEmitter<boolean>();
   at: boolean = true;
   validaSenha: boolean = false;
   mensagemErro: string = '';
-
+  perfil: string = '';
   constructor(
     public activeModal: NgbActiveModal, public modalService: NgbModal,
     private usuariosService: UsuarioService,
@@ -28,10 +28,17 @@ export class CadastroUsuarioComponent implements OnInit {
   ngOnInit(): void {
     this.novoFormulario();
     if (this.usuario != null) {
+      this.perfil = this.usuario.perfil
       this.updateForm(this.usuario);
     }
-    this.tipoUsuarios = this.usuariosService.getTipoUsuariosForm();
+    this.loadListaPerfis();
   }
+  loadListaPerfis() {
+        this.usuariosService.getTipoUsuarios().subscribe(
+          data => {
+            this.listaPerfis = data;
+          });
+    }
   verificaValidTouched(campo: any) {
     return !this.formulario.get(campo).valid && this.formulario.get(campo).touched;
   }
@@ -44,7 +51,7 @@ export class CadastroUsuarioComponent implements OnInit {
       ativo: [true],
       senha: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
       senhaNovamente: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
-      perfil: [1, [Validators.required]]
+      perfil: [null, [Validators.required]]
     });
   }
   aplicaCssErro(campo: any) {
