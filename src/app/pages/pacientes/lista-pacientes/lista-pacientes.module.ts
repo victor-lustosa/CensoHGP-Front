@@ -12,7 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PacientesFilterPipe } from './pacientes-filter.pipe';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { DescricaoPacienteComponent } from '../descricao-paciente/descricao-paciente.component';
-import { NgxMaskModule } from 'ngx-mask';
+import { NgxMaskModule} from 'ngx-mask';
 
 
 @NgModule({

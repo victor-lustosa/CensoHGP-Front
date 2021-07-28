@@ -28,35 +28,31 @@
       <div class="row col-md-6" style="display: inline-block;">
         <label for="matricula">Matrícula:</label>
         <input class="form-control" formControlName="matricula" id="matricula" aria-describedby="matriculaHelp" placeholder="Digite a matrícula" [ngClass]="aplicaCssErro('matricula')">
-        <div *ngIf="verificaValidTouched('matricula')">
-          <span class="font-red">Matrícula é obrigatória</span>
-        </div>
-        <br>
+        <span *ngIf="verificaValidTouched('matricula')" class="font-red">Matrícula é obrigatória</span>
       </div>
-      <div class="row col-md-6" style="display: inline-block;float:right">
-        <label for="perfil">Tipo de Usuário:</label>
-        <select type="perfil" class="form-control" id="perfil" formControlName="perfil" [ngClass]="aplicaCssErro('perfil')">
-          <option *ngFor="let perfil of tipoUsuarios" [value]="perfil.valor">{{ perfil.nome }}</option>
+
+      <div class="row col-md-6" style="display: inline-block; float:right">
+        <label for="perfil">Perfil:</label>
+        <select class="form-control" id="perfil" formControlName="perfil" [(ngModel)]="perfil" [ngClass]="aplicaCssErro('perfil')">
+          <option value=''>Selecione...</option>
+          <option *ngFor="let perfil of listaPerfis" [value]="perfil">{{perfil}}</option>
         </select>
-        <div *ngIf="verificaValidTouched('perfil')">
-          <span class="font-red">Selecione um tipo de usuário</span>
-        </div>
-        <br>
+        <span *ngIf="verificaValidTouched('perfil')" class="font-red">Selecione um perfil</span>
       </div>
+      <br>
+      <br>
       <div class="row col-md-6" style="display: inline-block;">
         <label for="senha">Senha:</label>
         <input type="password" class="form-control" id="senha" formControlName="senha" placeholder="Digite sua senha" [ngClass]="aplicaCssErro('senha')">
-        <div *ngIf="verificaValidTouched('senha')">
-          <span class="font-red">Senha é obrigatória</span>
-        </div>
+        <span *ngIf="verificaValidTouched('senha')" class="font-red">Senha é obrigatória</span>
       </div>
-      <div class="row col-md-6" style="display: inline-block;float:right">
+
+      <div class="row col-md-6" style="display: inline-block; float:right">
         <label for="senha">Senha novamente:</label>
         <input type="password" class="form-control" id="senhaNovamente" formControlName="senhaNovamente" placeholder="Digite sua senha novamente" [ngClass]="aplicaCssErro('senhaNovamente')">
-        <div *ngIf="verificaValidTouched('senhaNovamente')">
-          <span class="font-red">Senha novamente é obrigatória</span>
-        </div>
+        <span *ngIf="verificaValidTouched('senhaNovamente')" class="font-red">Senha novamente é obrigatória</span>
       </div>
+      <br>
     </form>
 
   </div>

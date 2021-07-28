@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient} from '@angular/common/http';
-
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { CRUD } from 'src/app/theme/shared/CRUD';
 import { Usuario } from '../model/usuario';
@@ -14,72 +13,29 @@ export class UsuarioService extends CRUD<Usuario> {
   constructor(http: HttpClient){
     super(http, `${environment.API}apicensohgp/usuario`);
   }
-  getTipoUsuariosForm(){
-    return [
-      { valor: 1, nome: 'Enfermeiro' },
-      { valor: 2, nome: 'Administrador' }
 
-    ];
-  }
-  getTipoUsuarios(){
-    return [
-      { valor: 1, nome: 'Todos' },
-      { valor: 2, nome: 'Administrador' },
-      { valor: 3, nome: 'Enfermeiro' }
-    ];
-  }
   getStatusUsuarios(){
     return [
-      { valor: 1, nome: 'Todos' },
-      { valor: 2, nome: 'Ativo' },
-      { valor: 3, nome: 'Inativo' }
+      { valor: true, nome: 'Ativo'},
+      { valor: false, nome: 'Inativo'}
     ];
   }
+  getPorFiltros(perfil: string, status: boolean): Observable<Usuario[]> {
+    const httpParams = new HttpParams()
+      .set("perfil", perfil)
+      .set("status", status ? status.toString() : '');
+    const url = `${environment.API}apicensohgp/usuario` + "?" + httpParams.toString();
+    return this.http.get<Usuario[]>(url).pipe(retry(1), catchError(this.handleError));
+  }
 
+  getTipoUsuarios(): Observable<string[]>  {
+    console.log(`${environment.API}apicensohgp/usuario/perfis`)
+    return this.http.get<string[]>(`${environment.API}apicensohgp/usuario/perfis`)
+    .pipe(retry(1), catchError(this.handleError));
+  }
 
   getUsuarioByMatricula(matricula: string): Observable<Usuario> {
     return this.http.get<Usuario>(`${environment.API}apicensohgp/usuario/matricula/${matricula}`);
   }
-
-  getAllEnfermeirosAtivos(): Observable<Usuario[]>  {
-    return this.http.get<Usuario[]>(`${environment.API}apicensohgp/usuarios/enfermeiros-ativos`)
-    .pipe(retry(1), catchError(this.handleError));
-  }
-
-  getAllEnfermeirosInativos(): Observable<Usuario[]> {
-    return this.http.get<Usuario[]>(`${environment.API}apicensohgp/usuarios/enfermeiros-inativos`)
-    .pipe(retry(1), catchError(this.handleError));
-  }
-
-  getAllAdministradoresAtivos(): Observable<Usuario[]>  {
-    return this.http.get<Usuario[]>(`${environment.API}apicensohgp/usuarios/administradores-ativos`)
-    .pipe(retry(1), catchError(this.handleError));
-  }
-
-  getAllAdministradoresInativos(): Observable<Usuario[]> {
-    return this.http.get<Usuario[]>(`${environment.API}apicensohgp/usuarios/administradores-inativos`)
-    .pipe(retry(1), catchError(this.handleError));
-  }
-
-  getAllEnfermeiros(): Observable<Usuario[]>  {
-    return this.http.get<Usuario[]>(`${environment.API}apicensohgp/usuarios/enfermeiros`)
-    .pipe(retry(1), catchError(this.handleError));
-  }
-
-  getAllAdministradores(): Observable<Usuario[]> {
-    return this.http.get<Usuario[]>(`${environment.API}apicensohgp/usuarios/administradores`)
-    .pipe(retry(1), catchError(this.handleError));
-  }
-
-  getAllAtivos(): Observable<Usuario[]>  {
-    return this.http.get<Usuario[]>(`${environment.API}apicensohgp/usuarios/ativos`)
-    .pipe(retry(1), catchError(this.handleError));
-  }
-
-  getAllInativos(): Observable<Usuario[]> {
-    return this.http.get<Usuario[]>(`${environment.API}apicensohgp/usuarios/inativos`)
-    .pipe(retry(1), catchError(this.handleError));
-  }
-
 
 }

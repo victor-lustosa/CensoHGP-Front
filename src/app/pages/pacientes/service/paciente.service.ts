@@ -1,4 +1,3 @@
-import { ChecklistDTO } from './../model/Checklist.dto';
 import { Checklist } from './../model/Checklist';
 import { Transferencia } from '../model/Transferencia';
 import { Injectable } from '@angular/core';
