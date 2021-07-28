@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { CRUD } from 'src/app/theme/shared/CRUD';
 import { Usuario } from '../model/usuario';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 
 @Injectable({
@@ -20,6 +20,7 @@ export class UsuarioService extends CRUD<Usuario> {
       { valor: false, nome: 'Inativo'}
     ];
   }
+
   getPorFiltros(perfil: string, status: boolean): Observable<Usuario[]> {
     const httpParams = new HttpParams()
       .set("perfil", perfil)
@@ -38,4 +39,13 @@ export class UsuarioService extends CRUD<Usuario> {
     return this.http.get<Usuario>(`${environment.API}apicensohgp/usuario/matricula/${matricula}`);
   }
 
+  disableUsuario(usuario:Usuario, matricula: string): Observable<any> {
+    const httpParams = new HttpParams()
+      .set("matricula", matricula)
+    const url = `${environment.API}apicensohgp/usuario/mudar-status` + "?" + httpParams.toString();
+    return this.http.put<Usuario>(url, usuario).pipe(retry(1), catchError(this.handleError));
+  }
+  handleError(error: HttpErrorResponse) {
+      return throwError(error);
+  }
 }

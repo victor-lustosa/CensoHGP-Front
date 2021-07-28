@@ -14,10 +14,10 @@ export class ListaDepartamentosComponent implements OnInit {
   lista: Departamento[] = [];
   paginaAtual: number = 1 ;
   contador: number = 10;
-  ativo: number = 1;
+  ativo: string = '';
   searchText: string;
   statusSpinner: boolean = false;
-  tipoDepartamento: number = 1;
+  tipoDepartamento: string = '';
   departamentoAux: Departamento;
   varConfirm: string;
   listaAtivo: any[];
@@ -29,7 +29,7 @@ export class ListaDepartamentosComponent implements OnInit {
     ngOnInit(): void {
       this.loadListaDepartamentos();
       this.listaAtivo = this.departamentosService.getStatusDepartamentos();
-      this.listaTipoDepartamento = this.departamentosService.getFiltroTipoDepartamentos();
+      this.listaTipoDepartamento = this.departamentosService.getTipoDepartamentos();
       CadastroDepartamentoComponent.atualizando.subscribe(
         () => {
           this.loadListaDepartamentos();
@@ -70,100 +70,20 @@ export class ListaDepartamentosComponent implements OnInit {
     this.loadListaDepartamentos();
   }
   loadListaDepartamentos() {
-    this.lista =  [];
-    this.paginaAtual = 1;
     this.statusSpinner = true;
-    if (this.ativo == 2 && this.tipoDepartamento == 2) {
+    this.lista = [];
+    this.paginaAtual = 1;
+    if (this.tipoDepartamento != '' || this.ativo != '') {
       setTimeout(() => {
-        this.departamentosService.getAllAtivosInternos().subscribe(
+        this.departamentosService.getPorFiltros(this.tipoDepartamento, this.ativo)
+        .subscribe(
           data => {
             this.lista = data;
             this.statusSpinner = false;
-          }
-        );
+          });
       }, 400);
     }
-    else if (this.ativo == 2 && this.tipoDepartamento == 3) {
-      setTimeout(() => {
-        this.departamentosService.getAllAtivosExternos().subscribe(
-          data => {
-            this.lista = data;
-            this.statusSpinner = false;
-          }
-        );
-      }, 400);
-    }
-    else if (this.ativo == 3 && this.tipoDepartamento == 2) {
-      setTimeout(() => {
-        this.departamentosService.getAllInativosInternos().subscribe(
-          data => {
-            this.lista = data;
-            this.statusSpinner = false;
-          }
-        );
-      }, 400);
-    }
-    else if (this.ativo == 3 && this.tipoDepartamento == 3) {
-      setTimeout(() => {
-        this.departamentosService.getAllInativosExternos().subscribe(
-          data => {
-            this.lista = data;
-            this.statusSpinner = false;
-          }
-        );
-      }, 400);
-    }
-    else if (this.tipoDepartamento == 2) {
-      setTimeout(() => {
-        this.departamentosService.getAllInternos().subscribe(
-          data => {
-            this.lista = data;
-            this.statusSpinner = false;
-          }
-        );
-      }, 400);
-    }
-    else if (this.tipoDepartamento == 3) {
-      setTimeout(() => {
-        this.departamentosService.getAllExternos().subscribe(
-          data => {
-            this.lista = data;
-            this.statusSpinner = false;
-          }
-        );
-      }, 400);
-    }
-    else if (this.ativo == 2) {
-      setTimeout(() => {
-        this.departamentosService.getAllAtivos().subscribe(
-          data => {
-            this.lista = data;
-            this.statusSpinner = false;
-          }
-        );
-      }, 400);
-    }
-    else if (this.ativo == 3) {
-      setTimeout(() => {
-        this.departamentosService.getAllInativos().subscribe(
-          data => {
-            this.lista = data;
-            this.statusSpinner = false;
-          }
-        );
-      }, 400);
-    }
-    else if (this.ativo == 3 && this.tipoDepartamento == 2) {
-      setTimeout(() => {
-        this.departamentosService.getAllInativosInternos().subscribe(
-          data => {
-            this.lista = data;
-            this.statusSpinner = false;
-          }
-        );
-      }, 400);
-    }
-    else {
+       else {
       setTimeout(() => {
         this.departamentosService.getAll()
         .subscribe(

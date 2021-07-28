@@ -7,12 +7,14 @@
           <label class="drop font-size" for="tipodepartamento">Tipo:</label>
           <div class="col-8 col-sm-3 col-md-2 col-lg-2" style="display:inline-block;margin-left:-10px;">
             <select (ngModelChange)="filtroTipoDepartamento($event)" class="custom-select font-size" id="tipodepartamento" [(ngModel)]="tipoDepartamento">
+              <option value=''>Todos</option>
               <option *ngFor="let tipoDepartamento of listaTipoDepartamento" [value]="tipoDepartamento.valor">{{ tipoDepartamento.nome  }}</option>
             </select>
           </div>
           <label class="font-size" for="ativo">Status:</label>
           <div class="col-8 col-sm-3 col-md-2 col-lg-2" style="display:inline-block;margin-left:-10px;">
             <select (ngModelChange)="filtroStatus($event)" class="custom-select font-size" id="ativo" [(ngModel)]="ativo">
+              <option value=''>Todos</option>
               <option *ngFor="let ativo of listaAtivo" [value]="ativo.valor">{{ ativo.nome  }}</option>
             </select>
           </div>

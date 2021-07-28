@@ -3,7 +3,8 @@ import { Usuario } from '../model/usuario';
 import { UsuarioService } from '../service/usuario.service';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { CadastroUsuarioComponent } from '../cadastro-usuario/cadastro-usuario.component';
-
+import { StorageService } from '../../auth/service/storage.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
 @Component({
   selector: 'app-lista-usuarios',
   templateUrl: './lista-usuarios.component.html',
@@ -17,14 +18,15 @@ export class ListaUsuariosComponent implements OnInit {
   sucesso: boolean = false;
   statusSpinner: boolean = false;
   varConfirm: string;
-  mensagem: string;
   usuarioAux: Usuario;
   perfil: string = '';
   listaPerfis: string[];
   ativo: any = '';
   listaAtivo: any[];
+  mensagemErro: string = '';
+  jwtHelper: JwtHelperService = new JwtHelperService();
   MODALOPTIONS: NgbModalOptions = { keyboard: true, size: 'lg', backdrop: 'static' };
-  constructor(private usuariosService: UsuarioService, public modalService: NgbModal) { }
+  constructor(private usuariosService: UsuarioService, public modalService: NgbModal, private storage: StorageService) { }
 
   ngOnInit(): void {
     this.loadListaUsuarios();
@@ -50,11 +52,19 @@ export class ListaUsuariosComponent implements OnInit {
     this.loadListaUsuarios();
   }
   mudarStatus() {
-    this.usuariosService.disable(this.usuarioAux).subscribe(
+    console.log(this.usuarioAux)
+    this.usuarioAux.perfil = this.usuarioAux.perfil[0];
+    console.log(this.usuarioAux)
+    this.usuariosService.disableUsuario(this.usuarioAux,
+      this.jwtHelper.decodeToken(this.storage.getLocalUser().token).sub.substring(13)).subscribe(
       () => this.loadListaUsuarios(),
       (error) => {
-        alert(error);
-      });
+        console.log(error);
+        this.mensagemErro = error.error.message;
+        setTimeout(() => {
+        this.mensagemErro = '';
+      }, 2500);
+    });
   }
   cadastrar() {
     const modalRef = this.modalService.open(CadastroUsuarioComponent, this.MODALOPTIONS);
@@ -71,14 +81,12 @@ export class ListaUsuariosComponent implements OnInit {
     } else {
       this.varConfirm = 'ativar';
     }
-    this.usuarioAux = usuario;
-    this.usuarioAux.perfil = usuario.perfil[0];
+      this.usuarioAux = usuario;
   }
   loadListaPerfis() {
     this.usuariosService.getTipoUsuarios().subscribe(
       data => {
         this.listaPerfis = data;
-        this.statusSpinner = false;
       });
   }
   loadListaUsuarios() {
@@ -87,12 +95,12 @@ export class ListaUsuariosComponent implements OnInit {
     this.paginaAtual = 1;
     if (this.perfil != '' || this.ativo != '') {
       setTimeout(() => {
-        this.usuariosService.getPorFiltros(this.perfil, this.ativo).subscribe(
+        this.usuariosService.getPorFiltros(this.perfil, this.ativo)
+        .subscribe(
           data => {
             this.lista = data;
             this.statusSpinner = false;
-          }
-        );
+          });
       }, 400);
     }
     else {
