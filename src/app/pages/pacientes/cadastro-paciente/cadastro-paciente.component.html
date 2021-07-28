@@ -5,7 +5,7 @@
   </div>
   <div class="modal-body">
     <div class="col-md-13">
-      <app-alert type="primary" *ngIf="sucesso == true">Salvo com sucesso</app-alert>
+      <app-alert type="primary" *ngIf="sucesso === true">Salvo com sucesso</app-alert>
     </div>
     <div class="col-md-13">
       <app-alert type="danger" *ngIf="mensagemErro!==''">{{mensagemErro}}</app-alert>
@@ -27,9 +27,9 @@
       </div>
       <div class="row col-6 col-md-6" style="display: inline-block;float:right">
         <label for="cpf">CPF:</label>
-        <input id="cpf" type="text" class="form-control" aria-describedby="cpfHelp" maxLength="14" placeholder="Digite o CPF" formControlName="cpf" mask="000.000.000-00" [ngClass]="aplicaCssErro('cpf')"/>
-         <div *ngIf="verificaValidTouched('cpf') && verificaCPF != null ">
-          <span class="font-red">CPF INVÁLIDO</span>
+        <input id="cpf" type="text" class="form-control" aria-describedby="cpfHelp"  placeholder="Digite o CPF" formControlName="cpf" mask="000.000.000-00" [ngClass]="aplicaCssErro('cpf')"/>
+         <div *ngIf="verificaCPF == true">
+          <span class="font-red">CPF inválido</span>
         </div>
 
       </div>

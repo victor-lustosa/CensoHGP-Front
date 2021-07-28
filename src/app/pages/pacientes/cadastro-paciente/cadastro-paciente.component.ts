@@ -3,6 +3,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { cpuUsage } from 'process';
+
 import { StorageService } from '../../auth/service/storage.service';
 import { Departamento } from '../../departamentos/model/departamento';
 import { DepartamentoService } from '../../departamentos/service';
@@ -28,7 +29,7 @@ export class CadastroPacienteComponent implements OnInit {
   at: boolean = true;
   departamento: string = '';
   genero: string = '';
-  verificaCPF: string ;
+  verificaCPF: boolean = false;
 
   @Input() public paciente: Paciente;
   static atualizando = new EventEmitter<boolean>();
@@ -39,6 +40,8 @@ export class CadastroPacienteComponent implements OnInit {
     private precaucaoService: PrecaucaoService, private storage: StorageService) { }
 
   ngOnInit(): void {
+
+    console.log(this.verificaCPF);
     this.novoFormulario();
     this.editar = false;
 
@@ -60,50 +63,55 @@ export class CadastroPacienteComponent implements OnInit {
   }
 
 
-  cpfValidator(input: FormControl) {
-    if (input.value != '') {
-      let cpfAux = input.value;
-      if (cpfAux.length == 11) {
+  cpfValidator(cpf: string) {
 
-        let soma;
-        let resto;
-        soma = 0;
-        //strCPF  = RetiraCaracteresInvalidos(strCPF,11);
-        if (cpfAux == "00000000000") {
-          this.verificaCPF = 'CPF INVÁLIDO';
-          return { cpfInvalido: 'CPF INVÁLIDO' };
-        }
-        for (let i = 1; i <= 9; i++) {
-          soma = soma + parseInt(cpfAux.substring(i - 1, i)) * (11 - i);
-        }
-        resto = (soma * 10) % 11;
-        if ((resto == 10) || (resto == 11)) {
-          resto = 0;
-        }
-        if (resto != parseInt(cpfAux.substring(9, 10))) {
-          this.verificaCPF = 'CPF INVÁLIDO';
-          return { cpfInvalido: 'CPF INVÁLIDO' };
-        }
-        soma = 0;
-        for (let i = 1; i <= 10; i++) {
-          soma = soma + parseInt(cpfAux.substring(i - 1, i)) * (12 - i);
-        }
-        resto = (soma * 10) % 11;
-        if ((resto == 10) || (resto == 11)) {
-          resto = 0;
-        }
-        if (resto != parseInt(cpfAux.substring(10, 11))) {
-           this.verificaCPF = 'CPF INVÁLIDO';
-          return { cpfInvalido: 'CPF INVÁLIDO' };
-        }
-        return null;
+
+
+    let cpfAux = cpf;
+    if (cpfAux.length == 11) {
+
+      let soma;
+      let resto;
+      soma = 0;
+      //strCPF  = RetiraCaracteresInvalidos(strCPF,11);
+      if (cpfAux == '00000000000' || cpfAux == '11111111111' || cpfAux == '22222222222' || cpfAux == '33333333333' ||
+        cpfAux == '44444444444' || cpfAux == '55555555555' || cpfAux == '66666666666' || cpfAux == '77777777777' ||
+        cpfAux == '88888888888' || cpfAux == '99999999999') {
+
+        this.verificaCPF = true;
+        return true;
       }
+      for (let i = 1; i <= 9; i++) {
+        soma = soma + parseInt(cpfAux.substring(i - 1, i)) * (11 - i);
+      }
+      resto = (soma * 10) % 11;
+      if ((resto == 10) || (resto == 11)) {
+        resto = 0;
+      }
+      if (resto != parseInt(cpfAux.substring(9, 10))) {
 
+        this.verificaCPF = true;
+        return true;
+      }
+      soma = 0;
+      for (let i = 1; i <= 10; i++) {
+        soma = soma + parseInt(cpfAux.substring(i - 1, i)) * (12 - i);
+      }
+      resto = (soma * 10) % 11;
+      if ((resto == 10) || (resto == 11)) {
+        resto = 0;
+      }
+      if (resto != parseInt(cpfAux.substring(10, 11))) {
+        this.verificaCPF = true;
+        return true;
+      }
+      return false;
+    }
+    else {
+      return false;
     }
 
 
-
-    return null;
   }
   novoFormulario() {
     this.formulario = this.formBuilder.group({
@@ -111,7 +119,7 @@ export class CadastroPacienteComponent implements OnInit {
       prontuario: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
       nome: [null],
       nomeMae: [null],
-      cpf: ['', [this.cpfValidator, Validators.maxLength]],
+      cpf: ['', Validators.maxLength(11)],
       genero: [null],
       rg: [null],
       dataNascimento: [null],
@@ -170,16 +178,39 @@ export class CadastroPacienteComponent implements OnInit {
     return !this.formulario.get(campo).valid && this.formulario.get(campo).touched;
   }
   public aplicaCssErro(campo: any) {
-    return {
-      'border-red': this.verificaValidTouched(campo)
-    };
+
+    if (campo == 'cpf' && !this.formulario.get('cpf').valid && this.formulario.get('cpf').touched || this.formulario.get('cpf').valid && this.cpfValidator(this.formulario.get('cpf').value) == true) {
+      this.verificaCPF = true;
+      return {
+        'border-red': this.verificaValidTouched(campo)
+      };
+    }
+    if (campo == 'cpf' && this.cpfValidator(this.formulario.get('cpf').value) == false) {
+      this.verificaCPF = false;
+      return '';
+    }
+
+    else {
+      return {
+        'border-red': this.verificaValidTouched(campo)
+      };
+    }
+
   }
+
   valid() {
     if (this.formulario.valid) {
+
       this.mensagemErro = '';
       this.savePacientes();
+
+
+    }
+    else if (!this.formulario.get('cpf').valid) {
+      this.verificaCPF = true;
     }
     else {
+
       this.mensagemErro = 'Por favor, preencha os campos obrigatórios';
     }
   }
