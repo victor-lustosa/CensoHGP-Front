@@ -28,6 +28,8 @@ export class CadastroPacienteComponent implements OnInit {
   at: boolean = true;
   departamento: string = '';
   genero: string = '';
+  verificaCPF: string ;
+
   @Input() public paciente: Paciente;
   static atualizando = new EventEmitter<boolean>();
   jwtHelper: JwtHelperService = new JwtHelperService();
@@ -47,7 +49,7 @@ export class CadastroPacienteComponent implements OnInit {
 
       this.updateForm(this.paciente);
       this.genero = this.formulario.get('genero').value;
-      console.log(this.formulario.value)
+      console.log(this.formulario.value);
 
     } else {
 
@@ -56,13 +58,60 @@ export class CadastroPacienteComponent implements OnInit {
     this.loadListaDepartamento();
     this.listaSexos = this.pacientesService.getSexos();
   }
+
+
+  cpfValidator(input: FormControl) {
+    if (input.value != '') {
+      let cpfAux = input.value;
+      if (cpfAux.length == 11) {
+
+        let soma;
+        let resto;
+        soma = 0;
+        //strCPF  = RetiraCaracteresInvalidos(strCPF,11);
+        if (cpfAux == "00000000000") {
+          this.verificaCPF = 'CPF INVÁLIDO';
+          return { cpfInvalido: 'CPF INVÁLIDO' };
+        }
+        for (let i = 1; i <= 9; i++) {
+          soma = soma + parseInt(cpfAux.substring(i - 1, i)) * (11 - i);
+        }
+        resto = (soma * 10) % 11;
+        if ((resto == 10) || (resto == 11)) {
+          resto = 0;
+        }
+        if (resto != parseInt(cpfAux.substring(9, 10))) {
+          this.verificaCPF = 'CPF INVÁLIDO';
+          return { cpfInvalido: 'CPF INVÁLIDO' };
+        }
+        soma = 0;
+        for (let i = 1; i <= 10; i++) {
+          soma = soma + parseInt(cpfAux.substring(i - 1, i)) * (12 - i);
+        }
+        resto = (soma * 10) % 11;
+        if ((resto == 10) || (resto == 11)) {
+          resto = 0;
+        }
+        if (resto != parseInt(cpfAux.substring(10, 11))) {
+           this.verificaCPF = 'CPF INVÁLIDO';
+          return { cpfInvalido: 'CPF INVÁLIDO' };
+        }
+        return null;
+      }
+
+    }
+
+
+
+    return null;
+  }
   novoFormulario() {
     this.formulario = this.formBuilder.group({
       idPaciente: [null],
       prontuario: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
       nome: [null],
       nomeMae: [null],
-      cpf: [null, this.cpfValidator],
+      cpf: ['', [this.cpfValidator, Validators.maxLength]],
       genero: [null],
       rg: [null],
       dataNascimento: [null],
@@ -70,16 +119,7 @@ export class CadastroPacienteComponent implements OnInit {
       departamento: [null]
     });
   }
-  cpfAux: string;
-  cpfValidator(control: FormControl) {
-    this.cpfAux = control.value;
 
-    if (  this.cpfAux !== '') {
-      const validaCPF = /(\d{3})(\d{3})(\d{3})(\d{2})/;
-      return validaCPF.test(this.cpfAux) ? null : { cepInvalido: 'CPF inválido' };
-    }
-    return null;
-  }
 
 
   updateForm(paciente: Paciente) {

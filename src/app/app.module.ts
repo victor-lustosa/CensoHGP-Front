@@ -64,7 +64,9 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     NgbButtonsModule,
     NgbTabsetModule,
     HttpClientModule,
-    NgxMaskModule.forRoot(),
+    NgxMaskModule.forRoot({
+      dropSpecialCharacters: true // ao salvar, vai manter a mascara
+    }),
       ],
     providers: [
       UsuarioService,

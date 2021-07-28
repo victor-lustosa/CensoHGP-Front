@@ -27,10 +27,14 @@
       </div>
       <div class="row col-6 col-md-6" style="display: inline-block;float:right">
         <label for="cpf">CPF:</label>
-        <input id="cpf" type="text" class="form-control" aria-describedby="cpfHelp" placeholder="Digite o CPF" formControlName="cpf" mask="000.000.000-00"/>
-        <br>
+        <input id="cpf" type="text" class="form-control" aria-describedby="cpfHelp" maxLength="14" placeholder="Digite o CPF" formControlName="cpf" mask="000.000.000-00" [ngClass]="aplicaCssErro('cpf')"/>
+         <div *ngIf="verificaValidTouched('cpf') && verificaCPF != null ">
+          <span class="font-red">CPF INVÁLIDO</span>
+        </div>
+
       </div>
       <br>
+         <br>
       <div class="row col-6 col-md-6" style="display: inline-block;float:right">
         <label for="rg">RG:</label>
         <input id="rg" class="form-control" aria-describedby="rgHelp" placeholder="Digite o RG" formControlName="rg">
