@@ -1,3 +1,4 @@
+
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
@@ -32,6 +33,9 @@ import { AuthGuard } from './pages/auth/guards';
 import { ChecklistResolver } from './pages/pacientes/guards/checklist.resolver';
 import { PacienteService } from './pages/pacientes/service/paciente.service';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { PerfilAdminComponent } from './pages/usuarios/perfil-admin/perfil-admin.component';
+import { PerfilEnfermeiroComponent } from './pages/usuarios/perfil-enfermeiro/perfil-enfermeiro.component';
+import { CommonModule } from '@angular/common';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
@@ -52,10 +56,13 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     NavRightComponent,
     ConfigurationComponent,
     ToggleFullScreenDirective,
-
+    PerfilAdminComponent,
+    PerfilEnfermeiroComponent
   ],
   imports: [
     BrowserModule,
+    CommonModule,
+    NgbDropdownModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     SharedModule,

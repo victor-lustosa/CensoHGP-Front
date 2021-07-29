@@ -11,10 +11,7 @@ const routes: Routes = [
         path: 'gerenciar-usuarios',
         loadChildren: () => import('./lista-usuarios/lista-usuarios.module').then(module => module.ListaUsuariosModule), canActivateChild: [AuthGuard]
       },
-      {
-        path: 'perfil',
-        loadChildren: () => import('./perfil-usuario/perfil-usuario.module').then(module => module.PerfilUsuarioModule)
-      }
+
     ]
   }
 ];

@@ -1,3 +1,5 @@
+import { PerfilEnfermeiroComponent } from './../../../../../pages/usuarios/perfil-enfermeiro/perfil-enfermeiro.component';
+import { PerfilAdminComponent } from './../../../../../pages/usuarios/perfil-admin/perfil-admin.component';
 import { Component, DoCheck, OnInit } from '@angular/core';
 import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 import { animate, style, transition, trigger } from '@angular/animations';
@@ -9,6 +11,8 @@ import { StorageService } from 'src/app/pages/auth/service/storage.service';
 import { UsuarioService } from 'src/app/pages/usuarios/service/usuario.service';
 import { Usuario } from 'src/app/pages/usuarios/model/usuario';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
   selector: 'app-nav-right',
@@ -44,8 +48,9 @@ export class NavRightComponent implements OnInit, DoCheck {
   public routers: typeof routes = routes;
   public usuario: Usuario;
   jwtHelper: JwtHelperService = new JwtHelperService();
-  public matricula: string
-  constructor(private authService: AuthService,
+  public matricula: string;
+  MODALOPTIONS: NgbModalOptions = { keyboard: true, size: 'lg', backdrop: 'static' };
+  constructor(private authService: AuthService, public modalService: NgbModal,
     private router: Router, private storage: StorageService, private usuarioService: UsuarioService) {
     this.visibleUserList = false;
     this.chatMessage = false;
@@ -66,6 +71,19 @@ export class NavRightComponent implements OnInit, DoCheck {
         );
     }
   }
+  redirecionaPerfil(usuario: Usuario) {
+    console.log (this.usuario.perfil);
+    console.log (this.usuario.perfil == 'Administrador');
+    if (this.usuario.perfil == 'Administrador') {
+      const modalRef = this.modalService.open(PerfilAdminComponent, this.MODALOPTIONS);
+      modalRef.componentInstance.usuario = usuario;
+    }
+    else {
+      const modalRef = this.modalService.open(PerfilEnfermeiroComponent, this.MODALOPTIONS);
+      modalRef.componentInstance.usuario = usuario;
+    }
+  }
+
   onChatToggle(friendID: boolean) {
     this.friendId = friendID;
     this.chatMessage = !this.chatMessage;
