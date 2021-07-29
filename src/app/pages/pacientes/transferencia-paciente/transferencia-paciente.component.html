@@ -1,6 +1,6 @@
 <div class="modal-content"  >
   <div class="modal-header">
-    <h5  class="modal-title">Transferir Paciente -  </h5><h5  class="modal-title" style="color: 1a85ff;"> {{nomePaciente}}</h5>
+    <h5  class="modal-title">Transferir Paciente -  </h5><h5  class="modal-title" style="color: 1a85ff;"> {{paciente.nome}}</h5>
     <button type="reset" class="close basic-close" data-dismiss="modal" aria-label="Close" (click)="activeModal.close()"><span aria-hidden="true">&times;</span></button>
   </div>
 
@@ -12,9 +12,9 @@
       <app-alert type="danger" *ngIf="mensagemErro!==''">{{mensagemErro}}</app-alert>
     </div>
     <form [formGroup]="formulario">
-      <label for="nome">Prontuário: {{prontuario}}</label>
+      <label for="nome">Prontuário: {{paciente.prontuario}}</label>
       <br>
-      <label for="nome">Paciente está em: {{departamentoOrigem}}</label>
+      <label for="nome">Paciente está em: {{paciente.departamento.nome}}</label>
       <br>
       <div class="row col-6 col-md-6" style="display: inline-block;">
         <label>Departamento destino:</label>
@@ -36,8 +36,8 @@
 
   <div class="modal-footer">
     <div style="margin-left: 200px;">
-      <button type="submit" 
-              class="btn btn-primary" 
+      <button type="submit"
+              class="btn btn-primary"
               style="margin-left:-16%; font-size: 16px;"
               (click)="valid()"
               ><i class="feather icon-save"></i> Salvar

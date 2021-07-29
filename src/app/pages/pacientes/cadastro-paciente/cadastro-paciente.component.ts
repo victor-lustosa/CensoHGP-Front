@@ -41,7 +41,7 @@ export class CadastroPacienteComponent implements OnInit {
 
   ngOnInit(): void {
 
-    console.log(this.verificaCPF);
+
     this.novoFormulario();
     this.editar = false;
 
@@ -68,7 +68,7 @@ export class CadastroPacienteComponent implements OnInit {
 
 
     let cpfAux = cpf;
-    if (cpfAux.length == 11) {
+    if (cpfAux != null && cpfAux != '') {
 
       let soma;
       let resto;
@@ -107,9 +107,7 @@ export class CadastroPacienteComponent implements OnInit {
       }
       return false;
     }
-    else {
-      return false;
-    }
+    return false;
 
 
   }
@@ -177,6 +175,7 @@ export class CadastroPacienteComponent implements OnInit {
   public verificaValidTouched(campo: any) {
     return !this.formulario.get(campo).valid && this.formulario.get(campo).touched;
   }
+
   public aplicaCssErro(campo: any) {
 
     if (campo == 'cpf' && !this.formulario.get('cpf').valid && this.formulario.get('cpf').touched || this.formulario.get('cpf').valid && this.cpfValidator(this.formulario.get('cpf').value) == true) {

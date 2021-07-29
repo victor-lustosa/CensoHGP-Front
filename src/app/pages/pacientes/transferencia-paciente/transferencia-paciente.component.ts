@@ -1,3 +1,4 @@
+import { Paciente } from './../model/Paciente';
 import { Transferencia } from '../model/Transferencia';
 import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 import { PacienteService } from '../service/paciente.service';
@@ -16,10 +17,12 @@ import { DepartamentoService } from '../../departamentos/service';
 })
 export class TransferenciaPacienteComponent implements OnInit {
   public formulario: FormGroup;
-  @Input() idPaciente: number;
-  @Input() nomePaciente: string;
-  @Input() prontuario: string;
-  @Input() departamentoOrigem: string;
+
+  @Input() paciente: Paciente;
+  // @Input() idPaciente: number;
+  // @Input() nomePaciente: string;
+  // @Input() prontuario: string;
+  // @Input() departamentoOrigem: string;
   listaDepartamento: Departamento[] = [];
   departamentoDestino: string = '';
   jwtHelper: JwtHelperService = new JwtHelperService();
@@ -31,8 +34,8 @@ export class TransferenciaPacienteComponent implements OnInit {
   mensagemErro: string = '';
 
   constructor(
-    private storage: StorageService, 
-    public activeModal: NgbActiveModal, 
+    private storage: StorageService,
+    public activeModal: NgbActiveModal,
     private formBuilder: FormBuilder,
     private departamentoService: DepartamentoService,
     private pacientesService: PacienteService
@@ -57,7 +60,7 @@ export class TransferenciaPacienteComponent implements OnInit {
   public verificaValidTouched(campo: any) {
     return !this.formulario.get(campo).valid && this.formulario.get(campo).touched;
   }
-  
+
   public aplicaCssErro(campo: any) {
     return {
       'border-red': this.verificaValidTouched(campo)
@@ -77,7 +80,7 @@ export class TransferenciaPacienteComponent implements OnInit {
     if (this.formulario.valid) {
       this.transferencia = this.formulario.value as Transferencia;
       this.transferencia.matricula = this.jwtHelper.decodeToken(this.storage.getLocalUser().token).sub.substring(13);
-      this.transferencia.idPaciente= this.idPaciente;
+      this.transferencia.idPaciente= this.paciente.idPaciente ;
       if (this.transferencia != null) {
         console.log(this.transferencia);
         this.pacientesService.createTransferencia(this.transferencia)

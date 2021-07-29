@@ -100,12 +100,10 @@ export class ListaPacientesComponent implements OnInit {
     this.router.navigate(['/pacientes/historico-checklist', id], { relativeTo: this.route });
   }
 
-  gerarTransferencia(id:number, nome:string, prontuario:string, departamentoOrigem:string){
+  gerarTransferencia(paciente: Paciente){
     const modalRef = this.modalService.open(TransferenciaPacienteComponent, this.MODALOPTIONS);
-    modalRef.componentInstance.idPaciente = id;
-    modalRef.componentInstance.nomePaciente = nome;
-    modalRef.componentInstance.prontuario = prontuario;
-    modalRef.componentInstance.departamentoOrigem = departamentoOrigem;
+    modalRef.componentInstance.paciente = paciente;
+
   }
   historicoTransferencia(id:number){
     this.router.navigate(['/pacientes/historico-transferencia', id], { relativeTo: this.route });
