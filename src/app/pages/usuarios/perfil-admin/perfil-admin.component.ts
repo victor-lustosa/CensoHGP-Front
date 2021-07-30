@@ -21,11 +21,14 @@ export class PerfilAdminComponent implements OnInit {
     private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-    this.updateForm(this.usuario);
-    this.perfil = this.usuario.perfil
     this.novoFormulario();
+    this.loadListaPerfis();
+    this.perfil = this.usuario.perfil;
+    this.updateForm(this.usuario);
 
-  this.loadListaPerfis();
+
+
+
   }
 
   loadListaPerfis() {
@@ -33,17 +36,17 @@ export class PerfilAdminComponent implements OnInit {
       data => {
         this.listaPerfis = data;
       });
-}
+  }
 
   private novoFormulario() {
     this.formulario = this.formBuilder.group({
       idUsuario: [null],
       nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       email: [null, [Validators.required, Validators.email]],
-      matricula: [null, [Validators.required]],
-      ativo: [true],
-      senha: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
-      senhaNovamente: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
+      matricula: [null],
+      ativo: [null],
+      senha: [null, [Validators.minLength(3), Validators.maxLength(35)]],
+      senhaNovamente: [null, [Validators.minLength(3), Validators.maxLength(35)]],
       perfil: [null, [Validators.required]]
     });
   }
@@ -78,42 +81,27 @@ export class PerfilAdminComponent implements OnInit {
     return !this.formulario.get(campo).valid && this.formulario.get(campo).touched;
   }
   saveUsuarios() {
+
     if (this.formulario.valid) {
-      if (this.formulario.get('idUsuario').value != null) {
-        if (this.formulario.get('senhaNovamente').value === this.formulario.get('senha').value) {
-          this.usuarioService.update(this.formulario.value)
-            .subscribe(
-              () => {
-                this.sucesso = true,
-                  this.formulario.reset(),
+      this.usuario.perfil = this.usuario.perfil[0];
+      console.log(this.usuario)
+      if (this.formulario.get('senhaNovamente').value == this.formulario.get('senha').value || this.formulario.get('senhaNovamente').value == '' && this.formulario.get('senha').value == '') {
+        this.usuarioService.update(this.formulario.value)
+          .subscribe(
+            () => {
+              this.sucesso = true,
+                this.formulario.reset(),
 
-                  setTimeout(() => {
-                    this.activeModal.close();
-                  }, 500);
-              }, (error) => {
-                this.mensagemErro = error;
-              });
-        } else {
-          this.mensagemErro = "As senhas precisam ser iguais!";
-        }
+                setTimeout(() => {
+                  this.activeModal.close();
+                }, 500);
+            }, (error) => {
+              this.mensagemErro = error;
+            });
       } else {
-        if (this.formulario.get('senhaNovamente').value === this.formulario.get('senha').value) {
-          this.usuarioService.create(this.formulario.value)
-            .subscribe(
-              () => {
-                this.sucesso = true,
-                  this.formulario.reset(),
-
-                  setTimeout(() => {
-                    this.activeModal.close();
-                  }, 500);
-              }, (error) => {
-                this.mensagemErro = error;
-              });
-        } else {
-          this.mensagemErro = "As senhas precisam ser iguais!";
-        }
+        this.mensagemErro = "As senhas precisam ser iguais!";
       }
+
     }
   }
 
