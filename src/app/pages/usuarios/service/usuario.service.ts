@@ -46,6 +46,6 @@ export class UsuarioService extends CRUD<Usuario> {
     return this.http.put<Usuario>(url, usuario).pipe(retry(1), catchError(this.handleError));
   }
   handleError(error: HttpErrorResponse) {
-      return throwError(error);
+      return throwError(error.error.message);
   }
 }

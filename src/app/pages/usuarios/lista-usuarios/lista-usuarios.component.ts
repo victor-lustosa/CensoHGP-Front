@@ -60,7 +60,7 @@ export class ListaUsuariosComponent implements OnInit {
       () => this.loadListaUsuarios(),
       (error) => {
         console.log(error);
-        this.mensagemErro = error.error.message;
+        this.mensagemErro = error;
         setTimeout(() => {
         this.mensagemErro = '';
       }, 2500);

@@ -34,6 +34,6 @@ export class CRUD<T> implements CrudInterface<T>{
   }
 
   handleError(error: HttpErrorResponse) {
-      return throwError(error.error.message);
+      return throwError(error.error);
   }
 }

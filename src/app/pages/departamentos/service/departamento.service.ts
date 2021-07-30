@@ -11,18 +11,18 @@ import { catchError } from 'rxjs/operators';
 })
 export class DepartamentoService extends CRUD<Departamento> {
 
-  constructor(  http: HttpClient ){
+  constructor(http: HttpClient) {
     super(http, `${environment.API}apicensohgp/departamento`);
   }
-  getTipoDepartamentos(){
-     return [
+  getTipoDepartamentos() {
+    return [
 
-       { valor:'true', nome: 'Interno' },
-       { valor:'false', nome: 'Externo' }
-     ];
-   }
+      { valor: 'true', nome: 'Interno' },
+      { valor: 'false', nome: 'Externo' }
+    ];
+  }
 
-  getStatusDepartamentos(){
+  getStatusDepartamentos() {
     return [
       { valor: 'true', nome: 'Ativo' },
       { valor: 'false', nome: 'Inativo' }
@@ -37,11 +37,8 @@ export class DepartamentoService extends CRUD<Departamento> {
     return this.http.get<Departamento[]>(url).pipe(retry(1), catchError(this.handleError));
   }
 
-
-      getAllAtivos(): Observable<Departamento[]>  {
-        return this.http.get<Departamento[]>(`${environment.API}apicensohgp/departamentos/ativos`)
-        .pipe(retry(1), catchError(this.handleError));
-      }
-
-
+  getAllAtivos(): Observable<Departamento[]> {
+    return this.http.get<Departamento[]>(`${environment.API}apicensohgp/departamentos/ativos`)
+      .pipe(retry(1), catchError(this.handleError));
+  }
 }

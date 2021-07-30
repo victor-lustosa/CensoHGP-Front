@@ -49,7 +49,7 @@ export class CadastroUsuarioComponent implements OnInit {
       email: [null, [Validators.required, Validators.email]],
       matricula: [null, [Validators.required]],
       ativo: [true],
-      senha: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
+      senha: [null, [ Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
       senhaNovamente: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
       perfil: [null, [Validators.required]]
     });
@@ -93,7 +93,9 @@ export class CadastroUsuarioComponent implements OnInit {
                     this.activeModal.close();
                   }, 500);
               }, (error) => {
+                  console.log(error)
                 this.mensagemErro = error;
+                console.log(this.mensagemErro)
               });
         } else {
           this.mensagemErro = "As senhas precisam ser iguais!";
@@ -110,6 +112,7 @@ export class CadastroUsuarioComponent implements OnInit {
                     this.activeModal.close();
                   }, 500);
               }, (error) => {
+                console.log(error)
                 this.mensagemErro = error;
               });
         } else {

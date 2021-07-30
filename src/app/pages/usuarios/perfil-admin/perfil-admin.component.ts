@@ -25,10 +25,6 @@ export class PerfilAdminComponent implements OnInit {
     this.loadListaPerfis();
     this.perfil = this.usuario.perfil;
     this.updateForm(this.usuario);
-
-
-
-
   }
 
   loadListaPerfis() {
@@ -58,7 +54,6 @@ export class PerfilAdminComponent implements OnInit {
       email: usuarios.email,
       matricula: usuarios.matricula,
       ativo: usuarios.ativo,
-      senha: usuarios.senha,
       perfil: usuarios.perfil
     });
   }
@@ -83,9 +78,10 @@ export class PerfilAdminComponent implements OnInit {
   saveUsuarios() {
 
     if (this.formulario.valid) {
-      this.usuario.perfil = this.usuario.perfil[0];
-      console.log(this.usuario)
-      if (this.formulario.get('senhaNovamente').value == this.formulario.get('senha').value || this.formulario.get('senhaNovamente').value == '' && this.formulario.get('senha').value == '') {
+
+    console.log(this.usuario)
+      if (this.formulario.get('senhaNovamente').value == this.formulario.get('senha').value || (this.formulario.get('senhaNovamente').value == '' && this.formulario.get('senha').value == '')) {
+              console.log(this.usuario)
         this.usuarioService.update(this.formulario.value)
           .subscribe(
             () => {
