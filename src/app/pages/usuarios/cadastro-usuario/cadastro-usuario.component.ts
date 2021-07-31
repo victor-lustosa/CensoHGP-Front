@@ -49,8 +49,8 @@ export class CadastroUsuarioComponent implements OnInit {
       email: [null, [Validators.required, Validators.email]],
       matricula: [null, [Validators.required]],
       ativo: [true],
-      senha: [null, [ Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
-      senhaNovamente: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
+      senha: ['', [  Validators.minLength(3), Validators.maxLength(35)]],
+      senhaNovamente: ['', [ Validators.minLength(3), Validators.maxLength(35)]],
       perfil: [null, [Validators.required]]
     });
   }
@@ -81,8 +81,9 @@ export class CadastroUsuarioComponent implements OnInit {
   }
   saveUsuarios() {
     if (this.formulario.valid) {
+      console.log(this.formulario.value);
       if (this.formulario.get('idUsuario').value != null) {
-        if (this.formulario.get('senhaNovamente').value === this.formulario.get('senha').value) {
+        if (this.formulario.get('senhaNovamente').value == this.formulario.get('senha').value || (this.formulario.get('senhaNovamente').value == '' && this.formulario.get('senha').value == '')) {
           this.usuariosService.update(this.formulario.value)
             .subscribe(
               () => {
@@ -101,7 +102,10 @@ export class CadastroUsuarioComponent implements OnInit {
           this.mensagemErro = "As senhas precisam ser iguais!";
         }
       } else {
-        if (this.formulario.get('senhaNovamente').value === this.formulario.get('senha').value) {
+        if((this.formulario.get('senhaNovamente').value == '' && this.formulario.get('senha').value == '')){
+          this.mensagemErro = "Os campos de senha são obrigatórios!";
+        }
+        else if (this.formulario.get('senhaNovamente').value === this.formulario.get('senha').value) {
           this.usuariosService.create(this.formulario.value)
             .subscribe(
               () => {
