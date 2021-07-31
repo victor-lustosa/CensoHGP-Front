@@ -1,1 +1,57 @@
-<p>perfil-enfermeiro works!</p>
+<div class="modal-content">
+  <div class="modal-header">
+<h5 class="modal-title">Perfil</h5>
+    <button type="reset" class="close basic-close" data-dismiss="modal" aria-label="Close" (click)="activeModal.close()"><span aria-hidden="true">&times;</span></button>
+  </div>
+  <div class="modal-body">
+    <div class="col-md-13">
+      <app-alert type="primary" *ngIf="sucesso == true">Salvo com sucesso</app-alert>
+    </div>
+    <div class="col-md-13">
+      <app-alert type="danger" *ngIf="mensagemErro!==''">{{mensagemErro}}</app-alert>
+    </div>
+
+    <form [formGroup]="formulario">
+
+
+         <label for="nome">Matrícula:</label>
+      <input disabled="true" id="matricula" formControlName="matricula" class="form-control" aria-describedby="nomeHelp" >
+
+
+      <label for="nome">Nome:</label>
+      <input disabled="true" id="nome" formControlName="nome" class="form-control" aria-describedby="nomeHelp" >
+
+      <br>
+
+      <label for="email">E-mail:</label>
+      <input type="email" disabled="true" class="form-control" formControlName="email" id="email" >
+
+      <br>
+
+<label for="email">Perfil:</label>
+      <input type="email" disabled="true" class="form-control" formControlName="perfil" id="perfil" >
+
+      <br>
+
+
+      <div class="row col-md-6" style="display: inline-block;">
+        <label for="senha">Senha:</label>
+        <input type="password" class="form-control" id="senha" formControlName="senha" placeholder="Digite sua senha" [ngClass]="aplicaCssErro('senha')">
+        <span *ngIf="verificaValidTouched('senha')" class="font-red">Senha é obrigatória</span>
+      </div>
+
+      <div class="row col-md-6" style="display: inline-block; float:right">
+        <label for="senha">Senha novamente:</label>
+        <input type="password" class="form-control" id="senhaNovamente" formControlName="senhaNovamente" placeholder="Digite sua senha novamente" [ngClass]="aplicaCssErro('senhaNovamente')">
+        <span *ngIf="verificaValidTouched('senhaNovamente')" class="font-red">Senha novamente é obrigatória</span>
+      </div>
+      <br>
+    </form>
+
+  </div>
+  <div class="modal-footer">
+    <div style="margin-left: 200px;">
+      <button type="submit" class="btn btn-primary" style="margin-left:-16%; font-size: 16px;" (click)="valid()"><i class="feather icon-save"></i> Salvar</button>
+    </div>
+  </div>
+</div>

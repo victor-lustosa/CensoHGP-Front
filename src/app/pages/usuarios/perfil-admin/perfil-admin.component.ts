@@ -79,7 +79,7 @@ export class PerfilAdminComponent implements OnInit {
 
     if (this.formulario.valid) {
 
-    console.log(this.usuario)
+
       if (this.formulario.get('senhaNovamente').value == this.formulario.get('senha').value || (this.formulario.get('senhaNovamente').value == '' && this.formulario.get('senha').value == '')) {
               console.log(this.usuario)
         this.usuarioService.update(this.formulario.value)
