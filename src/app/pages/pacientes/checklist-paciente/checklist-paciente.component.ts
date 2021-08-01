@@ -1,4 +1,4 @@
-import { Checklist } from './../model/Checklist';
+import { Checklist } from './../model/checklist';
 import { FatorRiscoService } from './../../checklists/fatores-risco/service/fator-risco.service';
 import { Fator } from './../../checklists/fatores-risco/model/fator';
 import { Incidente } from './../../checklists/incidentes/model/incidente';
@@ -8,8 +8,7 @@ import { IncidenteService } from '../../checklists/incidentes/service/incidente.
 import { ProcedimentoService } from '../../checklists/procedimentos/service/procedimento.service';
 import { PacienteService } from '../service/paciente.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormBuilder, FormArray, Validators, FormControl } from '@angular/forms';
-import { stringify } from '@angular/compiler/src/util';
+import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { StorageService } from '../../auth/service/storage.service';
 
@@ -53,8 +52,6 @@ export class ChecklistPacienteComponent implements OnInit {
     this.loadListaIncidentes();
     this.loadListaFatoresRisco();
     this.loadListaProcedimentos();
-
-
   }
 
   onCheckChangeIncidente(event) {

@@ -1,10 +1,8 @@
 import { DescricaoHistoricoChecklistComponent } from './../descricao-historico-checklist/descricao-historico-checklist.component';
-import { ChecklistDTO } from './../model/Checklist.dto';
+import { ChecklistDTO } from './../model/checklist.dto';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
-import { map, switchMap } from 'rxjs/operators';
-import { PacienteService } from '../service';
 
 @Component({
   selector: 'app-historico-checklist',
@@ -49,27 +47,15 @@ export class HistoricoChecklistComponent implements OnInit {
   }
   filtroStatus(value: any) {
     this.ativo = value;
-    // this.loadListaChecklists();
   }
-
-  // descricao(id: number) {
-  //   this.precaucoesService.getById(id).subscribe((precaucao) => {
-  //     const modalRef = this.modalService.open(DescricaoPrecaucaoComponent, this.MODALOPTIONS);
-  //     modalRef.componentInstance.tituloModal = 'Descrição da precaução';
-  //     modalRef.componentInstance.precaucao = precaucao;
-  //   });
-  // }
 
   cadastrar() {
     this.router.navigate(['/pacientes/gerenciar-pacientes']);
   }
-
 
   descricao(checklist: ChecklistDTO) {
     const modalRef = this.modalService.open(DescricaoHistoricoChecklistComponent, this.MODALOPTIONS);
     modalRef.componentInstance.tituloModal = 'Descrição do checklist';
     modalRef.componentInstance.checklist = checklist;
   }
-
-
 }

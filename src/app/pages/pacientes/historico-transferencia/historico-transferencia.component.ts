@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
-import { Transferencia } from '../model/Transferencia';
+import { Transferencia } from '../model/transferencia';
 import { DescricaoHistoricoTransferenciaComponent } from '../descricao-historico-transferencia/descricao-historico-transferencia.component';
 @Component({
   selector: 'app-historico-transferencia',

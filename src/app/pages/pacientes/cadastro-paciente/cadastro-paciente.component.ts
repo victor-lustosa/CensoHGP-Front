@@ -2,14 +2,12 @@ import { Component, OnInit, EventEmitter, Input } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { cpuUsage } from 'process';
-
 import { StorageService } from '../../auth/service/storage.service';
 import { Departamento } from '../../departamentos/model/departamento';
 import { DepartamentoService } from '../../departamentos/service';
 import { Precaucao } from '../../precaucoes/model/precaucao';
 import { PrecaucaoService } from '../../precaucoes/service/precaucao.service';
-import { Paciente } from '../model/Paciente';
+import { Paciente } from '../model/paciente';
 import { PacienteService } from '../service/paciente.service';
 
 @Component({
@@ -40,39 +38,26 @@ export class CadastroPacienteComponent implements OnInit {
     private precaucaoService: PrecaucaoService, private storage: StorageService) { }
 
   ngOnInit(): void {
-
-
     this.novoFormulario();
     this.editar = false;
-
     // console.log(this.dataAtual,'oii essa é a adata');
     if (this.paciente != null) {
       this.editar = true;
       // this.today = new Date().toISOString().split('T')[0];
-
       this.updateForm(this.paciente);
       this.genero = this.formulario.get('genero').value;
       console.log(this.formulario.value);
-
-    } else {
-
     }
     this.loadListaPrecaucoes();
     this.loadListaDepartamento();
     this.listaSexos = this.pacientesService.getSexos();
   }
 
-
   cpfValidator(cpf: string) {
-
-
-
     let cpfAux = cpf;
     if (cpfAux != null && cpfAux != '') {
-
-      let soma;
+      let soma = 0;
       let resto;
-      soma = 0;
       //strCPF  = RetiraCaracteresInvalidos(strCPF,11);
       if (cpfAux == '00000000000' || cpfAux == '11111111111' || cpfAux == '22222222222' || cpfAux == '33333333333' ||
         cpfAux == '44444444444' || cpfAux == '55555555555' || cpfAux == '66666666666' || cpfAux == '77777777777' ||
@@ -108,8 +93,6 @@ export class CadastroPacienteComponent implements OnInit {
       return false;
     }
     return false;
-
-
   }
   novoFormulario() {
     this.formulario = this.formBuilder.group({
@@ -125,8 +108,6 @@ export class CadastroPacienteComponent implements OnInit {
       departamento: [null]
     });
   }
-
-
 
   updateForm(paciente: Paciente) {
     this.formulario.patchValue({
@@ -194,22 +175,17 @@ export class CadastroPacienteComponent implements OnInit {
         'border-red': this.verificaValidTouched(campo)
       };
     }
-
   }
 
   valid() {
     if (this.formulario.valid) {
-
       this.mensagemErro = '';
       this.savePacientes();
-
-
     }
     else if (!this.formulario.get('cpf').valid) {
       this.verificaCPF = true;
     }
     else {
-
       this.mensagemErro = 'Por favor, preencha os campos obrigatórios';
     }
   }
@@ -243,7 +219,7 @@ export class CadastroPacienteComponent implements OnInit {
                 }, 500);
             }, (error) => {
               this.mensagemErro = error;
-            });
+        });
       }
     }
   }

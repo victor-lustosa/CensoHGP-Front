@@ -1,5 +1,5 @@
-import { Paciente } from './../model/Paciente';
-import { Transferencia } from '../model/Transferencia';
+import { Paciente } from './../model/paciente';
+import { Transferencia } from '../model/transferencia';
 import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 import { PacienteService } from '../service/paciente.service';
 import { CadastroPacienteComponent } from '../cadastro-paciente/cadastro-paciente.component';
@@ -19,10 +19,6 @@ export class TransferenciaPacienteComponent implements OnInit {
   public formulario: FormGroup;
 
   @Input() paciente: Paciente;
-  // @Input() idPaciente: number;
-  // @Input() nomePaciente: string;
-  // @Input() prontuario: string;
-  // @Input() departamentoOrigem: string;
   listaDepartamento: Departamento[] = [];
   departamentoDestino: string = '';
   jwtHelper: JwtHelperService = new JwtHelperService();

@@ -1,10 +1,10 @@
-import { Checklist } from './../model/Checklist';
-import { Transferencia } from '../model/Transferencia';
+import { Checklist } from './../model/checklist';
+import { Transferencia } from '../model/transferencia';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { environment } from 'src/environments/environment';
-import { Paciente } from '../model/Paciente';
+import { Paciente } from '../model/paciente';
 import { CRUD } from 'src/app/theme/shared/CRUD';
 import { Observable } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';

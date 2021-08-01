@@ -4,7 +4,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { HttpClient } from '@angular/common/http';
 import { LocalUser } from '../model/local_user';
 import { StorageService } from './storage.service';
-import { Credenciais } from '../model/Credenciais';
+import { Credenciais } from '../model/credenciais';
 
 @Injectable({
   providedIn: 'root'
@@ -45,6 +45,14 @@ export class AuthService {
   }
   tentarLogar(creds: Credenciais) {
     return this.http.post(`${environment.API}login`, creds,
+      {
+        observe: 'response',
+        responseType: 'text'
+      }
+    );
+  }
+  mudarSenha(creds: Credenciais) {
+    return this.http.post(`${environment.API}mudar-senha`, creds,
       {
         observe: 'response',
         responseType: 'text'

@@ -3,8 +3,8 @@
     <div class="card">
       <div class="row align-items-center text-center">
         <div class="col-md-12">
-          <form  [formGroup]="formulario">
-            <div class="card-body" >
+          <form [formGroup]="formulario">
+            <div class="card-body">
               <img src="assets/images/logosi.png" class="img-fluid mb-5 mt-n1 ">
               <div class="mt-n2">
                 <div class="input-group field-size">
@@ -13,7 +13,6 @@
                   </div>
                   <input type="matricula" class="form-control field-size" formControlName="matricula" placeholder="Digite sua matrícula" [ngClass]="aplicaCssErro('matricula')">
                 </div>
-
               </div>
               <br>
               <div class="mt-n3">
@@ -21,21 +20,19 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="feather icon-lock"></i></span>
                   </div>
-                  <input type="password" class="form-control field-size" formControlName="senha" placeholder="Digite sua senha" [ngClass]="aplicaCssErro('senha')" >
+                  <input type="password" class="form-control field-size" formControlName="senha" placeholder="Digite sua senha" [ngClass]="aplicaCssErro('senha')">
                 </div>
-                    <span class="font-red"  *ngIf="mensagemErroLogin!==''">{{mensagemErroLogin}}</span>
-                    <span class="font-red"  *ngIf="mensagemErro!=='' && mensagemErroLogin ===''">{{mensagemErro}}</span>
+                <span class="font-red" *ngIf="mensagemErroLogin!==''">{{mensagemErroLogin}}</span>
+                <span class="font-red" *ngIf="mensagemErro!=='' && mensagemErroLogin ===''">{{mensagemErro}}</span>
               </div>
               <button type="submit" class="btn btn-block btn-primary mb-4 button field-size-botton" (click)="valid()" [disabled]="this.botaoDisabled == true">
-                 <span class="spinner-border spinner-border-sm" role="status" *ngIf="this.botaoDisabled == true"></span>
-                 {{botaoLogin}}
-               </button>
-              <p class="esq mb-2 text-muted">Esqueceu sua senha? <a  class="f-w-400"></a></p>
-
-                </div>
-
+                <span class="spinner-border spinner-border-sm" role="status" *ngIf="this.botaoDisabled == true"></span>
+                {{botaoLogin}}
+              </button>
+              <br>
+              <button type="button" class="btn btn-link esq mb-2 text-muted" (click)="changePassword()">Esqueceu sua senha?</button>
+            </div>
           </form>
-
         </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { routes } from '../../const';
 import { AuthService } from '../service/auth.service';
 import 'rxjs/add/operator/map';
@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   public botaoDisabled: boolean = false;
   validErro:boolean = false;
   public routers: typeof routes = routes;
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router,private route: ActivatedRoute) { }
   public formulario: FormGroup;
   public ngOnInit(): void {
     this.formulario = new FormGroup({
@@ -28,7 +28,9 @@ export class LoginComponent implements OnInit {
       senha: new FormControl(null, [Validators.required])
     });
   }
-
+  public changePassword(){
+    this.router.navigate(['/auth/recuperar-senha'], { relativeTo: this.route });
+  }
   public aplicaCssErro(campo?: any) {
     if (!this.formulario.get('senha').valid && this.formulario.get('senha').touched &&
       !this.formulario.get('matricula').valid && !this.formulario.get('matricula').touched &&
@@ -108,9 +110,9 @@ export class LoginComponent implements OnInit {
           this.authService.successfulLogin(response.headers.get('Authorization'));
           this.router.navigate([this.routers.DASHBOARD]).then();
         },
-        () => {
+        (error) => {
             setTimeout(() => {  this.mensagemErroLogin = ''},1400 );
-          this.mensagemErroLogin = 'Usuário e/ou senha incorreto(s).'
+          this.mensagemErroLogin = error
           this.botaoDisabled = false;
           this.botaoLogin = 'Entrar';
         });

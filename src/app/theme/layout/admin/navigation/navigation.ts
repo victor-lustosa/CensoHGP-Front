@@ -1,13 +1,4 @@
-import { Credenciais } from './../../../../pages/auth/model/Credenciais';
 import { Injectable } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
-import { AuthService } from 'src/app/pages/auth/service/auth.service';
-import { routes } from 'src/app/pages/const';
-import { UsuarioService } from 'src/app/pages/usuarios/service/usuario.service';
-import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { HttpClient } from '@angular/common/http';
 import { StorageService } from 'src/app/pages/auth/service/storage.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 

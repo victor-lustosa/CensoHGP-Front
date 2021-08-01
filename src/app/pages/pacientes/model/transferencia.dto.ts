@@ -1,5 +1,5 @@
 import { Usuario } from 'src/app/pages/usuarios/model/usuario';
-import { Paciente } from './Paciente';
+import { Paciente } from './paciente';
 
 export interface TransferenciaDTO {
   idTransferencia: Number

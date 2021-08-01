@@ -1,4 +1,4 @@
-import { ChecklistDTO } from './../model/Checklist.dto';
+import { ChecklistDTO } from './../model/checklist.dto';
 import { Component, OnInit } from '@angular/core';
 import { Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';

@@ -13,7 +13,7 @@ export class TransferenciaResolver implements Resolve<any> {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
     return this.pacienteService.getAllTransferenciaPaciente(route.params['id']).pipe(
-      catchError((error) => {
+      catchError(() => {
        return EMPTY;
      }));
   }

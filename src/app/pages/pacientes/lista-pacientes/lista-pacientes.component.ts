@@ -2,14 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { PacienteService } from '../service/paciente.service';
 import { CadastroPacienteComponent } from '../cadastro-paciente/cadastro-paciente.component';
-import { PacienteDTO } from '../model/Paciente.dto';
 import { ChecklistPacienteComponent } from '../checklist-paciente/checklist-paciente.component';
 import { TransferenciaPacienteComponent } from '../transferencia-paciente/transferencia-paciente.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DescricaoPacienteComponent } from '../descricao-paciente/descricao-paciente.component';
 import { DepartamentoService } from '../../departamentos/service';
 import { Departamento } from '../../departamentos/model/departamento';
-import { Paciente } from '../model/Paciente';
+import { Paciente } from '../model/paciente';
 
 @Component({
   selector: 'app-lista-pacientes',
