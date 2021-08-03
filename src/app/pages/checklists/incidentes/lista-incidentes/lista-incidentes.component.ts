@@ -47,21 +47,15 @@ export class ListaIncidentesComponent implements OnInit {
       const modalRef = this.modalService.open(CadastroIncidenteComponent, this.MODALOPTIONS);
       modalRef.componentInstance.tituloModal = 'Cadastrar incidente';
     }
-    descricao(id: number) {
-      this.incidentesService.getById(id).subscribe((incidente) => {
+    descricao(incidente: Incidente) {
         const modalRef = this.modalService.open(DescricaoIncidenteComponent, this.MODALOPTIONS);
         modalRef.componentInstance.tituloModal = 'Descrição do incidente';
         modalRef.componentInstance.incidente = incidente;
-      }
-    );
   }
-  editar(id: number) {
-    this.incidentesService.getById(id).subscribe((incidentes) => {
+  editar(incidente: Incidente) {
       const modalRef = this.modalService.open(CadastroIncidenteComponent, this.MODALOPTIONS);
       modalRef.componentInstance.tituloModal = 'Editar incidente';
-      modalRef.componentInstance.incidente = incidentes;
-    }
-  );
+      modalRef.componentInstance.incidente = incidente;
 }
 loadListaIncidentes() {
   this.lista =  [];
@@ -98,15 +92,13 @@ loadListaIncidentes() {
     }, 400);
   }
 }
-pegaId(id: number) {
-  this.incidentesService.getById(id).subscribe((incidentesDis) => {
-    if (incidentesDis.ativo === true) {
+pegaId(incidente: Incidente) {
+    if (incidente.ativo === true) {
       this.varConfirm = 'desativar';
     } else {
       this.varConfirm = 'ativar';
     }
-    this.incidenteAux = incidentesDis;
-  });
+    this.incidenteAux = incidente;
 }
 mudarStatus() {
   if (this.incidenteAux.ativo === true) {

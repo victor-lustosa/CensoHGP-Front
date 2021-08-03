@@ -45,19 +45,16 @@ export class ListaPrecaucoesComponent implements OnInit {
       const modalRef = this.modalService.open(CadastroPrecaucaoComponent, this.MODALOPTIONS)
       modalRef.componentInstance.tituloModal = 'Cadastrar precaução';
     }
-    descricao(id: number) {
-      this.precaucoesService.getById(id).subscribe((precaucao) => {
+    descricao(precaucao: Precaucao) {
         const modalRef = this.modalService.open(DescricaoPrecaucaoComponent, this.MODALOPTIONS);
         modalRef.componentInstance.tituloModal = 'Descrição da precaução';
         modalRef.componentInstance.precaucao = precaucao;
-      });
+
     }
-    editar(id: number){
-      this.precaucoesService.getById(id).subscribe((precaucao) => {
+    editar(precaucao: Precaucao){
         const modalRef = this.modalService.open(CadastroPrecaucaoComponent, this.MODALOPTIONS);
         modalRef.componentInstance.tituloModal = 'Editar precaução';
         modalRef.componentInstance.precaucao = precaucao;
-      });
     }
     loadListaPrecaucoes() {
       this.paginaAtual = 1;
@@ -94,15 +91,14 @@ export class ListaPrecaucoesComponent implements OnInit {
         }, 400);
       }
     }
-    pegaId(id: number) {
-      this.precaucoesService.getById(id).subscribe((precaucaosDis) => {
-        if (precaucaosDis.ativo === true) {
+    pegaId(precaucao: Precaucao) {
+        if (precaucao.ativo === true) {
           this.varConfirm = 'desativar';
         } else {
           this.varConfirm = 'ativar';
         }
-        this.precaucaoAux = precaucaosDis;
-      });
+        this.precaucaoAux = precaucao;
+
     }
     mudarStatus() {
       if (this.precaucaoAux.ativo === true) {

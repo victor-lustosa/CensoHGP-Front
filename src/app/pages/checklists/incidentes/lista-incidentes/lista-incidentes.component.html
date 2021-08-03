@@ -39,11 +39,11 @@
                   <button placement="left" class="btn btn-info buttonDrop font-size" ngbDropdownToggle type="button" id="opcoes">
                     <i class="feather icon-plus-circle"></i> ações</button>
                   <div ngbDropdownMenu>
-                    <button *ngIf="incidentes.ativo === true" class="dropdown-item button font-size" (click)="editar(incidentes.idIncidente)">
+                    <button *ngIf="incidentes.ativo === true" class="dropdown-item button font-size" (click)="editar(incidentes)">
                       <i class="feather icon-edit"></i> Editar </button>
-                    <button class="dropdown-item button font-size" (click)="pegaId(incidentes.idIncidente); confirmaModal.show()"> <i class="feather icon-{{ incidentes.ativo ? 'minus-circle' : 'power'}}"></i>
+                    <button class="dropdown-item button font-size" (click)="pegaId(incidentes); confirmaModal.show()"> <i class="feather icon-{{ incidentes.ativo ? 'minus-circle' : 'power'}}"></i>
                       {{ incidentes.ativo ? "Desativar" : "Ativar" }}</button>
-                    <button class="dropdown-item button font-size" (click)="descricao(incidentes.idIncidente)">
+                    <button class="dropdown-item button font-size" (click)="descricao(incidentes)">
                       <i class="feather icon-eye"></i> Visualizar </button>
                   </div>
                 </div>

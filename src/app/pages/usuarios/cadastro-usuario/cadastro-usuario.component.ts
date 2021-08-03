@@ -66,7 +66,6 @@ export class CadastroUsuarioComponent implements OnInit {
       email: usuarios.email,
       matricula: usuarios.matricula,
       ativo: usuarios.ativo,
-      senha: usuarios.senha,
       perfil: usuarios.perfil
     });
   }
@@ -84,11 +83,11 @@ export class CadastroUsuarioComponent implements OnInit {
       console.log(this.formulario.value);
       if (this.formulario.get('idUsuario').value != null) {
         if (this.formulario.get('senhaNovamente').value == this.formulario.get('senha').value || (this.formulario.get('senhaNovamente').value == '' && this.formulario.get('senha').value == '')) {
-          this.usuariosService.update(this.formulario.value)
+          this.usuario = this.formulario.value as Usuario;
+            this.usuariosService.update(this.usuario)
             .subscribe(
               () => {
                   this.sucesso = true,
-                  this.formulario.reset(),
                 CadastroUsuarioComponent.atualizando.emit(this.at),
                   setTimeout(() => {
                     this.activeModal.close();
@@ -105,12 +104,11 @@ export class CadastroUsuarioComponent implements OnInit {
         if((this.formulario.get('senhaNovamente').value == '' && this.formulario.get('senha').value == '')){
           this.mensagemErro = "Os campos de senha são obrigatórios!";
         }
-        else if (this.formulario.get('senhaNovamente').value === this.formulario.get('senha').value) {
+        else if (this.formulario.get('senhaNovamente').value == this.formulario.get('senha').value) {
           this.usuariosService.create(this.formulario.value)
             .subscribe(
               () => {
                   this.sucesso = true,
-                  this.formulario.reset(),
                 CadastroUsuarioComponent.atualizando.emit(this.at),
                   setTimeout(() => {
                     this.activeModal.close();

@@ -47,31 +47,23 @@ export class ListaProcedimentosComponent implements OnInit {
       const modalRef = this.modalService.open(CadastroProcedimentoComponent, this.MODALOPTIONS);
       modalRef.componentInstance.tituloModal = 'Cadastrar procedimento';
     }
-    descricao(id: number) {
-      this.procedimentosService.getById(id).subscribe((procedimento) => {
+    descricao(procedimento: Procedimento) {
         const modalRef = this.modalService.open(DescricaoProcedimentoComponent, this.MODALOPTIONS);
         modalRef.componentInstance.tituloModal = 'Descrição do procedimento';
         modalRef.componentInstance.procedimento = procedimento;
-      }
-    );
   }
-  editar(id: number) {
-    this.procedimentosService.getById(id).subscribe((procedimento) => {
+  editar(procedimento: Procedimento) {
       const modalRef = this.modalService.open(CadastroProcedimentoComponent, this.MODALOPTIONS);
       modalRef.componentInstance.tituloModal = 'Editar procedimento';
       modalRef.componentInstance.procedimento = procedimento;
-    }
-  );
 }
-pegaId(id: number) {
-  this.procedimentosService.getById(id).subscribe((procedimentosDis) => {
-    if (procedimentosDis.ativo === true) {
+pegaId(procedimento: Procedimento) {
+    if (procedimento.ativo === true) {
       this.varConfirm = 'desativar';
     } else {
       this.varConfirm = 'ativar';
     }
-    this.procedimentoAux = procedimentosDis;
-  });
+    this.procedimentoAux = procedimento;
 }
 mudarStatus() {
   if (this.procedimentoAux.ativo === true) {

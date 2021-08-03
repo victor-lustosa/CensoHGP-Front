@@ -39,7 +39,7 @@
                 <div ngbDropdown container="body">
                   <button class="font-size font-size btn btn-info  buttonDrop" ngbDropdownToggle type="button"><i class="feather icon-plus-circle"></i> Ações</button>
                   <div ngbDropdownMenu>
-                    <button class="font-size dropdown-item button" (click)="editar(paciente.idPaciente)"><i class="feather icon-edit"></i> Editar</button>
+                    <button class="font-size dropdown-item button" (click)="editar(paciente)"><i class="feather icon-edit"></i> Editar</button>
                     <button class="font-size dropdown-item button" (click)="descricao(paciente)"><i class="feather icon-eye"></i> Visualizar</button>
                     <div class="dropdown-divider"></div>
                     <button class="font-size dropdown-item button" (click)="gerarChecklist(paciente.idPaciente, paciente.nome)"><i class="feather icon-check-square"></i> Checklist</button>

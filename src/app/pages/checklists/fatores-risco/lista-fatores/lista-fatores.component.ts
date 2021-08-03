@@ -47,31 +47,23 @@ export class ListaFatoresComponent implements OnInit {
     const modalRef = this.modalService.open(CadastroFatorComponent, this.MODALOPTIONS);
     modalRef.componentInstance.tituloModal = 'Cadastrar fator de risco';
   }
-  descricao(id: number) {
-    this.fatoresService.getById(id).subscribe((fatores) => {
+  descricao(fator: Fator) {
       const modalRef = this.modalService.open(DescricaoFatorComponent, this.MODALOPTIONS);
       modalRef.componentInstance.tituloModal = 'Descrição do fator de risco';
-      modalRef.componentInstance.fatorRisco = fatores;
-    }
-  )
+      modalRef.componentInstance.fatorRisco = fator;
 }
-editar(id: number) {
-  this.fatoresService.getById(id).subscribe((fatores) => {
+editar(fator: Fator) {
     const modalRef = this.modalService.open(CadastroFatorComponent, this.MODALOPTIONS);
     modalRef.componentInstance.tituloModal = 'Editar fator de risco';
-    modalRef.componentInstance.fatorRisco = fatores;
-  }
-)
+    modalRef.componentInstance.fatorRisco = fator;
 }
-pegaId(id: number) {
-  this.fatoresService.getById(id).subscribe((fatoresDis) => {
-    if (fatoresDis.ativo === true) {
+pegaId(fator: Fator) {
+    if (fator.ativo === true) {
       this.varConfirm = 'desativar';
     } else {
       this.varConfirm = 'ativar';
     }
-    this.fatorAux = fatoresDis;
-  });
+    this.fatorAux = fator;
 }
 mudarStatus() {
   if (this.fatorAux.ativo === true) {

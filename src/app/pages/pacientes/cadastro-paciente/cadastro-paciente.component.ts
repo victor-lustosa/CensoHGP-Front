@@ -24,6 +24,7 @@ export class CadastroPacienteComponent implements OnInit {
   listaDepartamento: Departamento[] = [];
   sucesso: boolean = false;
   @Input() editar: boolean;
+  @Input() tituloModal: string;
   at: boolean = true;
   departamento: string = '';
   genero: string = '';

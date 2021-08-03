@@ -52,9 +52,7 @@ export class ListaUsuariosComponent implements OnInit {
     this.loadListaUsuarios();
   }
   mudarStatus() {
-    console.log(this.usuarioAux)
     this.usuarioAux.perfil = this.usuarioAux.perfil[0];
-    console.log(this.usuarioAux)
     this.usuariosService.disableUsuario(this.usuarioAux,
       this.jwtHelper.decodeToken(this.storage.getLocalUser().token).sub.substring(13)).subscribe(
       () => this.loadListaUsuarios(),

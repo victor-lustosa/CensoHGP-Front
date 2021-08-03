@@ -42,8 +42,8 @@ export class PerfilEnfermeiroComponent implements OnInit {
       email: [null],
       matricula: [null],
       ativo: [null],
-      senha: [null, [Validators.minLength(3), Validators.maxLength(35)]],
-      senhaNovamente: [null, [Validators.minLength(3), Validators.maxLength(35)]],
+      senha: ['', [Validators.minLength(3), Validators.maxLength(35)]],
+      senhaNovamente: ['', [Validators.minLength(3), Validators.maxLength(35)]],
       perfil: [null, [Validators.required]]
     });
   }
@@ -77,19 +77,15 @@ export class PerfilEnfermeiroComponent implements OnInit {
     return !this.formulario.get(campo).valid && this.formulario.get(campo).touched;
   }
   saveUsuarios() {
-
     if (this.formulario.valid) {
-
-
       if (this.formulario.get('senhaNovamente').value == this.formulario.get('senha').value || (this.formulario.get('senhaNovamente').value == '' && this.formulario.get('senha').value == '')) {
-              console.log(this.usuario)
-        this.usuarioService.update(this.formulario.value)
+        this.usuario = this.formulario.value as Usuario;
+        this.usuario.perfil = this.usuario.perfil[0]
+        this.usuarioService.update(this.usuario)
           .subscribe(
             () => {
               this.sucesso = true,
-                this.formulario.reset(),
-
-                setTimeout(() => {
+                  setTimeout(() => {
                   this.activeModal.close();
                 }, 500);
             }, (error) => {
@@ -104,4 +100,3 @@ export class PerfilEnfermeiroComponent implements OnInit {
 
 
 }
-

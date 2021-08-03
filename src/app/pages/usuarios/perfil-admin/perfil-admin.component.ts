@@ -23,7 +23,7 @@ export class PerfilAdminComponent implements OnInit {
   ngOnInit(): void {
     this.novoFormulario();
     this.loadListaPerfis();
-    this.perfil = this.usuario.perfil;
+    this.perfil = this.usuario.perfil
     this.updateForm(this.usuario);
   }
 
@@ -81,14 +81,13 @@ export class PerfilAdminComponent implements OnInit {
 
 
       if (this.formulario.get('senhaNovamente').value == this.formulario.get('senha').value || (this.formulario.get('senhaNovamente').value == '' && this.formulario.get('senha').value == '')) {
-              console.log(this.usuario)
-        this.usuarioService.update(this.formulario.value)
+      this.usuario = this.formulario.value as Usuario;
+      this.usuario.perfil = this.usuario.perfil[0]
+      this.usuarioService.update(this.usuario)
           .subscribe(
             () => {
               this.sucesso = true,
-                this.formulario.reset(),
-
-                setTimeout(() => {
+               setTimeout(() => {
                   this.activeModal.close();
                 }, 500);
             }, (error) => {

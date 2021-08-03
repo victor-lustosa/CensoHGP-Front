@@ -36,10 +36,10 @@
                 <div ngbDropdown container="body">
                   <button class="btn btn-info buttonDrop font-size" ngbDropdownToggle type="button"><i class="feather icon-plus-circle"></i> ações</button>
                   <div ngbDropdownMenu>
-                    <button *ngIf="procedimentos.ativo=== true" class="dropdown-item button font-size" (click)="editar(procedimentos.idProcedimento)"><i class="feather icon-edit"></i> Editar</button>
-                    <button class="dropdown-item button font-size" (click)="pegaId(procedimentos.idProcedimento);confirmaModal.show()"><i class="feather icon-{{procedimentos.ativo ? 'minus-circle' : 'power'}}"></i>
+                    <button *ngIf="procedimentos.ativo=== true" class="dropdown-item button font-size" (click)="editar(procedimentos)"><i class="feather icon-edit"></i> Editar</button>
+                    <button class="dropdown-item button font-size" (click)="pegaId(procedimentos);confirmaModal.show()"><i class="feather icon-{{procedimentos.ativo ? 'minus-circle' : 'power'}}"></i>
                       {{procedimentos.ativo ? 'Desativar' : 'Ativar'}}</button>
-                    <button class="dropdown-item button font-size" (click)="descricao(procedimentos.idProcedimento)"><i class="feather icon-eye"></i> Visualizar</button>
+                    <button class="dropdown-item button font-size" (click)="descricao(procedimentos)"><i class="feather icon-eye"></i> Visualizar</button>
                   </div>
                 </div>
               </td>

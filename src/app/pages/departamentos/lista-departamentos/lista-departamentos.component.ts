@@ -12,7 +12,7 @@ import { DescricaoDepartamentoComponent } from '../descricao-departamento/descri
 })
 export class ListaDepartamentosComponent implements OnInit {
   lista: Departamento[] = [];
-  paginaAtual: number = 1 ;
+  paginaAtual: number = 1;
   contador: number = 10;
   ativo: string = '';
   searchText: string;
@@ -26,40 +26,34 @@ export class ListaDepartamentosComponent implements OnInit {
   MODALOPTIONS: NgbModalOptions = { keyboard: true, size: 'lg', backdrop: 'static' };
   constructor(private departamentosService: DepartamentoService,
     public modalService: NgbModal) { }
-    ngOnInit(): void {
-      this.loadListaDepartamentos();
-      this.listaAtivo = this.departamentosService.getStatusDepartamentos();
-      this.listaTipoDepartamento = this.departamentosService.getTipoDepartamentos();
-      CadastroDepartamentoComponent.atualizando.subscribe(
-        () => {
-          this.loadListaDepartamentos();
-        });
-      }
-      limpar() {
-        this.searchText = '';
-      }
-      verifica(){
-          this.paginaAtual = 1;
-      }
-      cadastrar() {
-        const modalRef = this.modalService.open(CadastroDepartamentoComponent, this.MODALOPTIONS);
-        modalRef.componentInstance.tituloModal = 'Cadastrar departamento';
-      }
-      editar(id: number) {
-        this.departamentosService.getById(id).subscribe((departamento) => {
-          const modalRef = this.modalService.open(CadastroDepartamentoComponent, this.MODALOPTIONS);
-          modalRef.componentInstance.tituloModal = 'Editar departamento';
-          modalRef.componentInstance.departamento = departamento;
-        }
-      );
-    }
-    descricao(id: number) {
-      this.departamentosService.getById(id).subscribe((departamento) => {
-        const modalRef = this.modalService.open(DescricaoDepartamentoComponent, this.MODALOPTIONS);
-        modalRef.componentInstance.tituloModal = 'Descrição do departamento';
-        modalRef.componentInstance.departamento = departamento;
-      }
-    );
+  ngOnInit(): void {
+    this.loadListaDepartamentos();
+    this.listaAtivo = this.departamentosService.getStatusDepartamentos();
+    this.listaTipoDepartamento = this.departamentosService.getTipoDepartamentos();
+    CadastroDepartamentoComponent.atualizando.subscribe(
+      () => {
+        this.loadListaDepartamentos();
+      });
+  }
+  limpar() {
+    this.searchText = '';
+  }
+  verifica() {
+    this.paginaAtual = 1;
+  }
+  cadastrar() {
+    const modalRef = this.modalService.open(CadastroDepartamentoComponent, this.MODALOPTIONS);
+    modalRef.componentInstance.tituloModal = 'Cadastrar departamento';
+  }
+  editar(departamento: Departamento) {
+    const modalRef = this.modalService.open(CadastroDepartamentoComponent, this.MODALOPTIONS);
+    modalRef.componentInstance.tituloModal = 'Editar departamento';
+    modalRef.componentInstance.departamento = departamento;
+  }
+  descricao(departamento: Departamento) {
+    const modalRef = this.modalService.open(DescricaoDepartamentoComponent, this.MODALOPTIONS);
+    modalRef.componentInstance.tituloModal = 'Descrição do departamento';
+    modalRef.componentInstance.departamento = departamento;
   }
   filtroStatus(value: any) {
     this.ativo = value;
@@ -76,34 +70,33 @@ export class ListaDepartamentosComponent implements OnInit {
     if (this.tipoDepartamento != '' || this.ativo != '') {
       setTimeout(() => {
         this.departamentosService.getPorFiltros(this.tipoDepartamento, this.ativo)
-        .subscribe(
-          data => {
-            this.lista = data;
-            this.statusSpinner = false;
-          });
+          .subscribe(
+            data => {
+              this.lista = data;
+              this.statusSpinner = false;
+            });
       }, 400);
     }
-       else {
+    else {
       setTimeout(() => {
         this.departamentosService.getAll()
-        .subscribe(
-          data => {
-            this.lista = data;
-            this.statusSpinner = false;
-          }
-        );
+          .subscribe(
+            data => {
+              this.lista = data;
+              this.statusSpinner = false;
+            }
+          );
       }, 400);
     }
   }
-  pegaId(id: number) {
-    this.departamentosService.getById(id).subscribe((departamentosDis) => {
-      if (departamentosDis.ativo === true) {
+  pegaId(departamento: Departamento) {
+      if (departamento.ativo === true) {
         this.varConfirm = 'desativar';
       } else {
         this.varConfirm = 'ativar';
       }
-      this.departamentoAux = departamentosDis;
-    });
+      this.departamentoAux = departamento;
+
   }
   mudarStatus() {
     if (this.departamentoAux.ativo === true) {

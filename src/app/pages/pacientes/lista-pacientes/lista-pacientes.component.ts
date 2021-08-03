@@ -18,8 +18,8 @@ import { Paciente } from '../model/paciente';
 export class ListaPacientesComponent implements OnInit {
 
   searchText: string;
-  constructor(private pacientesService: PacienteService,private router: Router,  private route: ActivatedRoute,
-    public modalService: NgbModal, public departamentoService:DepartamentoService) { }
+  constructor(private pacientesService: PacienteService, private router: Router, private route: ActivatedRoute,
+    public modalService: NgbModal, public departamentoService: DepartamentoService) { }
   lista: Paciente[] = [];
   statusSpinner: boolean = false;
   paginaAtual: number = 1;
@@ -37,36 +37,37 @@ export class ListaPacientesComponent implements OnInit {
         this.loadListaPacientes();
       });
   }
-  loadListaDepartamentos(){
-     this.departamentoService.getAllAtivos().subscribe(
-       data => {
-         this.listaDepartamento = data
-       }
-     );
+  loadListaDepartamentos() {
+    this.departamentoService.getAllAtivos().subscribe(
+      data => {
+        this.listaDepartamento = data
+      }
+    );
   }
   loadListaPacientes() {
     this.statusSpinner = true;
     this.lista = [];
     this.paginaAtual = 1;
-    if(this.departamento != ''){
+    if (this.departamento != '') {
       setTimeout(() => {
-      this.pacientesService.getPacientesDepartamento(this.departamento)
-        .subscribe(
-          data => {
-            this.lista = data;
-            this.statusSpinner = false;
-          });
-    }, 400);
-  }  else{
-    setTimeout(() => {
-      this.pacientesService.getAllPacientes()
-        .subscribe(
-          data => {
-            this.lista = data;
-            this.statusSpinner = false;
-          });
-    }, 400);
-  }}
+        this.pacientesService.getPacientesDepartamento(this.departamento)
+          .subscribe(
+            data => {
+              this.lista = data;
+              this.statusSpinner = false;
+            });
+      }, 400);
+    } else {
+      setTimeout(() => {
+        this.pacientesService.getAllPacientes()
+          .subscribe(
+            data => {
+              this.lista = data;
+              this.statusSpinner = false;
+            });
+      }, 400);
+    }
+  }
   filtroDepartamento(value: any) {
     this.departamento = value;
     this.loadListaPacientes();
@@ -81,37 +82,34 @@ export class ListaPacientesComponent implements OnInit {
     const modalRef = this.modalService.open(CadastroPacienteComponent, this.MODALOPTIONS);
     modalRef.componentInstance.tituloModal = 'Cadastrar Paciente';
   }
-  editar(id: number) {
-    this.pacientesService.getById(id).subscribe((paciente) => {
-      const modalRef = this.modalService.open(CadastroPacienteComponent, this.MODALOPTIONS);
-      modalRef.componentInstance.tituloModal = 'Editar Paciente';
-      modalRef.componentInstance.paciente = paciente;
-    }
-    );
+  editar(paciente: Paciente) {
+    const modalRef = this.modalService.open(CadastroPacienteComponent, this.MODALOPTIONS);
+    modalRef.componentInstance.tituloModal = 'Editar Paciente';
+    modalRef.componentInstance.paciente = paciente;
   }
-  gerarChecklist(id:number, nome:string){
-      const modalRef = this.modalService.open(ChecklistPacienteComponent, this.MODALOPTIONS);
-      modalRef.componentInstance.idPaciente = id;
-      modalRef.componentInstance.nomePaciente = nome;
+  gerarChecklist(id: number, nome: string) {
+    const modalRef = this.modalService.open(ChecklistPacienteComponent, this.MODALOPTIONS);
+    modalRef.componentInstance.idPaciente = id;
+    modalRef.componentInstance.nomePaciente = nome;
   }
 
-  historicoChecklist(id:number){
+  historicoChecklist(id: number) {
     this.router.navigate(['/pacientes/historico-checklist', id], { relativeTo: this.route });
   }
 
-  gerarTransferencia(paciente: Paciente){
+  gerarTransferencia(paciente: Paciente) {
     const modalRef = this.modalService.open(TransferenciaPacienteComponent, this.MODALOPTIONS);
     modalRef.componentInstance.paciente = paciente;
 
   }
-  historicoTransferencia(id:number){
+  historicoTransferencia(id: number) {
     this.router.navigate(['/pacientes/historico-transferencia', id], { relativeTo: this.route });
   }
 
-  descricao(paciente:Paciente) {
-        const modalRef = this.modalService.open(DescricaoPacienteComponent, this.MODALOPTIONS);
-      modalRef.componentInstance.tituloModal = 'Descrição do Paciente';
-      modalRef.componentInstance.paciente = paciente;
+  descricao(paciente: Paciente) {
+    const modalRef = this.modalService.open(DescricaoPacienteComponent, this.MODALOPTIONS);
+    modalRef.componentInstance.tituloModal = 'Descrição do Paciente';
+    modalRef.componentInstance.paciente = paciente;
 
   }
 }

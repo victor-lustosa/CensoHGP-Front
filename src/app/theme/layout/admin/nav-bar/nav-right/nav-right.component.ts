@@ -72,9 +72,8 @@ export class NavRightComponent implements OnInit, DoCheck {
     }
   }
   redirecionaPerfil(usuario: Usuario) {
-    console.log (this.usuario.perfil);
-    console.log (this.usuario.perfil == 'Administrador');
-    if (this.usuario.perfil == 'Administrador') {
+
+    if (this.usuario.perfil[0] == 'Administrador') {
       const modalRef = this.modalService.open(PerfilAdminComponent, this.MODALOPTIONS);
       modalRef.componentInstance.usuario = usuario;
     }
